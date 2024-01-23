@@ -1,0 +1,17 @@
+@import "normalize.css";
+
+:root {
+    --primary-color: #412394;
+    --white-color: #ffffff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: "Rubik", sans-serif;
+}

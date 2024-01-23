@@ -1,0 +1,51 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.container {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.inner {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.title {
+    font-size: 35px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    letter-spacing: 0px;
+    color: #fff;
+}
+
+.description {
+    color: #01e8fe;
+    font-size: 20px;
+}
+
+@media (max-width: 767px) {
+    .inner {
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-size: 30px;
+        line-height: 35px;
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 575px) {
+    .inner {
+        margin-bottom: 20px;
+    }
+
+    .title {
+        font-size: 26px;
+        line-height: 30px;
+    }
+}
