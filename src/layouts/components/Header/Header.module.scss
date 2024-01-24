@@ -1,0 +1,86 @@
+@import "@/styles/layouts.scss";
+// Header.tsx
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    &.scrolled {
+        background: #412394;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.wrapper {
+    @extend .container;
+}
+
+.wrapper-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 45px 0;
+    transition: all 200ms linear;
+}
+
+.header.scrolled .wrapper-inner {
+    padding: 25px 0;
+}
+
+// HeaderOptions.tsx
+.nav-list {
+    display: flex;
+    list-style-type: none;
+}
+
+.nav-item {
+    padding: 0 18px;
+    &:last-child {
+        padding-right: 0;
+    }
+}
+
+.nav-item-link {
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 0;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--white-color);
+    font-size: 16px;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--white-color);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 200ms ease-in-out;
+    }
+
+    &:hover::before {
+        transform: scaleX(1);
+    }
+    // set line when link is active
+    &.nav-item-link-active {
+        &::before {
+            transform: scaleX(1);
+        }
+    }
+}
+
+.nav-item-link:nth-child(5) {
+    padding-right: 0;
+}
+
+@media (max-width: 991px) {
+    .nav-list {
+        display: none;
+    }
+}

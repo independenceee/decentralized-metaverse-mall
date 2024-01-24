@@ -71,7 +71,7 @@ const Timeline = function ({ timeLines }: Props) {
                                     className={classNames("flex h-full gap-y-8", {
                                         "flex-col-reverse": index % 2 === 0,
                                         "flex-col": index % 2 !== 0,
-                                    })}
+                                })}
                                 >
                                     <div
                                         className={classNames("h-[50%] flex justify-center", {
