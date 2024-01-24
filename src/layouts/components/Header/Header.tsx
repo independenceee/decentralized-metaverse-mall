@@ -1,12 +1,12 @@
 import React from "react";
 import classNames from "classnames/bind";
-import styles from "./Footer.module.scss";
+import styles from "./Header.module.scss";
 
 type Props = {};
 
 const cx = classNames.bind(styles);
 
-const Footer = function ({}: Props) {
+const Header = function ({}: Props) {
     return (
         <footer className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -53,4 +53,4 @@ const Footer = function ({}: Props) {
     );
 };
 
-export default Footer;
+export default Header;
