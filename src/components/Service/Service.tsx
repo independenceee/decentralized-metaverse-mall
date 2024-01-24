@@ -26,11 +26,11 @@ const ServiceItem = function ({ title, subTitle, description, image, index }: Pr
                         <p className={cx("service-subtitle")}>{subTitle}</p>
                     </div>
                 </section>
-                {/* <section className={cx("backend")}>
+                <section className={cx("backend")}>
                     <div className={cx("service-detail")}>
                         <p className={cx("service-subtitle")}>{description}</p>
                     </div>
-                </section> */}
+                </section>
             </div>
         </div>
     );
