@@ -1,0 +1,32 @@
+@import "@/styles/layouts.scss";
+
+.footer {
+    background-color: var(--secondary-color);
+}
+
+.wrapper {
+    @extend .container;
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 0;
+    font-size: 1.4rem;
+}
+
+.social-media-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.social-media-icon {
+    font-size: 1.7rem;
+}
+
+.link {
+    color: var(--text-color);
+}
