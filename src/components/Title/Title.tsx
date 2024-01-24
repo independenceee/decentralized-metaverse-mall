@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames/bind";
-import styles from "./TitleContent.module.scss";
+import styles from "./Title.module.scss";
 
 type Props = {
     title: string;
@@ -9,7 +9,7 @@ type Props = {
 
 const cx = classNames.bind(styles);
 
-const TitleContent = function ({ title, subTitle }: Props) {
+const Title = function ({ title, subTitle }: Props) {
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -22,4 +22,4 @@ const TitleContent = function ({ title, subTitle }: Props) {
     );
 };
 
-export default TitleContent;
+export default Title;
