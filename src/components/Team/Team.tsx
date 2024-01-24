@@ -2,8 +2,8 @@ import React from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
-import { FaTwitter as TwitterIcon, FaFacebookF as FacebookIcon, FaLinkedinIn as LinkedinIcon, FaRss as RssIcon } from "react-icons/fa";
-import styles from "./Founder.module.scss";
+import { FacebookIcon, LinkedinIcon, RssIcon, TwitterIcon } from "@/components/Icons";
+import styles from "./Team.module.scss";
 
 type Props = {
     firstName: string;
@@ -21,7 +21,7 @@ const cx = classNames.bind(styles);
 const Founder = function ({ firstName, lastName, description, facebookLink, twitterLink, linkedinLink, rrsLink, image }: Props) {
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("container")}>
+            <div className={cx("inner")}>
                 <div className={cx("image-container")}>
                     <Image className={cx("image")} src={image} alt="Cryptoz" />
                 </div>

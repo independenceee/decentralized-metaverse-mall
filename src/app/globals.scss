@@ -3,7 +3,10 @@
 
 :root {
     --primary-color: #412394;
+    --secondary-color: #4a28a9;
     --white-color: #ffffff;
+    --text-color: #01e8fe;
+    --font-family: "Rubik", sans-serif;
 }
 
 * {
@@ -20,9 +23,17 @@ html {
 body {
     background: var(--primary-color);
     color: var(--white-color);
-    font-family: "Rubik", sans-serif;
+    font-family: var(--font-family);
+    overflow-x: hidden;
 }
 
-/* layout-begin */
+ul,
+li,
+ol {
+    list-style: none;
+}
 
-/* layout-end */
+a {
+    text-decoration: none;
+    color: var(--white-color);
+}
