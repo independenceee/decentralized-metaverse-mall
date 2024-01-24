@@ -1,0 +1,97 @@
+@import "@/styles/layouts.scss";
+
+.banner {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.wrapper {
+    @extend .container;
+    padding: 13.95rem 1.5rem 0;
+}
+
+.banner-inner {
+    display: flex;
+    margin-top: 12rem;
+}
+
+.branner-background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-content {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 50%;
+    padding-right: 5rem;
+}
+
+.banner-image-wrapper {
+    width: 50%;
+    animation: bounce 2s infinite;
+}
+
+.branner-image {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(-3%);
+        animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    }
+    50% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+.banner-title {
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+.banner-title-up {
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.banner-title-down {
+    font-weight: 700;
+}
+.banner-intro {
+    margin-bottom: 1.4rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+@media (max-width: 991px) {
+    .banner {
+        height: fit-content;
+        position: relative;
+    }
+    .banner-inner {
+        flex-direction: column;
+        margin-top: 5rem;
+    }
+
+    .banner-content {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .banner-image-wrapper {
+        width: 100%;
+    }
+}

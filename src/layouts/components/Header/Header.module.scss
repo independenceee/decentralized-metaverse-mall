@@ -1,12 +1,13 @@
 @import "@/styles/layouts.scss";
-
+// Header.tsx
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: #412394;
+    z-index: 10;
     &.scrolled {
+        background: #412394;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
     }
 }
@@ -27,6 +28,7 @@
     padding: 25px 0;
 }
 
+// HeaderOptions.tsx
 .nav-list {
     display: flex;
     list-style-type: none;
@@ -77,5 +79,8 @@
     padding-right: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
+    .nav-list {
+        display: none;
+    }
 }
