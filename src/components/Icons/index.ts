@@ -6,5 +6,5 @@ import {
     FaInstagram as InstagramIcon,
     FaYoutube as YoutubeIcon,
 } from "react-icons/fa";
-
-export { TwitterIcon, FacebookIcon, LinkedinIcon, RssIcon, InstagramIcon, YoutubeIcon };
+import { IoIosArrowDown as ArrowDownIcon } from "react-icons/io";
+export { TwitterIcon, FacebookIcon, LinkedinIcon, RssIcon, InstagramIcon, YoutubeIcon, ArrowDownIcon };

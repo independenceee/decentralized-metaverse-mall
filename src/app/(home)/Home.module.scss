@@ -1,8 +1,25 @@
 @import "@/styles/layouts.scss";
+
+/* service-begin */
+.service-wrapper {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+    background-color: var(--secondary-color);
+}
+
+.service-container {
+    @extend .container;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(38rem, 1fr));
+    gap: 3rem;
+}
+/* service-end */
+
 /* team-begin */
 .team-wrapper {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
 }
 
 .team-container {
@@ -12,5 +29,4 @@
     grid-template-columns: repeat(auto-fill, minmax(27.7rem, 1fr));
     gap: 3rem;
 }
-
 /* team-end*/
