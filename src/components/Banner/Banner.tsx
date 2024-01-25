@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./Banner.module.scss";
 import Image from "next/image";
 import images from "@/assets/images";
+import Button from "../Button";
 const cx = classNames.bind(styles);
 
 function Banner() {
@@ -20,6 +21,7 @@ function Banner() {
                             At vero eos et accusamus et iusto odio ignissimos ducimus qui blanditiis praesentium um deleniti atque corrupti.
                         </div>
                         {/* Button goes here */}
+                        <Button className={cx("banner-button")}>Get started</Button>
                     </div>
                     <div className={cx("banner-image-wrapper")}>
                         <Image src={images.bannerImage} alt="cryptoz-image" className={cx("branner-image")} />

@@ -1,0 +1,70 @@
+@import "@/styles/layouts.scss";
+
+.wrapper {
+    @extend .container;
+}
+
+.doughnut-chart {
+    padding: 10rem 0;
+}
+
+.wrapper-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.content-wrapper {
+    width: 50%;
+}
+
+.chart-wrapper {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.chart-wrapper-inner {
+    max-width: 40rem;
+    height: auto;
+    position: relative;
+}
+
+.chart-logo-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.content-header {
+    margin-bottom: 2rem;
+}
+
+.content-body {
+    margin-bottom: 1.6rem;
+    font-size: 1.4rem;
+}
+
+.title {
+    font-size: 35px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    letter-spacing: 0px;
+    color: #fff;
+    font-weight: 400;
+}
+
+.description {
+    color: #01e8fe;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+// Responsive
+
+@media (max-width: 991px) {
+    .chart-wrapper {
+        justify-content: center;
+    }
+}
