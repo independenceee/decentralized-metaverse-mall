@@ -46,6 +46,33 @@ function DoughnutChart({ data }: Props) {
         },
     };
 
+    const statistics: {
+        percentage: number;
+        label: string;
+        color: string;
+    }[] = [
+        {
+            percentage: 12,
+            label: "Gift Code Inventory",
+            color: "#F85D77",
+        },
+        {
+            percentage: 32,
+            label: "Bounty and Overhead",
+            color: "#F8C04E",
+        },
+        {
+            percentage: 38,
+            label: "Bonus & found",
+            color: "#AC56F7",
+        },
+        {
+            percentage: 73,
+            label: "Finacial Overhead",
+            color: "#61F89F",
+        },
+    ];
+
     return (
         <div className={cx("doughnut-chart")}>
             <div className={cx("wrapper")}>
@@ -56,21 +83,32 @@ function DoughnutChart({ data }: Props) {
                                 <h2 className={cx("title")}>Token Sale</h2>
                                 <p className={cx("description")}>Breakdown of our Token Recipients.</p>
                             </div>
-                            <div className="content-body">
+                            <div className={cx("content-body")}>
                                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
                                 eaque ipsa quae ab illo inventore veritatis et tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
                             </div>
                         </div>
-                        <ul></ul>
+                        <ul>
+                            {statistics.map((item, index) => (
+                                <li key={index} className="">
+                                    <span />
+                                    <span>{item.percentage}%</span>
+                                    <span>{item.label}</span>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
+
                     <div className={cx("chart-wrapper")}>
-                        <Doughnut data={chartData} options={options} />
-                        <div className={cx("chart-logo-center")}>
-                            <img
-                                src="https://themes.templatescoder.com/cryptoz/html/1-1/images/graph-logo.png"
-                                alt="cryptoz-image-wrapper"
-                                className={cx("chart-image")}
-                            />
+                        <div className={cx("chart-wrapper-inner")}>
+                            <Doughnut data={chartData} options={options} />
+                            <div className={cx("chart-logo-center")}>
+                                <img
+                                    src="https://themes.templatescoder.com/cryptoz/html/1-1/images/graph-logo.png"
+                                    alt="cryptoz-image-wrapper"
+                                    className={cx("chart-image")}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

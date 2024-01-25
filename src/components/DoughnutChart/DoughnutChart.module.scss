@@ -19,10 +19,13 @@
 }
 
 .chart-wrapper {
+    width: 50%;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+}
+.chart-wrapper-inner {
     max-width: 40rem;
-    width: 50%;
     height: auto;
     position: relative;
 }
@@ -40,6 +43,7 @@
 
 .content-body {
     margin-bottom: 1.6rem;
+    font-size: 1.4rem;
 }
 
 .title {
@@ -55,4 +59,12 @@
     color: #01e8fe;
     font-size: 20px;
     font-weight: 400;
+}
+
+// Responsive
+
+@media (max-width: 991px) {
+    .chart-wrapper {
+        justify-content: center;
+    }
 }
