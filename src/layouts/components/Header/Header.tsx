@@ -25,7 +25,7 @@ const Header = function ({}: Props) {
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [window.scrollY]);
+    });
 
     return (
         <header

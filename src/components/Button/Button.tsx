@@ -80,7 +80,7 @@ function Button({
                     <LeftIcon />
                 </span>
             )}
-            {loading ? <ClipLoader color={"#fff"} loading={loading} size={14} /> : <span className={cx("title")}>{children}</span>}
+            {loading ? <ClipLoader color={"#fff"} loading={loading} size={18} /> : <span className={cx("title")}>{children}</span>}
             {!loading && RightIcon && (
                 <span className={cx("icon")}>
                     <RightIcon />

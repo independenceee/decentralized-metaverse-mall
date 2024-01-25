@@ -1,18 +1,86 @@
-.connect-wallet {
-    background-color: var(--secondary-color);
+.wrapper {
+    &.open::before {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: red;
+        z-index: 5;
+    }
+}
 
+.connect-wallet {
+    background-color: var(--primary-color);
     font-weight: 500;
     font-size: 1.8rem;
+    position: relative;
+    min-width: 20rem;
     color: var(--text-color);
     &.scrolled {
         color: var(--text-color);
-        background-color: var(--primary-color);
+        background-color: var(--secondary-color);
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
     }
 }
 
-/* connect-wallet-short*/
-.connect-wallet-short {
+/* wallet-short-begin*/
+.wallet-short {
     position: absolute;
-    
+    left: 0;
+    top: 120%;
+    background-color: var(--primary-color);
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    width: 100%;
+
+    &.scrolled {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+    }
 }
+
+.wallet-short-container {
+    align-items: center;
+    border-bottom: 0.5px solid;
+    box-sizing: border-box;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    filter: brightness(1);
+    font-size: 14px;
+    font-weight: 600;
+    justify-content: flex-start;
+    line-height: 150%;
+    min-height: 64px;
+    outline: none;
+    padding: 8px 24px;
+    text-overflow: ellipsis;
+    transition-duration: 125ms;
+    transition-property: background-color, color, filter;
+    align-items: center;
+    gap: 10px;
+}
+
+.wallet-short-image {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.wallet-short-name {
+    display: flex;
+    font-size: 1.8rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+/* wallet-short-end */
+
+/* wallet-connected-begin */
+.connected-wallet-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+/* wallet-connected-end */
