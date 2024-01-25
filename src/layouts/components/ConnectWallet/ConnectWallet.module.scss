@@ -1,0 +1,18 @@
+.connect-wallet {
+    background-color: var(--secondary-color);
+
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    &.scrolled {
+        color: var(--text-color);
+        background-color: var(--primary-color);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* connect-wallet-short*/
+.connect-wallet-short {
+    position: absolute;
+    
+}
