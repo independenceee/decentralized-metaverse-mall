@@ -14,8 +14,8 @@ type Props = {
     timelines: Array<TimeLineType>;
 };
 
-const cx = classNames.bind(styles);
 gsap.registerPlugin(ScrollTrigger);
+const cx = classNames.bind(styles);
 
 const Timeline = function ({ timelines }: Props) {
     const timelineRef = useRef<HTMLDivElement>(null!);
@@ -66,37 +66,30 @@ const Timeline = function ({ timelines }: Props) {
                 <Slider {...settings}>
                     {timelines.map(function ({ title, description, datetime }: TimeLineType, index: number) {
                         return (
-                            <section className="timelime-wrapper" key={index}>
+                            <section className={cx("timelime-wrapper")} key={index}>
                                 <div
                                     className={cx("timeline-item", {
-                                        "flex-col-reverse": index % 2 === 0,
-                                        "flex-col": index % 2 !== 0,
+                                        "timeline-item-col-reverse": index % 2 === 0,
+                                        "timeline-item-col": index % 2 !== 0,
                                     })}
                                 >
                                     <div
-                                        className={cx("h-[50%] flex justify-center", "timeline-item-inner", {
-                                            "items-end": index % 2 !== 1,
-                                            "items-start": index % 2 === 1,
+                                        className={cx("timeline-item-inner", {
+                                            "timeline-item-inner-end": index % 2 !== 1,
+                                            "timeline-item-inner-start": index % 2 === 1,
                                         })}
                                     >
+                                        <div className={cx("gsap-dot", "timeline-item-dot")} />
                                         <div
-                                            className={cx(
-                                                "gsap-dot absolute w-5 h-5 rounded-full top-1/2 -translate-y-1/2 bg-[#6C44DB] border-[3px] border-white left-1/2 -translate-x-1/2",
-                                                "timeline-item-dot",
-                                            )}
-                                        />
-                                        <div
-                                            className={cx(
-                                                "gsap-vertical-line absolute w-1 h-[60px] bg-[#6C44DB] top-1/2  left-1/2 -z-10",
-                                                "vertical-line",
-                                                {
+                                            className={
+                                                cx("vertical-line", {
                                                     "vertical-line-up": index % 2 !== 0,
                                                     "vertical-line-down": index % 2 === 0,
-                                                },
-                                            )}
+                                                }) + " gsap-vertical-line"
+                                            }
                                         />
                                         <div
-                                            className={cx("text-center px-5", "gsap-timeline-content", {
+                                            className={cx("gsap-timeline-content", {
                                                 "gsap-timeline-content-odd": index % 2 !== 0,
                                                 "gsap-timeline-content-even": index % 2 === 0,
                                             })}
@@ -106,14 +99,10 @@ const Timeline = function ({ timelines }: Props) {
                                         </div>
                                     </div>
                                     <div
-                                        className={cx(
-                                            "flex w-full justify-center h-[50%] text-[#01E8FE] text-lg font-medium",
-                                            "timeline-item-datetime",
-                                            {
-                                                "items-end gsap-date-odd": index % 2 !== 1,
-                                                "items-start gsap-date-even": index % 2 === 1,
-                                            },
-                                        )}
+                                        className={cx("timeline-item-datetime", {
+                                            "datetime-end": index % 2 !== 1,
+                                            "datetime-start": index % 2 === 1,
+                                        })}
                                     >
                                         {datetime}
                                     </div>
