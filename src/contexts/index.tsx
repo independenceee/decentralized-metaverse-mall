@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactNode, lazy } from "react";
 
 const LucidProvider = lazy(() => import("@/contexts/providers/LucidProvider"));
