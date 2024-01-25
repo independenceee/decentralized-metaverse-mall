@@ -9,8 +9,9 @@ import { ServiceType, TimeLineType } from "@/types/GenericsType";
 import Banner from "@/components/Banner";
 import Service from "@/components/Service";
 import services from "@/constants/services";
-import styles from "./Home.module.scss";
 import DoughnutChart from "@/components/DoughnutChart";
+import About from "@/components/About";
+import styles from "./Home.module.scss";
 
 type Props = {};
 
@@ -58,7 +59,9 @@ const HomePage = function ({}: Props) {
             <section id="#" className={cx("banner-wrapper")}>
                 <Banner />
             </section>
-            <section id="about" className={cx("about-wrapper")}></section>
+            <section id="about" className={cx("about-wrapper")}>
+                <About />
+            </section>
             <section id="services" className={cx("service-wrapper")}>
                 <Title title="Services" subTitle="We Translate Your Dream Into Reality" />
                 <div className={cx("service-container")}>
