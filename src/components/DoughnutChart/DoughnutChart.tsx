@@ -88,12 +88,13 @@ function DoughnutChart({ data }: Props) {
                                 eaque ipsa quae ab illo inventore veritatis et tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
                             </div>
                         </div>
-                        <ul>
+                        <ul className={cx("statistic-wrapper")}>
                             {statistics.map((item, index) => (
-                                <li key={index} className="">
-                                    <span />
-                                    <span>{item.percentage}%</span>
-                                    <span>{item.label}</span>
+                                <li key={index} className={cx("statistic-item")}>
+                                    <span style={{ "--color": item.color } as Record<string, string>} className={cx("diff-color")} />
+                                    <span>
+                                        &nbsp;&nbsp;{item.percentage}% {item.label}
+                                    </span>
                                 </li>
                             ))}
                         </ul>

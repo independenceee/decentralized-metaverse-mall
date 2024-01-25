@@ -26,6 +26,7 @@
 }
 .chart-wrapper-inner {
     max-width: 40rem;
+    width: 100%;
     height: auto;
     position: relative;
 }
@@ -61,10 +62,41 @@
     font-weight: 400;
 }
 
+.statistic-wrapper {
+    margin-top: 3rem;
+    list-style-type: none;
+}
+
+.statistic-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    line-height: 39px;
+}
+
+.diff-color {
+    display: inline-block;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 100%;
+    background: var(--color);
+}
+
 // Responsive
 
 @media (max-width: 991px) {
+    .wrapper-inner {
+        flex-direction: column;
+    }
+
     .chart-wrapper {
         justify-content: center;
+        margin-top: 2.4rem;
+    }
+
+    .content-wrapper,
+    .chart-wrapper {
+        width: 100%;
+        min-height: 35rem;
     }
 }

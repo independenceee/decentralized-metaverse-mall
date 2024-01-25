@@ -1,8 +1,10 @@
+@import "@/styles/layouts.scss";
+
 .wrapper {
     display: flex;
 }
 
-.container {
+.wrapper-inner {
     position: relative;
     perspective: 100rem;
     visibility: visible;
@@ -12,6 +14,7 @@
     &:hover {
         .frontend {
             transform: rotateY("-180deg");
+            width: 100%;
         }
 
         .backend {

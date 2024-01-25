@@ -1,0 +1,73 @@
+@import "@/styles/layouts.scss";
+
+.wrapper {
+    @extend .container;
+}
+
+.wrapper-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.title {
+    font-size: 35px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    letter-spacing: 0px;
+    color: #fff;
+    font-weight: 400;
+}
+
+.description {
+    color: #01e8fe;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 2rem;
+}
+
+.image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.content-wrapper {
+    width: 50%;
+}
+
+.content-body {
+}
+
+.content-body-description {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1.6rem;
+}
+
+.content-list {
+}
+
+.content-list-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.7rem;
+}
+
+@media (max-width: 991px) {
+    .wrapper-inner {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .image-wrapper {
+        width: 100%;
+    }
+
+    .content-wrapper {
+        width: 100%;
+    }
+}

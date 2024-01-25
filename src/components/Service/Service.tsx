@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 const Service = function ({ service, index }: Props) {
     return (
         <div className={cx("wrapper")} data-aos="fade-up" data-aos-delay={`${100 * (index + 4)}`} data-aos-duration={`${1000 * (index + 4)}`}>
-            <div className={cx("container")}>
+            <div className={cx("wrapper-inner")}>
                 <section className={cx("frontend")}>
                     <div className={cx("service-icon")}>
                         <Image className={cx("service-image")} src={service.image} alt="" />
