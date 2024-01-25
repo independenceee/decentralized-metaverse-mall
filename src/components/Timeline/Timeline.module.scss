@@ -105,15 +105,15 @@
 }
 
 .vertical-line {
-    --vertical-line-height: 4rem;
+    --vertical-line-height: 3rem;
     position: absolute;
     top: 50%;
     left: 50%;
-    //transform: translateX(-50%);
+    transform: -2rem;
     width: 0.4rem;
     height: 6rem;
     background: #6c44db;
-    z-index: 1;
+    z-index: -1;
 
     &.vertical-line-up {
         transform: translateY(calc((50% + var(--vertical-line-height)) * -1));

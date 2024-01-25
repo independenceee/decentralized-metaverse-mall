@@ -10,6 +10,7 @@ import Banner from "@/components/Banner";
 import Service from "@/components/Service";
 import services from "@/constants/services";
 import styles from "./Home.module.scss";
+import DoughnutChart from "@/components/DoughnutChart";
 
 type Props = {};
 
@@ -50,9 +51,11 @@ const timelines: TimeLineType[] = [
 ];
 
 const HomePage = function ({}: Props) {
+    const data = [20.5, 20.3, 15, 25, 20];
+
     return (
         <PublicLayout>
-            <section id="#" className={cx("wrapper")}>
+            <section id="#" className={cx("banner-wrapper")}>
                 <Banner />
             </section>
             <section id="about" className={cx("about-wrapper")}></section>
@@ -63,6 +66,9 @@ const HomePage = function ({}: Props) {
                         return <Service service={service} key={index} index={index} />;
                     })}
                 </div>
+            </section>
+            <section id="token-sale" className={cx("roadmap-wrapper")}>
+                <DoughnutChart data={data} />
             </section>
             <section id="roadmap" className={cx("roadmap-wrapper")}>
                 <Title title="Roadmap" subTitle="Emergence and design of the idea" />

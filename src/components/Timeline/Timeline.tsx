@@ -60,7 +60,6 @@ const Timeline = function ({ timelines }: Props) {
 
     return (
         <div className={cx("wrapper")}>
-            <Title title="Roadmap" subTitle="Emergence and design of the idea" />
             <div className={cx("wrapper-inner")}>
                 <div id={"gsap-timeline_linethrough"} className={cx("line")} />
                 <Slider {...settings}>
@@ -79,7 +78,7 @@ const Timeline = function ({ timelines }: Props) {
                                             "timeline-item-inner-start": index % 2 === 1,
                                         })}
                                     >
-                                        <div className={cx("gsap-dot", "timeline-item-dot")} />
+                                        <div className={cx("timeline-item-dot") + " gsap-dot"} />
                                         <div
                                             className={
                                                 cx("vertical-line", {
