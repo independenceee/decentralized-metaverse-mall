@@ -11,13 +11,13 @@ import styles from "./Timeline.module.scss";
 import { TimeLineType } from "@/types/GenericsType";
 
 type Props = {
-    timeLines: Array<TimeLineType>;
+    timelines: Array<TimeLineType>;
 };
 
 const cx = classNames.bind(styles);
 gsap.registerPlugin(ScrollTrigger);
 
-const Timeline = function ({ timeLines }: Props) {
+const Timeline = function ({ timelines }: Props) {
     const timelineRef = useRef<HTMLDivElement>(null!);
 
     const settings = {
@@ -61,48 +61,61 @@ const Timeline = function ({ timeLines }: Props) {
     return (
         <div className={cx("wrapper")}>
             <Title title="Roadmap" subTitle="Emergence and design of the idea" />
-            <div className={cx("container")}>
+            <div className={cx("wrapper-inner")}>
                 <div id={"gsap-timeline_linethrough"} className={cx("line")} />
                 <Slider {...settings}>
-                    {timeLines.map(function ({ title, description, datetime }: TimeLineType, index: number) {
+                    {timelines.map(function ({ title, description, datetime }: TimeLineType, index: number) {
                         return (
-                            <section className="h-[360px] w-full relative" key={index}>
+                            <section className="timelime-wrapper" key={index}>
                                 <div
-                                    className={classNames("flex h-full gap-y-8", {
+                                    className={cx("timeline-item", {
                                         "flex-col-reverse": index % 2 === 0,
                                         "flex-col": index % 2 !== 0,
-                                })}
+                                    })}
                                 >
                                     <div
-                                        className={classNames("h-[50%] flex justify-center", {
+                                        className={cx("h-[50%] flex justify-center", "timeline-item-inner", {
                                             "items-end": index % 2 !== 1,
                                             "items-start": index % 2 === 1,
                                         })}
                                     >
-                                        <div className="gsap-dot absolute w-5 h-5 rounded-full top-1/2 -translate-y-1/2 bg-[#6C44DB] border-[3px] border-white left-1/2 -translate-x-1/2" />
                                         <div
-                                            className={classNames("gsap-vertical-line absolute w-1 h-[60px] bg-[#6C44DB] top-1/2  left-1/2 -z-10", {
-                                                "vertical-line-up": index % 2 !== 0,
-                                                "vertical-line-down": index % 2 === 0,
-                                            })}
+                                            className={cx(
+                                                "gsap-dot absolute w-5 h-5 rounded-full top-1/2 -translate-y-1/2 bg-[#6C44DB] border-[3px] border-white left-1/2 -translate-x-1/2",
+                                                "timeline-item-dot",
+                                            )}
                                         />
                                         <div
-                                            className={classNames("text-center px-5", {
+                                            className={cx(
+                                                "gsap-vertical-line absolute w-1 h-[60px] bg-[#6C44DB] top-1/2  left-1/2 -z-10",
+                                                "vertical-line",
+                                                {
+                                                    "vertical-line-up": index % 2 !== 0,
+                                                    "vertical-line-down": index % 2 === 0,
+                                                },
+                                            )}
+                                        />
+                                        <div
+                                            className={cx("text-center px-5", "gsap-timeline-content", {
                                                 "gsap-timeline-content-odd": index % 2 !== 0,
                                                 "gsap-timeline-content-even": index % 2 === 0,
                                             })}
                                         >
-                                            <h3 className={cx("title")}>{title}</h3>
-                                            <p className={cx("description")}>{description}</p>
+                                            <h3 className={cx("timeline-title")}>{title}</h3>
+                                            <p className={cx("timeline-description")}>{description}</p>
                                         </div>
                                     </div>
                                     <div
-                                        className={classNames("flex w-full justify-center h-[50%] text-[#01E8FE] text-lg font-medium", {
-                                            "items-end gsap-date-odd": index % 2 !== 1,
-                                            "items-start gsap-date-even": index % 2 === 1,
-                                        })}
+                                        className={cx(
+                                            "flex w-full justify-center h-[50%] text-[#01E8FE] text-lg font-medium",
+                                            "timeline-item-datetime",
+                                            {
+                                                "items-end gsap-date-odd": index % 2 !== 1,
+                                                "items-start gsap-date-even": index % 2 === 1,
+                                            },
+                                        )}
                                     >
-                                        {tl.date}
+                                        {datetime}
                                     </div>
                                 </div>
                             </section>

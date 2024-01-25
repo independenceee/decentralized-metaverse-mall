@@ -9,12 +9,11 @@
 
 .wrapper {
     @extend .container;
-    padding: 13.95rem 1.5rem 0;
+    padding-top: 13.95rem;
 }
 
 .banner-inner {
     display: flex;
-    margin-top: 12rem;
 }
 
 .branner-background {
@@ -29,9 +28,11 @@
 .banner-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     color: white;
     width: 50%;
     padding-right: 5rem;
+    padding-top: 5rem;
 }
 
 .banner-image-wrapper {
@@ -76,14 +77,28 @@
     font-weight: 400;
 }
 
+.banner-button {
+    width: fit-content;
+    padding: 1.8rem 4rem;
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 4px;
+    transition: all 0.3s ease 0s;
+    &:hover {
+        background-color: #281266;
+    }
+}
+
 @media (max-width: 991px) {
+    .wrapper {
+        padding-top: 80rem;
+    }
     .banner {
         height: fit-content;
         position: relative;
     }
     .banner-inner {
         flex-direction: column;
-        margin-top: 5rem;
     }
 
     .banner-content {

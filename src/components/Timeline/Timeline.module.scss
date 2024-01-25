@@ -1,7 +1,10 @@
+@import "@/styles/layouts.scss";
 .wrapper {
+    @extend .container;
 }
 
-.container {
+.wrapper-inner {
+    height: 360px;
     position: relative;
 }
 
@@ -14,12 +17,43 @@
     transform: translateY(-50%);
 }
 
+.timelime-wrapper {
+    height: 360px;
+    width: 100%;
+    position: relative;
+    background: #000;
+}
 
+.timelime-wrapper:nth-child(2n) > .timeline-item {
+    flex-direction: column-reverse;
+}
+
+.timelime-wrapper:nth-child(2n + 1) > .timeline-item {
+    flex-direction: column;
+}
+
+.timeline-item {
+    display: flex;
+    height: 100%;
+    row-gap: 3.2rem;
+}
+
+.timeline-item-inner {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.timelime-wrapper:nth-child(2n) > .timeline-item > .timeline-item-inner {
+    align-items: flex-end;
+}
+
+.timelime-wrapper:nth-child(2n + 1) > .timeline-item > .timeline-item-inner {
+    align-items: flex-start;
+}
 
 .title {
-
 }
 
 .description {
-    
 }

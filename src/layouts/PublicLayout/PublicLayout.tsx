@@ -16,8 +16,6 @@ const PublicLayout = function ({ children }: Props) {
         <main className={cx("wrapper")}>
             <Header />
             <div>{children}</div>
-            <Banner />
-            <div className={cx("container")}>{children}</div>
             <Footer />
         </main>
     );
