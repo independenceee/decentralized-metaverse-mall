@@ -27,10 +27,29 @@
 }
 /* service-end */
 
+/* token-sale-begin */
+
+.token-sale-wrapper {
+    background: url("../../assets/images/background/token-sale-bg.png") no-repeat scroll 0 0 #3d1f94;
+}
+
+/* token-sale-end */
+
+/* roadmap-begin */
+
+.roadmap-wrapper {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+    background: url("../../assets/images/background/roadmap-bg.png") no-repeat scroll center 0;
+}
+
+/* roadmap-end */
+
 /* team-begin */
 .team-wrapper {
     padding-top: 10rem;
     padding-bottom: 10rem;
+    background: url("../../assets/images/background/team-bg.png") no-repeat scroll 0 0 #3d1f94;
 }
 
 .team-container {
@@ -50,6 +69,7 @@
 .contact-wrapper {
     padding-top: 10rem;
     padding-bottom: 10rem;
+    background: url("../../assets/images/background/contact-bg.png") no-repeat scroll 0 0 #3d1f94;
 }
 
 .contact-container {

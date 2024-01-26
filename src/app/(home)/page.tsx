@@ -72,7 +72,7 @@ const HomePage = function ({}: Props) {
                     })}
                 </div>
             </section>
-            <section id="token-sale" className={cx("roadmap-wrapper")}>
+            <section id="token-sale" className={cx("token-sale-wrapper")}>
                 <DoughnutChart data={data} />
             </section>
             <section id="roadmap" className={cx("roadmap-wrapper")}>

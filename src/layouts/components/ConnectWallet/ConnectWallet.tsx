@@ -27,7 +27,7 @@ const ConnectWallet = function ({}: Props) {
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [window.scrollY]);
+    });
 
     const handleOpenWallet = function () {
         setIsOpen(!isOpen);
