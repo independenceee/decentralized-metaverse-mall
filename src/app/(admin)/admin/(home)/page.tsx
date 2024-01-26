@@ -6,8 +6,8 @@ type Props = {};
 
 const cx = classNames.bind(styles);
 
-const HomePage = function ({}: Props) {
+const AdminHomePage = function ({}: Props) {
     return <></>;
 };
 
-export default HomePage;
+export default AdminHomePage;

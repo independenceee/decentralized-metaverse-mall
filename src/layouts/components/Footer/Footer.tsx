@@ -25,22 +25,22 @@ const Footer = function ({}: Props) {
                         <div className={cx("social-media")}>
                             <ul className={cx("social-media-list")}>
                                 <li className={cx("social-medial-item")}>
-                                    <Link className={cx("social-media-link")} href="javascript:void(0)">
+                                    <Link className={cx("social-media-link")} href="#">
                                         <FacebookIcon className={cx("social-media-icon")} />
                                     </Link>
                                 </li>
                                 <li className={cx("social-medial-item")}>
-                                    <Link className={cx("social-media-link")} href="javascript:void(0)">
+                                    <Link className={cx("social-media-link")} href="#">
                                         <TwitterIcon className={cx("social-media-icon")} />
                                     </Link>
                                 </li>
                                 <li className={cx("social-medial-item")}>
-                                    <Link className={cx("social-media-link")} href="javascript:void(0)">
+                                    <Link className={cx("social-media-link")} href="#">
                                         <InstagramIcon className={cx("social-media-icon")} />
                                     </Link>
                                 </li>
                                 <li className={cx("social-medial-item")}>
-                                    <Link className={cx("social-media-link")} href="javascript:void(0)">
+                                    <Link className={cx("social-media-link")} href="#">
                                         <YoutubeIcon className={cx("social-media-icon")} />
                                     </Link>
                                 </li>

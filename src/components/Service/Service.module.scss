@@ -1,22 +1,18 @@
+@import "@/styles/layouts.scss";
+
 .wrapper {
-    display: flex;
+    perspective: 100rem;
 }
 
-.container {
+.wrapper-inner {
     position: relative;
     perspective: 100rem;
     visibility: visible;
-
+    width: 100%;
     transform-style: preserve-3d;
-
+    transition: transform 0.8s;
     &:hover {
-        .frontend {
-            transform: rotateY("-180deg");
-        }
-
-        .backend {
-            transform: rotateY("0");
-        }
+        transform: rotateY(180deg);
     }
 }
 
@@ -25,8 +21,6 @@
     padding: 30px;
     border-radius: 5px;
     transform: rotateY(0deg);
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
 }
 
 .service-icon {
@@ -50,18 +44,23 @@
     padding: 30px;
     border-radius: 5px;
     transform: rotateY(0deg);
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    transform-style: preserve-3d;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    transform: rotateY("180deg");
+    transform: rotateY(180deg);
 }
 
-.service-detail {
+.service-detail-front {
     margin-left: 72px;
+    font-weight: 400;
+}
+
+.service-detail-back {
+    width: 100%;
     font-weight: 400;
 }
 

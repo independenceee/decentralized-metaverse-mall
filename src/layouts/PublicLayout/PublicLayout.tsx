@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./PublicLayout.module.scss";
 import Header from "@/layouts/components/Header";
 import Footer from "@/layouts/components/Footer";
-import Banner from "@/components/Banner";
+
 
 type Props = {
     children: ReactNode;

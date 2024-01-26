@@ -1,6 +1,10 @@
-import React, { ReactNode } from "react";
+"use client";
+
+import React, { ReactNode, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./PrivateLayout.module.scss";
+import Sidebar from "@/layouts/components/Sidebar";
+import Navbar from "../components/Navbar";
 
 const cx = classNames.bind(styles);
 
@@ -9,9 +13,14 @@ type Props = {
 };
 
 const PrivateLayout = function ({ children }: Props) {
+    const [selectedRouter, setSelectedRouter] = useState<string>("");
     return (
         <main className={cx("wrapper")}>
-            <div className={cx("container")}>{children}</div>
+            <Sidebar selectedRouter={selectedRouter} setSelectedRouter={setSelectedRouter} />
+            <div className={cx("main")}>
+                <Navbar />
+                {children}
+            </div>
         </main>
     );
 };
