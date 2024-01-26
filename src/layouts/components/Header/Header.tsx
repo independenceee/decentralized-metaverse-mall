@@ -8,8 +8,8 @@ import HeaderOption from "@/layouts/components/Header/HeaderOption";
 import { publicRoutes } from "@/routes";
 import styles from "./Header.module.scss";
 import configs from "@/configs";
-import Menu from "@/components/Menu";
 import Hamburger from "@/components/Hamburger";
+import Logo from "@/components/Logo";
 
 const ConnectWallet = lazy(() => import("@/layouts/components/ConnectWallet"));
 
@@ -38,7 +38,7 @@ const Header = function ({}: Props) {
             <div className={cx("wrapper")}>
                 <div className={cx("wrapper-inner")}>
                     <div className={cx("logo")}>
-                        <Image className={cx("logo-image")} src={images.logo} alt="crytoz-logo" />
+                        <Logo />
                     </div>
                     <nav className={cx("navbar")}>
                         <ul className={cx("nav-list")}>
