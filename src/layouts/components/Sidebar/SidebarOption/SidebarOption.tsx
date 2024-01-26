@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useRouter } from "next/navigation";
 import classNames from "classnames/bind";
 import Link from "next/link";
@@ -18,6 +18,10 @@ type Props = {
 const SidebarOption = function ({ name, redirect, isActive, Icon, setSelected }: Props) {
     const router = useRouter();
 
+    if (isActive) {
+        console.log(name);
+    }
+
     const handleClick = function (content = name) {
         if (setSelected && redirect) {
             setSelected(content);
@@ -33,7 +37,7 @@ const SidebarOption = function ({ name, redirect, isActive, Icon, setSelected }:
                 onClick={() => {
                     handleClick(name);
                 }}
-                className={cx("link")}
+                className={cx("link", { active: isActive })}
                 href={redirect}
             >
                 <Icon className={cx("icon")} />
@@ -43,4 +47,4 @@ const SidebarOption = function ({ name, redirect, isActive, Icon, setSelected }:
     );
 };
 
-export default SidebarOption;
+export default memo(SidebarOption);

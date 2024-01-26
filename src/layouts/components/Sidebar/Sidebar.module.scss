@@ -48,3 +48,57 @@
 
 .navbar-list {
 }
+
+@media screen and (max-width: 1400px) {
+    .wrapper {
+        padding: 24px 16px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .wrapper {
+        width: 72px;
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &.open {
+            margin-left: 0px;
+        }
+    }
+
+    .name {
+        display: none;
+    }
+    .nav-item {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 18px;
+    }
+    .nav-link {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+    }
+    .nav-link.active {
+        border-radius: 100%;
+    }
+    .nav-link:hover {
+        border-radius: 100%;
+    }
+    .nav-link-text {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .wrapper {
+        margin-left: -72px;
+
+        &.open {
+            margin-left: 0;
+        }
+    }
+}

@@ -9,12 +9,16 @@ import Image from "next/image";
 import { useScroll } from "@/hooks";
 import { ModalContextType } from "@/types/contexts/ModalContextType";
 import ModalContext from "@/contexts/components/ModalContextType";
+import { usePathname } from "next/navigation";
 type Props = {};
 
 const cx = classNames.bind(styles);
 
 const Navbar = function ({}: Props) {
+    const pathname = usePathname();
+
     const [isScrolled] = useScroll({ offset: 0 });
+
     const { toggleShowingSidebar } = useContext<ModalContextType>(ModalContext);
 
     return (
@@ -27,7 +31,7 @@ const Navbar = function ({}: Props) {
                 <button onClick={toggleShowingSidebar} type="button" className={cx("sidebar-toggle")}>
                     <Image className={cx("image")} src={icon.menuIcon} alt="" />
                 </button>
-                <h3 className={cx("title")}>Home</h3>
+                <h3 className={cx("title")}>Admin</h3>
             </div>
             <div className={cx("right")}>
                 <ConnectWallet />

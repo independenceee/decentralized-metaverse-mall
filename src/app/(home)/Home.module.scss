@@ -22,7 +22,7 @@
     @extend .container;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(38rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(34rem, 1fr));
     gap: 3rem;
 }
 /* service-end */
@@ -56,7 +56,7 @@
     @extend .container;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(27.7rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(24.7rem, 1fr));
     gap: 3rem;
 }
 /* team-end*/

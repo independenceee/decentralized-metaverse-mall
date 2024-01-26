@@ -9,6 +9,7 @@ import { privateRoutes } from "@/routes";
 import SidebarOption from "./SidebarOption";
 import ModalContext from "@/contexts/components/ModalContextType";
 import { ModalContextType } from "@/types/contexts/ModalContextType";
+import Logo from "@/components/Logo";
 
 const cx = classNames.bind(styles);
 
@@ -22,9 +23,7 @@ const Sidebar = function ({ selectedRouter, setSelectedRouter }: Props) {
 
     return (
         <main className={cx("wrapper", { open: isShowingSidebar })}>
-            <div className={cx("logo")}>
-                <Image className={cx("logo-image")} src={images.logo} alt="Logo" />
-            </div>
+            <Logo />
 
             <nav className={cx("navbar")}>
                 <ul className={cx("navbar-list")}>
@@ -34,7 +33,7 @@ const Sidebar = function ({ selectedRouter, setSelectedRouter }: Props) {
                                 key={index}
                                 name={route.name}
                                 redirect={route.redirect}
-                                isActive={Boolean(selectedRouter === route.name)}
+                                isActive={Boolean(selectedRouter === route.name.toLowerCase())}
                                 Icon={route.Icon}
                                 setSelected={setSelectedRouter}
                             />

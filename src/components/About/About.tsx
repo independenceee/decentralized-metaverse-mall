@@ -14,10 +14,10 @@ const About = function ({}: Props) {
         <section className={cx("about")}>
             <div className={cx("wrapper")}>
                 <div className={cx("wrapper-inner")}>
-                    <div className={cx("image-wrapper")}>
+                    <div className={cx("image-wrapper")} data-aos="fade-right">
                         <Image src={images.about} className={cx("about-background")} alt="" />
                     </div>
-                    <div className={cx("content-wrapper")}>
+                    <div className={cx("content-wrapper")} data-aos="fade-left">
                         <div className={cx("content-header")}>
                             <h2 className={cx("title")}>About Cryptoz</h2>
                             <p className={cx("description")}>About Cryptoz We Translate Your Dream Into Reality</p>
