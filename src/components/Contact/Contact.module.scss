@@ -3,54 +3,85 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    gap: 3rem;
 }
 
 .contact-box {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
 }
 
 .contact-box-list {
     display: flex;
     flex-direction: column;
+    list-style: none;
+    padding-left: 0px;
+    margin-bottom: 0;
 }
 
 .contact-box-item {
     display: flex;
+    border-bottom: 1px solid #4a28a9;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+
+    &:last-child {
+        border-bottom: none;
+    }
 }
 
 .contact-thumb {
-}
-
-.icon {
-}
-
-.contact-box-detail {
+    float: left;
+    margin-right: 10px;
 }
 
 .contact-title {
+    font-size: 16px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 25px;
 }
 
 .contract-description {
+    margin: 0px;
+    font-size: 1.4rem;
 }
 
 .form {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+
+.form-group {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
 }
 
 .form-control {
     background-color: var(--secondary-color);
     border: none;
-    height: 5rem;
-    color: var(--white-color);
+    min-height: 5rem;
+    height: 100%;
     padding-left: 1.5rem;
     display: block;
-    width: 100%;
-    
-    font-size: 1,5rem;
+    font-size: 1.5rem;
     font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
+    color: var(--white-color);
+    width: 100%;
     background-clip: padding-box;
-    border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.textarea {
+    @extend .form-control;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.form-short-item {
+    width: 100%;
 }

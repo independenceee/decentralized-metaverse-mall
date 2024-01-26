@@ -16,7 +16,7 @@ const Contact = function ({}: Props) {
                 <ul className={cx("contact-box-list")}>
                     <li className={cx("contact-box-item")}>
                         <div className={cx("contact-thumb")}>
-                            <Image className={cx("icon")} src={icons.walletIcon} alt="Phone Icon" />
+                            <Image className={cx("icon")} src={icons.phoneIcon} alt="Phone Icon" />
                         </div>
                         <div className={cx("contact-box-detail")}>
                             <h3 className={cx("contact-title")}>Call Us On</h3>
@@ -25,7 +25,7 @@ const Contact = function ({}: Props) {
                     </li>
                     <li className={cx("contact-box-item")}>
                         <div className={cx("contact-thumb")}>
-                            <Image className={cx("icon")} src={icons.walletIcon} alt="Phone Icon" />
+                            <Image className={cx("icon")} src={icons.mailIcon} alt="Phone Icon" />
                         </div>
                         <div className={cx("contact-box-detail")}>
                             <h3 className={cx("contact-title")}>Call Us On</h3>
@@ -34,7 +34,7 @@ const Contact = function ({}: Props) {
                     </li>
                     <li className={cx("contact-box-item")}>
                         <div className={cx("contact-thumb")}>
-                            <Image className={cx("icon")} src={icons.walletIcon} alt="Phone Icon" />
+                            <Image className={cx("icon")} src={icons.addressIcon} alt="Phone Icon" />
                         </div>
                         <div className={cx("contact-box-detail")}>
                             <h3 className={cx("contact-title")}>Call Us On</h3>
@@ -44,7 +44,7 @@ const Contact = function ({}: Props) {
                 </ul>
             </div>
             <form className={cx("form")}>
-                <div className={cx("form-short-group")}>
+                <div className={cx("form-group")}>
                     <div className={cx("form-short-item")}>
                         <input type="text" placeholder="Name" className={cx("form-control")} required />
                     </div>
@@ -53,10 +53,10 @@ const Contact = function ({}: Props) {
                     </div>
                 </div>
                 <div className={cx("form-group")}>
-                    <input type="text" name="subject" className={cx("form-control")} placeholder="Subject" required />
+                    <input type="text" name="Subject" className={cx("form-control")} placeholder="Subject" required />
                 </div>
                 <div className={cx("form-group")}>
-                    <textarea name="message" className={cx("form-control")} rows={3} />
+                    <textarea name="message" placeholder="Message" required className={cx("textarea")} rows={6} />
                 </div>
 
                 <Button className="button">Send Message</Button>
