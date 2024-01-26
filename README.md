@@ -7,8 +7,8 @@ End-User:
 
 Admin:
 
--   Cung cấp Voucher vào danh sách voucher, cho phép người bán hàng chuyển token nền tảng C2E vào ví người mua hàng (số lượng là bao nhiêu + địa chỉ ví là gì)
+-   Cung cấp Voucher vào danh sách voucher,
+-   Cho phép người bán hàng chuyển token nền tảng C2E vào ví người mua hàng (số lượng là bao nhiêu + địa chỉ ví là gì)
 -   Import theo lô (cvs: số lượng token cần chuyển + địa chỉ ví)
-
 
 -   Quản lý vouchers (dùng bao nhiêu, còn bao nhiêu, danh sách)

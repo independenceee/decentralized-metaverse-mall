@@ -41,6 +41,8 @@ const LucidProvider = function ({ children }: Props) {
 
     const disconnectWallet = async function () {
         try {
+            setLucid(null!);
+            setWallet(null!);
         } catch (error) {
             console.log(error);
         }

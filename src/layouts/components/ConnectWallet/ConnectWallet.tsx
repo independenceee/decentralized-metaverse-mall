@@ -3,23 +3,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import Button from "@/components/Button";
 import classNames from "classnames/bind";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import styles from "./ConnectWallet.module.scss";
-import { ArrowDownIcon } from "@/components/Icons";
+import { ArrowDownIcon, RefreshIcon, LogoutIcon, CopyIcon } from "@/components/Icons";
 import wallets from "@/constants/wallets";
 import { WalletType } from "@/types/GenericsType";
 import Image from "next/image";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
+import { useModal } from "@/hooks";
+import Modal from "@/components/Modal";
 
 const cx = classNames.bind(styles);
 
 type Props = {};
 
 const ConnectWallet = function ({}: Props) {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
+    const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
+    const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
 
-    const { loading, connectWallet, lucid, wallet } = useContext<LucidContextType>(LucidContext);
+    const { isShowing, toggle } = useModal();
+    const { loading, connectWallet, refreshWallet, disconnectWallet, lucid, wallet } = useContext<LucidContextType>(LucidContext);
 
     useEffect(() => {
         const handleScroll = function () {
@@ -29,8 +34,12 @@ const ConnectWallet = function ({}: Props) {
         return () => window.removeEventListener("scroll", handleScroll);
     });
 
+    const handleOpenShowWallet = function () {
+        setIsOpenShowWallet(!isOpenShowWallet);
+    };
+
     const handleOpenWallet = function () {
-        setIsOpen(!isOpen);
+        setIsOpenShort(!isOpenShort);
     };
 
     const handleConnectWallet = async function (wallet: WalletType) {
@@ -49,18 +58,44 @@ const ConnectWallet = function ({}: Props) {
     };
 
     return (
-        <div className={cx("wrapper", { open: isOpen })}>
+        <div className={cx("wrapper", { open: isOpenShort })}>
             {lucid ? (
                 <Button
                     loading={loading}
-                    onClick={handleOpenWallet}
+                    onClick={handleOpenShowWallet}
                     RightIcon={ArrowDownIcon}
                     className={cx("connect-wallet", { scrolled: isScrolled })}
                 >
                     <div className={cx("connected-wallet-container")}>
                         <Image className={cx("wallet-short-image")} src={wallet.image} alt="" />
-                        <span className={cx("wallet-short-name")}>{wallet.balance} ₳</span>
+                        <span className={cx("wallet-short-name")}>{!loading && wallet.balance + " ₳"} </span>
                     </div>
+
+                    {isOpenShowWallet && (
+                        <div className={cx("show-wallet-wrapper", { scrolled: isScrolled })}>
+                            <CopyToClipboard text={String(wallet.address)}>
+                                <div className={cx("show-wallet-item")}>
+                                    <h3 className={cx("show-wallet-name")}>Address: </h3>
+                                    <p className={cx("show-wallet-description")}>{wallet.address}</p>
+                                    <h3 className={cx("show-wallet-name")}>
+                                        <CopyIcon className={cx("show-wallet-icon")} />
+                                    </h3>
+                                </div>
+                            </CopyToClipboard>
+                            <div onClick={refreshWallet} className={cx("show-wallet-item")}>
+                                <h3 className={cx("show-wallet-name")}>
+                                    <RefreshIcon className={cx("show-wallet-icon")} />
+                                </h3>
+                                <p className={cx("show-wallet-description")}>Refresh</p>
+                            </div>
+                            <div onClick={disconnectWallet} className={cx("show-wallet-item")}>
+                                <h3 className={cx("show-wallet-name")}>
+                                    <LogoutIcon className={cx("show-wallet-icon")} />
+                                </h3>
+                                <p className={cx("show-wallet-description")}>Disconnect</p>
+                            </div>
+                        </div>
+                    )}
                 </Button>
             ) : (
                 <Button
@@ -70,7 +105,7 @@ const ConnectWallet = function ({}: Props) {
                     className={cx("connect-wallet", { scrolled: isScrolled })}
                 >
                     {!loading && "Connect wallet"}
-                    {isOpen && (
+                    {isOpenShort && (
                         <div className={cx("wallet-short", { scrolled: isScrolled })}>
                             {wallets.slice(0, 5).map(function (wallet: WalletType, index: number) {
                                 return (
@@ -87,6 +122,8 @@ const ConnectWallet = function ({}: Props) {
                     )}
                 </Button>
             )}
+
+            <Modal isShowing={isShowing} toggle={toggle}></Modal>
         </div>
     );
 };
