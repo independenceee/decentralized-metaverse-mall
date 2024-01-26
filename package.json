@@ -25,6 +25,7 @@
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
     "sass": "^1.70.0",
+    "sharp": "^0.33.2",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

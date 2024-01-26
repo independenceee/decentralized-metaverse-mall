@@ -128,6 +128,7 @@ const HomePage = function ({}: Props) {
                     {teams.map(function (team: FounderType, index: number) {
                         return (
                             <Team
+                                key={index}
                                 description="CEO & Lead Blockchain"
                                 firstName="Nguyen"
                                 lastName="Khanh"
