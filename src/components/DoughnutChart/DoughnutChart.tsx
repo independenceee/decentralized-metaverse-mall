@@ -77,7 +77,7 @@ function DoughnutChart({ data }: Props) {
         <div className={cx("doughnut-chart")}>
             <div className={cx("wrapper")}>
                 <div className={cx("wrapper-inner")}>
-                    <div className={cx("content-wrapper")}>
+                    <div className={cx("content-wrapper")} data-aos="fade-right">
                         <div>
                             <div className={cx("content-header")}>
                                 <h2 className={cx("title")}>Token Sale</h2>

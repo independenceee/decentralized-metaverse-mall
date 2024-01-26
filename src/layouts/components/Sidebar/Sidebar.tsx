@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import React, { useState, useEffect, useContext } from "react";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
 import Image from "next/image";
 import images from "@/assets/images";
 import { privateRoutes } from "@/routes";
 import SidebarOption from "./SidebarOption";
+import ModalContext from "@/contexts/components/ModalContextType";
+import { ModalContextType } from "@/types/contexts/ModalContextType";
+import Logo from "@/components/Logo";
 
 const cx = classNames.bind(styles);
 
@@ -14,11 +19,11 @@ type Props = {
 };
 
 const Sidebar = function ({ selectedRouter, setSelectedRouter }: Props) {
+    const { isShowingSidebar } = useContext<ModalContextType>(ModalContext);
+
     return (
-        <main className={cx("wrapper")}>
-            <div className={cx("logo")}>
-                <Image className={cx("logo-image")} src={images.logo} alt="Logo" />
-            </div>
+        <main className={cx("wrapper", { open: isShowingSidebar })}>
+            <Logo />
 
             <nav className={cx("navbar")}>
                 <ul className={cx("navbar-list")}>
@@ -28,7 +33,7 @@ const Sidebar = function ({ selectedRouter, setSelectedRouter }: Props) {
                                 key={index}
                                 name={route.name}
                                 redirect={route.redirect}
-                                isActive={Boolean(selectedRouter === route.name)}
+                                isActive={Boolean(selectedRouter === route.name.toLowerCase())}
                                 Icon={route.Icon}
                                 setSelected={setSelectedRouter}
                             />

@@ -5,7 +5,7 @@ import Title from "@/components/Title";
 import Team from "@/components/Team";
 import images from "@/assets/images";
 import Timeline from "@/components/Timeline";
-import { ServiceType, TimeLineType } from "@/types/GenericsType";
+import { FounderType, ServiceType, TimeLineType } from "@/types/GenericsType";
 import Banner from "@/components/Banner";
 import Service from "@/components/Service";
 import services from "@/constants/services";
@@ -53,12 +53,55 @@ const timelines: TimeLineType[] = [
     },
 ];
 
+const teams = [
+    {
+        description: "CEO & Lead Blockchain",
+        firstName: "Nguyen",
+        lastName: "Khanh",
+        image: images.logo,
+        linkedinLink: "#",
+        facebookLink: "#",
+        rrsLink: "#",
+        twitterLink: "#",
+    },
+    {
+        description: "CEO & Lead Blockchain",
+        firstName: "Nguyen",
+        lastName: "Khanh",
+        image: images.logo,
+        linkedinLink: "#",
+        facebookLink: "#",
+        rrsLink: "#",
+        twitterLink: "#",
+    },
+    {
+        description: "CEO & Lead Blockchain",
+        firstName: "Nguyen",
+        lastName: "Khanh",
+        image: images.logo,
+        linkedinLink: "#",
+        facebookLink: "#",
+        rrsLink: "#",
+        twitterLink: "#",
+    },
+    {
+        description: "CEO & Lead Blockchain",
+        firstName: "Nguyen",
+        lastName: "Khanh",
+        image: images.logo,
+        linkedinLink: "#",
+        facebookLink: "#",
+        rrsLink: "#",
+        twitterLink: "#",
+    },
+];
+
 const HomePage = function ({}: Props) {
     const data = [20.5, 20.3, 15, 25, 20];
 
     return (
         <PublicLayout>
-            <section id="#" className={cx("banner-wrapper")}>
+            <section id="home" className={cx("banner-wrapper")}>
                 <Banner />
             </section>
             <section id="about" className={cx("about-wrapper")}>
@@ -72,7 +115,7 @@ const HomePage = function ({}: Props) {
                     })}
                 </div>
             </section>
-            <section id="token-sale" className={cx("roadmap-wrapper")}>
+            <section id="token-sale" className={cx("token-sale-wrapper")}>
                 <DoughnutChart data={data} />
             </section>
             <section id="roadmap" className={cx("roadmap-wrapper")}>
@@ -82,46 +125,20 @@ const HomePage = function ({}: Props) {
             <section id="team" className={cx("team-wrapper")}>
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />
                 <div className={cx("team-container")}>
-                    <Team
-                        description="CEO & Lead Blockchain"
-                        firstName="Nguyen"
-                        lastName="Khanh"
-                        image={images.logo}
-                        linkedinLink="#"
-                        facebookLink="#"
-                        rrsLink="#"
-                        twitterLink="#"
-                    />
-                    <Team
-                        description="CEO & Lead Blockchain"
-                        firstName="Nguyen"
-                        lastName="Khanh"
-                        image={images.logo}
-                        linkedinLink="#"
-                        facebookLink="#"
-                        rrsLink="#"
-                        twitterLink="#"
-                    />
-                    <Team
-                        description="CEO & Lead Blockchain"
-                        firstName="Nguyen"
-                        lastName="Khanh"
-                        image={images.logo}
-                        linkedinLink="#"
-                        facebookLink="#"
-                        rrsLink="#"
-                        twitterLink="#"
-                    />
-                    <Team
-                        description="CEO & Lead Blockchain"
-                        firstName="Nguyen"
-                        lastName="Khanh"
-                        image={images.logo}
-                        linkedinLink="#"
-                        facebookLink="#"
-                        rrsLink="#"
-                        twitterLink="#"
-                    />
+                    {teams.map(function (team: FounderType, index: number) {
+                        return (
+                            <Team
+                                description="CEO & Lead Blockchain"
+                                firstName="Nguyen"
+                                lastName="Khanh"
+                                image={images.logo}
+                                linkedinLink="#"
+                                facebookLink="#"
+                                rrsLink="#"
+                                twitterLink="#"
+                            />
+                        );
+                    })}
                 </div>
             </section>
             <section id="faqs" className={cx("faqs-wrapper")}>

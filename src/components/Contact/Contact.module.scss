@@ -1,4 +1,7 @@
+@import "@/styles/layouts.scss";
+
 .contact {
+    @extend .container;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,7 +10,7 @@
 }
 
 .contact-box {
-    flex: 0 0 33.333333%;
+    width: 100%;
     max-width: 33.333333%;
 }
 
@@ -48,7 +51,7 @@
 }
 
 .form {
-    flex: 0 0 66.666667%;
+    width: 100%;
     max-width: 66.666667%;
 }
 
@@ -84,4 +87,16 @@
 
 .form-short-item {
     width: 100%;
+}
+
+@media (max-width: 991px) {
+    .contact {
+        flex-direction: column;
+    }
+
+    .form,
+    .contact-box {
+        width: 100%;
+        max-width: 100%;
+    }
 }

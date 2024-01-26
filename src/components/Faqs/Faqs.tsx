@@ -139,7 +139,6 @@ function Faqs({}: Props) {
     const [activeTab, setActiveTab] = useState<string>(tabs[0].identity);
     const [accordionActive, setAccordionActive] = useState<{ id: number; toggle: boolean }>({ id: 1, toggle: true });
     const accordion: Accordion[] = accordions[activeTab as keyof typeof accordions];
-    console.log("Accordion: ", accordionActive);
 
     const handleTabChange = (tab: string) => {
         setActiveTab(tab);

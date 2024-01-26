@@ -1,5 +1,5 @@
 const routes = {
-    home: "#",
+    home: "#home",
     services: "#services",
     roadmap: "#roadmap",
     about: "#about",
@@ -8,7 +8,7 @@ const routes = {
 
     private: {
         home: "/admin",
-        trasaction: "/admin/trasaction",
+        trasaction: "/admin/transaction",
         voucher: "/admin/voucher",
     },
 } as const;

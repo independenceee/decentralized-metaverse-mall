@@ -8,6 +8,8 @@ import HeaderOption from "@/layouts/components/Header/HeaderOption";
 import { publicRoutes } from "@/routes";
 import styles from "./Header.module.scss";
 import configs from "@/configs";
+import Hamburger from "@/components/Hamburger";
+import Logo from "@/components/Logo";
 
 const ConnectWallet = lazy(() => import("@/layouts/components/ConnectWallet"));
 
@@ -17,7 +19,7 @@ const cx = classNames.bind(styles);
 
 const Header = function ({}: Props) {
     const [selected, setSelected] = useState<string>(configs.routes.home);
-    const [isScrolled, setIsScrolled] = useState<boolean>(false);
+    const [isScrolled, setIsScrolled] = useState<boolean>(false || window.scrollY > 0);
 
     useEffect(() => {
         const handleScroll = function () {
@@ -36,7 +38,7 @@ const Header = function ({}: Props) {
             <div className={cx("wrapper")}>
                 <div className={cx("wrapper-inner")}>
                     <div className={cx("logo")}>
-                        <Image className={cx("logo-image")} src={images.logo} alt="crytoz-logo" />
+                        <Logo />
                     </div>
                     <nav className={cx("navbar")}>
                         <ul className={cx("nav-list")}>
@@ -53,7 +55,10 @@ const Header = function ({}: Props) {
                             })}
                         </ul>
                     </nav>
-                    <ConnectWallet />
+                    <div className={cx("nav-right-wrapper")}>
+                        <ConnectWallet />
+                        <Hamburger />
+                    </div>
                 </div>
             </div>
         </header>

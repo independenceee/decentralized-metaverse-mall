@@ -16,6 +16,13 @@
     @extend .container;
 }
 
+.nav-right-wrapper {
+    display: flex;
+    // justify-content: flex-end;
+    align-items: center;
+    column-gap: 2rem;
+}
+
 .wrapper-inner {
     display: flex;
     justify-content: space-between;
@@ -34,10 +41,22 @@
     list-style-type: none;
 }
 
-
-
 @media (max-width: 991px) {
     .nav-list {
         display: none;
+    }
+
+    .logo {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-list {
+        display: none;
+    }
+
+    .logo {
+        max-width: 160px;
     }
 }

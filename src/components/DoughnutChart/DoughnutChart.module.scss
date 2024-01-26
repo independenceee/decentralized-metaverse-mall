@@ -25,10 +25,14 @@
     align-items: center;
 }
 .chart-wrapper-inner {
-    max-width: 40rem;
+    max-width: fit-content;
     width: 100%;
     height: auto;
     position: relative;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    height: 400px;
 }
 
 .chart-logo-center {

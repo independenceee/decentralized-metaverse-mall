@@ -3,7 +3,6 @@ const images = {
     bannerBackground: require("./banner-bg.jpg"),
     bannerImage: require("./banner-img.svg").default,
     about: require("./about-img.svg").default,
-
     /* wallet-image-begin */
     nami: require("./wallets/nami.svg"),
     eternl: require("./wallets/eternl.webp"),
