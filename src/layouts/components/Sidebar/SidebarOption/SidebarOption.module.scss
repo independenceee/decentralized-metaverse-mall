@@ -20,7 +20,7 @@
         border: 1px solid var(--primary-color);
     }
     &.active {
-        background-color: var(--clr-pumpkin);
+        background-color: var(--secondary-color);
         box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
     }
 }
