@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames/bind";
-import styles from "./AdminHome.module.scss";
+import styles from "./AdminTransaction.module.scss";
 
 type Props = {};
 

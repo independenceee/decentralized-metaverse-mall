@@ -12,6 +12,8 @@ import services from "@/constants/services";
 import DoughnutChart from "@/components/DoughnutChart";
 import About from "@/components/About";
 import styles from "./Home.module.scss";
+import Contact from "@/components/Contact";
+import Faqs from "@/components/Faqs";
 
 type Props = {};
 
@@ -90,9 +92,47 @@ const HomePage = function ({}: Props) {
                         rrsLink="#"
                         twitterLink="#"
                     />
+                    <Team
+                        description="CEO & Lead Blockchain"
+                        firstName="Nguyen"
+                        lastName="Khanh"
+                        image={images.logo}
+                        linkedinLink="#"
+                        facebookLink="#"
+                        rrsLink="#"
+                        twitterLink="#"
+                    />
+                    <Team
+                        description="CEO & Lead Blockchain"
+                        firstName="Nguyen"
+                        lastName="Khanh"
+                        image={images.logo}
+                        linkedinLink="#"
+                        facebookLink="#"
+                        rrsLink="#"
+                        twitterLink="#"
+                    />
+                    <Team
+                        description="CEO & Lead Blockchain"
+                        firstName="Nguyen"
+                        lastName="Khanh"
+                        image={images.logo}
+                        linkedinLink="#"
+                        facebookLink="#"
+                        rrsLink="#"
+                        twitterLink="#"
+                    />
                 </div>
             </section>
-            <section id="contact" className={cx("contact")}></section>
+            <section id="faqs" className={cx("faqs-wrapper")}>
+                <Faqs />
+            </section>
+            <section id="contact" className={cx("contact-wrapper")}>
+                <Title title="Get In Touch" subTitle="Emergence and design of the idea" />
+                <div className={cx("contact-container")}>
+                    <Contact />
+                </div>
+            </section>
         </PublicLayout>
     );
 };

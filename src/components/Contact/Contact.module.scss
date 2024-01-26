@@ -1,0 +1,56 @@
+.contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.contact-box {
+}
+
+.contact-box-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-box-item {
+    display: flex;
+}
+
+.contact-thumb {
+}
+
+.icon {
+}
+
+.contact-box-detail {
+}
+
+.contact-title {
+}
+
+.contract-description {
+}
+
+.form {
+}
+
+.form-control {
+    background-color: var(--secondary-color);
+    border: none;
+    height: 5rem;
+    color: var(--white-color);
+    padding-left: 1.5rem;
+    display: block;
+    width: 100%;
+    
+    font-size: 1,5rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
