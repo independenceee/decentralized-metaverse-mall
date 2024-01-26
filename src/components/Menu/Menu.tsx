@@ -6,22 +6,25 @@ import Link from "next/link";
 import configs from "@/configs";
 import { publicRoutes } from "@/routes";
 import styles from "./Menu.module.scss";
+import Modal from "../Modal";
 
 const cx = classNames.bind(styles);
 
-function Menu() {
+type Props = {
+    isShowing: boolean;
+    toggle: () => void;
+};
+
+function Menu({ isShowing, toggle }: Props) {
     const [selected, setSelected] = useState<string>(configs.routes.home);
+
     const handleRedirect = (redirect: string) => {
         setSelected(redirect);
-    };
-
-    const onClickOutside = () => {
-        
+        toggle();
     };
 
     return (
-        <div className={cx("menu")} onClick={onClickOutside}>
-            <div className={cx("menu-overlay")} />
+        <Modal isShowing={isShowing} toggle={toggle}>
             <nav className={cx("menu-wrapper")}>
                 <ul className={cx("nav-list")}>
                     {publicRoutes.map(function ({ name, redirect }, index: number) {
@@ -41,8 +44,7 @@ function Menu() {
                     })}
                 </ul>
             </nav>
-            ;
-        </div>
+        </Modal>
     );
 }
 

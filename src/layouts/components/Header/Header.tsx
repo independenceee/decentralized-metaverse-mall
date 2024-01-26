@@ -9,6 +9,7 @@ import { publicRoutes } from "@/routes";
 import styles from "./Header.module.scss";
 import configs from "@/configs";
 import Menu from "@/components/Menu";
+import Hamburger from "@/components/Hamburger";
 
 const ConnectWallet = lazy(() => import("@/layouts/components/ConnectWallet"));
 
@@ -54,8 +55,10 @@ const Header = function ({}: Props) {
                             })}
                         </ul>
                     </nav>
-                    <ConnectWallet />
-                    <Menu />
+                    <div className={cx("nav-right-wrapper")}>
+                        <ConnectWallet />
+                        <Hamburger />
+                    </div>
                 </div>
             </div>
         </header>
