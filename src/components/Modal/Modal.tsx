@@ -1,5 +1,3 @@
-"use client";
-
 import React, { ReactNode } from "react";
 import classNames from "classnames/bind";
 import styles from "./Modal.module.scss";
@@ -16,7 +14,7 @@ const Modal: React.FC<Props> = function ({ isShowing, toggle, children, transpar
     if (isShowing) {
         return (
             <main className={cx("wrapper")}>
-                <div className={cx("modal", { transparent: transparent })} onClick={toggle} />
+                <section className={cx("modal")} onClick={toggle}></section>
                 {children}
             </main>
         );

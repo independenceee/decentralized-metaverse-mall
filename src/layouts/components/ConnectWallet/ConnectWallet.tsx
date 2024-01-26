@@ -5,7 +5,7 @@ import Button from "@/components/Button";
 import classNames from "classnames/bind";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import styles from "./ConnectWallet.module.scss";
-import { ArrowDownIcon, RefreshIcon, LogoutIcon, CopyIcon } from "@/components/Icons";
+import { ArrowDownIcon, RefreshIcon, LogoutIcon, CopyIcon, CloseIcon } from "@/components/Icons";
 import wallets from "@/constants/wallets";
 import { WalletType } from "@/types/GenericsType";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
 import { useModal } from "@/hooks";
 import Modal from "@/components/Modal";
+import Link from "next/link";
 
 const cx = classNames.bind(styles);
 
@@ -22,8 +23,8 @@ const ConnectWallet = function ({}: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
-
-    const { isShowing, toggle } = useModal();
+    const { isShowing: isShowingWalletLong, toggle: toggleWalletLong } = useModal();
+    const { isShowing: isShowingNotificationDownload, toggle: toggleNotificationDownload } = useModal();
     const { loading, connectWallet, refreshWallet, disconnectWallet, lucid, wallet } = useContext<LucidContextType>(LucidContext);
 
     useEffect(() => {
@@ -45,6 +46,7 @@ const ConnectWallet = function ({}: Props) {
     const handleConnectWallet = async function (wallet: WalletType) {
         try {
             if (!(await wallet.checkApi())) {
+                toggleNotificationDownload();
             }
             connectWallet({
                 api: wallet.api,
@@ -115,7 +117,7 @@ const ConnectWallet = function ({}: Props) {
                                     </div>
                                 );
                             })}
-                            <div className={cx("wallet-short-container")}>
+                            <div onClick={toggleWalletLong} className={cx("wallet-short-container")}>
                                 <span className={cx("wallet-short-name")}>View all</span>
                             </div>
                         </div>
@@ -123,7 +125,51 @@ const ConnectWallet = function ({}: Props) {
                 </Button>
             )}
 
-            <Modal isShowing={isShowing} toggle={toggle}></Modal>
+            <Modal isShowing={isShowingWalletLong} toggle={toggleWalletLong}>
+                <div className={cx("wallet-long-wrapper")}>
+                    <header className={cx("wallet-long-header")}>
+                        <h2 className={cx("wallet-long-title")}>Select wallet to connect</h2>
+                        <div className={cx("wallet-long-close")} onClick={toggleWalletLong}>
+                            <CloseIcon />
+                        </div>
+                    </header>
+                    <section className={cx("wallet-long-list")}>
+                        {wallets.map(function (wallet: WalletType, index: number) {
+                            return (
+                                <div
+                                    key={index}
+                                    className={cx("wallet-long-item")}
+                                    onClick={() => {
+                                        handleConnectWallet(wallet);
+                                        toggleWalletLong();
+                                    }}
+                                >
+                                    <div className={cx("wallet-long-content")}>
+                                        <Image src={wallet.image} alt="" className={cx("wallet-long-image")} />
+                                        <div className={cx("wallet-long-name")}>{wallet.name} wallet</div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </section>
+                </div>
+            </Modal>
+
+            <Modal isShowing={isShowingNotificationDownload} toggle={toggleNotificationDownload}>
+                <div className={cx("wallet-download")}>
+                    <section className={cx("nowallet-content")}>
+                        <p>The selected ({wallet?.name}) wallet has not been installed. Do you want to visit Chrome Web Store and install it now?</p>
+                    </section>
+                    <div className={cx("nowallet-button")}>
+                        <Button className={cx("button-ok")} onClick={toggleNotificationDownload}>
+                            CANCEL
+                        </Button>
+                        <Link target="_blank" href={String(wallet?.downloadApi)} className={cx("button-cancel")} rel="noopener noreferrer">
+                            OK
+                        </Link>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };

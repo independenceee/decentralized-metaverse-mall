@@ -8,7 +8,7 @@ import {
     FaAddressCard as AddressCardIcon,
 } from "react-icons/fa";
 import { IoLogOutOutline as LogoutIcon } from "react-icons/io5";
-import { AiFillHome as HomeIcon } from "react-icons/ai";
+import { AiFillHome as HomeIcon, AiOutlineClose as CloseIcon } from "react-icons/ai";
 import { IoIosArrowDown as ArrowDownIcon } from "react-icons/io";
 import { GrTransaction as TransactionIcon } from "react-icons/gr";
 import { FiRefreshCw as RefreshIcon } from "react-icons/fi";
@@ -28,4 +28,5 @@ export {
     LogoutIcon,
     RefreshIcon,
     CopyIcon,
+    CloseIcon,
 };

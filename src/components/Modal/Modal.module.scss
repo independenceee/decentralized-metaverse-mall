@@ -7,20 +7,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100000;
     overflow: hidden;
 
-    &.transparent {
+    .modal {
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0);
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.3);
     }
-}
-
-.modal {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
 }
