@@ -1,0 +1,118 @@
+@import "@/styles/layouts.scss";
+
+.wrapper {
+    @extend .container;
+}
+
+.fags {
+    background: #4a28a9;
+    padding: 10rem 0;
+}
+
+.tab-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper-inner {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.tab-item-wrapper {
+    padding: 0 1rem;
+}
+
+.tab-item {
+    display: block;
+    border: 2px solid #7049df;
+    background: transparent;
+    color: #fff !important;
+    padding: 1rem 2.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-weight: 400;
+    &.tab-item-active {
+        border: 2px solid #3d1f94;
+        background: #3d1f94;
+    }
+}
+
+.accordion-list {
+    width: 100%;
+}
+
+.answer {
+    display: none;
+    font-size: 1.4rem;
+    color: #7e5ed7;
+    margin-top: 12px;
+}
+
+.accordion-item {
+    background: #3d1f94;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    transition: 0.5s;
+    &.accordion-item-active {
+        overflow: hidden;
+        opacity: 0.8;
+        .answer {
+            display: block;
+        }
+    }
+}
+
+.question {
+    font-size: 2rem;
+    padding-right: 2.5rem;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 18px;
+        width: 4px;
+        background: #7e5ed7;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 18px;
+        width: 4px;
+        background: #7e5ed7;
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 991px) {
+    .tab-list {
+        width: 100%;
+        flex-direction: column;
+    }
+    .tab-item-wrapper {
+        width: 100%;
+    }
+    .tab-item {
+        width: 100%;
+    }
+
+    .tab-item {
+        border: 2px solid transparent;
+
+        &.tab-item-active {
+            border: 2px solid #3d1f94;
+            background: #3d1f94;
+        }
+    }
+    .wrapper-inner {
+        width: 100%;
+    }
+}

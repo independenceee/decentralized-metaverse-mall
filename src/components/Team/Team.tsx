@@ -46,14 +46,14 @@ const Founder = function ({ firstName, lastName, description, facebookLink, twit
                             )}
                             {linkedinLink && (
                                 <li className={cx("social-media-item")}>
-                                    <Link className={cx("social-media-link")} href="javascript:void(0)">
+                                    <Link className={cx("social-media-link")} href="#">
                                         <LinkedinIcon className={cx("social-media-icon")} />
                                     </Link>
                                 </li>
                             )}
                             {rrsLink && (
                                 <li className={cx("social-media-item")}>
-                                    <Link className={cx("social-media-link")} href="javascript:void(0)">
+                                    <Link className={cx("social-media-link")} href="#">
                                         <RssIcon className={cx("social-media-icon")} />
                                     </Link>
                                 </li>
