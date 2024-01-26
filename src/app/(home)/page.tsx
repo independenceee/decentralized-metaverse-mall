@@ -58,7 +58,7 @@ const HomePage = function ({}: Props) {
 
     return (
         <PublicLayout>
-            <section id="#" className={cx("banner-wrapper")}>
+            <section id="home" className={cx("banner-wrapper")}>
                 <Banner />
             </section>
             <section id="about" className={cx("about-wrapper")}>

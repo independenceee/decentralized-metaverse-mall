@@ -38,19 +38,19 @@ const Timeline = function ({ timelines }: Props) {
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.timeline({ scrollTrigger: { trigger: timelineRef.current, start: "top center", end: "bottom center" } })
-                .fromTo("#gsap-timeline_linethrough", { width: 0 }, { width: "100%", duration: 2, ease: "power2.inOut" })
-                .fromTo(".gsap-dot", { scale: 0 }, { scale: 1, duration: 1, ease: "power2.out" })
-                .fromTo(".gsap-vertical-line-up", { scaleY: 0, transformOrigin: "bottom" }, { scaleY: 1, duration: 1, ease: "power2.out" })
-                .fromTo(".gsap-vertical-line-down", { scaleY: 0, transformOrigin: "top" }, { scaleY: 1, duration: 1, ease: "power2.out" }, "<")
+                .fromTo("#gsap-timeline_linethrough", { width: 0 }, { width: "100%", duration: 1.5, ease: "power2.inOut" })
+                .fromTo(".gsap-dot", { scale: 0 }, { scale: 1, duration: 0.7, ease: "power2.out" })
+                .fromTo(".gsap-vertical-line-up", { scaleY: 0, transformOrigin: "bottom" }, { scaleY: 1, duration: 0.7, ease: "power2.out" })
+                .fromTo(".gsap-vertical-line-down", { scaleY: 0, transformOrigin: "top" }, { scaleY: 1, duration: 0.7, ease: "power2.out" }, "<")
                 .fromTo(
                     [".gsap-timeline-content-odd", ".gsap-date-odd"],
                     { opacity: 0, y: -80 },
-                    { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+                    { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
                 )
                 .fromTo(
                     [".gsap-timeline-content-even", ".gsap-date-even"],
                     { opacity: 0, y: 80 },
-                    { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+                    { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
                     "<0.3",
                 );
         }, timelineRef);

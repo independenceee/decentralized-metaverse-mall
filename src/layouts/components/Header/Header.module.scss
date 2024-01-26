@@ -34,10 +34,12 @@
     list-style-type: none;
 }
 
-
-
 @media (max-width: 991px) {
     .nav-list {
         display: none;
+    }
+
+    .logo {
+        max-width: 100px;
     }
 }
