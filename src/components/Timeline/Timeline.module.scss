@@ -84,9 +84,9 @@
     }
 }
 
-.gsap-timeline-content {
+.timeline-content {
     text-align: center;
-    padding: 0 2rem;
+    padding: 3rem 2rem;
 }
 
 .timeline-title {
@@ -108,8 +108,8 @@
     --vertical-line-height: 3rem;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: -2rem;
+    left: calc(50% - 2px);
+    transform: translateX(-50%);
     width: 0.4rem;
     height: 6rem;
     background: #6c44db;
@@ -123,5 +123,3 @@
         transform: translateY(calc((50% - var(--vertical-line-height)) * -1));
     }
 }
-
-// Custom slick slider
