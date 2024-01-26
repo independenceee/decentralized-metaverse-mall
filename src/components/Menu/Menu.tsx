@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import configs from "@/configs";
 import { publicRoutes } from "@/routes";
@@ -25,7 +25,7 @@ function Menu({ isShowing, toggle }: Props) {
 
     return (
         <Modal isShowing={isShowing} toggle={toggle}>
-            <nav className={cx("menu-wrapper")}>
+            <nav className={cx("menu-wrapper") + " gsap-slider"} data-aos="fade-right">
                 <ul className={cx("nav-list")}>
                     {publicRoutes.map(function ({ name, redirect }, index: number) {
                         return (

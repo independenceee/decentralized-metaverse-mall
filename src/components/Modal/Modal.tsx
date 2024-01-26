@@ -12,9 +12,9 @@ type Props = {
     transparent?: boolean;
 };
 
-const Modal: React.FC<Props> = function ({ isShowing, toggle, children, transparent }: Props) {
+const Modal: React.FC<Props> = function ({ isShowing, toggle, children }: Props) {
     useEffect(() => {
-        document.body.style.overflow = isShowing ? "hidden" : "auto";
+        document.body.style.overflowY = isShowing ? "hidden" : "auto";
     }, [isShowing]);
 
     if (!isShowing) return;

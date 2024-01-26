@@ -19,7 +19,7 @@ const cx = classNames.bind(styles);
 
 const Header = function ({}: Props) {
     const [selected, setSelected] = useState<string>(configs.routes.home);
-    const [isScrolled, setIsScrolled] = useState<boolean>(false);
+    const [isScrolled, setIsScrolled] = useState<boolean>(false || window.scrollY > 0);
 
     useEffect(() => {
         const handleScroll = function () {
