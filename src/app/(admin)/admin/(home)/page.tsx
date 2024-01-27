@@ -11,7 +11,7 @@ const AdminHomePage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
             <div className={cx("inner")}>
-                <Transactions transactions={""} />
+                {/* <Transactions transactions={""} /> */}
             </div>
         </div>
     );
