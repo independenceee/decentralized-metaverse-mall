@@ -4,7 +4,7 @@ import styles from "./Transaction.module.scss";
 import { AddIcon } from "@/components/Icons";
 
 type Props = {
-    transactions: any;
+    transactions: { id: number; name: string; image: string; date: string; amount: number }[];
 };
 
 const cx = classNames.bind(styles);
@@ -20,7 +20,7 @@ const Transactions = function ({ transactions }: Props) {
             </header>
             <aside className="grid-content">
                 <div className="grid-items">
-                    {transactions.map((transaction: any) => (
+                    {transactions.map((transaction) => (
                         <div className="grid-item" key={transaction.id}>
                             <div className="grid-item-l">
                                 <div className="avatar img-fit-cover">

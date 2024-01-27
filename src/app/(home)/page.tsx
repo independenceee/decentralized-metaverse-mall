@@ -98,7 +98,7 @@ const teams = [
 
 const HomePage = function ({}: Props) {
     const data = [20.5, 20.3, 15, 25, 20];
-
+    
     return (
         <PublicLayout>
             <section id="home" className={cx("banner-wrapper")}>

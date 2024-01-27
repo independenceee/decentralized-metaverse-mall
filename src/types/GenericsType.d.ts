@@ -56,7 +56,7 @@ export type VoucherType = {
     status: VoucherStatus;
 };
 
-enum VoucherStatus {
-    "USED",
-    "FREE",
+export enum VoucherStatus {
+    USED = "USED",
+    FREE = "FREE",
 }
