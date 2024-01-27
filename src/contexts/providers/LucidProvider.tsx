@@ -14,11 +14,12 @@ const LucidProvider = function ({ children }: Props) {
     const [wallet, setWallet] = useState<WalletType>(null!);
     const [loading, setLoading] = useState<boolean>(false);
 
+    console.log(process.env.BLOCKFROST_RPC_URL_PREPROD);
     const connectWallet = async function ({ name, api, image }: WalletType) {
         try {
             setLoading(true);
             const lucid: Lucid = await Lucid.new(
-                new Blockfrost("https://cardano-preprod.blockfrost.io/api/v0", "preprodQfe5parraxgP3k0IqDnrptIvZVBejjsS"),
+                new Blockfrost(process.env.BLOCKFROST_RPC_URL_PREPROD!, process.env.BLOCKFROST_PROJECT_API_KEY_PREPROD!),
                 "Preprod",
             );
             lucid.selectWallet(await api());
