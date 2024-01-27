@@ -1,0 +1,69 @@
+.table {
+    border: 1px solid transparent;
+    border-radius: 1.6rem;
+    overflow: hidden;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    .table-header {
+        background: #4a28a9;
+        color: var(--white-color);
+    }
+    .table-body {
+        background-color: #f8f8f8;
+        .table-row {
+            border: 1px solid #ddd;
+        }
+    }
+    .table-row {
+        padding: 0.35em;
+    }
+
+    .table-header-title,
+    .table-column {
+        padding: 0.625em;
+        text-align: center;
+    }
+
+    .table-header-title {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+}
+
+.checkbox-column {
+    width: 15%;
+}
+
+.table-column {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 2rem;
+    .icon-action-wrapper {
+        flex-shrink: 0;
+    }
+}
+.checkbox {
+    width: 10%;
+}
+.status-column {
+    width: 15%;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+}

@@ -1,35 +1,30 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import classNames from "classnames";
+import { CiEdit } from "react-icons/ci";
+import { IoTrashOutline } from "react-icons/io5";
+import classNames from "classnames/bind";
+import { VoucherStatus } from "@/types/GenericsType";
 
 import styles from "./Table.module.scss";
-import { VoucherStatus } from "@/types/GenericsType";
-const cx = classNames.bind;
+const cx = classNames.bind(styles);
 
-function createData(name: string, trackingId: number, date: string, status: string) {
-    return { name, trackingId, date, status };
+function createData(id: string, date: string, code: string, status: string) {
+    return { id, date, code, status };
 }
 
 const rows = [
-    createData("Lasania Chiken Fri", 18908424, "2 March 2022", "Approved"),
-    createData("Big Baza Bang ", 18908424, "2 March 2022", "Pending"),
-    createData("Mouth Freshner", 18908424, "2 March 2022", "Approved"),
-    createData("Cupcake", 18908421, "2 March 2022", "Delivered"),
+    createData("1", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "FREE"),
+    createData("2", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "USED"),
+    createData("3", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "FREE"),
+    createData("4", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "USED"),
 ];
 
 const makeStyle = (status: string) => {
-    if (status === VoucherStatus.FREE) {
+    if (status === "FREE") {
         return {
             background: "rgb(145 254 159 / 47%)",
             color: "green",
         };
-    } else if (status === VoucherStatus.USED) {
+    } else if (status === "USED") {
         return {
             background: "#cccccc",
             color: "#323232",
@@ -39,40 +34,58 @@ const makeStyle = (status: string) => {
 
 export default function CustomTable() {
     return (
-        <div className="Table">
-            <h3>Recent Orders</h3>
-            <TableContainer component={Paper} style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Product</TableCell>
-                            <TableCell align="left">Tracking ID</TableCell>
-                            <TableCell align="left">Date</TableCell>
-                            <TableCell align="left">Status</TableCell>
-                            <TableCell align="left"></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody style={{ color: "white" }}>
-                        {rows.map((row) => (
-                            <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                                <TableCell component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="left">{row.trackingId}</TableCell>
-                                <TableCell align="left">{row.date}</TableCell>
-                                <TableCell align="left">
-                                    <span className="status" style={makeStyle(row.status)}>
-                                        {row.status}
-                                    </span>
-                                </TableCell>
-                                <TableCell align="left" className="Details">
-                                    Details
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+        <div className={cx("wrapper")}>
+            <div className="wrapper-inner" style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
+                <table className={cx("table")}>
+                    <thead className={cx("table-header")}>
+                        <tr className={cx("table-row")}>
+                            <th className={cx("table-header-title", "checkbox-column")} scope="col"></th>
+                            <th className={cx("table-header-title")} scope="col">
+                                Date
+                            </th>
+                            <th className={cx("table-header-title")} scope="col">
+                                Code
+                            </th>
+                            <th className={cx("table-header-title", "status-column")} scope="col">
+                                Status
+                            </th>
+                            <th className={cx("table-header-title")} scope="col">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className={cx("table-body")}>
+                        {rows.map((row) => {
+                            return (
+                                <tr className={cx("table-row")} key={row.id}>
+                                    <td className={cx("table-column", "checkbox-column")} data-label="Account">
+                                        <input type="checkbox" />
+                                    </td>
+                                    <td className={cx("table-column")} data-label="Account">
+                                        {row.date}
+                                    </td>
+                                    <td className={cx("table-column", "voucher-code")} data-label="Due Date">
+                                        {row.code}
+                                    </td>
+                                    <td className={cx("table-column", "status-column")} data-label="Amount">
+                                        <span style={makeStyle(row.status)} className={cx("status")}>
+                                            {row.status}
+                                        </span>
+                                    </td>
+                                    <td className={cx("table-column", "actions")} data-label="Period">
+                                        <span className={cx("icon-action-wrapper")}>
+                                            <CiEdit className={cx("icon-action")} />
+                                        </span>
+                                        <span className={cx("icon-action-wrapper")}>
+                                            <IoTrashOutline className={cx("icon-action")} />
+                                        </span>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

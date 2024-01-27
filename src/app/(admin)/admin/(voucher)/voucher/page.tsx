@@ -8,7 +8,11 @@ type Props = {};
 const cx = classNames.bind(styles);
 
 const AdminVoucherPage = function ({}: Props) {
-    return <>{/* <Table /> */}</>;
+    return (
+        <>
+            <Table />
+        </>
+    );
 };
 
 export default AdminVoucherPage;
