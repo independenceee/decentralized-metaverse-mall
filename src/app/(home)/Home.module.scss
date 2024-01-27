@@ -20,11 +20,11 @@
 
 .service-container {
     @extend .container;
-
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(34rem, 1fr));
     gap: 3rem;
 }
+
 /* service-end */
 
 /* token-sale-begin */

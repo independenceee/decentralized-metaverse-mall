@@ -18,10 +18,6 @@ type Props = {
 const SidebarOption = function ({ name, redirect, isActive, Icon, setSelected }: Props) {
     const router = useRouter();
 
-    if (isActive) {
-        console.log(name);
-    }
-
     const handleClick = function (content = name) {
         if (setSelected && redirect) {
             setSelected(content);

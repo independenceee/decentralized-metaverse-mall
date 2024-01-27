@@ -10,6 +10,7 @@ import styles from "./Header.module.scss";
 import configs from "@/configs";
 import Hamburger from "@/components/Hamburger";
 import Logo from "@/components/Logo";
+import { useScroll } from "@/hooks";
 
 const ConnectWallet = lazy(() => import("@/layouts/components/ConnectWallet"));
 
@@ -19,15 +20,7 @@ const cx = classNames.bind(styles);
 
 const Header = function ({}: Props) {
     const [selected, setSelected] = useState<string>(configs.routes.home);
-    const [isScrolled, setIsScrolled] = useState<boolean>(false || window.scrollY > 0);
-
-    useEffect(() => {
-        const handleScroll = function () {
-            setIsScrolled(window.scrollY > 0);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    });
+    const [isScrolled] = useScroll({ offset: 0 });
 
     return (
         <header

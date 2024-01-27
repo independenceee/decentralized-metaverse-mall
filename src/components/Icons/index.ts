@@ -7,7 +7,7 @@ import {
     FaYoutube as YoutubeIcon,
     FaAddressCard as AddressCardIcon,
 } from "react-icons/fa";
-import { IoLogOutOutline as LogoutIcon } from "react-icons/io5";
+import { IoLogOutOutline as LogoutIcon, IoAdd as AddIcon } from "react-icons/io5";
 import { AiFillHome as HomeIcon, AiOutlineClose as CloseIcon } from "react-icons/ai";
 import { IoIosArrowDown as ArrowDownIcon } from "react-icons/io";
 import { GrTransaction as TransactionIcon } from "react-icons/gr";
@@ -29,4 +29,5 @@ export {
     RefreshIcon,
     CopyIcon,
     CloseIcon,
+    AddIcon,
 };
