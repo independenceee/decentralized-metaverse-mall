@@ -10,9 +10,11 @@ const cx = classNames.bind(styles);
 const AdminHomePage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("inner")}>
-                {/* <Transactions transactions={""} /> */}
-            </div>
+            <header className={cx("header")}>
+                <Transactions type="transaction" />
+                <Transactions type="voucher" />
+                <Transactions type="addition" />
+            </header>
         </div>
     );
 };
