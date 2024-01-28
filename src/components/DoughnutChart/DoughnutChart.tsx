@@ -7,21 +7,25 @@ import "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import classNames from "classnames/bind";
 import styles from "./DoughnutChart.module.scss";
-import Title from "../Title";
+import { converToSocialNumber } from "@/helpers/utils";
+import { TokenomicType } from "@/types/GenericsType";
 
 ChartJS.register(ChartDataLabels);
 const cx = classNames.bind(styles);
 
 type Props = {
-    data: number[];
+    data: TokenomicType[];
 };
 
+const colors: string[] = ["#F85D77", "#F8C04E", "#AC56F7", "#61F89F", "#5AD6F8", "#F85D77", "#F8C04E", "#AC56F7", "#61F89F", "#5AD6F8", "#AC56F7"];
+
 function DoughnutChart({ data }: Props) {
-    const [chartData, setChartData] = useState({
+    const extendedTokenomics = data.map((item, index) => ({ ...item, color: colors[index] }));
+    const chartData = {
         datasets: [
             {
-                data: data,
-                backgroundColor: ["#F85D77", "#F8C04E", "#AC56F7", "#61F89F", "#5AD6F8"],
+                data: data.map((item) => item.percentage),
+                backgroundColor: colors,
                 borderColor: "#3D1F94",
                 borderWidth: 6,
                 hoverOffset: 2,
@@ -36,8 +40,7 @@ function DoughnutChart({ data }: Props) {
                 },
             },
         ],
-    });
-
+    };
     const options = {
         plugins: {
             tooltip: {
@@ -45,33 +48,6 @@ function DoughnutChart({ data }: Props) {
             },
         },
     };
-
-    const statistics: {
-        percentage: number;
-        label: string;
-        color: string;
-    }[] = [
-        {
-            percentage: 12,
-            label: "Gift Code Inventory",
-            color: "#F85D77",
-        },
-        {
-            percentage: 32,
-            label: "Bounty and Overhead",
-            color: "#F8C04E",
-        },
-        {
-            percentage: 38,
-            label: "Bonus & found",
-            color: "#AC56F7",
-        },
-        {
-            percentage: 73,
-            label: "Finacial Overhead",
-            color: "#61F89F",
-        },
-    ];
 
     return (
         <div className={cx("doughnut-chart")}>
@@ -89,11 +65,12 @@ function DoughnutChart({ data }: Props) {
                             </div>
                         </div>
                         <ul className={cx("statistic-wrapper")}>
-                            {statistics.map((item, index) => (
+                            {extendedTokenomics.map((item, index) => (
                                 <li key={index} className={cx("statistic-item")}>
                                     <span style={{ "--color": item.color } as Record<string, string>} className={cx("diff-color")} />
                                     <span>
-                                        &nbsp;&nbsp;{item.percentage}% {item.label}
+                                        &nbsp;&nbsp;{item.percentage}% - {converToSocialNumber(item.tokens)} {item.tokenName} tokens for&nbsp;
+                                        {item.forDepartment}
                                     </span>
                                 </li>
                             ))}

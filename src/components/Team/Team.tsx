@@ -4,29 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { FacebookIcon, LinkedinIcon, RssIcon, TwitterIcon } from "@/components/Icons";
 import styles from "./Team.module.scss";
+import { TeamType } from "@/types/GenericsType";
 
-type Props = {
-    firstName: string;
-    lastName: string;
-    description: string;
-    image: string;
-    facebookLink?: string;
-    twitterLink?: string;
-    linkedinLink?: string;
-    rrsLink?: string;
-};
+type Props = TeamType;
 
 const cx = classNames.bind(styles);
 
-const Founder = function ({ firstName, lastName, description, facebookLink, twitterLink, linkedinLink, rrsLink, image }: Props) {
+const Founder = function ({ username, description, facebookLink, twitterLink, linkedinLink, rrsLink, image }: Props) {
     return (
         <div className={cx("wrapper")}>
             <div className={cx("inner")}>
                 <div className={cx("image-container")}>
-                    <Image className={cx("image")} src={image} alt="Cryptoz" />
+                    <Image className={cx("image")} src={image} alt="Member Avatar" />
                 </div>
                 <div className={cx("infomation")}>
-                    <h3 className={cx("name")}>{firstName + " " + lastName}</h3>
+                    <h3 className={cx("name")}>{username}</h3>
                     <span className={cx("description")}>{description}</span>
                     <div className={cx("social-media")}>
                         <ul className={cx("social-media-list")}>

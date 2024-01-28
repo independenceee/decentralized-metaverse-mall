@@ -5,7 +5,7 @@ import Title from "@/components/Title";
 import Team from "@/components/Team";
 import images from "@/assets/images";
 import Timeline from "@/components/Timeline";
-import { FounderType, ServiceType, TimeLineType } from "@/types/GenericsType";
+import { ServiceType, TeamType } from "@/types/GenericsType";
 import Banner from "@/components/Banner";
 import Service from "@/components/Service";
 import services from "@/data/services";
@@ -14,91 +14,15 @@ import About from "@/components/About";
 import styles from "./Home.module.scss";
 import Contact from "@/components/Contact";
 import Faqs from "@/components/Faqs";
+import tokenomics from "@/data/tokenomics";
+import roadmaps from "@/data/roadmap";
+import teams from "@/data/teams";
 
 type Props = {};
 
 const cx = classNames.bind(styles);
 
-const timelines: TimeLineType[] = [
-    {
-        title: "Concept",
-        description: "Calculate the number of tokens you’ll receive, you can follow the following formula.",
-        datetime: "Apr 2019",
-    },
-    {
-        title: "Concept",
-        description:
-            "Calculate the number of tokens you’ll receive, you can follow the following formula.Calculate the number of tokens you’ll receive, you can follow the following formula.Calculate the number of tokens you’ll receive, you can follow the following formula.",
-        datetime: "Apr 2019",
-    },
-    {
-        title: "Concept",
-        description: "Calculate the number of tokens you’ll receive, you can follow the following formula.",
-        datetime: "Apr 2019",
-    },
-    {
-        title: "Concept",
-        description: "Calculate the number of tokens you’ll receive, you can follow the following formula.",
-        datetime: "Apr 2019",
-    },
-    {
-        title: "Concept",
-        description: "Calculate the number of tokens you’ll receive, you can follow the following formula.",
-        datetime: "Apr 2019",
-    },
-    {
-        title: "Concept",
-        description: "Calculate the number of tokens you’ll receive, you can follow the following formula.",
-        datetime: "Apr 2019",
-    },
-];
-
-const teams = [
-    {
-        description: "CEO & Lead Blockchain",
-        firstName: "Nguyen",
-        lastName: "Khanh",
-        image: images.logo,
-        linkedinLink: "#",
-        facebookLink: "#",
-        rrsLink: "#",
-        twitterLink: "#",
-    },
-    {
-        description: "CEO & Lead Blockchain",
-        firstName: "Nguyen",
-        lastName: "Khanh",
-        image: images.logo,
-        linkedinLink: "#",
-        facebookLink: "#",
-        rrsLink: "#",
-        twitterLink: "#",
-    },
-    {
-        description: "CEO & Lead Blockchain",
-        firstName: "Nguyen",
-        lastName: "Khanh",
-        image: images.logo,
-        linkedinLink: "#",
-        facebookLink: "#",
-        rrsLink: "#",
-        twitterLink: "#",
-    },
-    {
-        description: "CEO & Lead Blockchain",
-        firstName: "Nguyen",
-        lastName: "Khanh",
-        image: images.logo,
-        linkedinLink: "#",
-        facebookLink: "#",
-        rrsLink: "#",
-        twitterLink: "#",
-    },
-];
-
 const HomePage = function ({}: Props) {
-    const data = [20.5, 20.3, 15, 25, 20];
-    
     return (
         <PublicLayout>
             <section id="home" className={cx("banner-wrapper")}>
@@ -116,27 +40,26 @@ const HomePage = function ({}: Props) {
                 </div>
             </section>
             <section id="token-sale" className={cx("token-sale-wrapper")}>
-                <DoughnutChart data={data} />
+                <DoughnutChart data={tokenomics} />
             </section>
             <section id="roadmap" className={cx("roadmap-wrapper")}>
                 <Title title="Roadmap" subTitle="Emergence and design of the idea" />
-                <Timeline timelines={timelines} />
+                <Timeline timelines={roadmaps} />
             </section>
             <section id="team" className={cx("team-wrapper")}>
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />
                 <div className={cx("team-container")}>
-                    {teams.map(function (team: FounderType, index: number) {
+                    {teams.map((team: TeamType) => {
                         return (
                             <Team
-                                key={index}
-                                description="CEO & Lead Blockchain"
-                                firstName="Nguyen"
-                                lastName="Khanh"
-                                image={images.logo}
-                                linkedinLink="#"
-                                facebookLink="#"
-                                rrsLink="#"
-                                twitterLink="#"
+                                key={team.id}
+                                description={team.description}
+                                username={team.username}
+                                image={team.image}
+                                linkedinLink={team.linkedinLink}
+                                facebookLink={team.facebookLink}
+                                rrsLink={team.rrsLink}
+                                twitterLink={team.twitterLink}
                             />
                         );
                     })}

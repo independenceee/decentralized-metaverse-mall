@@ -17,8 +17,8 @@ export type ServiceType = {
     description: string;
 };
 
-export type TimeLineType = {
-    id?: string;
+export type RoadmapType = {
+    id?: number;
     title?: string;
     description?: string;
     datetime?: string;
@@ -59,3 +59,11 @@ export enum VoucherStatus {
     USED = "USED",
     FREE = "FREE",
 }
+
+export type TokenomicType = {
+    id: number;
+    tokens: number;
+    tokenName: string;
+    percentage: number;
+    forDepartment: string;
+};
