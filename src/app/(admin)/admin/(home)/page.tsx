@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./AdminHome.module.scss";
 import Transactions from "@/components/Transactions";
+import Table from "@/components/Table";
 
 type Props = {};
 
@@ -15,6 +16,9 @@ const AdminHomePage = function ({}: Props) {
                 <Transactions type="voucher" />
                 <Transactions type="addition" />
             </header>
+            <aside>
+                <Table />
+            </aside>
         </div>
     );
 };

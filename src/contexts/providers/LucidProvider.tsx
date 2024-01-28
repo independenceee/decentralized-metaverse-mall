@@ -14,7 +14,6 @@ const LucidProvider = function ({ children }: Props) {
     const [wallet, setWallet] = useState<WalletType>(null!);
     const [loading, setLoading] = useState<boolean>(false);
 
-    console.log(process.env.BLOCKFROST_RPC_URL_PREPROD);
     const connectWallet = async function ({ name, api, image }: WalletType) {
         try {
             setLoading(true);

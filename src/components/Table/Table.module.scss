@@ -1,6 +1,6 @@
 .table {
     border: 1px solid transparent;
-    border-radius: 1.6rem;
+    border-radius: 0.4rem;
     overflow: hidden;
     border-collapse: collapse;
     margin: 0;
@@ -9,9 +9,11 @@
     table-layout: fixed;
     color: var(--primary-color);
     font-size: 1.4rem;
+
     .table-header {
         background: #4a28a9;
         color: var(--white-color);
+        
     }
     .table-body {
         background-color: #f8f8f8;
