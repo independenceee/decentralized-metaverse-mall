@@ -2,6 +2,7 @@ import * as React from "react";
 import { CiEdit } from "react-icons/ci";
 import { IoTrashOutline } from "react-icons/io5";
 import classNames from "classnames/bind";
+import { Pagination, Stack } from "@mui/material";
 import { VoucherStatus } from "@/types/GenericsType";
 
 import styles from "./Table.module.scss";
@@ -33,6 +34,7 @@ const makeStyle = (status: string) => {
 };
 
 export default function CustomTable() {
+    const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {};
     return (
         <div className={cx("wrapper")}>
             <div className="wrapper-inner" style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
@@ -85,6 +87,10 @@ export default function CustomTable() {
                         })}
                     </tbody>
                 </table>
+
+                <Stack color={"#fff"} spacing={2}>
+                    <Pagination count={10} page={1} shape="rounded" />
+                </Stack>
             </div>
         </div>
     );
