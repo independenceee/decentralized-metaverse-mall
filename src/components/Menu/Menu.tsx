@@ -7,6 +7,7 @@ import configs from "@/configs";
 import { publicRoutes } from "@/routes";
 import styles from "./Menu.module.scss";
 import Modal from "../Modal";
+import useGSAP from "@/hooks/useGSAP";
 
 const cx = classNames.bind(styles);
 
@@ -17,10 +18,11 @@ type Props = {
 
 function Menu({ isShowing, toggle }: Props) {
     const [selected, setSelected] = useState<string>(configs.routes.home);
-
+    const { handleScrollPy } = useGSAP();
     const handleRedirect = (redirect: string) => {
         setSelected(redirect);
         toggle();
+        handleScrollPy(redirect);
     };
 
     return (
