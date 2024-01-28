@@ -1,14 +1,170 @@
 .wrapper {
+    background-color: var(--secondary-color);
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 8px 24px;
+    color: var(--white-color);
+    padding: 24px;
+    min-height: 24rem;
 }
 
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
 }
 
 .title {
+    font-weight: 400;
+    color: var(--white-color);
+    font-size: 1.5rem;
 }
 
 .button {
+    cursor: pointer;
+    background: transparent;
 }
 
 .icon {
+    font-size: 2.4rem;
+    color: var(--white-color);
+}
+
+/* transaction-begin */
+.transaction-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+    width: 100%;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.transaction-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 12px;
+    transition: all 0.1s ease-in-out;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.05);
+    }
+}
+
+.transaction-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.image-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    visibility: visible;
+    object-fit: cover;
+}
+
+.transaction-infomation {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.transaction-name {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.transaction-datetime {
+    font-size: 1.2rem;
+}
+
+.transaction-right {
+    font-size: 1.6rem;
+}
+
+/* transaction-end */
+
+/* voucher-begin */
+.voucher {
+    background: linear-gradient(114.07deg, rgba(155, 146, 141, 0.6) 3.49%, rgba(66, 59, 55, 0) 34.7%),
+        linear-gradient(138.58deg, rgba(121, 90, 64, 0.37) 43.56%, var(--primary-color) 112.68%);
+    flex: 1;
+    border-radius: 10px;
+    padding: 16px;
+
+    p {
+        font-size: 1.8rem;
+    }
+}
+
+.amount {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+}
+
+.voucher-wrapper {
+    display: flex;
+    font-size: 1.5rem;
+}
+
+.hidden {
+    margin-right: 1rem;
+    letter-spacing: 1.5;
+}
+.card-pin-hidden {
+    font-size: 32px;
+    margin-right: 8px;
+}
+
+.card-logo-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-logo {
+    display: flex;
+}
+
+.logo-shape1,
+.logo-shape2 {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+}
+.logo-shape1 {
+    background-color: var(--text-color);
+    margin-right: -15px;
+    z-index: 0;
+}
+.logo-shape2 {
+    background-color: var(--white-color);
+}
+
+/* voucher-end */
+
+.addition {
+    font-size: 1.5rem;
+}
+@media screen and (max-width: 1400px) {
+    .wrapper {
+        padding: 16px;
+    }
 }

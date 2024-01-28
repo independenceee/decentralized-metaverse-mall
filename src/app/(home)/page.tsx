@@ -8,7 +8,7 @@ import Timeline from "@/components/Timeline";
 import { FounderType, ServiceType, TimeLineType } from "@/types/GenericsType";
 import Banner from "@/components/Banner";
 import Service from "@/components/Service";
-import services from "@/constants/services";
+import services from "@/data/services";
 import DoughnutChart from "@/components/DoughnutChart";
 import About from "@/components/About";
 import styles from "./Home.module.scss";
@@ -98,7 +98,7 @@ const teams = [
 
 const HomePage = function ({}: Props) {
     const data = [20.5, 20.3, 15, 25, 20];
-
+    
     return (
         <PublicLayout>
             <section id="home" className={cx("banner-wrapper")}>

@@ -6,8 +6,10 @@ type Props = {};
 
 const cx = classNames.bind(styles);
 
+// TODO Import theo lô (cvs: số lượng token cần chuyển + địa chỉ ví)
+
 const AdminTransactionPage = function ({}: Props) {
-    return <></>;
+    return <div className={cx("wrapper")}></div>;
 };
 
 export default AdminTransactionPage;

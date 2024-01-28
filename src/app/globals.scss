@@ -41,10 +41,12 @@ ol {
 
 a {
     text-decoration: none;
+    color: unset;
     color: var(--white-color);
 }
 
 input,
+button,
 textarea {
     border: none;
     outline: none;

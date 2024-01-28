@@ -34,3 +34,29 @@ export type WalletType = {
     api: () => Promise<any> | any;
     checkApi: () => Promise<any> | any;
 };
+
+export type AccountType = {
+    id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+
+    walletAddress: string;
+    stakeKey?: string;
+
+    email?: string;
+    username?: string;
+};
+
+export type VoucherType = {
+    id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+
+    code: string;
+    status: VoucherStatus;
+};
+
+export enum VoucherStatus {
+    USED = "USED",
+    FREE = "FREE",
+}

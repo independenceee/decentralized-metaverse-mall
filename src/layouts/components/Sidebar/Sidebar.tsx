@@ -7,7 +7,7 @@ import Image from "next/image";
 import images from "@/assets/images";
 import { privateRoutes } from "@/routes";
 import SidebarOption from "./SidebarOption";
-import ModalContext from "@/contexts/components/ModalContextType";
+import ModalContext from "@/contexts/components/ModalContext";
 import { ModalContextType } from "@/types/contexts/ModalContextType";
 import Logo from "@/components/Logo";
 

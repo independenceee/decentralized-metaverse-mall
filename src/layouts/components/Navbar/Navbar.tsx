@@ -8,7 +8,7 @@ import ConnectWallet from "@/layouts/components/ConnectWallet";
 import Image from "next/image";
 import { useScroll } from "@/hooks";
 import { ModalContextType } from "@/types/contexts/ModalContextType";
-import ModalContext from "@/contexts/components/ModalContextType";
+import ModalContext from "@/contexts/components/ModalContext";
 import { usePathname } from "next/navigation";
 type Props = {};
 
