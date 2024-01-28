@@ -1,13 +1,12 @@
 "use client";
 
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
+import { Link } from "react-scroll";
 import configs from "@/configs";
 import { publicRoutes } from "@/routes";
 import styles from "./Menu.module.scss";
 import Modal from "../Modal";
-import useGSAP from "@/hooks/useGSAP";
 
 const cx = classNames.bind(styles);
 
@@ -18,11 +17,9 @@ type Props = {
 
 function Menu({ isShowing, toggle }: Props) {
     const [selected, setSelected] = useState<string>(configs.routes.home);
-    const { handleScrollPy } = useGSAP();
     const handleRedirect = (redirect: string) => {
         setSelected(redirect);
         toggle();
-        handleScrollPy(redirect);
     };
 
     return (
@@ -33,11 +30,15 @@ function Menu({ isShowing, toggle }: Props) {
                         return (
                             <li className={cx("nav-item")} key={index}>
                                 <Link
-                                    href={redirect}
+                                    to={redirect}
                                     className={cx("nav-item-link", {
                                         "nav-item-link-active": redirect === selected,
                                     })}
-                                    onClick={() => handleRedirect(redirect)}
+                                    spy={true}
+                                    smooth={true}
+                                    offset={-104}
+                                    onSetActive={handleRedirect}
+                                    duration={1000}
                                 >
                                     {name}
                                 </Link>
