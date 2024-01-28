@@ -14,6 +14,8 @@ import LucidContext from "@/contexts/components/LucidContext";
 import { useModal } from "@/hooks";
 import Modal from "@/components/Modal";
 import Link from "next/link";
+import WalletContext from "@/contexts/components/WalletContext";
+import { WalletContextType } from "@/types/contexts/WalletContextType";
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +27,8 @@ const ConnectWallet = function ({}: Props) {
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
     const { isShowing: isShowingWalletLong, toggle: toggleWalletLong } = useModal();
     const { isShowing: isShowingNotificationDownload, toggle: toggleNotificationDownload } = useModal();
-    const { loading, connectWallet, refreshWallet, disconnectWallet, lucid, wallet } = useContext<LucidContextType>(LucidContext);
+    const { lucid } = useContext<LucidContextType>(LucidContext);
+    const { wallet, loading, connectWallet, disconnectWallet, refreshWallet } = useContext<WalletContextType>(WalletContext);
 
     useEffect(() => {
         const handleScroll = function () {
@@ -69,8 +72,8 @@ const ConnectWallet = function ({}: Props) {
                     className={cx("connect-wallet", { scrolled: isScrolled })}
                 >
                     <div className={cx("connected-wallet-container")}>
-                        <Image className={cx("wallet-short-image")} src={wallet.image} alt="" />
-                        <span className={cx("wallet-short-name")}>{!loading && wallet.balance + " ₳"} </span>
+                        <Image className={cx("wallet-short-image")} src={wallet?.image} alt="" />
+                        <span className={cx("wallet-short-name")}>{!loading && wallet?.balance + " ₳"} </span>
                     </div>
 
                     {isOpenShowWallet && (
@@ -78,7 +81,7 @@ const ConnectWallet = function ({}: Props) {
                             <CopyToClipboard text={String(wallet.address)}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Address: </h3>
-                                    <p className={cx("show-wallet-description")}>{wallet.address}</p>
+                                    <p className={cx("show-wallet-description")}>{wallet?.address}</p>
                                     <h3 className={cx("show-wallet-name")}>
                                         <CopyIcon className={cx("show-wallet-icon")} />
                                     </h3>

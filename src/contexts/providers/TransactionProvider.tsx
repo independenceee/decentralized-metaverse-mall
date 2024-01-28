@@ -2,29 +2,31 @@
 
 import React, { ReactNode } from "react";
 import TransactionContext from "@/contexts/components/TransactionContext";
-import { Lucid, fromText } from "lucid-cardano";
+import { Lucid, TxHash, TxSigned, fromText } from "lucid-cardano";
+import { AccountType } from "@/types/GenericsType";
 
 type Props = {
     children: ReactNode;
 };
 
 const TransactionProvider = function ({ children }: Props) {
-    const sendNativeTokens = async function ({ lucid }: { lucid: Lucid }) {
-        try {
-            const policyId = process.env.POLICYID_C2E_TOKEN!;
-            const assetName = process.env.ASSETNAME_C2E_TOKEN!;
+    const sendNativeTokens = async function ({ lucid, accounts }: { lucid: Lucid; accounts: AccountType[] }): Promise<TxHash> {
+        const policyId = process.env.POLICYID_C2E_TOKEN!;
+        const assetName = process.env.ASSETNAME_C2E_TOKEN!;
 
-            const tx = await lucid
-                .newTx()
-                .payToAddress("addr_test...", { [policyId + fromText(assetName)]: BigInt(1) })
-                .complete();
+        const tx: any = await lucid.newTx();
 
-            const signedTx = await tx.sign().complete();
+        accounts.forEach(async function (account) {
+            await tx.payToAddress(account.walletAddress, { [policyId + fromText(assetName)]: BigInt(1) });
+        });
 
-            const txHash = await signedTx.submit();
-        } catch (error) {
-            console.log(error);
-        }
+        tx.complete();
+
+        const signedTx: TxSigned = await tx.sign().complete();
+        const txHash: TxHash = await signedTx.submit();
+        lucid.awaitTx(txHash);
+
+        return txHash;
     };
 
     return <TransactionContext.Provider value={{}}>{children}</TransactionContext.Provider>;

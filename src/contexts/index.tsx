@@ -4,6 +4,7 @@ import React, { ReactNode, lazy } from "react";
 
 const LucidProvider = lazy(() => import("@/contexts/providers/LucidProvider"));
 const ModalProvider = lazy(() => import("@/contexts/providers/ModalProvider"));
+const WalletProvider = lazy(() => import("@/contexts/providers/WalletProvider"));
 
 type Props = {
     children: ReactNode;
@@ -12,7 +13,9 @@ type Props = {
 const ContextProvider = function ({ children }: Props) {
     return (
         <ModalProvider>
-            <LucidProvider>{children}</LucidProvider>
+            <LucidProvider>
+                <WalletProvider>{children}</WalletProvider>
+            </LucidProvider>
         </ModalProvider>
     );
 };

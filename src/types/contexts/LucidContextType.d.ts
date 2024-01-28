@@ -1,11 +1,7 @@
 import { WalletType } from "@/types/GenericsType";
+import { Lucid } from "lucid-cardano";
 
 export type LucidContextType = {
     lucid: Lucid;
-    wallet: WalletType;
-    loading: boolean;
-
-    connectWallet: ({ api, name, image }: WalletType) => Promise<void>;
-    disconnectWallet: () => Promise<void>;
-    refreshWallet: () => Promise<void>;
+    setLucid: React.Dispatch<React.SetStateAction<Lucid>>;
 };
