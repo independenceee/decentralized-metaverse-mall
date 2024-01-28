@@ -91,6 +91,9 @@
         transform: rotate(90deg);
     }
 }
+.accordion-item-active .question::before {
+    display: none;
+}
 
 @media (max-width: 991px) {
     .tab-list {
