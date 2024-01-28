@@ -1,7 +1,6 @@
-export type FounderType = {
+export type TeamType = {
     id?: string;
-    firstName: string;
-    lastName: string;
+    username: string;
     description: string;
     image: string;
     facebookLink?: string;

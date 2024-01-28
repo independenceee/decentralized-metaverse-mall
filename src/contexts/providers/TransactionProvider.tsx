@@ -14,7 +14,7 @@ const TransactionProvider = function ({ children }: Props) {
         const policyId = process.env.POLICYID_C2E_TOKEN!;
         const assetName = process.env.ASSETNAME_C2E_TOKEN!;
 
-        const tx: any = await lucid.newTx();
+        const tx: any = lucid.newTx();
 
         accounts.forEach(async function (account) {
             await tx.payToAddress(account.walletAddress, { [policyId + fromText(assetName)]: BigInt(1) });
