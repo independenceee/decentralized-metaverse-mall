@@ -1,7 +1,7 @@
-export type FounderType = {
+export type TeamType = {
+    index: number;
     id?: string;
-    firstName: string;
-    lastName: string;
+    username: string;
     description: string;
     image: string;
     facebookLink?: string;
@@ -18,8 +18,8 @@ export type ServiceType = {
     description: string;
 };
 
-export type TimeLineType = {
-    id?: string;
+export type RoadmapType = {
+    id?: number;
     title?: string;
     description?: string;
     datetime?: string;
@@ -39,10 +39,8 @@ export type AccountType = {
     id?: string;
     createdAt?: string;
     updatedAt?: string;
-
     walletAddress: string;
     stakeKey?: string;
-
     email?: string;
     username?: string;
 };
@@ -51,7 +49,6 @@ export type VoucherType = {
     id?: string;
     createdAt?: string;
     updatedAt?: string;
-
     code: string;
     status: VoucherStatus;
 };
@@ -60,3 +57,11 @@ export enum VoucherStatus {
     USED = "USED",
     FREE = "FREE",
 }
+
+export type TokenomicType = {
+    id: number;
+    tokens: number;
+    tokenName: string;
+    percentage: number;
+    forDepartment: string;
+};

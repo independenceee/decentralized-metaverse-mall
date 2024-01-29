@@ -1,20 +1,21 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
-import LucidContext from "@/contexts/components/LucidContext";
+import React, { ReactNode, useContext, useState } from "react";
+import WalletContext from "@/contexts/components/WalletContext";
 import { Blockfrost, Lucid, UTxO } from "lucid-cardano";
 import { WalletType } from "@/types/GenericsType";
+import { LucidContextType } from "@/types/contexts/LucidContextType";
+import LucidContext from "@/contexts/components/LucidContext";
 
 type Props = {
     children: ReactNode;
 };
 
-const LucidProvider = function ({ children }: Props) {
-    const [lucid, setLucid] = useState<Lucid>(null!);
+const WalletProvider = function ({ children }: Props) {
+    const { lucid, setLucid } = useContext<LucidContextType>(LucidContext);
     const [wallet, setWallet] = useState<WalletType>(null!);
     const [loading, setLoading] = useState<boolean>(false);
 
-    console.log(process.env.BLOCKFROST_RPC_URL_PREPROD);
     const connectWallet = async function ({ name, api, image }: WalletType) {
         try {
             setLoading(true);
@@ -22,6 +23,7 @@ const LucidProvider = function ({ children }: Props) {
                 new Blockfrost(process.env.BLOCKFROST_RPC_URL_PREPROD!, process.env.BLOCKFROST_PROJECT_API_KEY_PREPROD!),
                 "Preprod",
             );
+            setLucid(lucid);
             lucid.selectWallet(await api());
             const address: string = await lucid.wallet.address();
             const utxos: Array<UTxO> = await lucid.wallet.getUtxos();
@@ -29,9 +31,14 @@ const LucidProvider = function ({ children }: Props) {
                 return balance + Number(utxo.assets.lovelace) / 1000000;
             }, 0);
 
-            setLucid(lucid);
             setWallet(function (previous: WalletType) {
-                return { ...previous, name: name, image: image, address: address, balance: balance };
+                return {
+                    ...previous,
+                    name: name,
+                    image: image,
+                    address: address,
+                    balance: balance,
+                };
             });
         } catch (error) {
             console.log(error);
@@ -42,8 +49,8 @@ const LucidProvider = function ({ children }: Props) {
 
     const disconnectWallet = async function () {
         try {
-            setLucid(null!);
             setWallet(null!);
+            setLucid(null!);
         } catch (error) {
             console.log(error);
         }
@@ -57,9 +64,12 @@ const LucidProvider = function ({ children }: Props) {
             const balance: number = utxos.reduce(function (balance, utxo) {
                 return balance + Number(utxo.assets.lovelace) / 1000000;
             }, 0);
-            setLucid(lucid);
             setWallet(function (previous: WalletType) {
-                return { ...previous, address: address, balance: balance };
+                return {
+                    ...previous,
+                    address: address,
+                    balance: balance,
+                };
             });
         } catch (error) {
             console.log(error);
@@ -68,9 +78,7 @@ const LucidProvider = function ({ children }: Props) {
         }
     };
 
-    return (
-        <LucidContext.Provider value={{ lucid, wallet, loading, connectWallet, disconnectWallet, refreshWallet }}>{children}</LucidContext.Provider>
-    );
+    return <WalletContext.Provider value={{ wallet, loading, connectWallet, disconnectWallet, refreshWallet }}>{children}</WalletContext.Provider>;
 };
 
-export default LucidProvider;
+export default WalletProvider;

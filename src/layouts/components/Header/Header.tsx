@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState, lazy } from "react";
 import classNames from "classnames/bind";
-import images from "@/assets/images";
-import Image from "next/image";
 import HeaderOption from "@/layouts/components/Header/HeaderOption";
 import { publicRoutes } from "@/routes";
 import styles from "./Header.module.scss";

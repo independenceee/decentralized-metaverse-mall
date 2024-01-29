@@ -1,4 +1,5 @@
 "use client";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, { useEffect, useRef } from "react";
@@ -6,12 +7,11 @@ import Slider from "react-slick";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import classNames from "classnames/bind";
-import Title from "@/components/Title";
 import styles from "./Timeline.module.scss";
-import { TimeLineType } from "@/types/GenericsType";
+import { RoadmapType } from "@/types/GenericsType";
 
 type Props = {
-    timelines: Array<TimeLineType>;
+    timelines: Array<RoadmapType>;
 };
 
 gsap.registerPlugin(ScrollTrigger);
@@ -63,7 +63,7 @@ const Timeline = function ({ timelines }: Props) {
             <div className={cx("wrapper-inner")}>
                 <div id="gsap-timeline_linethrough" className={cx("line")} />
                 <Slider {...settings}>
-                    {timelines.map(function ({ title, description, datetime }: TimeLineType, index: number) {
+                    {timelines.concat(timelines).map(function ({ title, description, datetime }: RoadmapType, index: number) {
                         const isEvent = index % 2 === 0;
                         return (
                             <section className={cx("timelime-wrapper")} key={index}>
