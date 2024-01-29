@@ -63,7 +63,7 @@ const Timeline = function ({ timelines }: Props) {
             <div className={cx("wrapper-inner")}>
                 <div id="gsap-timeline_linethrough" className={cx("line")} />
                 <Slider {...settings}>
-                    {timelines.map(function ({ title, description, datetime }: RoadmapType, index: number) {
+                    {timelines.concat(timelines).map(function ({ title, description, datetime }: RoadmapType, index: number) {
                         const isEvent = index % 2 === 0;
                         return (
                             <section className={cx("timelime-wrapper")} key={index}>

@@ -171,7 +171,7 @@ function Faqs({}: Props) {
                         {accordion.map((acd) => {
                             return (
                                 <li
-                                    className={cx("accordion-item", {
+                                    className={cx("accordion-item ", {
                                         "accordion-item-active": accordionActive.toggle && accordionActive.id === acd.id,
                                     })}
                                     key={acd.id}

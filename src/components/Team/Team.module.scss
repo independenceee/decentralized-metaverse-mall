@@ -23,12 +23,19 @@
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 2rem;
+    flex-shrink: 0;
 }
 
 .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.infomation {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .name {
