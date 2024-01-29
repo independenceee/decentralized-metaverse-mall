@@ -49,10 +49,11 @@ const HomePage = function ({}: Props) {
             <section id="team" className={cx("team-wrapper")}>
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />
                 <div className={cx("team-container")}>
-                    {teams.map((team: TeamType) => {
+                    {teams.map(function (team: TeamType, index: number) {
                         return (
                             <Team
                                 key={team.id}
+                                index={index}
                                 description={team.description}
                                 username={team.username}
                                 image={team.image}

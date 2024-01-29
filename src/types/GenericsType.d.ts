@@ -1,4 +1,5 @@
 export type TeamType = {
+    index: number;
     id?: string;
     username: string;
     description: string;
@@ -38,10 +39,8 @@ export type AccountType = {
     id?: string;
     createdAt?: string;
     updatedAt?: string;
-
     walletAddress: string;
     stakeKey?: string;
-
     email?: string;
     username?: string;
 };
@@ -50,7 +49,6 @@ export type VoucherType = {
     id?: string;
     createdAt?: string;
     updatedAt?: string;
-
     code: string;
     status: VoucherStatus;
 };
