@@ -1,12 +1,21 @@
+"use client";
 import * as React from "react";
 import { CiEdit } from "react-icons/ci";
 import { IoTrashOutline } from "react-icons/io5";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
+import { styled } from "@mui/system";
 import { VoucherStatus } from "@/types/GenericsType";
 
 import styles from "./Table.module.scss";
 const cx = classNames.bind(styles);
+
+const CustomPagination = styled(Pagination)({
+    "& .MuiPaginationItem-root": {
+        fontSize: "16px",
+        color: "white",
+    },
+});
 
 function createData(id: string, date: string, code: string, status: string) {
     return { id, date, code, status };
@@ -89,7 +98,7 @@ export default function CustomTable() {
                 </table>
 
                 <Stack color={"#fff"} spacing={2}>
-                    <Pagination count={10} page={1} shape="rounded" />
+                    <CustomPagination count={10} page={1} shape="rounded" />
                 </Stack>
             </div>
         </div>
