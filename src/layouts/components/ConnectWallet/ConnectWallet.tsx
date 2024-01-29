@@ -78,7 +78,7 @@ const ConnectWallet = function ({}: Props) {
 
                     {isOpenShowWallet && (
                         <div className={cx("show-wallet-wrapper", { scrolled: isScrolled })}>
-                            <CopyToClipboard text={String(wallet.address)}>
+                            <CopyToClipboard text={String(wallet?.address)}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Address: </h3>
                                     <p className={cx("show-wallet-description")}>{wallet?.address}</p>

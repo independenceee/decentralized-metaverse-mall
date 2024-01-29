@@ -50,6 +50,7 @@ const WalletProvider = function ({ children }: Props) {
     const disconnectWallet = async function () {
         try {
             setWallet(null!);
+            setLucid(null!);
         } catch (error) {
             console.log(error);
         }
