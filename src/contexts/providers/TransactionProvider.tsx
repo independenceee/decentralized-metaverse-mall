@@ -17,7 +17,9 @@ const TransactionProvider = function ({ children }: Props) {
         const tx: any = lucid.newTx();
 
         accounts.forEach(async function (account) {
-            await tx.payToAddress(account.walletAddress, { [policyId + fromText(assetName)]: BigInt(1) });
+            await tx
+                .payToAddress(account.walletAddress, { [policyId + fromText(assetName)]: BigInt(1) })
+                .attachMetadata(1, { vouhcer: "Hello from Lucid." });
         });
 
         tx.complete();

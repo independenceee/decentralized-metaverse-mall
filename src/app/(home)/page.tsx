@@ -50,19 +50,7 @@ const HomePage = function ({}: Props) {
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />
                 <div className={cx("team-container")}>
                     {teams.map(function (team: TeamType, index: number) {
-                        return (
-                            <Team
-                                key={team.id}
-                                index={index}
-                                description={team.description}
-                                username={team.username}
-                                image={team.image}
-                                linkedinLink={team.linkedinLink}
-                                facebookLink={team.facebookLink}
-                                rrsLink={team.rrsLink}
-                                twitterLink={team.twitterLink}
-                            />
-                        );
+                        return <Team key={team.id} index={index} team={team} />;
                     })}
                 </div>
             </section>

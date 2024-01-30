@@ -1,5 +1,4 @@
 export type TeamType = {
-    index: number;
     id?: string;
     username: string;
     description: string;

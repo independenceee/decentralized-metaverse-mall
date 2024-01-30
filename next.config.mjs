@@ -10,6 +10,7 @@ const nextConfig = {
         BLOCKFROST_PROJECT_API_KEY_PREPROD: "preprodQfe5parraxgP3k0IqDnrptIvZVBejjsS",
         BLOCKFROST_PROJECT_API_KEY_PREVIEW: "preprodQfe5parraxgP3k0IqDnrptIvZVBejjsS",
 
+        VILAI_POOL: "",
         POLICYID_C2E_TOKEN: "c88c4d8b1e448d579f58992debe9f905b47607ea878f3c2480248834",
         ASSETNAME_C2E_TOKEN: "C2E",
     },

@@ -10,15 +10,16 @@ import { StakeContextType } from "@/types/contexts/StakeContextType";
 import StakeContext from "@/contexts/components/StakeContext";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
+
 const cx = classNames.bind(styles);
 
 function Banner() {
     const { lucid } = useContext<LucidContextType>(LucidContext);
-    const { registerStakeKey, withdrawRewards } = useContext<StakeContextType>(StakeContext);
+    const { registerStakeKey, withdrawRewards, deregisterStakeKey } = useContext<StakeContextType>(StakeContext);
 
     const handleRegisterStakeKey = async function () {
         if (lucid) {
-            const txHash = await withdrawRewards(lucid);
+            const txHash = await deregisterStakeKey(lucid);
 
             console.log(txHash);
         }
