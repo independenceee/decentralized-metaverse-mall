@@ -15,6 +15,13 @@ const CustomPagination = styled(Pagination)({
         fontSize: "16px",
         color: "white",
     },
+    "& .MuiPaginationItem-page.Mui-selected": {
+        backgroundColor: "white",
+        color: "#4a28a9",
+        "&:hover": {
+            opacity: 0.7,
+        },
+    },
 });
 
 function createData(id: string, date: string, code: string, status: string) {
