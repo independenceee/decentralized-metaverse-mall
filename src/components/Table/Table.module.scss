@@ -5,6 +5,7 @@
 .table-wrapper {
     min-width: 100%;
     overflow-x: hidden;
+    margin-top: 1.2rem;
 }
 
 .table {
@@ -28,6 +29,7 @@
     }
     &:last-child {
         border-top-right-radius: 0.8rem;
+        width: 10%;
     }
 }
 
@@ -35,6 +37,10 @@
     border-top: 1px solid transparent;
     border-bottom: 1px solid rgb(56, 71, 102);
     background-color: #26334d;
+    cursor: pointer;
+    &:hover {
+        background-color: #26334d20;
+    }
 
     &:last-child {
         border-color: transparent;
@@ -70,7 +76,7 @@
     text-align: center;
     transition-property: all 200ms ease;
     color: #313e59;
-    background-color: #26334d;
+    background-color: transparent;
 
     &:hover,
     &:active,
@@ -79,10 +85,127 @@
     }
 }
 
+.search-button {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 100%;
+    background: transparent;
+    color: rgb(194, 201, 214);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: rgba(203, 213, 224, 0.2);
+    }
+}
+
+.search-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.fiter-button {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 100rem;
+    background-color: transparent;
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: rgba(203, 213, 224, 0.2);
+    }
+}
+
+.filter-icon {
+    width: 2rem;
+    height: 2rem;
+    color: rgb(194, 201, 214);
+}
+
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    border-radius: 8px;
+    background-color: #26334d;
+    color: #a3adc2;
+    padding: 1rem 0;
+    border: 1px solid slategray;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    position: relative;
+    &::before {
+        --height: 20px;
+        content: "";
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: calc(var(--height) * -1);
+        height: var(--height);
+        background: transparent !important;
+    }
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.2rem;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 1.2rem;
+    padding-right: 2.4rem;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    outline: none;
+    transition: all 200ms ease;
+
+    &:hover {
+        background: #313e59;
+    }
+}
+
 .icon-ellipsis {
     width: 2rem;
     height: 2rem;
     color: rgb(194, 201, 214);
+}
+
+.header-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.table-main-title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: rgb(194, 201, 214);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.search-control {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    background-color: transparent;
+    color: rgb(194, 201, 214);
+    font-size: 1.4rem;
+    padding: 0.6rem 1.2rem;
+    text-align: right;
+}
+
+.search-label {
+    display: block;
 }
 
 // sm

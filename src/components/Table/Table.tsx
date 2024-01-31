@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import Tippy from "@tippyjs/react/headless";
 import { CiEdit } from "react-icons/ci";
 import { IoTrashOutline } from "react-icons/io5";
 import classNames from "classnames/bind";
@@ -11,9 +12,15 @@ import styles from "./Table.module.scss";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
+    ".MuiPagination-ul": {
+        justifyContent: "flex-end",
+        backgroundColor: "#26334D",
+        borderRadius: "999px",
+    },
     "& .MuiPaginationItem-root": {
-        fontSize: "16px",
+        fontSize: "14px",
         color: "white",
+        borderRadius: "100%",
     },
     "& .MuiPaginationItem-page.Mui-selected": {
         backgroundColor: "white",
@@ -21,6 +28,10 @@ const CustomPagination = styled(Pagination)({
         "&:hover": {
             opacity: 0.7,
         },
+    },
+    ".MuiPaginationItem-icon": {
+        width: "18px",
+        height: "18px",
     },
 });
 
@@ -52,114 +63,114 @@ export default function CustomTable() {
 
     return (
         <div className={cx("wrapper")}>
-            {/* <div className="flex items-center justify-between">
-                <h2 className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">Latest Activities</h2>
-                <div className="flex">
-                    <div className="flex items-center" x-data="{isInputActive:false}">
-                        <label className="block">
-                            <input placeholder="Search here..." type="text" />
+            <div className={cx("header-control")}>
+                <h2 className={cx("table-main-title")}>Latest Activities</h2>
+                <div className={cx("header-control")}>
+                    <form className={cx("search-control")} onClick={(e) => e.preventDefault()}>
+                        <label className={cx("search-label")}>
+                            <input className={cx("search-input")} placeholder="Search here..." type="text" />
                         </label>
-                        <button className="btn size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                    <div x-data="usePopper({placement:'bottom-end',offset:4})" className="inline-flex">
-                        <button
-                            x-ref="popperRef"
-                            className="btn size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+                        <label htmlFor="search-input-checkbox">
+                            <button className={cx("search-button")}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={cx("search-icon")}
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                    />
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+
+                    <div className={cx("filter-control")}>
+                        <Tippy
+                            placement="bottom-end"
+                            interactive
+                            trigger="click"
+                            hideOnClick
+                            render={(attrs) => (
+                                <div className="box" tabIndex={-1} {...attrs}>
+                                    <ul className={cx("dropdown-menu")}>
+                                        <li className={cx("menu-item")}>FREE</li>
+                                        <li className={cx("menu-item")}>USED</li>
+                                    </ul>
+                                </div>
+                            )}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                                />
-                            </svg>
-                        </button>
-                        <div x-ref="popperRoot" className="popper-root">
-                            <div className="popper-box rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
-                                <ul>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
-                                        >
-                                            Action
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
-                                        >
-                                            Another Action
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
-                                        >
-                                            Something else
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div className="my-1 h-px bg-slate-150 dark:bg-navy-500"></div>
-                                <ul>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
-                                        >
-                                            Separated Link
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                            <button className={cx("fiter-button")}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    className={cx("filter-icon")}
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+                                    />
+                                </svg>
+                            </button>
+                        </Tippy>
                     </div>
                 </div>
-            </div> */}
-            <div className="card mt-3">
-                <div className={cx("table-wrapper")}>
-                    <table className={cx("table")}>
-                        <thead>
-                            <tr>
-                                <th className={cx("table-header-title")}>Activity</th>
-                                <th className={cx("table-header-title")}>Account</th>
-                                <th className={cx("table-header-title")}>Last Payment</th>
-                                <th className={cx("table-header-title")}>Balance</th>
-                                <th className={cx("table-header-title")}></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Array(5)
-                                .fill(0)
-                                .map((_, index) => (
-                                    <tr className={cx("table-row")} key={index}>
-                                        <td className={cx("table-column")}>
-                                            <p className={cx("table-column-content")}>{new Date().toISOString()}</p>
-                                        </td>
+            </div>
 
-                                        <td className={cx("table-column")}>
-                                            <p className={cx("table-column-content")}>LTC Wallet</p>
-                                        </td>
-                                        <td className={cx("table-column")}>
-                                            <p>Mon, 12 May - 09:00</p>
-                                        </td>
-                                        <td className={cx("table-column")}>
-                                            <p style={makeStyle("USED")}>-7.55 LTC</p>
-                                        </td>
+            <div className={cx("table-wrapper")}>
+                <table className={cx("table")}>
+                    <thead>
+                        <tr>
+                            <th className={cx("table-header-title")}>Activity</th>
+                            <th className={cx("table-header-title")}>Account</th>
+                            <th className={cx("table-header-title")}>Last Payment</th>
+                            <th className={cx("table-header-title")}>Balance</th>
+                            <th className={cx("table-header-title")}></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Array(5)
+                            .fill(0)
+                            .map((_, index) => (
+                                <tr className={cx("table-row")} key={index}>
+                                    <td className={cx("table-column")}>
+                                        <p className={cx("table-column-content")}>{new Date().toISOString()}</p>
+                                    </td>
 
-                                        <td className={cx("table-column")}>
+                                    <td className={cx("table-column")}>
+                                        <p className={cx("table-column-content")}>LTC Wallet</p>
+                                    </td>
+                                    <td className={cx("table-column")}>
+                                        <p>Mon, 12 May - 09:00</p>
+                                    </td>
+                                    <td className={cx("table-column")}>
+                                        <p style={makeStyle("USED")}>USED</p>
+                                    </td>
+
+                                    <td className={cx("table-column")}>
+                                        <Tippy
+                                            placement="bottom-end"
+                                            interactive
+                                            trigger="click"
+                                            hideOnClick
+                                            render={(attrs) => (
+                                                <div className="box" tabIndex={-1} {...attrs}>
+                                                    <ul className={cx("dropdown-menu")}>
+                                                        <li className={cx("menu-item")}>Edit</li>
+                                                        <li className={cx("menu-item")}>Delete</li>
+                                                    </ul>
+                                                </div>
+                                            )}
+                                        >
                                             <button className={cx("table-column-actions")}>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -176,11 +187,17 @@ export default function CustomTable() {
                                                     />
                                                 </svg>
                                             </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </table>
+                                        </Tippy>
+                                    </td>
+                                </tr>
+                            ))}
+                        <tr className={cx("table-row")}></tr>
+                    </tbody>
+                </table>
+                <div className={cx("pagination-wrapper")}>
+                    <Stack spacing={2}>
+                        <CustomPagination count={10} page={1} shape="rounded" />
+                    </Stack>
                 </div>
             </div>
         </div>
