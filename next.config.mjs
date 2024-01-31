@@ -9,8 +9,8 @@ const nextConfig = {
         BLOCKFROST_PROJECT_API_KEY_MAINNET: "mainnettClW67e7zjxBTdjgynNwmGsvyz5DCMmC",
         BLOCKFROST_PROJECT_API_KEY_PREPROD: "preprodQfe5parraxgP3k0IqDnrptIvZVBejjsS",
         BLOCKFROST_PROJECT_API_KEY_PREVIEW: "preprodQfe5parraxgP3k0IqDnrptIvZVBejjsS",
-
-        VILAI_POOL: "",
+        NEXT_APP_BASE_URL: "http://localhost:5000/api/v1",
+        VILAI_POOL_ID: "e7843464d334090c2e7377e5291363f3ef93a8a91d2716653361de8e",
         POLICYID_C2E_TOKEN: "c88c4d8b1e448d579f58992debe9f905b47607ea878f3c2480248834",
         ASSETNAME_C2E_TOKEN: "C2E",
     },

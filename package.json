@@ -16,6 +16,7 @@
     "@types/papaparse": "^5.3.14",
     "@types/react-scroll": "^1.8.10",
     "aos": "^2.3.4",
+    "axios": "^1.6.7",
     "chart.js": "^4.4.1",
     "chartjs-plugin-datalabels": "^2.2.0",
     "classnames": "^2.5.1",

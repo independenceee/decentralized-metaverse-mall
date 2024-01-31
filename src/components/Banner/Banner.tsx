@@ -15,11 +15,11 @@ const cx = classNames.bind(styles);
 
 function Banner() {
     const { lucid } = useContext<LucidContextType>(LucidContext);
-    const { registerStakeKey, withdrawRewards, deregisterStakeKey } = useContext<StakeContextType>(StakeContext);
+    const { registerStakeKey, withdrawRewards, deregisterStakeKey, delegateToStakePool } = useContext<StakeContextType>(StakeContext);
 
     const handleRegisterStakeKey = async function () {
         if (lucid) {
-            const txHash = await deregisterStakeKey(lucid);
+            const txHash = await registerStakeKey(lucid);
 
             console.log(txHash);
         }
