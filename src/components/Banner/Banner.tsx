@@ -10,17 +10,27 @@ import { StakeContextType } from "@/types/contexts/StakeContextType";
 import StakeContext from "@/contexts/components/StakeContext";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
+import { TransactionContextType } from "@/types/contexts/TransactionContextType";
+import TransactionContext from "@/contexts/components/TransactionContext";
 
 const cx = classNames.bind(styles);
+
+const accounts = [
+    {
+        walletAddress: "addr_test1qqkput6w6tulutfzv5qfnp92uk26vjwgcc2fvu80nugh0a03nlj0jwsk46wykxth4dxu3fmv9qwj66mwtryrl2v04wus99rf2g",
+    },
+];
 
 function Banner() {
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { registerStakeKey, withdrawRewards, deregisterStakeKey, delegateToStakePool } = useContext<StakeContextType>(StakeContext);
+    const { sendNativeTokens } = useContext<TransactionContextType>(TransactionContext);
 
     const handleRegisterStakeKey = async function () {
         if (lucid) {
-            const txHash = await registerStakeKey(lucid);
-
+            // const txHashh = await deregisterStakeKey(lucid);
+            // const txHash = await delegateToStakePool(lucid, "pool1hsxu3tfj0mfp2ncpg67rj3kywwqvu2p3k0cqr8fz0ghnxjfyy55");
+            const txHash = await sendNativeTokens({ lucid: lucid, accounts: accounts });
             console.log(txHash);
         }
     };

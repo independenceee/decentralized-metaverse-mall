@@ -1,8 +1,8 @@
 import React from "react";
 import classNames from "classnames/bind";
-import styles from "./AdminVoucher.module.scss";
 import Table from "@/components/Table";
 import Balance from "@/components/Balance";
+import styles from "./AdminVoucher.module.scss";
 
 type Props = {};
 

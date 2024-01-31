@@ -3,7 +3,6 @@ import classNames from "classnames/bind";
 import PublicLayout from "@/layouts/PublicLayout";
 import Title from "@/components/Title";
 import Team from "@/components/Team";
-import images from "@/assets/images";
 import Timeline from "@/components/Timeline";
 import { ServiceType, TeamType } from "@/types/GenericsType";
 import Banner from "@/components/Banner";
