@@ -99,21 +99,6 @@
     gap: 1.6rem;
 }
 
-@media (min-width: 640px) {
-    .balance-body {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-    }
-    .balance-wrapper {
-        padding-left: 2rem;
-        padding-left: 2rem;
-    }
-
-    .balance-statistics {
-        gap: 2rem;
-    }
-}
-
 .statistics-content {
     margin-top: 4px;
     display: flex;
@@ -156,6 +141,27 @@
     font-weight: 400;
     padding: 0.8rem 2rem;
     border-radius: 8px;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+@media (min-width: 640px) {
+    .balance-body {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    .balance-wrapper {
+        padding-left: 2rem;
+        padding-left: 2rem;
+    }
+
+    .balance-statistics {
+        gap: 2rem;
+    }
 }
 
 @media (min-width: 1024px) {
