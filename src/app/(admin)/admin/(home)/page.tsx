@@ -15,6 +15,7 @@ const AdminHomePage = function ({}: Props) {
                 <Transactions type="transaction" />
                 <Transactions type="voucher" />
                 <Transactions type="addition" />
+                
             </header>
             <aside>
                 <Table />
