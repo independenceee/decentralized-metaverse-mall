@@ -18,7 +18,6 @@ function Notification({ isPending }: Props) {
     return (
         <Popper
             placement="top-end"
-            hideOnClick={isShowing}
             content={
                 <div className={cx("content-wrapper")}>
                     <div className={cx("notification-header")}>
@@ -26,18 +25,6 @@ function Notification({ isPending }: Props) {
                             {/* <Logo /> */}
                             DMM
                         </div>
-                        <button className={cx("close-button")} onClick={toggle}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className={cx("icon-minus")}
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
-                            </svg>
-                        </button>
                     </div>
 
                     <div className={cx("conent-body")}>
