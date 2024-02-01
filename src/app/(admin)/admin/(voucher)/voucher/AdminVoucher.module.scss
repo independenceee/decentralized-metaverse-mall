@@ -1,14 +1,30 @@
-.open-file-button {
-    font-size: 1.6rem;
-    padding: 1rem 3rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    color: white;
-    margin-bottom: 1.8rem;
-    &:hover,
-    &:focus,
-    &:active {
-        background: rgba(255, 255, 255, 0.3);
+.wrapper {
+    display: grid;
+    row-gap: 20px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+@media screen and (max-width: 1200px) {
+    .header {
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .header {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 12px;
     }
 }

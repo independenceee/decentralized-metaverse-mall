@@ -1,0 +1,47 @@
+.wrapper {
+    padding: 3rem;
+    background: var(--secondary-color);
+    border-radius: 0.5rem;
+    max-width: 100%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.icon {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.content {
+    color: var(--white-color);
+    height: 167px;
+    margin: 2rem 0;
+    font-size: 1.6rem;
+    font-weight: 400;
+}

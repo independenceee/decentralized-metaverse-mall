@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React from "react";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
 import { styled } from "@mui/system";
@@ -10,20 +10,23 @@ const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
     ".MuiPagination-ul": {
-        justifyContent: "flex-end",
-        backgroundColor: "#26334D",
-        borderRadius: "999px",
+        // justifyContent: "flex-end",
+        // backgroundColor: "#26334D",
+        // borderRadius: "999px",
     },
     "& .MuiPaginationItem-root": {
         fontSize: "14px",
         color: "white",
-        borderRadius: "100%",
+        fontWeight: "bold",
+        // borderRadius: "100%",
     },
     "& .MuiPaginationItem-page.Mui-selected": {
-        backgroundColor: "white",
-        color: "#4a28a9",
+        backgroundColor: "#4a28a9",
+        color: "#fff",
+        fontWeight: "bold",
+
         "&:hover": {
-            opacity: 0.7,
+            opacity: 1,
         },
     },
     ".MuiPaginationItem-icon": {

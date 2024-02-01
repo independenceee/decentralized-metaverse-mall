@@ -1,32 +1,35 @@
 import React from "react";
 import classNames from "classnames/bind";
-import { AddIcon } from "@/components/Icons";
-import images from "@/assets/images";
-import Image from "next/image";
 import styles from "./Card.module.scss";
+import { IconType } from "react-icons";
+import Link from "next/link";
+import { AddIcon } from "../Icons";
 
 type Props = {
     title: string;
-    description: string;
-    content: string;
-    note: string;
-    action: string;
+    Icon?: IconType;
+    to: string;
+    type?: string;
 };
 
 const cx = classNames.bind(styles);
 
-const Card = function ({ title, description, note, action, content }: Props) {
+const Card = function ({ title, Icon, to, type }: Props) {
     return (
-        <div className={cx("wrapper")}>
-            <div className={cx("image-wrapper")}>
-                <Image className={cx("image")} src={images.logo} alt="" />
-            </div>
-            <h3 className={cx("title")}>{title}</h3>
-            <p className={cx("description")}>{description}</p>
-            <p className={cx("content")}>{content}</p>
-            <p className={cx("note")}>{note}</p>
-            <button className={cx("button")}>{action}</button>
-        </div>
+        <Link href={to} className={cx("wrapper")}>
+            <header className={cx("header")}>
+                <h3 className={cx("title")}>{title}</h3>
+                <button className={cx("button")}>{Icon && <Icon className={cx("icon")} />}</button>
+            </header>
+            {type === "add" && (
+                <aside className={cx("add-content")}>
+                    <div className={cx("add-left")}>Add voucher using import file .csv</div>
+                    <div className={cx("add-right")}>
+                        <AddIcon className={cx("add-icon")} />
+                    </div>
+                </aside>
+            )}
+        </Link>
     );
 };
 
