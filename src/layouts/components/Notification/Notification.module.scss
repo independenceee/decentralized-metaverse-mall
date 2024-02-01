@@ -6,7 +6,7 @@
     min-width: 32rem;
     width: 100%;
     margin: 0 1.6rem;
-    padding: 1.2rem;
+    padding: 2.4rem;
 }
 
 .notification-button {
@@ -14,24 +14,24 @@
     z-index: 1;
     right: 3.2rem;
     bottom: 3.2rem;
-    width: 4rem;
-    height: 4rem;
+    width: 6rem;
+    height: 6rem;
     background: rgba(255, 255, 255, 0.3);
     color: var(--white-color);
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 
+    cursor: pointer;
     &:hover {
         background: rgba(255, 255, 255, 0.25);
     }
 }
 
 .icon-notification {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 3.2rem;
+    height: 3.2rem;
 }
 
 .logo-wrapper {
@@ -48,7 +48,10 @@
     padding: 1rem 0;
     font-size: 1.4rem;
 }
-
+.conent-body,
+.voucher-info-wrapper {
+    margin-top: 2.4rem;
+}
 .close-button {
     display: flex;
     justify-content: center;
@@ -71,26 +74,32 @@
 }
 
 .title {
-    font-size: 1.4rem;
+    font-size: 2rem;
     font-weight: 500;
 }
 
 .button {
+    align-items: center;
+    border-radius: 16px;
+    color: #fff;
+    background-color: rgb(10, 124, 255);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-weight: 500;
+    justify-content: center;
+    min-height: 54px;
+    min-width: 159px;
+    outline: none;
+    padding: 0 30px 0 30px;
     width: 100%;
-    border: 1px solid rgba(34, 114, 184, 0.7);
-    background-color: rgba(34, 114, 184, 0.8);
-    color: var(--white-color);
-    font-size: 1.6rem;
-    font-weight: 400;
-    padding: 0.8rem 2rem;
-    margin-top: 1.2rem;
-    border-radius: 8px;
-    width: fit-content;
-
+    font-size: 1.7rem;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
     &:hover,
     &:focus,
     &:active {
-        background-color: rgba(34, 114, 184, 0.9);
+        background-color: rgba(10, 124, 255, 0.8);
     }
 }
 
@@ -102,8 +111,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-top: 1.2rem;
+
     a {
         color: #000;
     }
