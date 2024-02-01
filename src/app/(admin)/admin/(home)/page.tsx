@@ -1,8 +1,9 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "./AdminHome.module.scss";
-import Transactions from "@/components/Transactions";
+import Card from "@/components/Card";
 import Table from "@/components/Table";
+import Upload from "@/components/Upload";
 
 type Props = {};
 
@@ -12,9 +13,8 @@ const AdminHomePage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
-                <Transactions type="transaction" />
-                <Transactions type="voucher" />
-                <Transactions type="addition" />
+                <Upload />
+                <Upload />
                 
             </header>
             <aside>

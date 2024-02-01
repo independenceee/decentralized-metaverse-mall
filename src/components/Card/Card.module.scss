@@ -1,0 +1,77 @@
+.wrapper {
+    padding: 1.6rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.4rem;
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 2rem;
+    line-height: 130%;
+    font-weight: 400;
+    text-align: center;
+    margin: 20px 0 8px;
+}
+
+.description {
+    color: #9061f9;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.content {
+    color: var(--white-color);
+    text-align: center;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.02em;
+    margin: 16px 0;
+}
+
+.note {
+    color: whitesmoke;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin: 0 0 16px;
+}
+
+.button {
+    color: var(--white-color) !important;
+    border: none !important;
+    background-color: var(--primary-color) !important;
+    border: 1px solid transparent;
+    cursor: not-allowed;
+    min-width: 240px;
+    position: relative;
+    border-radius: var(--borderMediumRadius);
+    border: none;
+    background-color: var(--buttonPrimaryBackgroundColor);
+    color: var(--blackOnly);
+    font-size: 14px;
+    font-weight: var(--textButtonFontWeight);
+    padding-left: 2em;
+    padding-right: 2em;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min-content;
+    white-space: nowrap;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+}
