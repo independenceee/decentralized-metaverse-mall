@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import Tippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
 import { styled } from "@mui/system";
