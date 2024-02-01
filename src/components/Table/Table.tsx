@@ -35,13 +35,10 @@ const CustomPagination = styled(Pagination)({
 
 const makeStyle = (status: string) => {
     if (status === "FREE") {
-        console.log("free");
         return {
             color: "#10B880",
         };
     } else if (status === "USED") {
-        console.log("used");
-
         return {
             color: "#ff5724",
         };
