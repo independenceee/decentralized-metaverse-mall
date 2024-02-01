@@ -6,6 +6,7 @@ import {
     FaInstagram as InstagramIcon,
     FaYoutube as YoutubeIcon,
     FaAddressCard as AddressCardIcon,
+    FaUser as UserIcon,
 } from "react-icons/fa";
 import { IoLogOutOutline as LogoutIcon, IoAdd as AddIcon } from "react-icons/io5";
 import { AiFillHome as HomeIcon, AiOutlineClose as CloseIcon } from "react-icons/ai";
@@ -30,4 +31,5 @@ export {
     CopyIcon,
     CloseIcon,
     AddIcon,
+    UserIcon,
 };

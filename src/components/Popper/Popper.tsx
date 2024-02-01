@@ -1,3 +1,4 @@
+"use client";
 import classNames from "classnames/bind";
 import Tippy, { TippyProps } from "@tippyjs/react/headless";
 import styles from "./Popper.module.scss";

@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AdminHome.module.scss";
 import Card from "@/components/Card";
-import Table from "@/components/Table";
-import Upload from "@/components/Upload";
+import { privateRoutes } from "@/routes";
 
 type Props = {};
 
@@ -16,11 +15,10 @@ const AdminHomePage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
-                <Upload setData={setVoucher} />
+                {privateRoutes.map(function (privateRoute, index: number) {
+                    return <Card title={privateRoute.name} Icon={privateRoute.Icon} key={index} to={privateRoute.redirect} />;
+                })}
             </header>
-            <aside>
-                <Table data={voucher} />
-            </aside>
         </div>
     );
 };
