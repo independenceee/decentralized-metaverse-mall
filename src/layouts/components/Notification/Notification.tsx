@@ -49,15 +49,17 @@ function Notification({ isPending }: Props) {
                         ) : (
                             <>
                                 <h3 className={cx("title")}>You have voucher unused</h3>
-                                <div className={cx("voucher-info")}>
-                                    <span>Voucher code:&nbsp;</span>
-                                    <span>0x93fk3l2had844jh643262h64</span>
-                                </div>
-                                <div className={cx("product-link")}>
-                                    <span>Product:&nbsp;</span>
-                                    <a href="https://google.com" target="_blank">
-                                        https://google.com
-                                    </a>
+                                <div className={cx("voucher-info-wrapper")}>
+                                    <div className={cx("voucher-info")}>
+                                        <span>Voucher code:&nbsp;</span>
+                                        <span>0x93fk3l2had844jh643262h64</span>
+                                    </div>
+                                    <div className={cx("product-link")}>
+                                        <span>Product:&nbsp;</span>
+                                        <a href="https://google.com" target="_blank">
+                                            https://google.com
+                                        </a>
+                                    </div>
                                 </div>
                                 <button className={cx("shop-button", "button")}>Shop now</button>
                             </>
