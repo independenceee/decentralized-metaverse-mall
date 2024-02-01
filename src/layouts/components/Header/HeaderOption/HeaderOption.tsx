@@ -25,7 +25,7 @@ const HeaderOption = function ({ redirect, name, isActive, setSelected }: Props)
                 className={cx("nav-item-link", { "nav-item-link-active": isActive })}
                 spy={true}
                 smooth={true}
-                offset={-104}
+                offset={-105}
                 onSetActive={handleClickNavItem}
                 duration={1000}
             >

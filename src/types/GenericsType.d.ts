@@ -1,5 +1,4 @@
 export type TeamType = {
-    index: number;
     id?: string;
     username: string;
     description: string;
@@ -31,6 +30,7 @@ export type WalletType = {
     balance?: number;
     address?: string;
     downloadApi?: string;
+    stakeKey?: string;
     api: () => Promise<any> | any;
     checkApi: () => Promise<any> | any;
 };

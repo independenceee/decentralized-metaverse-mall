@@ -20,12 +20,13 @@ const WalletProvider = function ({ children }: Props) {
         try {
             setLoading(true);
             const lucid: Lucid = await Lucid.new(
-                new Blockfrost(process.env.BLOCKFROST_RPC_URL_PREPROD!, process.env.BLOCKFROST_PROJECT_API_KEY_PREPROD!),
-                "Preprod",
+                new Blockfrost(process.env.BLOCKFROST_RPC_URL_MAINNET!, process.env.BLOCKFROST_PROJECT_API_KEY_MAINNET!),
+                "Mainnet",
             );
             setLucid(lucid);
             lucid.selectWallet(await api());
             const address: string = await lucid.wallet.address();
+            const stakeKey: string = (await lucid.wallet.rewardAddress()) as string;
             const utxos: Array<UTxO> = await lucid.wallet.getUtxos();
             const balance: number = utxos.reduce(function (balance, utxo) {
                 return balance + Number(utxo.assets.lovelace) / 1000000;
@@ -38,6 +39,7 @@ const WalletProvider = function ({ children }: Props) {
                     image: image,
                     address: address,
                     balance: balance,
+                    stakeKey: stakeKey,
                 };
             });
         } catch (error) {

@@ -1,3 +1,3 @@
-export const converToSocialNumber = (n: number) => {
-    return new Intl.NumberFormat().format(n);
+export const converToSocialNumber = (num: number) => {
+    return new Intl.NumberFormat().format(num);
 };

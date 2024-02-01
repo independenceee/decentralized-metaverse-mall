@@ -1,96 +1,211 @@
+"use client";
 import * as React from "react";
+import Tippy from "@tippyjs/react/headless";
 import { CiEdit } from "react-icons/ci";
 import { IoTrashOutline } from "react-icons/io5";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
+import { styled } from "@mui/system";
 import { VoucherStatus } from "@/types/GenericsType";
 
 import styles from "./Table.module.scss";
 const cx = classNames.bind(styles);
 
-function createData(id: string, date: string, code: string, status: string) {
-    return { id, date, code, status };
-}
-
-const rows = [
-    createData("1", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "FREE"),
-    createData("2", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "USED"),
-    createData("3", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "FREE"),
-    createData("4", "2 March 2022", "0xfx3g9s729qlxpsf56ahg2", "USED"),
-];
+const CustomPagination = styled(Pagination)({
+    ".MuiPagination-ul": {
+        justifyContent: "flex-end",
+        backgroundColor: "#26334D",
+        borderRadius: "999px",
+    },
+    "& .MuiPaginationItem-root": {
+        fontSize: "14px",
+        color: "white",
+        borderRadius: "100%",
+    },
+    "& .MuiPaginationItem-page.Mui-selected": {
+        backgroundColor: "white",
+        color: "#4a28a9",
+        "&:hover": {
+            opacity: 0.7,
+        },
+    },
+    ".MuiPaginationItem-icon": {
+        width: "18px",
+        height: "18px",
+    },
+});
 
 const makeStyle = (status: string) => {
     if (status === "FREE") {
+        console.log("free");
         return {
-            background: "rgb(145 254 159 / 47%)",
-            color: "green",
+            color: "#10B880",
         };
     } else if (status === "USED") {
+        console.log("used");
+
         return {
-            background: "#cccccc",
-            color: "#323232",
+            color: "#ff5724",
         };
     }
+    return;
 };
 
-export default function CustomTable() {
+type Props = {
+    data: any[] | null;
+};
+
+export default function CustomTable({ data }: Props) {
     const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {};
+
+    if (!data) return;
+    const titles = Object.keys(data?.[0]) || [];
+
     return (
         <div className={cx("wrapper")}>
-            <div className="wrapper-inner" style={{ boxShadow: "0px 13px 20px 0px #80808029" }}>
+            <div className={cx("header-control")}>
+                <h2 className={cx("table-main-title")}>Latest Activities</h2>
+                <div className={cx("header-control")}>
+                    <form className={cx("search-control")} onClick={(e) => e.preventDefault()}>
+                        <label className={cx("search-label")}>
+                            <input className={cx("search-input")} placeholder="Search here..." type="text" />
+                        </label>
+                        <label htmlFor="search-input-checkbox">
+                            <button className={cx("search-button")}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={cx("search-icon")}
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                    />
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+
+                    <div className={cx("filter-control")}>
+                        <Tippy
+                            placement="bottom-end"
+                            interactive
+                            trigger="click"
+                            hideOnClick
+                            render={(attrs) => (
+                                <div className="box" tabIndex={-1} {...attrs}>
+                                    <ul className={cx("dropdown-menu")}>
+                                        <li className={cx("menu-item")}>FREE</li>
+                                        <li className={cx("menu-item")}>USED</li>
+                                    </ul>
+                                </div>
+                            )}
+                        >
+                            <button className={cx("fiter-button")}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    className={cx("filter-icon")}
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+                                    />
+                                </svg>
+                            </button>
+                        </Tippy>
+                    </div>
+                </div>
+            </div>
+
+            <div className={cx("table-wrapper")}>
                 <table className={cx("table")}>
-                    <thead className={cx("table-header")}>
-                        <tr className={cx("table-row")}>
-                            <th className={cx("table-header-title", "checkbox-column")} scope="col"></th>
-                            <th className={cx("table-header-title")} scope="col">
-                                Date
-                            </th>
-                            <th className={cx("table-header-title")} scope="col">
-                                Code
-                            </th>
-                            <th className={cx("table-header-title", "status-column")} scope="col">
-                                Status
-                            </th>
-                            <th className={cx("table-header-title")} scope="col">
-                                Actions
-                            </th>
+                    <thead>
+                        <tr>
+                            {titles.map((title, index) => (
+                                <th className={cx("table-header-title")} key={index}>
+                                    {title}
+                                </th>
+                            ))}
+                            <th className={cx("table-header-title")}></th>
                         </tr>
                     </thead>
-                    <tbody className={cx("table-body")}>
-                        {rows.map((row) => {
-                            return (
-                                <tr className={cx("table-row")} key={row.id}>
-                                    <td className={cx("table-column", "checkbox-column")} data-label="Account">
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td className={cx("table-column")} data-label="Account">
-                                        {row.date}
-                                    </td>
-                                    <td className={cx("table-column", "voucher-code")} data-label="Due Date">
-                                        {row.code}
-                                    </td>
-                                    <td className={cx("table-column", "status-column")} data-label="Amount">
-                                        <span style={makeStyle(row.status)} className={cx("status")}>
-                                            {row.status}
-                                        </span>
-                                    </td>
-                                    <td className={cx("table-column", "actions")} data-label="Period">
-                                        <span className={cx("icon-action-wrapper")}>
-                                            <CiEdit className={cx("icon-action")} />
-                                        </span>
-                                        <span className={cx("icon-action-wrapper")}>
-                                            <IoTrashOutline className={cx("icon-action")} />
-                                        </span>
-                                    </td>
-                                </tr>
-                            );
-                        })}
+                    <tbody>
+                        {data.map((rows, index: number) => (
+                            <tr className={cx("table-row")} key={index}>
+                                {Array(titles.length)
+                                    .fill(0)
+                                    .map((_, i) => (
+                                        <td className={cx("table-column")} key={i} id={titles[i].toLowerCase().toString()}>
+                                            {titles[i].toLowerCase() === "link" ? (
+                                                <a
+                                                    style={titles[i].toLowerCase() === "status" ? makeStyle(rows[titles[i]]) : {}}
+                                                    href={rows[titles[i]]}
+                                                >
+                                                    {rows[titles[i]]}
+                                                </a>
+                                            ) : (
+                                                <p
+                                                    style={titles[i].toLowerCase() === "status" ? makeStyle(rows[titles[i]]) : {}}
+                                                    className={cx("table-column-content")}
+                                                >
+                                                    {rows[titles[i]]}
+                                                </p>
+                                            )}
+                                        </td>
+                                    ))}
+
+                                <td className={cx("table-column")}>
+                                    <Tippy
+                                        placement="bottom-end"
+                                        interactive
+                                        trigger="click"
+                                        hideOnClick
+                                        render={(attrs) => (
+                                            <div className="box" tabIndex={-1} {...attrs}>
+                                                <ul className={cx("dropdown-menu")}>
+                                                    <li className={cx("menu-item")}>Edit</li>
+                                                    <li className={cx("menu-item")}>Delete</li>
+                                                </ul>
+                                            </div>
+                                        )}
+                                    >
+                                        <button className={cx("table-column-actions")}>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className={cx("icon-ellipsis")}
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </Tippy>
+                                </td>
+                            </tr>
+                        ))}
+                        <tr className={cx("table-row")}></tr>
                     </tbody>
                 </table>
-
-                <Stack color={"#fff"} spacing={2}>
-                    <Pagination count={10} page={1} shape="rounded" />
-                </Stack>
+                <div className={cx("pagination-wrapper")}>
+                    <Stack spacing={2}>
+                        <CustomPagination count={10} page={1} shape="rounded" />
+                    </Stack>
+                </div>
             </div>
         </div>
     );
