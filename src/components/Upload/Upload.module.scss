@@ -1,0 +1,57 @@
+.wrapper {
+    padding: 3rem;
+    background: var(--secondary-color);
+    border-radius: 0.5rem;
+    max-width: 100%;
+}
+
+.header {
+    color: var(--text-color);
+    font-size: 1.7rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.form {
+    height: 167px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    border: 1px dashed var(--text-color);
+    margin: 2rem 0;
+    cursor: pointer;
+}
+
+.icon {
+    color: var(--text-color);
+    font-size: 3rem;
+}
+
+.description {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.upload {
+}
+.upload-success {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 4px;
+    background: var(--primary-color);
+    cursor: pointer;
+}
+.upload-success-file-name {
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.upload-success-icon {
+    color: var(--text-color);
+    font-size: 2rem;
+}

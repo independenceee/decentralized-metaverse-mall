@@ -14,24 +14,25 @@ const TransactionProvider = function ({ children }: Props) {
         const policyId = process.env.POLICYID_C2E_TOKEN!;
         const assetName = process.env.ASSETNAME_C2E_TOKEN!;
 
-        const tx: any = lucid.newTx();
-
+        let tx: any = lucid.newTx();
         accounts.forEach(async function (account) {
-            await tx
-                .payToAddress(account.walletAddress, { [policyId + fromText(assetName)]: BigInt(1) })
-                .attachMetadata(1, { vouhcer: "Hello from Lucid." });
+            tx = await tx
+                .payToAddress(account.walletAddress, {
+                    [policyId + fromText(assetName)]: BigInt(1),
+                })
+                .attachMetadata(1, { voucher: "Hello from Lucid." });
         });
 
-        tx.complete();
+        tx = await tx.complete();
 
-        const signedTx: TxSigned = await tx.sign().complete();
-        const txHash: TxHash = await signedTx.submit();
-        lucid.awaitTx(txHash);
+        const signedTx = await tx.sign().complete();
 
+        const txHash: string = await signedTx.submit();
+        await lucid.awaitTx(txHash);
         return txHash;
     };
 
-    return <TransactionContext.Provider value={{}}>{children}</TransactionContext.Provider>;
+    return <TransactionContext.Provider value={{ sendNativeTokens }}>{children}</TransactionContext.Provider>;
 };
 
 export default TransactionProvider;

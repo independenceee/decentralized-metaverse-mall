@@ -198,10 +198,14 @@
 
 .search-input {
     background-color: transparent;
-    color: rgb(194, 201, 214);
+    color: var(--white-color);
     font-size: 1.4rem;
     padding: 0.6rem 1.2rem;
     text-align: right;
+
+    &::placeholder {
+        color: var(--white-color);
+    }
 }
 
 .search-label {
