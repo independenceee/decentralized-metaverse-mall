@@ -1,14 +1,12 @@
 "use client";
 import * as React from "react";
 import Tippy from "@tippyjs/react/headless";
-import { CiEdit } from "react-icons/ci";
-import { IoTrashOutline } from "react-icons/io5";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
 import { styled } from "@mui/system";
-import { VoucherStatus } from "@/types/GenericsType";
 
 import styles from "./Table.module.scss";
+import Popper from "../Popper/Popper";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
@@ -91,19 +89,13 @@ export default function CustomTable({ data }: Props) {
                     </form>
 
                     <div className={cx("filter-control")}>
-                        <Tippy
-                            placement="bottom-end"
-                            interactive
-                            trigger="click"
-                            hideOnClick
-                            render={(attrs) => (
-                                <div className="box" tabIndex={-1} {...attrs}>
-                                    <ul className={cx("dropdown-menu")}>
-                                        <li className={cx("menu-item")}>FREE</li>
-                                        <li className={cx("menu-item")}>USED</li>
-                                    </ul>
-                                </div>
-                            )}
+                        <Popper
+                            content={
+                                <ul className={cx("dropdown-menu")}>
+                                    <li className={cx("menu-item")}>FREE</li>
+                                    <li className={cx("menu-item")}>USED</li>
+                                </ul>
+                            }
                         >
                             <button className={cx("fiter-button")}>
                                 <svg
@@ -121,7 +113,7 @@ export default function CustomTable({ data }: Props) {
                                     />
                                 </svg>
                             </button>
-                        </Tippy>
+                        </Popper>
                     </div>
                 </div>
             </div>
@@ -147,8 +139,10 @@ export default function CustomTable({ data }: Props) {
                                         <td className={cx("table-column")} key={i} id={titles[i].toLowerCase().toString()}>
                                             {titles[i].toLowerCase() === "link" ? (
                                                 <a
+                                                    target="_blank"
                                                     style={titles[i].toLowerCase() === "status" ? makeStyle(rows[titles[i]]) : {}}
                                                     href={rows[titles[i]]}
+                                                    className={cx("table-column-content")}
                                                 >
                                                     {rows[titles[i]]}
                                                 </a>
@@ -164,19 +158,13 @@ export default function CustomTable({ data }: Props) {
                                     ))}
 
                                 <td className={cx("table-column")}>
-                                    <Tippy
-                                        placement="bottom-end"
-                                        interactive
-                                        trigger="click"
-                                        hideOnClick
-                                        render={(attrs) => (
-                                            <div className="box" tabIndex={-1} {...attrs}>
-                                                <ul className={cx("dropdown-menu")}>
-                                                    <li className={cx("menu-item")}>Edit</li>
-                                                    <li className={cx("menu-item")}>Delete</li>
-                                                </ul>
-                                            </div>
-                                        )}
+                                    <Popper
+                                        content={
+                                            <ul className={cx("dropdown-menu")}>
+                                                <li className={cx("menu-item")}>Edit</li>
+                                                <li className={cx("menu-item")}>Delete</li>
+                                            </ul>
+                                        }
                                     >
                                         <button className={cx("table-column-actions")}>
                                             <svg
@@ -194,7 +182,7 @@ export default function CustomTable({ data }: Props) {
                                                 />
                                             </svg>
                                         </button>
-                                    </Tippy>
+                                    </Popper>
                                 </td>
                             </tr>
                         ))}
