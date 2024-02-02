@@ -20,7 +20,7 @@ const AdminVoucherPage = function ({}: Props) {
                 <Card title="Analytics Voucher" Icon={AddressCardIcon} to="#" />
                 <Card title="Create Voucher" Icon={AddressCardIcon} type="add" to="/admin/voucher/create" />
             </div>
-            <Table data={vouchers} />
+            <Table title="Vouchers" data={vouchers} />
         </div>
     );
 };

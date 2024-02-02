@@ -24,6 +24,8 @@ const Notification = function ({ isPending, startTime = 19000035505891 }: Props)
             const start = new Date(startTime).getTime();
             console.log(startTime);
             const remainingTime = start - currentTime;
+            console.log("Remaining time: ", remainingTime);
+
             setCountdown(remainingTime);
         }, 1000);
         return () => clearInterval(timer);
