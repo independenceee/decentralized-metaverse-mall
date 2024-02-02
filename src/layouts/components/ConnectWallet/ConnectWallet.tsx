@@ -19,9 +19,11 @@ import { WalletContextType } from "@/types/contexts/WalletContextType";
 
 const cx = classNames.bind(styles);
 
-type Props = {};
+type Props = {
+    isActive: boolean;
+};
 
-const ConnectWallet = function ({}: Props) {
+const ConnectWallet = function ({ isActive = true }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
@@ -69,11 +71,11 @@ const ConnectWallet = function ({}: Props) {
                     loading={loading}
                     onClick={handleOpenShowWallet}
                     RightIcon={ArrowDownIcon}
-                    className={cx("connect-wallet", { scrolled: isScrolled })}
+                    className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
                 >
                     <div className={cx("connected-wallet-container")}>
                         <Image className={cx("wallet-short-image")} src={wallet?.image} alt="" />
-                        <span className={cx("wallet-short-name")}>{!loading && wallet?.balance + " ₳"} </span>
+                        <span className={cx("wallet-short-name")}>{!loading && wallet?.balance?.toFixed(12) + " ₳"} </span>
                     </div>
 
                     {isOpenShowWallet && (
