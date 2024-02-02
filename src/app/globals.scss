@@ -47,3 +47,19 @@ textarea {
     border: none;
     outline: none;
 }
+
+// Scrollbar CSS
+html *::-webkit-scrollbar {
+    border-radius: 0.5rem;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius-primary);
+    background: #c2c2c2;
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0.5rem;
+    background-color: rgba(0, 0, 0, 0);
+}
