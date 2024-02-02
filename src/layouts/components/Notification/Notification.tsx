@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Popper from "@/components/Popper/Popper";
 import Logo from "@/components/Logo";
@@ -12,10 +12,30 @@ const cx = classNames.bind(styles);
 
 type Props = {
     isPending: boolean;
+    startTime: any;
 };
 
-const Notification = function ({ isPending }: Props) {
-    useEffect(() => {}, []);
+const Notification = function ({ isPending, startTime = 19000035505891 }: Props) {
+    const [countdown, setCountdown] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(function () {
+            const currentTime = new Date().getTime();
+            const start = new Date(startTime).getTime();
+            console.log(startTime);
+            const remainingTime = start - currentTime;
+            setCountdown(remainingTime);
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    console.log("re-render");
+
+    const days = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
+    const hours = Math.floor((countdown / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((countdown / (1000 * 60)) % 60);
+    const seconds = Math.floor((countdown / 1000) % 60);
+
     return (
         <Popper
             placement="top-end"
@@ -39,19 +59,23 @@ const Notification = function ({ isPending }: Props) {
 
                                 <div className={cx("notification-timer")}>
                                     <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>00</span>
+                                        <span className={cx("notification-timer-number")}>{days ? days.toString().padStart(2, "0") : "00"}</span>
                                         <span className={cx("notification-timer-text")}>days</span>
                                     </div>
                                     <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>00</span>
+                                        <span className={cx("notification-timer-number")}>{hours ? hours.toString().padStart(2, "0") : "00"}</span>
                                         <span className={cx("notification-timer-text")}>hours</span>
                                     </div>
                                     <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>00</span>
+                                        <span className={cx("notification-timer-number")}>
+                                            {minutes ? minutes.toString().padStart(2, "0") : "00"}
+                                        </span>
                                         <span className={cx("notification-timer-text")}>minutes</span>
                                     </div>
                                     <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>00</span>
+                                        <span className={cx("notification-timer-number")}>
+                                            {seconds ? seconds.toString().padStart(2, "0") : "00"}
+                                        </span>
                                         <span className={cx("notification-timer-text")}>seconds</span>
                                     </div>
                                 </div>
@@ -218,4 +242,4 @@ const Notification = function ({ isPending }: Props) {
     );
 };
 
-export default Notification;
+export default memo(Notification);
