@@ -30,7 +30,7 @@ const Notification = function ({ isPending }: Props) {
                         </div>
                     </header>
 
-                    <aside className={cx("notification-container")}>
+                    <div className={cx("notification-container")}>
                         {isPending ? (
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
@@ -190,7 +190,7 @@ const Notification = function ({ isPending }: Props) {
                                 </ul>
                             </section>
                         )}
-                    </aside>
+                    </div>
                     <Link href={""} className={cx("shop-button", "button")}>
                         Shop now
                     </Link>
