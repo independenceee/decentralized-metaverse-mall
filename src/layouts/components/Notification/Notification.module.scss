@@ -234,19 +234,38 @@
 /* amount-voucher-end */
 
 /* timer-begin */
+.notification-timer-countdown {
+    align-items: flex-end;
+}
+
 .notification-timer {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1;
     height: 100%;
+    flex: 1;
+    justify-content: space-around;
 }
 .notification-timer-content {
+    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: var(--secondary-color);
 }
 .notification-timer-number {
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--text-color);
 }
 
 .notification-timer-text {
+    font-size: 1rem;
+    font-weight: 400;
 }
 /* timer-end */
 @keyframes ping {
