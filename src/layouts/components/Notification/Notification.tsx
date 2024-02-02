@@ -13,8 +13,6 @@ type Props = {
 };
 
 function Notification({ isPending }: Props) {
-    const { isShowing, toggle } = useModal();
-
     return (
         <Popper
             placement="top-end"
@@ -25,12 +23,25 @@ function Notification({ isPending }: Props) {
                             {/* <Logo /> */}
                             DMM
                         </div>
+                        {/* <button className={cx("close-button")} onClick={toggle}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className={cx("icon-minus")}
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                            </svg>
+                        </button> */}
                     </div>
 
                     <div className={cx("conent-body")}>
-                        {!isPending ? (
+                        {isPending ? (
                             <>
                                 <h3 className={cx("title")}>You need enough 4 epoches to be received the first voucher</h3>
+                                <div></div>
                                 <button className={cx("stake-button", "button")}>Stake now</button>
                             </>
                         ) : (
