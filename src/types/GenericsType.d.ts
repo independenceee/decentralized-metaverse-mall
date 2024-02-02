@@ -43,6 +43,7 @@ export type AccountType = {
     stakeKey?: string;
     email?: string;
     username?: string;
+    amount?: number;
 };
 
 export type VoucherType = {

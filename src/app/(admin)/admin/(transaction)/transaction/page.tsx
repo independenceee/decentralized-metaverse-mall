@@ -23,7 +23,7 @@ const AdminTransactionPage = function ({}: Props) {
                 />
             </header>
             <aside>
-                <Table  data={accounts} />
+                <Table title="Transaction" data={accounts} setData={setAccounts} />
             </aside>
         </div>
     );

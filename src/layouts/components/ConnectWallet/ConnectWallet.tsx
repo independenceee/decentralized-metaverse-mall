@@ -20,10 +20,10 @@ import { WalletContextType } from "@/types/contexts/WalletContextType";
 const cx = classNames.bind(styles);
 
 type Props = {
-    isActive: boolean;
+    isActive?: boolean;
 };
 
-const ConnectWallet = function ({ isActive = true }: Props) {
+const ConnectWallet = function ({ isActive }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
@@ -75,11 +75,11 @@ const ConnectWallet = function ({ isActive = true }: Props) {
                 >
                     <div className={cx("connected-wallet-container")}>
                         <Image className={cx("wallet-short-image")} src={wallet?.image} alt="" />
-                        <span className={cx("wallet-short-name")}>{!loading && wallet?.balance?.toFixed(12) + " ₳"} </span>
+                        <span className={cx("wallet-short-name")}>{!loading && wallet?.balance?.toFixed(5) + " ₳"} </span>
                     </div>
 
                     {isOpenShowWallet && (
-                        <div className={cx("show-wallet-wrapper", { scrolled: isScrolled })}>
+                        <div className={cx("show-wallet-wrapper", { scrolled: isScrolled || isActive })}>
                             <CopyToClipboard text={String(wallet?.address)}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Address: </h3>
@@ -109,11 +109,11 @@ const ConnectWallet = function ({ isActive = true }: Props) {
                     loading={loading}
                     onClick={handleOpenWallet}
                     RightIcon={ArrowDownIcon}
-                    className={cx("connect-wallet", { scrolled: isScrolled })}
+                    className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
                 >
                     {!loading && "Connect wallet"}
                     {isOpenShort && (
-                        <div className={cx("wallet-short", { scrolled: isScrolled })}>
+                        <div className={cx("wallet-short", { scrolled: isScrolled || isActive })}>
                             {wallets.slice(0, 5).map(function (wallet: WalletType, index: number) {
                                 return (
                                     <div onClick={() => handleConnectWallet(wallet)} key={index} className={cx("wallet-short-container")}>

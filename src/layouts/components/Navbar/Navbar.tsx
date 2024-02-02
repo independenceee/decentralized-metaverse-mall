@@ -34,7 +34,7 @@ const Navbar = function ({}: Props) {
                 <h3 className={cx("title")}>Admin</h3>
             </div>
             <div className={cx("right")}>
-                <ConnectWallet />
+                <ConnectWallet isActive={true} />
             </div>
         </div>
     );
