@@ -12,11 +12,11 @@ const cx = classNames.bind(styles);
 
 type Props = {
     isPending: boolean;
-    startTime: any;
+    startTime?: any;
 };
 
 const Notification = function ({ isPending, startTime = 19000035505891 }: Props) {
-    const [countdown, setCountdown] = useState(0);
+    const [countdown, setCountdown] = useState<number>(0);
 
     useEffect(() => {
         const timer = setInterval(function () {
@@ -31,12 +31,10 @@ const Notification = function ({ isPending, startTime = 19000035505891 }: Props)
         return () => clearInterval(timer);
     }, []);
 
-    console.log("re-render");
-
-    const days = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
-    const hours = Math.floor((countdown / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((countdown / (1000 * 60)) % 60);
-    const seconds = Math.floor((countdown / 1000) % 60);
+    const days: number = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
+    const hours: number = Math.floor((countdown / (1000 * 60 * 60)) % 24);
+    const minutes: number = Math.floor((countdown / (1000 * 60)) % 60);
+    const seconds: number = Math.floor((countdown / 1000) % 60);
 
     return (
         <Popper
