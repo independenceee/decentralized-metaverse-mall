@@ -12,19 +12,15 @@ import LucidContext from "@/contexts/components/LucidContext";
 import { TransactionContextType } from "@/types/contexts/TransactionContextType";
 import TransactionContext from "@/contexts/components/TransactionContext";
 import { TxHash } from "lucid-cardano";
+import { post } from "@/utils/httpRequest";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
-    ".MuiPagination-ul": {
-        // justifyContent: "flex-end",
-        // backgroundColor: "#26334D",
-        // borderRadius: "999px",
-    },
+    ".MuiPagination-ul": {},
     "& .MuiPaginationItem-root": {
         fontSize: "14px",
         color: "white",
         fontWeight: "bold",
-        // borderRadius: "100%",
     },
     "& .MuiPaginationItem-page.Mui-selected": {
         backgroundColor: "#4a28a9",
@@ -82,6 +78,21 @@ export default function CustomTable({ data, title, type, setData }: Props) {
         }
     };
 
+    const handleCreateVoucher = async function () {
+        try {
+            const vouchers = data.map(function (item) {
+                return {
+                    code: item.code,
+                    link: item.link,
+                    status: item.status,
+                };
+            });
+            await post("/voucher", vouchers);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header-control")}>
@@ -89,11 +100,17 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                 <div className={cx("header-control")}>
                     {title === "Transaction" && (
                         <Button onClick={handleSendNativeToken} className="">
-                            Send token
+                            Create {title}
                         </Button>
                     )}
 
                     {title === "Voucher" && (
+                        <Button onClick={handleCreateVoucher} className="">
+                            Create {title}
+                        </Button>
+                    )}
+
+                    {type && (
                         <div>
                             <form className={cx("search-control")} onClick={(e) => e.preventDefault()}>
                                 <label className={cx("search-label")}>

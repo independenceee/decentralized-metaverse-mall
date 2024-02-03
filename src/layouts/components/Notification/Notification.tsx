@@ -73,7 +73,7 @@ const Notification = function ({}: Props) {
                     </header>
 
                     <div className={cx("notification-container")}>
-                        {false ? (
+                        {true ? (
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
                                     <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
