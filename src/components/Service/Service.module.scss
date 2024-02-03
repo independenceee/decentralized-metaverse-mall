@@ -1,7 +1,9 @@
 @import "@/styles/layouts.scss";
 
 .wrapper {
+    --columns: 3;
     perspective: 100rem;
+    width: calc(100% / var(--columns) - (var(--gap) * (var(--columns) - 1)) / var(--columns));
 }
 
 //
@@ -88,10 +90,10 @@
     font-size: 20px;
     margin: 5px 0;
     display: inline-block;
-    width: 100%;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap !important;
     color: var(--white-color);
 }
 
@@ -117,7 +119,23 @@
         align-items: center;
         text-align: center;
     }
+    .service-detail-front {
+        margin: 0;
+        font-weight: 400;
+    }
     .service-icon {
         margin-bottom: 1.2rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .wrapper {
+        --columns: 2;
+    }
+}
+
+@media (max-width: 418px) {
+    .wrapper {
+        --columns: 1;
     }
 }

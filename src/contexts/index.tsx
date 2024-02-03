@@ -7,6 +7,7 @@ const ModalProvider = lazy(() => import("@/contexts/providers/ModalProvider"));
 const WalletProvider = lazy(() => import("@/contexts/providers/WalletProvider"));
 const TransactionProvider = lazy(() => import("@/contexts/providers/TransactionProvider"));
 const StakeProvider = lazy(() => import("@/contexts/providers/StakeProvider"));
+const AccountProvider = lazy(() => import("@/contexts/providers/AccountProvider"));
 
 type Props = {
     children: ReactNode;
@@ -18,7 +19,9 @@ const ContextProvider = function ({ children }: Props) {
             <LucidProvider>
                 <WalletProvider>
                     <StakeProvider>
-                        <TransactionProvider>{children}</TransactionProvider>
+                        <TransactionProvider>
+                            <AccountProvider>{children}</AccountProvider>
+                        </TransactionProvider>
                     </StakeProvider>
                 </WalletProvider>
             </LucidProvider>

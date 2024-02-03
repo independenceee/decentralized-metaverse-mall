@@ -46,7 +46,7 @@ const HomePage = function ({}: Props) {
             <section id="roadmap" className={cx("roadmap-wrapper")}>
                 <div className={cx("title-wrapper")}>
                     <Title title="Roadmap" subTitle="Emergence and design of the idea" />
-                </div>
+            </div>
                 <Timeline timelines={roadmaps} />
             </section>
             <section id="team" className={cx("team-wrapper")}>

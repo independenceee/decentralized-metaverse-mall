@@ -1,14 +1,10 @@
-.wrapper {
-}
-
 .connect-wallet {
     background-color: var(--primary-color);
     font-weight: 500;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     position: relative;
-    min-width: 20rem;
+    // min-width: 20rem;
 
-    padding: 1.5rem 3rem;
     color: var(--text-color);
     &.scrolled {
         color: var(--text-color);
@@ -58,14 +54,14 @@
 }
 
 .wallet-short-image {
-    width: 30px;
-    height: 30px;
+    width: 2.4rem;
+    height: 2.4rem;
     object-fit: cover;
 }
 
 .wallet-short-name {
     display: flex;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 500;
     align-items: center;
 }
