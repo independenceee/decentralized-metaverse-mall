@@ -1,14 +1,12 @@
 "use client";
 
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import Popper from "@/components/Popper/Popper";
 import Logo from "@/components/Logo";
 import { CloseIcon, TransactionIcon } from "@/components/Icons";
 import styles from "./Notification.module.scss";
 import Link from "next/link";
-import { StakeContextType } from "@/types/contexts/StakeContextType";
-import StakeContext from "@/contexts/components/StakeContext";
 
 const cx = classNames.bind(styles);
 
@@ -16,18 +14,31 @@ type Props = {};
 
 const Notification = function ({}: Props) {
     const [countdown, setCountdown] = useState<number>(0);
+    const [mounted, setMounted] = useState<boolean>(false);
+    const timer = useRef<NodeJS.Timeout | null>(null);
 
-    console.log("mount");
+    console.log("re-render");
     useEffect(() => {
-        const timer = setInterval(function () {
-            const currentTime = new Date().getTime();
-            const start = new Date(1706944438).getTime();
-            const remainingTime = start - currentTime;
+        if (mounted) {
+            timer.current = setInterval(handleStartCountdown, 1000);
+        }
+        return () => {
+            timer.current && clearInterval(timer.current);
+        };
+    }, [mounted]);
 
-            setCountdown(remainingTime);
-        }, 1000);
-        return () => clearInterval(timer);
-    }, []);
+    function handleStartCountdown() {
+        setMounted(true);
+        const currentTime = new Date().getTime();
+        const start = new Date(1706944438).getTime();
+        const remainingTime = start - currentTime;
+        setCountdown(remainingTime);
+    }
+
+    const handleStopCountdown = () => {
+        setMounted(false);
+        timer.current && clearInterval(timer.current);
+    };
 
     const days: number = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
     const hours: number = Math.floor((countdown / (1000 * 60 * 60)) % 24);
@@ -37,6 +48,10 @@ const Notification = function ({}: Props) {
     return (
         <Popper
             placement="top-end"
+            onHide={handleStopCountdown}
+            onShow={() => {
+                handleStartCountdown();
+            }}
             content={
                 <main className={cx("notification-wrapper")}>
                     <header className={cx("notification-header")}>
