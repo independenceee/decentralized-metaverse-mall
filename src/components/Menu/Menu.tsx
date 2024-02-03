@@ -21,7 +21,7 @@ function Menu({ isShowing, toggle }: Props) {
         setSelected(redirect);
         toggle();
     };
-
+    console.log("menu");
     return (
         <Modal isShowing={isShowing} toggle={toggle}>
             <nav className={cx("menu-wrapper") + " gsap-slider"} data-aos="fade-right">

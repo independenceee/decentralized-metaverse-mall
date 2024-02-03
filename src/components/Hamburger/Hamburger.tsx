@@ -8,9 +8,11 @@ const cx = classNames.bind(styles);
 
 function Hamburger() {
     const { toggle, isShowing } = useModal();
+    console.log("Showing: ", isShowing);
+    console.log("Hamburger re-render");
     return (
-        <div className={cx("wrapper")}>
-            <div className={cx("hamburger")} onClick={toggle} aria-hidden tabIndex={0} role="button">
+        <div className={cx("wrapper")} onClick={toggle}>
+            <div className={cx("hamburger")}>
                 <div className={cx("hamburger-inner")}>
                     <div
                         className={cx("hamburger-bar", {

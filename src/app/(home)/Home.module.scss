@@ -19,14 +19,15 @@
     padding-top: 10rem;
     padding-bottom: 10rem;
     background-color: var(--secondary-color);
+    overflow: hidden;
 }
 
 .service-container {
+    --gap: 3rem;
     @extend .container;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    gap: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
 }
 
 /* service-end */
@@ -67,7 +68,9 @@
 /* team-end*/
 
 /* faqs-begin */
-
+.faqs-wrapper {
+    overflow: hidden;
+}
 /* faqs-end */
 
 /* contact-begin */
@@ -78,15 +81,3 @@
 }
 
 /* contact-end */
-
-@media (max-width: 991px) {
-    .service-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 418px) {
-    .service-container {
-        grid-template-columns: 1fr;
-    }
-}
