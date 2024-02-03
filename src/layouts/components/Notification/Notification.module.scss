@@ -1,12 +1,19 @@
-.content-wrapper {
-    background: var(--white-color);
-    color: #000;
-    border-radius: 1.2rem;
-    max-width: 37rem;
-    min-width: 32rem;
+.notification-wrapper {
+    background: var(--primary-color);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+    color: var(--white-color);
+    border-radius: 0.5rem;
+    max-width: 35rem;
+    min-width: 30rem;
+    min-height: 45rem;
+    height: 100%;
     width: 100%;
     margin: 0 1.6rem;
     padding: 2.4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .notification-button {
@@ -34,8 +41,8 @@
     height: 3.2rem;
 }
 
-.logo-wrapper {
-    width: 50%;
+.notification-logo-wrapper {
+    width: 40%;
     font-weight: 500;
     font-size: 1.8rem;
 }
@@ -46,11 +53,42 @@
     width: 100%;
     padding: 1rem 0;
     font-size: 1.4rem;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--text-color);
 }
-.conent-body,
-.voucher-info-wrapper {
-    margin-top: 2.4rem;
+
+.notification-icon {
+    font-weight: bold;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+
+    background: rgba(0, 0, 0, 0.06);
+    &:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
 }
+
+.notification-container {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    flex: 1;
+}
+
 .close-button {
     display: flex;
     justify-content: center;
@@ -78,27 +116,28 @@
 }
 
 .button {
+    align-self: flex-end;
     align-items: center;
-    border-radius: 16px;
+    border-radius: 0.5rem;
     color: #fff;
-    background-color: rgb(10, 124, 255);
+    background-color: var(--secondary-color);
     cursor: pointer;
     display: flex;
     flex-direction: row;
-    font-weight: 500;
+    font-weight: 400;
     justify-content: center;
-    min-height: 54px;
-    min-width: 159px;
+    min-height: 4.5rem;
+    min-width: 150px;
     outline: none;
     padding: 0 30px 0 30px;
     width: 100%;
     font-size: 1.7rem;
-    margin-top: 6rem;
-    margin-bottom: 2rem;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+
     &:hover,
     &:focus,
     &:active {
-        background-color: rgba(10, 124, 255, 0.8);
+        background-color: var(--secondary-color);
     }
 }
 
@@ -129,6 +168,110 @@
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
+/* amount-voucher-begin*/
+.amount-voucher {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1, 5rem;
+}
+
+.amount-title {
+    font-weight: 400;
+    font-size: 1.3rem;
+    span {
+        color: var(--text-color);
+    }
+}
+
+.notification-voucher-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    max-height: 30rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.notification-voucher-item {
+    padding: 0.5rem;
+    background-color: var(--secondary-color);
+    border-radius: 0.5rem;
+}
+
+.notification-voucher-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.notification-voucher-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(180, 180, 180, 0.2);
+    font-size: 2rem;
+    border-radius: 0.5rem;
+}
+
+.voucher-notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.voucher-notification-content-code {
+    color: var(--text-color);
+    font-weight: 400;
+    white-space: nowrap;
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
+
+.voucher-notification-content-link {
+    color: var(--white-color);
+    font-weight: 400;
+}
+/* amount-voucher-end */
+
+/* timer-begin */
+.notification-timer-countdown {
+    align-items: flex-end;
+}
+
+.notification-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex: 1;
+    justify-content: space-around;
+}
+.notification-timer-content {
+    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: var(--secondary-color);
+}
+.notification-timer-number {
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.notification-timer-text {
+    font-size: 1rem;
+    font-weight: 400;
+}
+/* timer-end */
 @keyframes ping {
     75%,
     100% {

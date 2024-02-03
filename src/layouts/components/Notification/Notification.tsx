@@ -1,58 +1,261 @@
 "use client";
 
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./Notification.module.scss";
 import Popper from "@/components/Popper/Popper";
 import Logo from "@/components/Logo";
-import { useModal } from "@/hooks";
+import { CloseIcon, TransactionIcon } from "@/components/Icons";
+import styles from "./Notification.module.scss";
+import Link from "next/link";
+import { StakeContextType } from "@/types/contexts/StakeContextType";
+import StakeContext from "@/contexts/components/StakeContext";
+import { WalletContextType } from "@/types/contexts/WalletContextType";
+import WalletContext from "@/contexts/components/WalletContext";
 
 const cx = classNames.bind(styles);
 
-type Props = {
-    isPending: boolean;
-};
+type Props = {};
 
-function Notification({ isPending }: Props) {
-    const { isShowing, toggle } = useModal();
+const Notification = function ({}: Props) {
+    const [countdown, setCountdown] = useState<number>(0);
+    const [mounted, setMounted] = useState<boolean>(false);
+    const { wallet } = useContext<WalletContextType>(WalletContext);
+    const timer = useRef<NodeJS.Timeout | null>(null);
+
+    console.log("re-render");
+    useEffect(() => {
+        if (mounted) {
+            timer.current = setInterval(handleStartCountdown, 1000);
+        }
+        return () => {
+            timer.current && clearInterval(timer.current);
+        };
+    }, [mounted]);
+
+    function handleStartCountdown() {
+        setMounted(true);
+        const currentTime = new Date().getTime();
+        const start = new Date(1706944438).getTime();
+        const remainingTime = start - currentTime;
+        setCountdown(remainingTime);
+    }
+
+    const handleStopCountdown = () => {
+        setMounted(false);
+        timer.current && clearInterval(timer.current);
+    };
+
+    const days: number = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
+    const hours: number = Math.floor((countdown / (1000 * 60 * 60)) % 24);
+    const minutes: number = Math.floor((countdown / (1000 * 60)) % 60);
+    const seconds: number = Math.floor((countdown / 1000) % 60);
 
     return (
         <Popper
             placement="top-end"
+            onHide={handleStopCountdown}
+            onShow={() => {
+                handleStartCountdown();
+            }}
             content={
-                <div className={cx("content-wrapper")}>
-                    <div className={cx("notification-header")}>
-                        <div className={cx("logo-wrapper")}>
-                            {/* <Logo /> */}
-                            DMM
+                <main className={cx("notification-wrapper")}>
+                    <header className={cx("notification-header")}>
+                        <div className={cx("notification-logo-wrapper")}>
+                            <Logo />
                         </div>
-                    </div>
+                        <div className={cx("notification-icon")}>
+                            <CloseIcon />
+                        </div>
+                    </header>
 
-                    <div className={cx("conent-body")}>
-                        {!isPending ? (
-                            <>
-                                <h3 className={cx("title")}>You need enough 4 epoches to be received the first voucher</h3>
-                                <button className={cx("stake-button", "button")}>Stake now</button>
-                            </>
-                        ) : (
-                            <>
-                                <h3 className={cx("title")}>You have voucher unused</h3>
-                                <div className={cx("voucher-info-wrapper")}>
-                                    <div className={cx("voucher-info")}>
-                                        <span>Voucher code:&nbsp;</span>
-                                        <span>0x93fk3l2had844jh643262h64</span>
+                    <div className={cx("notification-container")}>
+                        {true ? (
+                            <section className={cx("notification-content")}>
+                                <div className={cx("amount-voucher")}>
+                                    <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
+                                </div>
+                                {wallet && (
+                                    <ul className={cx("notification-voucher-list")}>
+                                        <li className={cx("notification-voucher-item")}>
+                                            <Link className={cx("notification-voucher-link")} href={""}>
+                                                <div className={cx("voucher-notification-content")}>
+                                                    <p className={cx("voucher-notification-content-link")}>Stake address:</p>
+                                                    <h3 className={cx("voucher-notification-content-code")}>{wallet.stakeKey}</h3>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li className={cx("notification-voucher-item")}>
+                                            <Link className={cx("notification-voucher-link")} href={""}>
+                                                <div className={cx("voucher-notification-content")}>
+                                                    <p className={cx("voucher-notification-content-link")}>Pool id:</p>
+                                                    <h3 className={cx("voucher-notification-content-code")}>{wallet.poolId}</h3>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
+                                <div className={cx("notification-timer")}>
+                                    <div className={cx("notification-timer-content")}>
+                                        <span className={cx("notification-timer-number")}>{days ? days.toString().padStart(2, "0") : "00"}</span>
+                                        <span className={cx("notification-timer-text")}>days</span>
                                     </div>
-                                    <div className={cx("product-link")}>
-                                        <span>Product:&nbsp;</span>
-                                        <a href="https://google.com" target="_blank">
-                                            https://google.com
-                                        </a>
+                                    <div className={cx("notification-timer-content")}>
+                                        <span className={cx("notification-timer-number")}>{hours ? hours.toString().padStart(2, "0") : "00"}</span>
+                                        <span className={cx("notification-timer-text")}>hours</span>
+                                    </div>
+                                    <div className={cx("notification-timer-content")}>
+                                        <span className={cx("notification-timer-number")}>
+                                            {minutes ? minutes.toString().padStart(2, "0") : "00"}
+                                        </span>
+                                        <span className={cx("notification-timer-text")}>minutes</span>
+                                    </div>
+                                    <div className={cx("notification-timer-content")}>
+                                        <span className={cx("notification-timer-number")}>
+                                            {seconds ? seconds.toString().padStart(2, "0") : "00"}
+                                        </span>
+                                        <span className={cx("notification-timer-text")}>seconds</span>
                                     </div>
                                 </div>
-                                <button className={cx("shop-button", "button")}>Shop now</button>
-                            </>
+                            </section>
+                        ) : (
+                            <section className={cx("notification-content")}>
+                                <div className={cx("amount-voucher")}>
+                                    <h3 className={cx("amount-title")}>You have</h3>
+                                    <h3 className={cx("amount-title")}>
+                                        <span>1 Voucher</span>
+                                    </h3>
+                                </div>
+
+                                <ul className={cx("notification-voucher-list")}>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                    <li className={cx("notification-voucher-item")}>
+                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                            <div className={cx("notification-voucher-image")}>
+                                                <TransactionIcon />
+                                            </div>
+                                            <div className={cx("voucher-notification-content")}>
+                                                <h3 className={cx("voucher-notification-content-code")}>AKJSGDJGASJFDJHGASD</h3>
+                                                <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </section>
                         )}
                     </div>
-                </div>
+                    <Link href={""} className={cx("shop-button", "button")}>
+                        Shop now
+                    </Link>
+                </main>
             }
         >
             <button className={cx("notification-button")}>
@@ -74,6 +277,6 @@ function Notification({ isPending }: Props) {
             </button>
         </Popper>
     );
-}
+};
 
-export default Notification;
+export default memo(Notification);

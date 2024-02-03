@@ -19,9 +19,11 @@ import { WalletContextType } from "@/types/contexts/WalletContextType";
 
 const cx = classNames.bind(styles);
 
-type Props = {};
+type Props = {
+    isActive?: boolean;
+};
 
-const ConnectWallet = function ({}: Props) {
+const ConnectWallet = function ({ isActive }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
@@ -50,6 +52,7 @@ const ConnectWallet = function ({}: Props) {
         try {
             if (!(await wallet.checkApi())) {
                 toggleNotificationDownload();
+                return;
             }
             connectWallet({
                 api: wallet.api,
@@ -69,15 +72,15 @@ const ConnectWallet = function ({}: Props) {
                     loading={loading}
                     onClick={handleOpenShowWallet}
                     RightIcon={ArrowDownIcon}
-                    className={cx("connect-wallet", { scrolled: isScrolled })}
+                    className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
                 >
                     <div className={cx("connected-wallet-container")}>
                         <Image className={cx("wallet-short-image")} src={wallet?.image} alt="" />
-                        <span className={cx("wallet-short-name")}>{!loading && wallet?.balance + " ₳"} </span>
+                        <span className={cx("wallet-short-name")}>{!loading && wallet?.balance?.toFixed(5) + " ₳"} </span>
                     </div>
 
                     {isOpenShowWallet && (
-                        <div className={cx("show-wallet-wrapper", { scrolled: isScrolled })}>
+                        <div className={cx("show-wallet-wrapper", { scrolled: isScrolled || isActive })}>
                             <CopyToClipboard text={String(wallet?.address)}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Address: </h3>
@@ -87,6 +90,26 @@ const ConnectWallet = function ({}: Props) {
                                     </h3>
                                 </div>
                             </CopyToClipboard>
+                            {/* <CopyToClipboard text={String(wallet?.stakeKey)}>
+                                <div className={cx("show-wallet-item")}>
+                                    <h3 className={cx("show-wallet-name")}>Stake: </h3>
+                                    <p className={cx("show-wallet-description")}>{wallet?.stakeKey}</p>
+                                    <h3 className={cx("show-wallet-name")}>
+                                        <CopyIcon className={cx("show-wallet-icon")} />
+                                    </h3>
+                                </div>
+                            </CopyToClipboard>
+                            {wallet?.poolId && (
+                                <CopyToClipboard text={String(wallet?.poolId)}>
+                                    <div className={cx("show-wallet-item")}>
+                                        <h3 className={cx("show-wallet-name")}>Pool id: </h3>
+                                        <p className={cx("show-wallet-description")}>{wallet?.poolId}</p>
+                                        <h3 className={cx("show-wallet-name")}>
+                                            <CopyIcon className={cx("show-wallet-icon")} />
+                                        </h3>
+                                    </div>
+                                </CopyToClipboard>
+                            )} */}
                             <div onClick={refreshWallet} className={cx("show-wallet-item")}>
                                 <h3 className={cx("show-wallet-name")}>
                                     <RefreshIcon className={cx("show-wallet-icon")} />
@@ -107,11 +130,11 @@ const ConnectWallet = function ({}: Props) {
                     loading={loading}
                     onClick={handleOpenWallet}
                     RightIcon={ArrowDownIcon}
-                    className={cx("connect-wallet", { scrolled: isScrolled })}
+                    className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
                 >
                     {!loading && "Connect wallet"}
                     {isOpenShort && (
-                        <div className={cx("wallet-short", { scrolled: isScrolled })}>
+                        <div className={cx("wallet-short", { scrolled: isScrolled || isActive })}>
                             {wallets.slice(0, 5).map(function (wallet: WalletType, index: number) {
                                 return (
                                     <div onClick={() => handleConnectWallet(wallet)} key={index} className={cx("wallet-short-container")}>
@@ -164,11 +187,11 @@ const ConnectWallet = function ({}: Props) {
                         <p>The selected ({wallet?.name}) wallet has not been installed. Do you want to visit Chrome Web Store and install it now?</p>
                     </section>
                     <div className={cx("nowallet-button")}>
-                        <Button className={cx("button-ok")} onClick={toggleNotificationDownload}>
+                        <Button className={cx("button-cancel", "button")} onClick={toggleNotificationDownload}>
                             CANCEL
                         </Button>
-                        <Link target="_blank" href={String(wallet?.downloadApi)} className={cx("button-cancel")} rel="noopener noreferrer">
-                            OK
+                        <Link target="_blank" href={String(wallet?.downloadApi)} className={cx("button-ok", "button")} rel="noopener noreferrer">
+                            AGREE
                         </Link>
                     </div>
                 </div>

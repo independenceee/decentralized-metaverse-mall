@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import classNames from "classnames/bind";
 import icon from "@/assets/icons";
 import styles from "./Navbar.module.scss";
@@ -34,7 +34,7 @@ const Navbar = function ({}: Props) {
                 <h3 className={cx("title")}>Admin</h3>
             </div>
             <div className={cx("right")}>
-                <ConnectWallet />
+                <ConnectWallet isActive={true} />
             </div>
         </div>
     );
