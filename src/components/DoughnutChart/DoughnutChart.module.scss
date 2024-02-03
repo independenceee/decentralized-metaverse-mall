@@ -73,9 +73,13 @@
 
 .statistic-item {
     display: flex;
-    align-items: center;
     font-size: 1.6rem;
-    line-height: 39px;
+    line-height: 1.5;
+    padding: 0.5rem 0;
+}
+
+.statistic-item-desc {
+    margin-left: 8px;
 }
 
 .diff-color {
@@ -84,6 +88,7 @@
     height: 2.7rem;
     border-radius: 100%;
     background: var(--color);
+    flex-shrink: 0;
 }
 
 // Responsive

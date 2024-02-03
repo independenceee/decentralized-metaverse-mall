@@ -51,7 +51,7 @@ textarea {
 // Scrollbar CSS
 html *::-webkit-scrollbar {
     border-radius: 0.5rem;
-    width: 8px;
+    width: 6px;
 }
 
 html *::-webkit-scrollbar-thumb {
@@ -61,5 +61,5 @@ html *::-webkit-scrollbar-thumb {
 
 html *::-webkit-scrollbar-track {
     border-radius: 0.5rem;
-    background-color: rgba(0, 0, 0, 0);
+    background: rgba(255, 255, 255, 0.2);
 }
