@@ -1,27 +1,27 @@
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Popper from "@/components/Popper/Popper";
 import Logo from "@/components/Logo";
 import { CloseIcon, TransactionIcon } from "@/components/Icons";
 import styles from "./Notification.module.scss";
 import Link from "next/link";
+import { StakeContextType } from "@/types/contexts/StakeContextType";
+import StakeContext from "@/contexts/components/StakeContext";
 
 const cx = classNames.bind(styles);
 
-type Props = {
-    isPending: boolean;
-    startTime?: any;
-};
+type Props = {};
 
-const Notification = function ({ isPending, startTime = 19000035505891 }: Props) {
+const Notification = function ({}: Props) {
     const [countdown, setCountdown] = useState<number>(0);
 
+    console.log("mount");
     useEffect(() => {
         const timer = setInterval(function () {
             const currentTime = new Date().getTime();
-            const start = new Date(startTime).getTime();
+            const start = new Date(1706944438).getTime();
             const remainingTime = start - currentTime;
 
             setCountdown(remainingTime);
@@ -49,7 +49,7 @@ const Notification = function ({ isPending, startTime = 19000035505891 }: Props)
                     </header>
 
                     <div className={cx("notification-container")}>
-                        {isPending ? (
+                        {true ? (
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
                                     <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>

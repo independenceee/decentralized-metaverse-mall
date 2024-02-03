@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import StakeContext from "@/contexts/components/StakeContext";
 import { Delegation, Lucid, TxComplete, TxHash, TxSigned } from "lucid-cardano";
 import { get } from "@/utils/httpRequest";
@@ -14,6 +14,8 @@ type Props = {
 const StakeProvider = function ({ children }: Props) {
     const { wallet } = useContext<WalletContextType>(WalletContext);
     const { lucid } = useContext<LucidContextType>(LucidContext);
+
+    const [stakeInfomation, setStateInfomation] = useState<any>(null!);
 
     const registerStakeKey = async function ({ lucid, poolId }: { lucid: Lucid; poolId?: string }): Promise<TxHash> {
         const rewardAddress: string = (await lucid.wallet.rewardAddress()) as string;
@@ -67,28 +69,32 @@ const StakeProvider = function ({ children }: Props) {
                             lucid: lucid,
                             poolId: "pool1mvgpsafktxs883p66awp7fplj73cj6j9hqdxzvqw494f7f0v2dp",
                         });
-                        console.log(txHashRegisterStakeKey);
                     }
 
                     if (poolId === "pool1mvgpsafktxs883p66awp7fplj73cj6j9hqdxzvqw494f7f0v2dp") {
-                        
-                    }
-                } catch (error) {
-                    if (!poolId) {
-                        const txHashDelegateToStakePool = await delegateToStakePool({
-                            lucid: lucid,
-                            poolId: "pool1mvgpsafktxs883p66awp7fplj73cj6j9hqdxzvqw494f7f0v2dp",
+                        const stakeInfomation = await get("/blockfrost/account", {
+                            params: { stake_address: wallet.stakeKey as string },
                         });
 
-                        console.log(txHashDelegateToStakePool);
+                        console.log(stakeInfomation);
+
+                        setStateInfomation(stakeInfomation);
                     }
+                } catch (error) {
+                    console.log(error);
+                    // if (!poolId) {
+                    //     await delegateToStakePool({
+                    //         lucid: lucid,
+                    //         poolId: "pool1mvgpsafktxs883p66awp7fplj73cj6j9hqdxzvqw494f7f0v2dp",
+                    //     });
+                    // }
                 }
             })();
         }
     }, [wallet?.address]);
 
     return (
-        <StakeContext.Provider value={{ registerStakeKey, delegateToStakePool, withdrawRewards, deregisterStakeKey }}>
+        <StakeContext.Provider value={{ stakeInfomation, registerStakeKey, delegateToStakePool, withdrawRewards, deregisterStakeKey }}>
             {children}
         </StakeContext.Provider>
     );

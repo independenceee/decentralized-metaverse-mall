@@ -18,6 +18,7 @@ const nextConfig = {
         VILAI_POOL_ID: "pool1u7zrgexnxsysctnnwljjjymr70he829fr5n3vefnv80guxr42dv",
         POLICYID_C2E_TOKEN: "c88c4d8b1e448d579f58992debe9f905b47607ea878f3c2480248834",
         ASSETNAME_C2E_TOKEN: "C2E",
+        EXPIRED_TIME: "1728000000",
     },
 };
 
