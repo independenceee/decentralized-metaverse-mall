@@ -68,8 +68,8 @@ function DoughnutChart({ data }: Props) {
                             {extendedTokenomics.map((item, index) => (
                                 <li key={index} className={cx("statistic-item")}>
                                     <span style={{ "--color": item.color } as Record<string, string>} className={cx("diff-color")} />
-                                    <span>
-                                        &nbsp;&nbsp;{item.percentage}% - {converToSocialNumber(item.tokens)} {item.tokenName} tokens for&nbsp;
+                                    <span className={cx("statistic-item-desc")}>
+                                        {item.percentage}% - {converToSocialNumber(item.tokens)} {item.tokenName} tokens for&nbsp;
                                         {item.forDepartment}
                                     </span>
                                 </li>

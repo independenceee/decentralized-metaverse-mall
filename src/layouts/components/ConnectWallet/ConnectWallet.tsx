@@ -167,11 +167,11 @@ const ConnectWallet = function ({ isActive }: Props) {
                         <p>The selected ({wallet?.name}) wallet has not been installed. Do you want to visit Chrome Web Store and install it now?</p>
                     </section>
                     <div className={cx("nowallet-button")}>
-                        <Button className={cx("button-ok")} onClick={toggleNotificationDownload}>
+                        <Button className={cx("button-cancel", "button")} onClick={toggleNotificationDownload}>
                             CANCEL
                         </Button>
-                        <Link target="_blank" href={String(wallet?.downloadApi)} className={cx("button-cancel")} rel="noopener noreferrer">
-                            OK
+                        <Link target="_blank" href={String(wallet?.downloadApi)} className={cx("button-ok", "button")} rel="noopener noreferrer">
+                            AGREE
                         </Link>
                     </div>
                 </div>

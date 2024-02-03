@@ -223,74 +223,63 @@
 
     display: flex;
     flex-direction: column;
+    gap: 2.4rem;
     left: 50%;
     max-height: 85vh;
     width: 90vw;
-    max-width: 710px;
+    max-width: 576px;
     overflow: hidden;
     position: fixed;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
+    padding: 2.4rem;
 }
 
 .nowallet-content {
-    padding: 32px 56px;
-
     p {
         font-style: normal;
-        font-weight: 500;
-        font-size: 17px;
+        font-weight: 400;
+        font-size: 15px;
         line-height: 175%;
         color: var(--white-color);
         overflow-wrap: anywhere;
         white-space: pre-wrap;
+        padding-top: 2.4rem;
     }
 }
 .nowallet-button {
     align-items: center;
-    border-top: 1px solid #ccc;
     bottom: 0;
     display: flex;
     gap: 16px;
     height: auto;
     justify-content: flex-end;
     left: 0;
-    padding: 16px 56px;
     position: sticky;
     right: 0;
-
-    .button-ok {
-        display: flex;
-        align-items: center;
+    .button {
+        display: block;
+        flex-shrink: 0;
         color: var(--white-color);
         background: transparent;
         border: 1px solid rgba(0, 0, 0, 0.16);
-        border-radius: 8px;
+        border-radius: 5px;
         cursor: pointer;
-        padding: 4px 24px;
-        height: 48px;
-        width: auto;
-
-        &:hover {
-            background: #ebebe0;
+        padding: 8px 16px;
+        line-height: 1.5;
+        font-size: 1.6rem;
+        text-transform: uppercase;
+        &.button-ok {
+            &:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
         }
-    }
 
-    .button-cancel {
-        display: flex;
-        align-items: center;
-        color: #fff;
-        background: var(--secondary-color);
-        border: 1px solid rgba(0, 0, 0, 0.16);
-        border-radius: 8px;
-        cursor: pointer;
-        padding: 4px 24px;
-        height: 48px;
-        width: auto;
-
-        &:hover {
-            background: #ae2726;
+        &.button-cancel {
+            &:hover {
+                background: #ae2726;
+            }
         }
     }
 }
