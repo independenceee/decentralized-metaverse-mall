@@ -28,6 +28,7 @@ const WalletProvider = function ({ children }: Props) {
             const address: string = await lucid.wallet.address();
             const stakeKey: string = (await lucid.wallet.rewardAddress()) as string;
             const utxos: Array<UTxO> = await lucid.wallet.getUtxos();
+            const { poolId } = await lucid.delegationAt(stakeKey as string);
             const balance: number = utxos.reduce(function (balance, utxo) {
                 return balance + Number(utxo.assets.lovelace) / 1000000;
             }, 0);
@@ -40,6 +41,7 @@ const WalletProvider = function ({ children }: Props) {
                     address: address,
                     balance: balance,
                     stakeKey: stakeKey,
+                    poolId: poolId,
                 };
             });
         } catch (error) {

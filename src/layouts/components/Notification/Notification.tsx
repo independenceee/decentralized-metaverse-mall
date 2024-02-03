@@ -9,6 +9,8 @@ import styles from "./Notification.module.scss";
 import Link from "next/link";
 import { StakeContextType } from "@/types/contexts/StakeContextType";
 import StakeContext from "@/contexts/components/StakeContext";
+import { WalletContextType } from "@/types/contexts/WalletContextType";
+import WalletContext from "@/contexts/components/WalletContext";
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +18,7 @@ type Props = {};
 
 const Notification = function ({}: Props) {
     const [countdown, setCountdown] = useState<number>(0);
+    const { wallet } = useContext<WalletContextType>(WalletContext);
 
     console.log("mount");
     useEffect(() => {
@@ -54,7 +57,26 @@ const Notification = function ({}: Props) {
                                 <div className={cx("amount-voucher")}>
                                     <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
                                 </div>
-
+                                {wallet && (
+                                    <ul className={cx("notification-voucher-list")}>
+                                        <li className={cx("notification-voucher-item")}>
+                                            <Link className={cx("notification-voucher-link")} href={""}>
+                                                <div className={cx("voucher-notification-content")}>
+                                                    <p className={cx("voucher-notification-content-link")}>Stake address:</p>
+                                                    <h3 className={cx("voucher-notification-content-code")}>{wallet.stakeKey}</h3>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                        <li className={cx("notification-voucher-item")}>
+                                            <Link className={cx("notification-voucher-link")} href={""}>
+                                                <div className={cx("voucher-notification-content")}>
+                                                    <p className={cx("voucher-notification-content-link")}>Pool id:</p>
+                                                    <h3 className={cx("voucher-notification-content-code")}>{wallet.poolId}</h3>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
                                 <div className={cx("notification-timer")}>
                                     <div className={cx("notification-timer-content")}>
                                         <span className={cx("notification-timer-number")}>{days ? days.toString().padStart(2, "0") : "00"}</span>
