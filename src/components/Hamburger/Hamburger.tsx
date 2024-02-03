@@ -11,7 +11,7 @@ function Hamburger() {
     return (
         <div className={cx("wrapper")}>
             <div className={cx("hamburger")} onClick={toggle} aria-hidden tabIndex={0} role="button">
-                <div className={cx("hamburger-inner", "group flex cursor-pointer flex-col items-end justify-stretch py-7")}>
+                <div className={cx("hamburger-inner")}>
                     <div
                         className={cx("hamburger-bar", {
                             "hamburger-bar-active": isShowing,

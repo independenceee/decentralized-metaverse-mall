@@ -31,7 +31,9 @@ const HomePage = function ({}: Props) {
                 <About />
             </section>
             <section id="services" className={cx("service-wrapper")}>
-                <Title title="Services" subTitle="We Translate Your Dream Into Reality" />
+                <div className={cx("title-wrapper")}>
+                    <Title title="Services" subTitle="We Translate Your Dream Into Reality" />
+                </div>
                 <div className={cx("service-container")}>
                     {services.map(function (service: ServiceType, index: number) {
                         return <Service service={service} key={index} index={index} />;
@@ -42,7 +44,9 @@ const HomePage = function ({}: Props) {
                 <DoughnutChart data={tokenomics} />
             </section>
             <section id="roadmap" className={cx("roadmap-wrapper")}>
-                <Title title="Roadmap" subTitle="Emergence and design of the idea" />
+                <div className={cx("title-wrapper")}>
+                    <Title title="Roadmap" subTitle="Emergence and design of the idea" />
+                </div>
                 <Timeline timelines={roadmaps} />
             </section>
             <section id="team" className={cx("team-wrapper")}>
@@ -57,7 +61,9 @@ const HomePage = function ({}: Props) {
                 <Faqs />
             </section>
             <section id="contact" className={cx("contact-wrapper")}>
-                <Title title="Get In Touch" subTitle="Emergence and design of the idea" />
+                <div className={cx("title-wrapper")}>
+                    <Title title="Get In Touch" subTitle="Emergence and design of the idea" />
+                </div>
                 <div className={cx("contact-container")}>
                     <Contact />
                 </div>
