@@ -31,6 +31,7 @@ export type WalletType = {
     address?: string;
     downloadApi?: string;
     stakeKey?: string;
+    poolId?: string | null;
     api: () => Promise<any> | any;
     checkApi: () => Promise<any> | any;
 };

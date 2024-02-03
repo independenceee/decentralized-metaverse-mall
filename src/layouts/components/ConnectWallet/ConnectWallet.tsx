@@ -90,6 +90,26 @@ const ConnectWallet = function ({ isActive }: Props) {
                                     </h3>
                                 </div>
                             </CopyToClipboard>
+                            {/* <CopyToClipboard text={String(wallet?.stakeKey)}>
+                                <div className={cx("show-wallet-item")}>
+                                    <h3 className={cx("show-wallet-name")}>Stake: </h3>
+                                    <p className={cx("show-wallet-description")}>{wallet?.stakeKey}</p>
+                                    <h3 className={cx("show-wallet-name")}>
+                                        <CopyIcon className={cx("show-wallet-icon")} />
+                                    </h3>
+                                </div>
+                            </CopyToClipboard>
+                            {wallet?.poolId && (
+                                <CopyToClipboard text={String(wallet?.poolId)}>
+                                    <div className={cx("show-wallet-item")}>
+                                        <h3 className={cx("show-wallet-name")}>Pool id: </h3>
+                                        <p className={cx("show-wallet-description")}>{wallet?.poolId}</p>
+                                        <h3 className={cx("show-wallet-name")}>
+                                            <CopyIcon className={cx("show-wallet-icon")} />
+                                        </h3>
+                                    </div>
+                                </CopyToClipboard>
+                            )} */}
                             <div onClick={refreshWallet} className={cx("show-wallet-item")}>
                                 <h3 className={cx("show-wallet-name")}>
                                     <RefreshIcon className={cx("show-wallet-icon")} />
