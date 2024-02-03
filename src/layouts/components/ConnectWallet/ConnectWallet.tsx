@@ -52,6 +52,7 @@ const ConnectWallet = function ({ isActive }: Props) {
         try {
             if (!(await wallet.checkApi())) {
                 toggleNotificationDownload();
+                return;
             }
             connectWallet({
                 api: wallet.api,

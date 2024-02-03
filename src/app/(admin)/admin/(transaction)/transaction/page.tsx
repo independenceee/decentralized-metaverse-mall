@@ -16,7 +16,7 @@ const AdminTransactionPage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
-                <Upload setData={setAccounts} />
+                <Upload data={accounts} setData={setAccounts} />
                 <Guide
                     title="Transaction"
                     description="Request your data . Upload .JSON files containing images, metadata, and your mint to collectors through the Mint Service."

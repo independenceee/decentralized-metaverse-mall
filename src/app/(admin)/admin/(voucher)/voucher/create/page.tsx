@@ -12,18 +12,18 @@ type Props = {};
 const cx = classNames.bind(styles);
 
 const AdminCreateVoucherPage = function ({}: Props) {
-    const [accounts, setAccounts] = useState<any[] | null>(null);
+    const [vouchers, setVouchers] = useState<any[] | null>(null);
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
-                <Upload setData={setAccounts} />
+                <Upload data={vouchers} setData={setVouchers} />
                 <Guide
                     title="Voucher"
                     description="Request your data . Upload .JSON files containing images, metadata, and your mint to collectors through the Mint Service."
                 />
             </header>
             <aside>
-                <Table data={accounts} />
+                <Table title="Create Voucher" setData={setVouchers} data={vouchers} />
             </aside>
         </div>
     );

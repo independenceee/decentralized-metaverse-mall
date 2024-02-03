@@ -8,7 +8,7 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .title {
@@ -27,11 +27,12 @@
 }
 
 .add-content {
-    margin: 1.5rem 0;
+    margin: 2rem;
     font-weight: 400;
     font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     cursor: pointer;
@@ -44,12 +45,13 @@
 }
 
 .add-right {
-    padding: 2rem;
+    padding: 3rem 0;
+    width: 100%;
     background: var(--primary-color);
     border-radius: 5px;
-    align-self: flex-start;
+    text-align: center;
 }
 
 .add-icon {
-    font-size: 7rem;
+    font-size: 10rem;
 }

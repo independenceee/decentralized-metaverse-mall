@@ -17,7 +17,6 @@ const AdminVoucherPage = function ({}: Props) {
     return (
         <div>
             <div className={cx("header")}>
-                <Card title="Analytics Voucher" Icon={AddressCardIcon} to="#" />
                 <Card title="Create Voucher" Icon={AddressCardIcon} type="add" to="/admin/voucher/create" />
             </div>
             <Table title="Vouchers" data={vouchers} setData={null!} />

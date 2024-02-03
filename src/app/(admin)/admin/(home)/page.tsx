@@ -16,7 +16,9 @@ const AdminHomePage = function ({}: Props) {
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
                 {privateRoutes.map(function (privateRoute, index: number) {
-                    return <Card title={privateRoute.name} Icon={privateRoute.Icon} key={index} to={privateRoute.redirect} />;
+                    if (privateRoute.name !== "Home") {
+                        return <Card title={privateRoute.name} Icon={privateRoute.Icon} key={index} to={privateRoute.redirect} />;
+                    }
                 })}
             </header>
         </div>

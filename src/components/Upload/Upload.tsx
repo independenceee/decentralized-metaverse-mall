@@ -10,10 +10,11 @@ import { FaFileCsv as FileCsvIcon } from "react-icons/fa";
 import { FaCheck as CheckIcon } from "react-icons/fa";
 const cx = classNames.bind(styles);
 type Props = {
+    data: any[] | null;
     setData: Dispatch<SetStateAction<any[] | null>>;
 };
 
-const Upload = function ({ setData }: Props) {
+const Upload = function ({ data, setData }: Props) {
     const [file, setFile] = useState<File>(null!);
     const inputRef = useRef<HTMLInputElement>(null);
     const handleChangeFile = async function (event: ChangeEvent<HTMLInputElement>) {
