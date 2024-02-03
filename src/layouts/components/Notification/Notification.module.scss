@@ -197,6 +197,7 @@
     padding: 0.5rem;
     background-color: var(--secondary-color);
     border-radius: 0.5rem;
+    max-width: 100%;
 }
 
 .notification-voucher-link {
@@ -226,9 +227,9 @@
 .voucher-notification-content-code {
     color: var(--text-color);
     font-weight: 400;
-    white-space: nowrap;
-    max-width: 100%;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .voucher-notification-content-link {

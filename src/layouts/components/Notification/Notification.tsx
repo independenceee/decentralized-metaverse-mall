@@ -11,18 +11,20 @@ import { StakeContextType } from "@/types/contexts/StakeContextType";
 import StakeContext from "@/contexts/components/StakeContext";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
 import WalletContext from "@/contexts/components/WalletContext";
+import convertDatetime from "@/helpers/convert-datetime";
 
 const cx = classNames.bind(styles);
 
 type Props = {};
 
 const Notification = function ({}: Props) {
-    const [countdown, setCountdown] = useState<number>(0);
     const [mounted, setMounted] = useState<boolean>(false);
+    const [countdown, setCountdown] = useState<number>(0);
+    const { stakeInfomation } = useContext<StakeContextType>(StakeContext);
     const { wallet } = useContext<WalletContextType>(WalletContext);
+
     const timer = useRef<NodeJS.Timeout | null>(null);
 
-    console.log("re-render");
     useEffect(() => {
         if (mounted) {
             timer.current = setInterval(handleStartCountdown, 1000);
@@ -32,15 +34,17 @@ const Notification = function ({}: Props) {
         };
     }, [mounted]);
 
-    function handleStartCountdown() {
+    const handleStartCountdown = function () {
         setMounted(true);
-        const currentTime = new Date().getTime();
-        const start = new Date(1706944438).getTime();
-        const remainingTime = start - currentTime;
-        setCountdown(remainingTime);
-    }
+        if (stakeInfomation) {
+            const currentTime = new Date().getTime();
+            const startTime = new Date(stakeInfomation.block_time * 1000 + Number(process.env.EXPIRED_TIME!)).getTime();
+            const remainingTime = startTime - currentTime;
+            setCountdown(remainingTime);
+        }
+    };
 
-    const handleStopCountdown = () => {
+    const handleStopCountdown = function () {
         setMounted(false);
         timer.current && clearInterval(timer.current);
     };
@@ -69,7 +73,7 @@ const Notification = function ({}: Props) {
                     </header>
 
                     <div className={cx("notification-container")}>
-                        {true ? (
+                        {false ? (
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
                                     <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
@@ -92,6 +96,30 @@ const Notification = function ({}: Props) {
                                                 </div>
                                             </Link>
                                         </li>
+                                        {stakeInfomation && (
+                                            <>
+                                                <li className={cx("notification-voucher-item")}>
+                                                    <Link className={cx("notification-voucher-link")} href={""}>
+                                                        <div className={cx("voucher-notification-content")}>
+                                                            <p className={cx("voucher-notification-content-link")}>Register date:</p>
+                                                            <h3 className={cx("voucher-notification-content-code")}>
+                                                                {convertDatetime(stakeInfomation?.block_time)}
+                                                            </h3>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                                <li className={cx("notification-voucher-item")}>
+                                                    <Link className={cx("notification-voucher-link")} href={""}>
+                                                        <div className={cx("voucher-notification-content")}>
+                                                            <p className={cx("voucher-notification-content-link")}>Number of Epoch:</p>
+                                                            <h3 className={cx("voucher-notification-content-code")}>
+                                                                {stakeInfomation.epochs.length}
+                                                            </h3>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                            </>
+                                        )}
                                     </ul>
                                 )}
                                 <div className={cx("notification-timer")}>
