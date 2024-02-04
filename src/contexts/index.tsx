@@ -1,6 +1,7 @@
 "use client";
 
 import React, { ReactNode, lazy } from "react";
+import { Toaster } from "sonner";
 
 const LucidProvider = lazy(() => import("@/contexts/providers/LucidProvider"));
 const ModalProvider = lazy(() => import("@/contexts/providers/ModalProvider"));
@@ -21,6 +22,7 @@ const ContextProvider = function ({ children }: Props) {
                     <StakeProvider>
                         <TransactionProvider>
                             <AccountProvider>{children}</AccountProvider>
+                            <Toaster />
                         </TransactionProvider>
                     </StakeProvider>
                 </WalletProvider>

@@ -1,8 +1,7 @@
 .input-group {
-    margin-bottom: 30px;
+    margin-bottom: 16px;
     display: flex;
-    align-items: center;
-    gap: 3rem;
+    flex-direction: column;
     width: 100%;
 }
 .input {
@@ -19,4 +18,11 @@
     background-clip: padding-box;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-error-message {
+    color: red;
+    font-size: 1.4rem;
+    min-height: 2.5rem;
+    margin-top: 4px;
 }
