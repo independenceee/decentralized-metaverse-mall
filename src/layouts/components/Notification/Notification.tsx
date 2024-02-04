@@ -73,7 +73,7 @@ const Notification = function ({}: Props) {
                     </header>
 
                     <div className={cx("notification-container")}>
-                        {true ? (
+                        {false ? (
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
                                     <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
@@ -164,7 +164,16 @@ const Notification = function ({}: Props) {
                                                         <TransactionIcon />
                                                     </div>
                                                     <div className={cx("voucher-notification-content")}>
-                                                        <div className={cx("voucher-notification-content-code")}>
+                                                        <div
+                                                            className={cx("voucher-notification-content-code")}
+                                                            style={
+                                                                {
+                                                                    "white-space": "nowrap",
+                                                                    "text-overflow": "ellipsis",
+                                                                    overflow: "hidden",
+                                                                } as any
+                                                            }
+                                                        >
                                                             AKJSGDJGASJFDJHGASDAKJSGDJGASJFDJHGASDAKJSGDJGASJFDJHGASD
                                                         </div>
                                                         <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
