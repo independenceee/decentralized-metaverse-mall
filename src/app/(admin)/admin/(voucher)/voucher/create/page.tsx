@@ -23,7 +23,7 @@ const AdminCreateVoucherPage = function ({}: Props) {
                 />
             </header>
             <aside>
-                <Table title="Voucher" setData={setVouchers} data={vouchers} />
+                <Table pathname="/admin/voucher/edit" title="Voucher" type="Voucher" setData={setVouchers} data={vouchers} />
             </aside>
         </div>
     );

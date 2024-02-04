@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
 import { styled } from "@mui/system";
@@ -13,6 +13,9 @@ import { TransactionContextType } from "@/types/contexts/TransactionContextType"
 import TransactionContext from "@/contexts/components/TransactionContext";
 import { TxHash } from "lucid-cardano";
 import { post } from "@/utils/httpRequest";
+import Link from "next/link";
+import { useModal } from "@/hooks";
+import Modal from "../Modal";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
@@ -55,9 +58,12 @@ type Props = {
     setData: React.Dispatch<React.SetStateAction<any[] | null>>;
     title: string;
     type?: string;
+    pathname: string;
 };
 
-export default function CustomTable({ data, title, type, setData }: Props) {
+export default function CustomTable({ data, title, type, setData, pathname }: Props) {
+    const { isShowing, toggle } = useModal();
+    const [itemId, setItemId] = useState<string>("");
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { sendNativeTokens } = useContext<TransactionContextType>(TransactionContext);
     const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {};
@@ -93,6 +99,16 @@ export default function CustomTable({ data, title, type, setData }: Props) {
         }
     };
 
+    const handleGetItemId = (id: string) => {
+        setItemId(id);
+        toggle();
+    };
+
+    const handleDelete = () => {
+        // Call API delete: itemId
+
+        toggle();
+    };
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header-control")}>
@@ -212,8 +228,14 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                                         <Popper
                                             content={
                                                 <ul className={cx("dropdown-menu")}>
-                                                    <li className={cx("menu-item")}>Edit</li>
-                                                    <li className={cx("menu-item")}>Delete</li>
+                                                    <li className={cx("menu-item")}>
+                                                        <Link href={`${pathname}/id`} style={{ display: "block" }}>
+                                                            Edit
+                                                        </Link>
+                                                    </li>
+                                                    <li className={cx("menu-item")} onClick={() => handleGetItemId("id")}>
+                                                        Delete
+                                                    </li>
                                                 </ul>
                                             }
                                         >
@@ -247,6 +269,21 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                     </Stack>
                 </div>
             </div>
+            <Modal isShowing={isShowing} toggle={toggle}>
+                <div className={cx("modal-wrapper")}>
+                    <section>
+                        <p className={cx("modal-title")}>Are you sure to delete it?</p>
+                    </section>
+                    <div className={cx("modal-buttons")}>
+                        <Button className={cx("button-agree", "button")} onClick={handleDelete}>
+                            Yes
+                        </Button>
+                        <Button className={cx("button-disagree", "button")} onClick={toggle}>
+                            No
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

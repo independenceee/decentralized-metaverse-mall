@@ -26,7 +26,7 @@ const AdminVoucherPage = function ({}: Props) {
             <div className={cx("header")}>
                 <Card title="Create Voucher" Icon={AddressCardIcon} type="add" to="/admin/voucher/create" />
             </div>
-            <Table title="Vouchers" data={vouchers} setData={setVouchers} />
+            <Table pathname="/admin/voucher/edit" title="Vouchers" type="Vouchers" data={vouchers} setData={setVouchers} />
         </div>
     );
 };
