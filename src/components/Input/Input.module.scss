@@ -1,0 +1,22 @@
+.input-group {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+}
+.input {
+    background-color: var(--secondary-color);
+    border: none;
+    min-height: 5rem;
+    height: 100%;
+    padding-left: 1.5rem;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white-color);
+    width: 100%;
+    background-clip: padding-box;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
