@@ -31,7 +31,6 @@
     }
     &:last-child {
         border-top-right-radius: 0.5rem;
-        width: 10%;
     }
 }
 
@@ -54,8 +53,10 @@
 }
 
 .table-column {
-    white-space: nowrap;
     padding: 1.2rem 1.6rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .table-column-content {
@@ -64,6 +65,8 @@
     color: rgb(194, 201, 214);
     text-overflow: ellipsis;
     overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
 }
 
 .table-column-actions {
