@@ -54,7 +54,6 @@
 }
 
 .table-column {
-    white-space: nowrap;
     padding: 1.2rem 1.6rem;
 }
 
@@ -64,6 +63,7 @@
     color: rgb(194, 201, 214);
     text-overflow: ellipsis;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .table-column-actions {
