@@ -3,28 +3,32 @@ import styles from "./Hamburger.module.scss";
 
 import { useModal } from "@/hooks";
 import Menu from "../Menu";
+import { memo, useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function Hamburger() {
-    const { toggle, isShowing } = useModal();
-    console.log("Showing: ", isShowing);
-    console.log("Hamburger re-render");
+    const [open, setOpen] = useState<boolean>(false);
+    const handleOpenMenu = () => {
+        setOpen(true);
+    };
+
     return (
-        <div className={cx("wrapper")} onClick={toggle}>
-            <div className={cx("hamburger")}>
-                <div className={cx("hamburger-inner")}>
-                    <div
-                        className={cx("hamburger-bar", {
-                            "hamburger-bar-active": isShowing,
-                        })}
-                    />
+        <>
+            <div className={cx("wrapper")} onClick={handleOpenMenu}>
+                <div className={cx("hamburger")}>
+                    <div className={cx("hamburger-inner")}>
+                        <div
+                            className={cx("hamburger-bar", {
+                                "hamburger-bar-active": open,
+                            })}
+                        />
+                    </div>
                 </div>
             </div>
-
-            <Menu isShowing={isShowing} toggle={toggle} />
-        </div>
+            <Menu setOpen={setOpen} open={open} />
+        </>
     );
 }
 
-export default Hamburger;
+export default memo(Hamburger);

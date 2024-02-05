@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "react-scroll";
 import configs from "@/configs";
 import { publicRoutes } from "@/routes";
@@ -11,20 +11,34 @@ import Modal from "../Modal";
 const cx = classNames.bind(styles);
 
 type Props = {
-    isShowing: boolean;
-    toggle: () => void;
+    open: boolean;
+    setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-function Menu({ isShowing, toggle }: Props) {
+function Menu({ open, setOpen }: Props) {
     const [selected, setSelected] = useState<string>(configs.routes.home);
     const handleRedirect = (redirect: string) => {
         setSelected(redirect);
-        toggle();
+        setOpen(false);
     };
-    console.log("menu");
+
+    const hideOnClickOutside = () => {
+        setOpen(false);
+    };
+
     return (
-        <Modal isShowing={isShowing} toggle={toggle}>
-            <nav className={cx("menu-wrapper") + " gsap-slider"} data-aos="fade-right">
+        <div
+            className={cx({
+                "menu-overlay": open,
+            })}
+            onClick={hideOnClickOutside}
+        >
+            <nav
+                className={cx("menu-wrapper", {
+                    open,
+                })}
+                onClick={(e) => e.stopPropagation()}
+            >
                 <ul className={cx("nav-list")}>
                     {publicRoutes.map(function ({ name, redirect }, index: number) {
                         return (
@@ -47,7 +61,7 @@ function Menu({ isShowing, toggle }: Props) {
                     })}
                 </ul>
             </nav>
-        </Modal>
+        </div>
     );
 }
 
