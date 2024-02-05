@@ -127,7 +127,7 @@ export default function CustomTable({ data, title, type, setData, pathname }: Pr
                     )}
 
                     {type && (
-                        <div>
+                        <div className={cx("actions-wrapper")}>
                             <form className={cx("search-control")} onClick={(e) => e.preventDefault()}>
                                 <label className={cx("search-label")}>
                                     <input className={cx("search-input")} placeholder="Search here..." type="text" />
@@ -229,7 +229,7 @@ export default function CustomTable({ data, title, type, setData, pathname }: Pr
                                             content={
                                                 <ul className={cx("dropdown-menu")}>
                                                     <li className={cx("menu-item")}>
-                                                        <Link href={`${pathname}/id`} style={{ display: "block" }}>
+                                                        <Link href={`${pathname}/id`} style={{ display: "block", flexGrow: 1 }}>
                                                             Edit
                                                         </Link>
                                                     </li>

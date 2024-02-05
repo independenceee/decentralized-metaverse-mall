@@ -16,6 +16,11 @@
     color: rgb(194, 201, 214);
     font-size: 1.4rem;
 }
+.actions-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
 .table-header-title {
     white-space: nowrap;

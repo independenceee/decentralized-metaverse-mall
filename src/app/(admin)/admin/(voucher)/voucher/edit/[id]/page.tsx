@@ -38,7 +38,7 @@ function Edit({}: Props) {
         },
 
         (errors) => {
-            toast("Edit failed");
+            toast(errors.toString());
         },
     );
 
@@ -55,15 +55,19 @@ function Edit({}: Props) {
                     placeholder="Voucher code"
                     errorMessage={errors.code?.message}
                 />
-                <Input
-                    rules={{
-                        required: "Status is required",
-                    }}
-                    name="status"
-                    register={register}
-                    placeholder="Voucher status"
-                    errorMessage={errors.status?.message}
-                />
+
+                <div className={cx("status-wrapper")}>
+                    <select className={cx("select")} {...register("status", { required: "Code is required" })}>
+                        <option value="FREE" className={cx("option", "free")}>
+                            FREE
+                        </option>
+                        <option value="USED" className={cx("option", "used")}>
+                            USED
+                        </option>
+                    </select>
+                    <div className={cx("input-error-message")}>{errors.status?.message}</div>
+                </div>
+
                 <Input
                     rules={{
                         required: "Link is required",
