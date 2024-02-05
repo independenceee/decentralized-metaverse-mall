@@ -31,7 +31,7 @@ const AdminAccountPage = function ({}: Props) {
                 <Upload data={accounts} setData={setAccounts} />
             </div>
             <aside>
-                <Table title="Transaction" data={accounts} setData={setAccounts} />
+                <Table  title="Transaction" data={accounts} setData={setAccounts} />
             </aside>
         </div>
     );

@@ -58,7 +58,7 @@ type Props = {
     setData: React.Dispatch<React.SetStateAction<any[] | null>>;
     title: string;
     type?: string;
-    pathname: string;
+    pathname?: string;
 };
 
 export default function CustomTable({ data, title, type, setData, pathname }: Props) {
@@ -69,7 +69,7 @@ export default function CustomTable({ data, title, type, setData, pathname }: Pr
     const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {};
 
     if (!data) return;
-    const titles = Object.keys(data?.[0]) || [];
+    const titles = Object?.keys(data?.[0]) || [];
 
     const handleSendNativeToken = async function () {
         try {

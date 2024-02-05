@@ -12,6 +12,9 @@ import StakeContext from "@/contexts/components/StakeContext";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
 import WalletContext from "@/contexts/components/WalletContext";
 import convertDatetime from "@/helpers/convert-datetime";
+import Button from "@/components/Button";
+import { LucidContextType } from "@/types/contexts/LucidContextType";
+import LucidContext from "@/contexts/components/LucidContext";
 
 const cx = classNames.bind(styles);
 
@@ -20,7 +23,9 @@ type Props = {};
 const Notification = function ({}: Props) {
     const [mounted, setMounted] = useState<boolean>(false);
     const [countdown, setCountdown] = useState<number>(0);
+
     const { stakeInfomation } = useContext<StakeContextType>(StakeContext);
+    const { lucid } = useContext<LucidContextType>(LucidContext);
     const { wallet } = useContext<WalletContextType>(WalletContext);
 
     const timer = useRef<NodeJS.Timeout | null>(null);
@@ -32,7 +37,7 @@ const Notification = function ({}: Props) {
         return () => {
             timer.current && clearInterval(timer.current);
         };
-    }, [mounted]);
+    }, [mounted, countdown]);
 
     const handleStartCountdown = function () {
         setMounted(true);
@@ -54,6 +59,11 @@ const Notification = function ({}: Props) {
     const minutes: number = Math.floor((countdown / (1000 * 60)) % 60);
     const seconds: number = Math.floor((countdown / 1000) % 60);
 
+    useEffect(() => {
+        if (stakeInfomation?.epochs.length >= 0) {
+            console.log("mount");
+        }
+    }, [mounted]);
     return (
         <Popper
             placement="top-end"
@@ -73,7 +83,7 @@ const Notification = function ({}: Props) {
                     </header>
 
                     <div className={cx("notification-container")}>
-                        {false ? (
+                        {lucid && wallet && (
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
                                     <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
@@ -88,16 +98,17 @@ const Notification = function ({}: Props) {
                                                 </div>
                                             </Link>
                                         </li>
-                                        <li className={cx("notification-voucher-item")}>
-                                            <Link className={cx("notification-voucher-link")} href={""}>
-                                                <div className={cx("voucher-notification-content")}>
-                                                    <p className={cx("voucher-notification-content-link")}>Pool id:</p>
-                                                    <h3 className={cx("voucher-notification-content-code")}>{wallet.poolId}</h3>
-                                                </div>
-                                            </Link>
-                                        </li>
-                                        {stakeInfomation && (
+
+                                        {wallet?.poolId === "" && stakeInfomation && (
                                             <>
+                                                <li className={cx("notification-voucher-item")}>
+                                                    <Link className={cx("notification-voucher-link")} href={""}>
+                                                        <div className={cx("voucher-notification-content")}>
+                                                            <p className={cx("voucher-notification-content-link")}>Pool id:</p>
+                                                            <h3 className={cx("voucher-notification-content-code")}>{wallet.poolId}</h3>
+                                                        </div>
+                                                    </Link>
+                                                </li>
                                                 <li className={cx("notification-voucher-item")}>
                                                     <Link className={cx("notification-voucher-link")} href={""}>
                                                         <div className={cx("voucher-notification-content")}>
@@ -111,9 +122,21 @@ const Notification = function ({}: Props) {
                                                 <li className={cx("notification-voucher-item")}>
                                                     <Link className={cx("notification-voucher-link")} href={""}>
                                                         <div className={cx("voucher-notification-content")}>
+                                                            <p className={cx("voucher-notification-content-link")}>Expired date:</p>
+                                                            <h3 className={cx("voucher-notification-content-code")}>
+                                                                {convertDatetime(
+                                                                    stakeInfomation?.block_time + Number(process.env.EXPIRED_TIME!) / 1000,
+                                                                )}
+                                                            </h3>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                                <li className={cx("notification-voucher-item")}>
+                                                    <Link className={cx("notification-voucher-link")} href={""}>
+                                                        <div className={cx("voucher-notification-content")}>
                                                             <p className={cx("voucher-notification-content-link")}>Number of Epoch:</p>
                                                             <h3 className={cx("voucher-notification-content-code")}>
-                                                                {stakeInfomation.epochs.length}
+                                                                {stakeInfomation?.epochs.length}
                                                             </h3>
                                                         </div>
                                                     </Link>
@@ -122,30 +145,35 @@ const Notification = function ({}: Props) {
                                         )}
                                     </ul>
                                 )}
-                                <div className={cx("notification-timer")}>
-                                    <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>{days ? days.toString().padStart(2, "0") : "00"}</span>
-                                        <span className={cx("notification-timer-text")}>days</span>
+                                {wallet?.poolId && (
+                                    <div className={cx("notification-timer")}>
+                                        <div className={cx("notification-timer-content")}>
+                                            <span className={cx("notification-timer-number")}>{days ? days.toString().padStart(2, "0") : "00"}</span>
+                                            <span className={cx("notification-timer-text")}>days</span>
+                                        </div>
+                                        <div className={cx("notification-timer-content")}>
+                                            <span className={cx("notification-timer-number")}>
+                                                {hours ? hours.toString().padStart(2, "0") : "00"}
+                                            </span>
+                                            <span className={cx("notification-timer-text")}>hours</span>
+                                        </div>
+                                        <div className={cx("notification-timer-content")}>
+                                            <span className={cx("notification-timer-number")}>
+                                                {minutes ? minutes.toString().padStart(2, "0") : "00"}
+                                            </span>
+                                            <span className={cx("notification-timer-text")}>minutes</span>
+                                        </div>
+                                        <div className={cx("notification-timer-content")}>
+                                            <span className={cx("notification-timer-number")}>
+                                                {seconds ? seconds.toString().padStart(2, "0") : "00"}
+                                            </span>
+                                            <span className={cx("notification-timer-text")}>seconds</span>
+                                        </div>
                                     </div>
-                                    <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>{hours ? hours.toString().padStart(2, "0") : "00"}</span>
-                                        <span className={cx("notification-timer-text")}>hours</span>
-                                    </div>
-                                    <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>
-                                            {minutes ? minutes.toString().padStart(2, "0") : "00"}
-                                        </span>
-                                        <span className={cx("notification-timer-text")}>minutes</span>
-                                    </div>
-                                    <div className={cx("notification-timer-content")}>
-                                        <span className={cx("notification-timer-number")}>
-                                            {seconds ? seconds.toString().padStart(2, "0") : "00"}
-                                        </span>
-                                        <span className={cx("notification-timer-text")}>seconds</span>
-                                    </div>
-                                </div>
+                                )}
                             </section>
-                        ) : (
+                        )}
+                        {/* {
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
                                     <h3 className={cx("amount-title")}>You have</h3>
@@ -183,11 +211,13 @@ const Notification = function ({}: Props) {
                                         ))}
                                 </ul>
                             </section>
-                        )}
+                        } */}
                     </div>
-                    <Link href={""} className={cx("shop-button", "button")}>
-                        Shop now
-                    </Link>
+                    {!lucid && (
+                        <Button onClick={null!} className={cx("shop-button", "button")}>
+                            Connect Wallet
+                        </Button>
+                    )}
                 </main>
             }
         >
