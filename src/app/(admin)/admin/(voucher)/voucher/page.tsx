@@ -15,12 +15,21 @@ const cx = classNames.bind(styles);
 
 const AdminVoucherPage = function ({}: Props) {
     const [vouchers, setVouchers] = useState<any[] | null>(null);
+    const [totalPagesVouchers, setTotalPagesVouchers] = useState<number>(1);
+    const [currentPageVouchers, setCurrentPageVouchers] = useState<number>(1);
+
     useEffect(() => {
         (async function () {
-            const { vouchers }: any = await get("/voucher");
+            const { vouchers, totalPage }: any = await get("/voucher", {
+                params: {
+                    page: currentPageVouchers,
+                },
+            });
             setVouchers(vouchers);
+            setTotalPagesVouchers(totalPage);
         })();
     }, []);
+
     return (
         <div>
             <div className={cx("header")}>

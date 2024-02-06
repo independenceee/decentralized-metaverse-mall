@@ -10,11 +10,12 @@ import { FaFileCsv as FileCsvIcon } from "react-icons/fa";
 import { FaCheck as CheckIcon } from "react-icons/fa";
 const cx = classNames.bind(styles);
 type Props = {
+    title: string;
     data: any[] | null;
     setData: Dispatch<SetStateAction<any[] | null>>;
 };
 
-const Upload = function ({ data, setData }: Props) {
+const Upload = function ({ title, data, setData }: Props) {
     const [file, setFile] = useState<File>(null!);
     const inputRef = useRef<HTMLInputElement>(null);
     const handleChangeFile = async function (event: ChangeEvent<HTMLInputElement>) {
@@ -43,7 +44,7 @@ const Upload = function ({ data, setData }: Props) {
 
     return (
         <div className={cx("wrapper")}>
-            <header className={cx("header")}>File uploader voucher</header>
+            <header className={cx("header")}>{title}</header>
             <div className={cx("form")} onClick={chooseFile}>
                 <UploadIcon className={cx("icon")} />
                 <input ref={inputRef} type="file" hidden onChange={handleChangeFile} />
@@ -54,7 +55,6 @@ const Upload = function ({ data, setData }: Props) {
                 <section className={cx("upload")}>
                     <div className={cx("upload-success")}>
                         <FileCsvIcon className={cx("upload-success-icon")} />
-
                         <p className={cx("upload-success-file-name")}>{file.name}</p>
                         <CheckIcon className={cx("upload-success-icon")} />
                     </div>

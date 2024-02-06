@@ -5,7 +5,6 @@ import classNames from "classnames/bind";
 import styles from "./AdminCreateVoucher.module.scss";
 import Upload from "@/components/Upload";
 import Table from "@/components/Table";
-import Guide from "@/components/Guide";
 
 type Props = {};
 
@@ -16,7 +15,7 @@ const AdminCreateVoucherPage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
-                <Upload data={vouchers} setData={setVouchers} />
+                <Upload title="File upload voucher" data={vouchers} setData={setVouchers} />
             </header>
             <aside>
                 <Table pathname="/admin/voucher/edit" title="Voucher" type="Voucher" setData={setVouchers} data={vouchers} />

@@ -14,11 +14,10 @@ const cx = classNames.bind(styles);
 const AdminTransactionPage = function ({}: Props) {
     const [accounts, setAccounts] = useState<any[] | null>(null);
 
-   
     return (
         <div className={cx("wrapper")}>
             <div className={cx("header")}>
-                <Upload data={accounts} setData={setAccounts} />
+                <Upload title="File uploader transaction" data={accounts} setData={setAccounts} />
             </div>
             <aside>
                 <Table title="Transaction" data={accounts} setData={setAccounts} />
