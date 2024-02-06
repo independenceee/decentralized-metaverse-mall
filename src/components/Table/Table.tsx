@@ -107,6 +107,7 @@ export default function CustomTable({ data, title, type, setData, pathname, curr
             });
             await post("/voucher", vouchers);
             toast("Create voucher successfully !");
+            setData(null);
             router.replace("/admin/voucher");
         } catch (error) {
             toast("Create voucher falid !");
