@@ -35,7 +35,7 @@ const AdminAccountPage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
             <aside>
-                <Table title="Account" data={accounts} setData={setAccounts} />
+                <Table totalPages={1} currentPage={1} setStatus={null!} title="Account" data={accounts} setData={setAccounts} />
             </aside>
         </div>
     );

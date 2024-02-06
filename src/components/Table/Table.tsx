@@ -64,7 +64,7 @@ type Props = {
     totalPages: number;
     currentPage: number;
     setData: React.Dispatch<React.SetStateAction<any[] | null>>;
-    setStatus: React.Dispatch<React.SetStateAction<string>>;
+    setStatus?: React.Dispatch<React.SetStateAction<string>>;
     setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -125,7 +125,9 @@ export default function CustomTable({ data, title, type, setData, pathname, curr
     };
 
     const handleGetStatus = function (status: string) {
-        setStatus(status);
+        if (setStatus) {
+            setStatus(status);
+        }
     };
     return (
         <div className={cx("wrapper")}>
