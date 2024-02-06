@@ -1,12 +1,13 @@
 "use client";
-import React, { ReactNode, useContext, useState } from "react";
+
+import React, { useContext, useState } from "react";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
 import { styled } from "@mui/system";
 
 import styles from "./Table.module.scss";
-import Popper from "../Popper/Popper";
-import Button from "../Button";
+import Popper from "@/components/Popper";
+import Button from "@/components/Button";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
 import { TransactionContextType } from "@/types/contexts/TransactionContextType";
@@ -15,7 +16,9 @@ import { TxHash } from "lucid-cardano";
 import { post } from "@/utils/httpRequest";
 import Link from "next/link";
 import { useModal } from "@/hooks";
-import Modal from "../Modal";
+import Modal from "@/components/Modal";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
@@ -55,16 +58,18 @@ const makeStyle = (status: string) => {
 
 type Props = {
     data: any[] | null;
-    setData: React.Dispatch<React.SetStateAction<any[] | null>>;
     title: string;
     type?: string;
     pathname?: string;
     totalPages: number;
     currentPage: number;
+    setData: React.Dispatch<React.SetStateAction<any[] | null>>;
+    setStatus: React.Dispatch<React.SetStateAction<string>>;
     setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function CustomTable({ data, title, type, setData, pathname, currentPage, totalPages, setCurrentPage }: Props) {
+export default function CustomTable({ data, title, type, setData, pathname, currentPage, totalPages, setCurrentPage, setStatus }: Props) {
+    const router = useRouter();
     const { isShowing, toggle } = useModal();
     const [itemId, setItemId] = useState<string>("");
     const { lucid } = useContext<LucidContextType>(LucidContext);
@@ -101,8 +106,10 @@ export default function CustomTable({ data, title, type, setData, pathname, curr
                 };
             });
             await post("/voucher", vouchers);
+            toast("Create voucher successfully !");
+            router.replace("/admin/voucher");
         } catch (error) {
-            console.log(error);
+            toast("Create voucher falid !");
         }
     };
 
@@ -115,6 +122,10 @@ export default function CustomTable({ data, title, type, setData, pathname, curr
         // Call API delete: itemId
 
         toggle();
+    };
+
+    const handleGetStatus = function (status: string) {
+        setStatus(status);
     };
     return (
         <div className={cx("wrapper")}>
@@ -163,8 +174,12 @@ export default function CustomTable({ data, title, type, setData, pathname, curr
                                 <Popper
                                     content={
                                         <ul className={cx("dropdown-menu")}>
-                                            <li className={cx("menu-item")}>FREE</li>
-                                            <li className={cx("menu-item")}>USED</li>
+                                            <li onClick={() => handleGetStatus("FREE")} className={cx("menu-item")}>
+                                                FREE
+                                            </li>
+                                            <li onClick={() => handleGetStatus("USED")} className={cx("menu-item")}>
+                                                USED
+                                            </li>
                                         </ul>
                                     }
                                 >
