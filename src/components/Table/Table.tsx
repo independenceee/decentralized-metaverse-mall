@@ -59,17 +59,24 @@ type Props = {
     title: string;
     type?: string;
     pathname?: string;
+    totalPages: number;
+    currentPage: number;
+    setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function CustomTable({ data, title, type, setData, pathname }: Props) {
+export default function CustomTable({ data, title, type, setData, pathname, currentPage, totalPages, setCurrentPage }: Props) {
     const { isShowing, toggle } = useModal();
     const [itemId, setItemId] = useState<string>("");
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { sendNativeTokens } = useContext<TransactionContextType>(TransactionContext);
-    const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {};
 
     if (!data) return;
-    const titles = Object?.keys(data?.[0]) || [];
+    console.log(data);
+
+    const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {
+        setCurrentPage && setCurrentPage(page);
+    };
+    const titles = (data[0] && Object.keys(data[0])) || [];
 
     const handleSendNativeToken = async function () {
         try {
@@ -188,7 +195,7 @@ export default function CustomTable({ data, title, type, setData, pathname }: Pr
                 <table className={cx("table")}>
                     <thead>
                         <tr>
-                            {titles.map((title, index) => (
+                            {titles.map((title: any[], index: number) => (
                                 <th className={cx("table-header-title")} key={index}>
                                     {title}
                                 </th>
@@ -265,7 +272,7 @@ export default function CustomTable({ data, title, type, setData, pathname }: Pr
                 </table>
                 <div className={cx("pagination-wrapper")}>
                     <Stack spacing={2}>
-                        <CustomPagination count={10} page={1} shape="rounded" />
+                        <CustomPagination count={totalPages} page={currentPage} shape="rounded" onChange={handleChangePage} />
                     </Stack>
                 </div>
             </div>

@@ -28,14 +28,23 @@ const AdminVoucherPage = function ({}: Props) {
             setVouchers(vouchers);
             setTotalPagesVouchers(totalPage);
         })();
-    }, []);
+    }, [currentPageVouchers]);
 
     return (
         <div>
             <div className={cx("header")}>
                 <Card title="Create Voucher" Icon={AddressCardIcon} type="add" to="/admin/voucher/create" />
             </div>
-            <Table pathname="/admin/voucher/edit" title="Vouchers" type="Vouchers" data={vouchers} setData={setVouchers} />
+            <Table
+                setCurrentPage={setCurrentPageVouchers}
+                totalPages={totalPagesVouchers}
+                currentPage={currentPageVouchers}
+                pathname="/admin/voucher/edit"
+                title="Vouchers"
+                type="Vouchers"
+                data={vouchers}
+                setData={setVouchers}
+            />
         </div>
     );
 };
