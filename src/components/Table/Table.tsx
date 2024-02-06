@@ -13,10 +13,10 @@ import LucidContext from "@/contexts/components/LucidContext";
 import { TransactionContextType } from "@/types/contexts/TransactionContextType";
 import TransactionContext from "@/contexts/components/TransactionContext";
 import { TxHash } from "lucid-cardano";
-import { post } from "@/utils/httpRequest";
+import { del, post } from "@/utils/httpRequest";
 import Link from "next/link";
 import { useModal } from "@/hooks";
-import Modal from "@/components/Modal";
+import Modal from "../Modal";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 const cx = classNames.bind(styles);
@@ -118,9 +118,13 @@ export default function CustomTable({ data, title, type, setData, pathname, curr
         toggle();
     };
 
-    const handleDelete = () => {
-        // Call API delete: itemId
-
+    const handleDelete = async () => {
+        try {
+            await del(`/voucher/${itemId}`);
+            toast("Delete successfully");
+        } catch (error) {
+            toast("Delete failed");
+        }
         toggle();
     };
 
@@ -253,11 +257,11 @@ export default function CustomTable({ data, title, type, setData, pathname, curr
                                             content={
                                                 <ul className={cx("dropdown-menu")}>
                                                     <li className={cx("menu-item")}>
-                                                        <Link href={`${pathname}/id`} style={{ display: "block", flexGrow: 1 }}>
+                                                        <Link href={`${pathname}/${rows[titles[0]]}`} style={{ display: "block", flexGrow: 1 }}>
                                                             Edit
                                                         </Link>
                                                     </li>
-                                                    <li className={cx("menu-item")} onClick={() => handleGetItemId("id")}>
+                                                    <li className={cx("menu-item")} onClick={() => handleGetItemId(rows[titles[0]])}>
                                                         Delete
                                                     </li>
                                                 </ul>
