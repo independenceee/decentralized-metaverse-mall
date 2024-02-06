@@ -99,7 +99,7 @@ const Notification = function ({}: Props) {
                                             </Link>
                                         </li>
 
-                                        {wallet?.poolId === "" && stakeInfomation && (
+                                        {wallet?.poolId && stakeInfomation && (
                                             <>
                                                 <li className={cx("notification-voucher-item")}>
                                                     <Link className={cx("notification-voucher-link")} href={""}>
