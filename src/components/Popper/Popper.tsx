@@ -1,11 +1,12 @@
 "use client";
+
 import classNames from "classnames/bind";
 import Tippy, { TippyProps } from "@tippyjs/react/headless";
 import styles from "./Popper.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Popper({
+const Popper = function ({
     placement = "bottom-end",
     interactive = true,
     trigger = "click",
@@ -30,6 +31,6 @@ function Popper({
             {children}
         </Tippy>
     );
-}
+};
 
 export default Popper;
