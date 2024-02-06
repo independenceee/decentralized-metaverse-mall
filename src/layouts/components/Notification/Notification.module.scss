@@ -230,11 +230,17 @@
 }
 
 .voucher-notification-content-code {
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
     color: var(--text-color);
     font-weight: 400;
 }
 
 .voucher-notification-content-link {
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
     color: var(--white-color);
     font-weight: 400;
 }

@@ -24,6 +24,7 @@ const AdminCreateVoucherPage = function ({}: Props) {
             </header>
             <aside>
                 <Table
+                    setStatus={() => null}
                     setCurrentPage={setCurrentPage}
                     totalPages={totalPages}
                     currentPage={currentPage}
