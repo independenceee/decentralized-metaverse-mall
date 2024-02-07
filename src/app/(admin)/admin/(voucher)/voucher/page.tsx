@@ -15,18 +15,41 @@ const cx = classNames.bind(styles);
 
 const AdminVoucherPage = function ({}: Props) {
     const [vouchers, setVouchers] = useState<any[] | null>(null);
+    const [totalPagesVouchers, setTotalPagesVouchers] = useState<number>(1);
+    const [currentPageVouchers, setCurrentPageVouchers] = useState<number>(1);
+    const [statusVouchers, setStatusVouchers] = useState<string>("FREE");
+
     useEffect(() => {
         (async function () {
-            const { vouchers }: any = await get("/voucher");
+            const { vouchers, totalPage }: any = await get("/voucher", {
+                params: {
+                    page: currentPageVouchers,
+                    status: statusVouchers,
+                },
+            });
             setVouchers(vouchers);
+            setTotalPagesVouchers(totalPage);
         })();
-    }, []);
+    }, [currentPageVouchers, statusVouchers]);
+
     return (
         <div>
             <div className={cx("header")}>
                 <Card title="Create Voucher" Icon={AddressCardIcon} type="add" to="/admin/voucher/create" />
             </div>
-            <Table title="Vouchers" data={vouchers} setData={setVouchers} />
+            {vouchers?.length ? (
+                <Table
+                    setCurrentPage={setCurrentPageVouchers}
+                    totalPages={totalPagesVouchers}
+                    currentPage={currentPageVouchers}
+                    pathname="/admin/voucher/edit"
+                    title="Vouchers"
+                    type="Vouchers"
+                    data={vouchers}
+                    setData={setVouchers}
+                    setStatus={setStatusVouchers}
+                />
+            ) : null}
         </div>
     );
 };

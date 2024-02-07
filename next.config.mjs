@@ -14,7 +14,7 @@ const nextConfig = {
         KOIOS_RPC_URL_PREVIEW: "https://preview.koios.rest/api/v1",
         KOIOS_RPC_URL_MAINNET: "https://api.koios.rest/api/v1",
 
-        NEXT_APP_BASE_URL: "http://localhost:5000/api/v1",
+        NEXT_APP_BASE_URL: "https://backend.demarket.vn/api/v1",
         VILAI_POOL_ID: "pool1u7zrgexnxsysctnnwljjjymr70he829fr5n3vefnv80guxr42dv",
         POLICYID_C2E_TOKEN: "c88c4d8b1e448d579f58992debe9f905b47607ea878f3c2480248834",
         ASSETNAME_C2E_TOKEN: "C2E",

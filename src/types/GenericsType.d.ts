@@ -53,6 +53,7 @@ export type VoucherType = {
     updatedAt?: string;
     code: string;
     status: VoucherStatus;
+    link: string;
 };
 
 export enum VoucherStatus {

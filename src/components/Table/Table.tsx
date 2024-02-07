@@ -1,18 +1,24 @@
 "use client";
-import React, { ReactNode, useContext } from "react";
+
+import React, { useContext, useState } from "react";
 import classNames from "classnames/bind";
 import { Pagination, Stack } from "@mui/material";
 import { styled } from "@mui/system";
 
 import styles from "./Table.module.scss";
-import Popper from "../Popper/Popper";
-import Button from "../Button";
+import Popper from "@/components/Popper";
+import Button from "@/components/Button";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
 import { TransactionContextType } from "@/types/contexts/TransactionContextType";
 import TransactionContext from "@/contexts/components/TransactionContext";
 import { TxHash } from "lucid-cardano";
-import { post } from "@/utils/httpRequest";
+import { del, post } from "@/utils/httpRequest";
+import Link from "next/link";
+import { useModal } from "@/hooks";
+import Modal from "../Modal";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
@@ -52,18 +58,30 @@ const makeStyle = (status: string) => {
 
 type Props = {
     data: any[] | null;
-    setData: React.Dispatch<React.SetStateAction<any[] | null>>;
     title: string;
     type?: string;
+    pathname?: string;
+    totalPages: number;
+    currentPage: number;
+    setData: React.Dispatch<React.SetStateAction<any[] | null>>;
+    setStatus?: React.Dispatch<React.SetStateAction<string>>;
+    setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function CustomTable({ data, title, type, setData }: Props) {
+export default function CustomTable({ data, title, type, setData, pathname, currentPage, totalPages, setCurrentPage, setStatus }: Props) {
+    const router = useRouter();
+    const { isShowing, toggle } = useModal();
+    const [itemId, setItemId] = useState<string>("");
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { sendNativeTokens } = useContext<TransactionContextType>(TransactionContext);
-    const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {};
 
     if (!data) return;
-    const titles = Object.keys(data?.[0]) || [];
+    console.log(data);
+
+    const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {
+        setCurrentPage && setCurrentPage(page);
+    };
+    const titles = (data[0] && Object.keys(data[0])) || [];
 
     const handleSendNativeToken = async function () {
         try {
@@ -88,11 +106,34 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                 };
             });
             await post("/voucher", vouchers);
+            toast("Create voucher successfully !");
+            setData(null);
+            router.replace("/admin/voucher");
         } catch (error) {
-            console.log(error);
+            toast("Create voucher falid !");
         }
     };
 
+    const handleGetItemId = (id: string) => {
+        setItemId(id);
+        toggle();
+    };
+
+    const handleDelete = async () => {
+        try {
+            await del(`/voucher/${itemId}`);
+            toast("Delete successfully");
+        } catch (error) {
+            toast("Delete failed");
+        }
+        toggle();
+    };
+
+    const handleGetStatus = function (status: string) {
+        if (setStatus) {
+            setStatus(status);
+        }
+    };
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header-control")}>
@@ -111,7 +152,7 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                     )}
 
                     {type && (
-                        <div>
+                        <div className={cx("actions-wrapper")}>
                             <form className={cx("search-control")} onClick={(e) => e.preventDefault()}>
                                 <label className={cx("search-label")}>
                                     <input className={cx("search-input")} placeholder="Search here..." type="text" />
@@ -140,8 +181,12 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                                 <Popper
                                     content={
                                         <ul className={cx("dropdown-menu")}>
-                                            <li className={cx("menu-item")}>FREE</li>
-                                            <li className={cx("menu-item")}>USED</li>
+                                            <li onClick={() => handleGetStatus("FREE")} className={cx("menu-item")}>
+                                                FREE
+                                            </li>
+                                            <li onClick={() => handleGetStatus("USED")} className={cx("menu-item")}>
+                                                USED
+                                            </li>
                                         </ul>
                                     }
                                 >
@@ -172,7 +217,7 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                 <table className={cx("table")}>
                     <thead>
                         <tr>
-                            {titles.map((title, index) => (
+                            {titles.map((title: any[], index: number) => (
                                 <th className={cx("table-header-title")} key={index}>
                                     {title}
                                 </th>
@@ -212,8 +257,14 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                                         <Popper
                                             content={
                                                 <ul className={cx("dropdown-menu")}>
-                                                    <li className={cx("menu-item")}>Edit</li>
-                                                    <li className={cx("menu-item")}>Delete</li>
+                                                    <li className={cx("menu-item")}>
+                                                        <Link href={`${pathname}/${rows[titles[0]]}`} style={{ display: "block", flexGrow: 1 }}>
+                                                            Edit
+                                                        </Link>
+                                                    </li>
+                                                    <li className={cx("menu-item")} onClick={() => handleGetItemId(rows[titles[0]])}>
+                                                        Delete
+                                                    </li>
                                                 </ul>
                                             }
                                         >
@@ -243,10 +294,25 @@ export default function CustomTable({ data, title, type, setData }: Props) {
                 </table>
                 <div className={cx("pagination-wrapper")}>
                     <Stack spacing={2}>
-                        <CustomPagination count={10} page={1} shape="rounded" />
+                        <CustomPagination count={totalPages} page={currentPage} shape="rounded" onChange={handleChangePage} />
                     </Stack>
                 </div>
             </div>
+            <Modal isShowing={isShowing} toggle={toggle}>
+                <div className={cx("modal-wrapper")}>
+                    <section>
+                        <p className={cx("modal-title")}>Are you sure to delete it?</p>
+                    </section>
+                    <div className={cx("modal-buttons")}>
+                        <Button className={cx("button-agree", "button")} onClick={handleDelete}>
+                            Yes
+                        </Button>
+                        <Button className={cx("button-disagree", "button")} onClick={toggle}>
+                            No
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

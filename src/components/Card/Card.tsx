@@ -22,7 +22,6 @@ const Card = function ({ title, Icon, to, type }: Props) {
             </header>
             {type === "add" && (
                 <aside className={cx("add-content")}>
-                    <div className={cx("add-left")}>Add voucher by import file .csv</div>
                     <div className={cx("add-right")}>
                         <AddIcon className={cx("add-icon")} />
                     </div>

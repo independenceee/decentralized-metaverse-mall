@@ -5,25 +5,35 @@ import classNames from "classnames/bind";
 import styles from "./AdminCreateVoucher.module.scss";
 import Upload from "@/components/Upload";
 import Table from "@/components/Table";
-import Guide from "@/components/Guide";
 
 type Props = {};
 
 const cx = classNames.bind(styles);
+const PAGE_SIZE = 5;
 
 const AdminCreateVoucherPage = function ({}: Props) {
     const [vouchers, setVouchers] = useState<any[] | null>(null);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const totalPages = vouchers ? Math.ceil(vouchers.length / PAGE_SIZE) : 0;
+    const currentPageData = vouchers && vouchers.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+    console.log(currentPage, currentPageData);
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
-                <Upload data={vouchers} setData={setVouchers} />
-                <Guide
-                    title="Voucher"
-                    description="Request your data . Upload .JSON files containing images, metadata, and your mint to collectors through the Mint Service."
-                />
+                <Upload title="File upload voucher" data={vouchers} setData={setVouchers} />
             </header>
             <aside>
-                <Table title="Voucher" setData={setVouchers} data={vouchers} />
+                <Table
+                    setStatus={() => null}
+                    setCurrentPage={setCurrentPage}
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    pathname="/admin/voucher/edit"
+                    title="Voucher"
+                    type="Voucher"
+                    setData={setVouchers}
+                    data={currentPageData}
+                />
             </aside>
         </div>
     );

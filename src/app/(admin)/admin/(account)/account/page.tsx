@@ -13,12 +13,19 @@ const cx = classNames.bind(styles);
 
 const AdminAccountPage = function ({}: Props) {
     const [accounts, setAccounts] = useState<any[] | null>(null);
+    const [totalPagesAccounts, setTotalPagesAccounts] = useState<number>(1);
+    const [currentPageAccounts, setCurrentPageAccounts] = useState<number>(1);
 
     useEffect(() => {
         (async function () {
             try {
-                const { accounts }: any = await get("/account");
+                const { accounts, totalPage }: any = await get("/account", {
+                    params: {
+                        page: currentPageAccounts,
+                    },
+                });
                 setAccounts(accounts);
+                setTotalPagesAccounts(totalPage);
             } catch (error) {
                 console.log(error);
             }
@@ -27,11 +34,8 @@ const AdminAccountPage = function ({}: Props) {
 
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("header")}>
-                <Upload data={accounts} setData={setAccounts} />
-            </div>
             <aside>
-                <Table title="Transaction" data={accounts} setData={setAccounts} />
+                <Table totalPages={1} currentPage={1} setStatus={null!} title="Account" data={accounts} setData={setAccounts} />
             </aside>
         </div>
     );

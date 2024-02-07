@@ -16,6 +16,7 @@ import Modal from "@/components/Modal";
 import Link from "next/link";
 import WalletContext from "@/contexts/components/WalletContext";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
+import { toast } from "sonner";
 
 const cx = classNames.bind(styles);
 
@@ -81,7 +82,7 @@ const ConnectWallet = function ({ isActive }: Props) {
 
                     {isOpenShowWallet && (
                         <div className={cx("show-wallet-wrapper", { scrolled: isScrolled || isActive })}>
-                            <CopyToClipboard text={String(wallet?.address)}>
+                            <CopyToClipboard text={String(wallet?.address)} onCopy={() => toast("Coppied to your clipboard!")}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Address: </h3>
                                     <p className={cx("show-wallet-description")}>{wallet?.address}</p>

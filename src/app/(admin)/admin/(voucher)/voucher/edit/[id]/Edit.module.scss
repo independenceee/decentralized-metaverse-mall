@@ -1,0 +1,37 @@
+.page-title {
+    margin-bottom: 3.2rem;
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+.status-wrapper {
+    margin-bottom: 16px;
+}
+
+.input-error-message {
+    color: red;
+    font-size: 1.4rem;
+    min-height: 2.5rem;
+    margin-top: 4px;
+}
+
+.select {
+    padding: 1.2rem 2.4rem;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    font-size: 1.6rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.option {
+    &.free {
+        color: greenyellow;
+    }
+
+    &.used {
+        color: red;
+    }
+}
