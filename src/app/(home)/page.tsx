@@ -16,6 +16,8 @@ import Faqs from "@/components/Faqs";
 import tokenomics from "@/data/tokenomics";
 import roadmaps from "@/data/roadmap";
 import teams from "@/data/teams";
+import Marquee from "@/components/Marquee";
+import images from "@/assets/images";
 
 type Props = {};
 
@@ -26,6 +28,9 @@ const HomePage = function ({}: Props) {
         <PublicLayout>
             <section id="home" className={cx("banner-wrapper")}>
                 <Banner />
+            </section>
+            <section className={cx("marquee-sponsors")}>
+                <Marquee duration={2000} images={[images.cardano, images.projectCatalyst, images.autionLacViet, images.samsung]} />
             </section>
             <section id="about" className={cx("about-wrapper")}>
                 <About />

@@ -9,6 +9,7 @@ import { StakeContextType } from "@/types/contexts/StakeContextType";
 import StakeContext from "@/contexts/components/StakeContext";
 import Form from "@/layouts/components/Form";
 import styles from "./PublicLayout.module.scss";
+import HotDeal from "@/components/HotDeal";
 
 type Props = {
     children: ReactNode;
@@ -24,6 +25,7 @@ const PublicLayout = function ({ children }: Props) {
             <Form />
             <div>{children}</div>
             <Notification />
+            <HotDeal />
             <Footer />
         </main>
     );
