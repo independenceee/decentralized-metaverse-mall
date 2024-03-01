@@ -7,6 +7,7 @@ const icons = {
     mailIcon: require("./mail-icon.svg"),
     phoneIcon: require("./phone-icon.svg"),
     addressIcon: require("./address-icon.svg"),
+    closeIcon: require("./close.png"),
 };
 
 export default icons;

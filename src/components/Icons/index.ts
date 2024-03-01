@@ -14,6 +14,7 @@ import { IoIosArrowDown as ArrowDownIcon } from "react-icons/io";
 import { GrTransaction as TransactionIcon } from "react-icons/gr";
 import { FiRefreshCw as RefreshIcon } from "react-icons/fi";
 import { FaRegCopy as CopyIcon } from "react-icons/fa6";
+import { FaAngleDown as DownIcon } from "react-icons/fa";
 
 export {
     TwitterIcon,
@@ -32,4 +33,5 @@ export {
     CloseIcon,
     AddIcon,
     UserIcon,
+    DownIcon,
 };
