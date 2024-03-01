@@ -52,14 +52,14 @@
 
 /* team-begin */
 .team-wrapper {
-    @extend .container;
-
     padding-top: 10rem;
     padding-bottom: 10rem;
     background: url("../../assets/images/background/team-bg.png") no-repeat scroll 0 0 #3d1f94;
 }
 
 .team-container {
+    @extend .container;
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(24.7rem, 1fr));
     gap: 3rem;

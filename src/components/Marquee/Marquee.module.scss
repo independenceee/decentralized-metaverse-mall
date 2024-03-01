@@ -1,0 +1,39 @@
+.wrapper {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.wrapper-inner {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+
+    &:hover > .item {
+        animation-play-state: paused;
+    }
+}
+
+.item {
+    flex-shrink: 0;
+    border: none;
+    animation: infinite-scroll var(--duration) linear infinite forwards var(--direction);
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+@keyframes infinite-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}

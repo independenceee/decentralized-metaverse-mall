@@ -8,6 +8,7 @@ import Footer from "@/layouts/components/Footer";
 import Notification from "../components/Notification";
 import { StakeContextType } from "@/types/contexts/StakeContextType";
 import StakeContext from "@/contexts/components/StakeContext";
+import HotDeal from "@/components/HotDeal";
 
 type Props = {
     children: ReactNode;
@@ -22,6 +23,7 @@ const PublicLayout = function ({ children }: Props) {
             <Header />
             <div>{children}</div>
             <Notification />
+            <HotDeal />
             <Footer />
         </main>
     );
