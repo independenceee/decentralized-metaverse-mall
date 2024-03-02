@@ -16,8 +16,10 @@ import Faqs from "@/components/Faqs";
 import tokenomics from "@/data/tokenomics";
 import roadmaps from "@/data/roadmap";
 import teams from "@/data/teams";
-import Marquee from "@/components/Marquee";
 import images from "@/assets/images";
+import Sponsors from "@/components/Sponsors";
+import sponsors from "@/data/sponsors";
+import VoucherCategories from "@/components/VoucherCategories";
 
 type Props = {};
 
@@ -29,8 +31,8 @@ const HomePage = function ({}: Props) {
             <section id="home" className={cx("banner-wrapper")}>
                 <Banner />
             </section>
-            <section className={cx("marquee-sponsors")}>
-                <Marquee duration={2000} images={[images.cardano, images.projectCatalyst, images.autionLacViet, images.samsung]} />
+            <section className={cx("voucher-categories")}>
+                <VoucherCategories />
             </section>
             <section id="about" className={cx("about-wrapper")}>
                 <About />
@@ -72,6 +74,9 @@ const HomePage = function ({}: Props) {
                 <div className={cx("contact-container")}>
                     <Contact />
                 </div>
+            </section>
+            <section className={cx("sponsors")}>
+                <Sponsors sponsors={sponsors} />
             </section>
         </PublicLayout>
     );

@@ -25,7 +25,7 @@ const PublicLayout = function ({ children }: Props) {
             <Form />
             <div>{children}</div>
             <Notification />
-            <HotDeal />
+            {/* <HotDeal /> */}
             <Footer />
         </main>
     );

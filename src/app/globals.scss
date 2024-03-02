@@ -63,3 +63,43 @@ html *::-webkit-scrollbar-track {
     border-radius: 0.5rem;
     background: rgba(255, 255, 255, 0.2);
 }
+
+// Custom react slick
+
+.slick-arrow {
+    &::before {
+        display: none;
+    }
+}
+
+.arrow-icon {
+    color: white;
+    width: 40px;
+    height: auto;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.slick-slider {
+    position: relative;
+
+    &:hover .arrow-icon {
+        opacity: 1;
+    }
+}
+
+.slick-arrow {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(50%);
+    color: white;
+}
+
+.slick-arrow.slick-next {
+    right: -50px;
+}
+
+.slick-arrow.slick-prev {
+    left: -100px;
+}
