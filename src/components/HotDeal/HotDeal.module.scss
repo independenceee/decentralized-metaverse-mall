@@ -32,12 +32,13 @@
     object-fit: contain;
 }
 .close-button {
+    background: #412394;
     position: absolute;
     right: -15px;
     top: -15px;
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
