@@ -23,7 +23,7 @@ const PublicLayout = function ({ children }: Props) {
             <Header />
             <div>{children}</div>
             <Notification />
-            <HotDeal />
+            {/* <HotDeal /> */}
             <Footer />
         </main>
     );
