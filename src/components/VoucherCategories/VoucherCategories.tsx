@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
 import images from "@/assets/images";
+import Button from "../Button";
 
 const cx = classNames.bind(styles);
 
@@ -71,37 +72,44 @@ const VoucherCategories = function ({}: Props) {
             <Slider {...settings} className={cx("categories-slider")}>
                 {Array(5)
                     .fill(0)
-                    .map((_, index) => (
-                        <div
-                            className={cx("category", {
-                                appear: index === slideIndex,
-                            })}
-                            key={index}
-                        >
-                            <div className={cx("catergory-left")}>
-                                <div className={cx("trending")}>Trending</div>
-                                <h2 className={cx("title")}>Tappy by TapTools</h2>
-                                <div className={cx("description")}>
-                                    Tappy is a collection of 5,555 unique penguins living on the Cardano blockchain, each acting as an access pass to
-                                    TapTools Pro, with access valid until September 1, 2024.
+                    .map((_, index) => {
+                        const active = index === slideIndex;
+                        return (
+                            <div
+                                className={cx("category", {
+                                    appear: active,
+                                })}
+                                key={index}
+                            >
+                                <div className={cx("catergory-left")}>
+                                    <div className={cx("trending")}>Trending</div>
+                                    <h2 className={cx("title")}>Tappy by TapTools</h2>
+                                    <div className={cx("description")}>
+                                        Tappy is a collection of 5,555 unique penguins living on the Cardano blockchain, each acting as an access pass
+                                        to TapTools Pro, with access valid until September 1, 2024.
+                                    </div>
+                                    <Button className={cx("button-view-details")}>View details</Button>
                                 </div>
-                                <button className={cx("button-view-details")}>View details</button>
+                                <div className={cx("catergory-right")}>
+                                    <ul
+                                        className={cx("voucher-images", {
+                                            active,
+                                        })}
+                                    >
+                                        <li className={cx("wrapper-image", "wrapper-image-1")}>
+                                            <Image className={cx("image")} src={images.penguin3} alt="" />
+                                        </li>
+                                        <li className={cx("wrapper-image", "wrapper-image-2")}>
+                                            <Image className={cx("image")} src={images.penguin2} alt="" />
+                                        </li>
+                                        <li className={cx("wrapper-image", "wrapper-image-3")}>
+                                            <Image className={cx("image")} src={images.penguin1} alt="" />
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div className={cx("catergory-right")}>
-                                <ul className={cx("voucher-images")}>
-                                    <li className={cx("wrapper-image", "wrapper-image-1")}>
-                                        <Image className={cx("image")} src={images.penguin3} alt="" />
-                                    </li>
-                                    <li className={cx("wrapper-image", "wrapper-image-2")}>
-                                        <Image className={cx("image")} src={images.penguin2} alt="" />
-                                    </li>
-                                    <li className={cx("wrapper-image", "wrapper-image-3")}>
-                                        <Image className={cx("image")} src={images.penguin1} alt="" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
             </Slider>
         </div>
     );
