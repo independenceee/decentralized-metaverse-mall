@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames/bind";
-import React from "react";
+import React, { useState } from "react";
 import Slider, { Settings } from "react-slick";
 
 import styles from "./VoucherCategories.module.scss";
@@ -9,19 +9,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
 import images from "@/assets/images";
-import icons from "@/assets/icons";
 
 const cx = classNames.bind(styles);
 
 type Props = {};
 
 const VoucherCategories = function ({}: Props) {
+    const [slideIndex, setSlideIndex] = useState<number>(0);
     const settings: Settings = {
         dots: false,
         infinite: true,
+        autoplay: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
+        autoplaySpeed: 5000,
+        beforeChange: (_, nextSlide) => {
+            setSlideIndex(nextSlide);
+        },
         prevArrow: (
             <span className={cx("custom-arrow")}>
                 <svg
@@ -67,7 +72,12 @@ const VoucherCategories = function ({}: Props) {
                 {Array(5)
                     .fill(0)
                     .map((_, index) => (
-                        <div className={cx("category")} key={index}>
+                        <div
+                            className={cx("category", {
+                                appear: index === slideIndex,
+                            })}
+                            key={index}
+                        >
                             <div className={cx("catergory-left")}>
                                 <div className={cx("trending")}>Trending</div>
                                 <h2 className={cx("title")}>Tappy by TapTools</h2>
