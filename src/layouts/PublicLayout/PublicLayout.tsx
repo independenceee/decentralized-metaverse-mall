@@ -2,12 +2,13 @@
 
 import React, { ReactNode, useContext } from "react";
 import classNames from "classnames/bind";
-import styles from "./PublicLayout.module.scss";
 import Header from "@/layouts/components/Header";
 import Footer from "@/layouts/components/Footer";
-import Notification from "../components/Notification";
+import Notification from "@/layouts/components/Notification";
 import { StakeContextType } from "@/types/contexts/StakeContextType";
 import StakeContext from "@/contexts/components/StakeContext";
+import Form from "@/layouts/components/Form";
+import styles from "./PublicLayout.module.scss";
 import HotDeal from "@/components/HotDeal";
 
 type Props = {
@@ -21,6 +22,7 @@ const PublicLayout = function ({ children }: Props) {
     return (
         <main className={cx("wrapper")}>
             <Header />
+            <Form />
             <div>{children}</div>
             <Notification />
             {/* <HotDeal /> */}
