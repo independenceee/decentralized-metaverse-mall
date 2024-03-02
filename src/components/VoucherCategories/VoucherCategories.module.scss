@@ -1,9 +1,12 @@
+@import "../../styles/layouts.scss";
+
 .wrapper {
     width: 100%;
     padding: 100px 0 48px;
 }
 
 .category {
+    @extend .container;
     display: flex !important;
     opacity: 0;
     &.appear {
