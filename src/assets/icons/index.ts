@@ -3,10 +3,19 @@ const icons = {
     intergationIcon: require("./integation-icon.svg"),
     listIcon: require("./list-icon.png"),
     menuIcon: require("./menu.svg"),
+    chevretLeft: require("./chevret-left.svg"),
+    chevretRight: require("./chevret-right.svg"),
+    chart: require("./chart.svg"),
+    message: require("./message.svg"),
+    sprituality: require("./avatar.png"),
+    travel: require("./travel.png"),
+    visa: require("./visa.png"),
+    electricDevices: require("./electronic-devices.png"),
     /* contact-icon */
     mailIcon: require("./mail-icon.svg"),
     phoneIcon: require("./phone-icon.svg"),
     addressIcon: require("./address-icon.svg"),
+    closeIcon: require("./close.png"),
 };
 
 export default icons;

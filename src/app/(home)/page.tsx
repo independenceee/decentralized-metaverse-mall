@@ -16,6 +16,11 @@ import Faqs from "@/components/Faqs";
 import tokenomics from "@/data/tokenomics";
 import roadmaps from "@/data/roadmap";
 import teams from "@/data/teams";
+import images from "@/assets/images";
+import Sponsors from "@/components/Sponsors";
+import sponsors from "@/data/sponsors";
+import VoucherCategories from "@/components/VoucherCategories";
+import Image from "next/image";
 
 type Props = {};
 
@@ -24,8 +29,8 @@ const cx = classNames.bind(styles);
 const HomePage = function ({}: Props) {
     return (
         <PublicLayout>
-            <section id="home" className={cx("banner-wrapper")}>
-                <Banner />
+            <section className={cx("voucher-categories")}>
+                <VoucherCategories />
             </section>
             <section id="about" className={cx("about-wrapper")}>
                 <About />
@@ -67,6 +72,9 @@ const HomePage = function ({}: Props) {
                 <div className={cx("contact-container")}>
                     <Contact />
                 </div>
+            </section>
+            <section className={cx("sponsors")}>
+                <Sponsors sponsors={sponsors} />
             </section>
         </PublicLayout>
     );

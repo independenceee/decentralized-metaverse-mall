@@ -1,3 +1,5 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+
 export type TeamType = {
     id?: string;
     username: string;
@@ -67,4 +69,11 @@ export type TokenomicType = {
     tokenName: string;
     percentage: number;
     forDepartment: string;
+};
+
+export type Category = {
+    id: number;
+    title: string;
+    description: string;
+    voucherImage: (string | StaticImport);
 };
