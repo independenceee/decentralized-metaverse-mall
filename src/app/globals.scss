@@ -17,12 +17,12 @@
 }
 
 html {
-    // scroll-behavior: smooth;
+    scroll-behavior: smooth;
     font-size: 62.5%;
 }
 
 body {
-    background: var(--primary-color);
+    // background: var(--primary-color);
     color: var(--white-color);
     font-family: var(--font-family);
     overflow-x: hidden;

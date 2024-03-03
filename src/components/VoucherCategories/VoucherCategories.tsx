@@ -88,7 +88,7 @@ const VoucherCategories = function ({}: Props) {
                                 })}
                                 key={index}
                             >
-                                <div className={cx("catergory-left")}>
+                                <div className={cx("catergory-left")} data-aos="fade-right">
                                     <div className={cx("trending")}>Trending</div>
                                     <h2 className={cx("title")}>Tappy by TapTools</h2>
                                     <div className={cx("description")}>
@@ -97,7 +97,7 @@ const VoucherCategories = function ({}: Props) {
                                     </div>
                                     <Button className={cx("button-view-details")}>View details</Button>
                                 </div>
-                                <div className={cx("catergory-right")}>
+                                <div className={cx("catergory-right")} data-aos="fade-left">
                                     <div className={cx("voucher-image-wrapper")}>
                                         <div className={cx("voucher-floating", "voucher-floating-top")}>
                                             <span className={cx("icon-wrapper")}>
@@ -118,11 +118,11 @@ const VoucherCategories = function ({}: Props) {
                         );
                     })}
             </Slider>
-            <div className={cx("categories-overflow")}>
+            <div className={cx("categories-overflow")} data-aos="fade-up">
                 <div className={cx("category-buttons-wrapper")}>
                     {Array(5)
                         .fill(0)
-                        .map((_, index) => {
+                        .map((_, index: number) => {
                             const active = slideIndex === index;
                             return (
                                 <div
