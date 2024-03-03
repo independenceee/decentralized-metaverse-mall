@@ -73,7 +73,7 @@ html *::-webkit-scrollbar-track {
 }
 
 .arrow-icon {
-    color: white;
+    color: var(--white-color);
     width: 40px;
     height: auto;
     opacity: 0;
@@ -93,7 +93,7 @@ html *::-webkit-scrollbar-track {
     z-index: 1;
     top: 50%;
     transform: translateY(50%);
-    color: white;
+    color: var(--white-color);
 }
 
 .slick-arrow.slick-next {

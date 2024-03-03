@@ -20,6 +20,7 @@ import images from "@/assets/images";
 import Sponsors from "@/components/Sponsors";
 import sponsors from "@/data/sponsors";
 import VoucherCategories from "@/components/VoucherCategories";
+import Image from "next/image";
 
 type Props = {};
 
@@ -28,9 +29,6 @@ const cx = classNames.bind(styles);
 const HomePage = function ({}: Props) {
     return (
         <PublicLayout>
-            <section id="home" className={cx("banner-wrapper")}>
-                <Banner />
-            </section>
             <section className={cx("voucher-categories")}>
                 <VoucherCategories />
             </section>

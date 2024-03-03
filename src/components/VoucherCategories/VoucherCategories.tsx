@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
 import images from "@/assets/images";
 import Button from "../Button";
+import icons from "@/assets/icons";
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +18,8 @@ type Props = {};
 
 const VoucherCategories = function ({}: Props) {
     const [slideIndex, setSlideIndex] = useState<number>(0);
+    const slider = React.useRef<Slider>(null);
+
     const settings: Settings = {
         dots: false,
         infinite: true,
@@ -28,6 +31,7 @@ const VoucherCategories = function ({}: Props) {
         beforeChange: (_, nextSlide) => {
             setSlideIndex(nextSlide);
         },
+
         prevArrow: (
             <span className={cx("custom-arrow")}>
                 <svg
@@ -58,22 +62,25 @@ const VoucherCategories = function ({}: Props) {
         ),
         responsive: [
             {
-                breakpoint: 768,
+                breakpoint: 1024,
                 settings: {
-                    dots: true,
                     arrows: false,
                 },
             },
         ],
     };
 
+    const handleGoToSlide = (index: number) => {
+        slider.current?.slickGoTo(index);
+    };
+
     return (
         <div className={cx("wrapper")}>
-            <Slider {...settings} className={cx("categories-slider")}>
+            <Slider {...settings} className={cx("categories-slider")} ref={slider}>
                 {Array(5)
                     .fill(0)
                     .map((_, index) => {
-                        const active = index === slideIndex;
+                        const active = slideIndex === index;
                         return (
                             <div
                                 className={cx("category", {
@@ -91,26 +98,46 @@ const VoucherCategories = function ({}: Props) {
                                     <Button className={cx("button-view-details")}>View details</Button>
                                 </div>
                                 <div className={cx("catergory-right")}>
-                                    <ul
-                                        className={cx("voucher-images", {
-                                            active,
-                                        })}
-                                    >
-                                        <li className={cx("wrapper-image", "wrapper-image-1")}>
-                                            <Image className={cx("image")} src={images.penguin3} alt="" />
-                                        </li>
-                                        <li className={cx("wrapper-image", "wrapper-image-2")}>
-                                            <Image className={cx("image")} src={images.penguin2} alt="" />
-                                        </li>
-                                        <li className={cx("wrapper-image", "wrapper-image-3")}>
-                                            <Image className={cx("image")} src={images.penguin1} alt="" />
-                                        </li>
-                                    </ul>
+                                    <div className={cx("voucher-image-wrapper")}>
+                                        <div className={cx("voucher-floating", "voucher-floating-top")}>
+                                            <span className={cx("icon-wrapper")}>
+                                                <Image src={icons.chart} alt="icon-chart" className={cx("icon")} />
+                                            </span>
+                                            <div>100% Business Growth</div>
+                                        </div>
+                                        <div className={cx("voucher-floating", "voucher-floating-bottom")}>
+                                            <span className={cx("icon-wrapper")}>
+                                                <Image src={icons.message} alt="icon-chart" className={cx("icon")} />
+                                            </span>
+                                            <div>100% Business Growth</div>
+                                        </div>
+                                        <Image src={images.voucher} alt="voucher" className={cx("voucher-image")} />
+                                    </div>
                                 </div>
                             </div>
                         );
                     })}
             </Slider>
+            <div className={cx("categories-overflow")}>
+                <div className={cx("category-buttons-wrapper")}>
+                    {Array(5)
+                        .fill(0)
+                        .map((_, index) => {
+                            const active = slideIndex === index;
+                            return (
+                                <div
+                                    onClick={() => handleGoToSlide(index)}
+                                    className={cx("category-button", {
+                                        active,
+                                    })}
+                                    key={index}
+                                >
+                                    {index}
+                                </div>
+                            );
+                        })}
+                </div>
+            </div>
         </div>
     );
 };
