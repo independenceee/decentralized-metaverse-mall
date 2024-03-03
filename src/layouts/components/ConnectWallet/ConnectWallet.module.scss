@@ -3,14 +3,7 @@
     font-weight: 500;
     font-size: 1.6rem;
     position: relative;
-    // min-width: 20rem;
-
     color: var(--text-color);
-    &.scrolled {
-        color: var(--text-color);
-        background-color: var(--secondary-color);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
-    }
 }
 
 /* wallet-short-begin*/
@@ -23,12 +16,6 @@
     font-size: 1.8rem;
     color: var(--text-color);
     width: 100%;
-
-    &.scrolled {
-        color: var(--text-color);
-        background-color: var(--secondary-color);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
-    }
 }
 
 .wallet-short-container {
@@ -138,7 +125,7 @@
 /* wallet-long-begin*/
 .wallet-long-wrapper {
     width: 448px;
-    background: var(--secondary-color);
+    background: var(--dark-color);
     z-index: 50;
     border-radius: 4px;
 }
@@ -182,7 +169,7 @@
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     margin-bottom: 12px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 13px 0px;
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 5px;
     display: flex;
     align-items: center;
     padding: 10px 20px;

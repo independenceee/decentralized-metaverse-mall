@@ -36,6 +36,7 @@ const ConnectWallet = function ({ isActive }: Props) {
     useEffect(() => {
         const handleScroll = function () {
             setIsScrolled(window.scrollY > 0);
+            setIsOpenShort(false);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);

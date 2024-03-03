@@ -24,7 +24,7 @@
 
 .contact-box-item {
     display: flex;
-    border-bottom: 1px solid #4a28a9;
+    border-bottom: 1px solid var(--white-color);
     margin-bottom: 30px;
     padding-bottom: 30px;
 
@@ -64,7 +64,7 @@
 }
 
 .form-control {
-    background-color: var(--secondary-color);
+    background-color: var(--white-color);
     border: none;
     min-height: 5rem;
     height: 100%;
@@ -72,7 +72,7 @@
     display: block;
     font-size: 1.5rem;
     font-weight: 400;
-    color: var(--white-color);
+    color: var(--text-color);
     width: 100%;
     background-clip: padding-box;
     border-radius: 0.25rem;
@@ -87,6 +87,24 @@
 
 .form-short-item {
     width: 100%;
+}
+
+.button-send-message{
+    width: fit-content;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    padding: 16px 32px;
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        background: inherit;
+        filter: blur(10px);
+    }
 }
 
 @media (max-width: 991px) {

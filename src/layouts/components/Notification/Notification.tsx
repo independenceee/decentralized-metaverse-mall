@@ -77,9 +77,6 @@ const Notification = function ({}: Props) {
                         <div className={cx("notification-logo-wrapper")}>
                             <Logo />
                         </div>
-                        <div className={cx("notification-icon")}>
-                            <CloseIcon />
-                        </div>
                     </header>
 
                     <div className={cx("notification-container")}>

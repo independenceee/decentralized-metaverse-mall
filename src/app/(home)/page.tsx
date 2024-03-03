@@ -29,7 +29,7 @@ const cx = classNames.bind(styles);
 const HomePage = function ({}: Props) {
     return (
         <PublicLayout>
-            <section className={cx("voucher-categories")}>
+            <section id="home" className={cx("voucher-categories")}>
                 <VoucherCategories />
             </section>
             <section id="about" className={cx("about-wrapper")}>

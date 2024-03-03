@@ -11,6 +11,7 @@ import Image from "next/image";
 import images from "@/assets/images";
 import Button from "../Button";
 import icons from "@/assets/icons";
+import categories from "@/data/categories";
 
 const cx = classNames.bind(styles);
 
@@ -120,22 +121,23 @@ const VoucherCategories = function ({}: Props) {
             </Slider>
             <div className={cx("categories-overflow")} data-aos="fade-up">
                 <div className={cx("category-buttons-wrapper")}>
-                    {Array(5)
-                        .fill(0)
-                        .map((_, index: number) => {
-                            const active = slideIndex === index;
-                            return (
-                                <div
-                                    onClick={() => handleGoToSlide(index)}
-                                    className={cx("category-button", {
-                                        active,
-                                    })}
-                                    key={index}
-                                >
-                                    {index}
+                    {categories.map((category, index: number) => {
+                        const active = slideIndex === index;
+                        return (
+                            <div
+                                onClick={() => handleGoToSlide(index)}
+                                className={cx("category-button", {
+                                    active,
+                                })}
+                                key={index}
+                            >
+                                <div className={cx("category-button-icon-wrapper")}>
+                                    <Image className={cx("category-button-icon")} src={category.image} alt={category.name} />
                                 </div>
-                            );
-                        })}
+                                <div className={cx("category-name")}>{category.name}</div>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>

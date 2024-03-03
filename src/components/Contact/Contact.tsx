@@ -59,7 +59,7 @@ const Contact = function ({}: Props) {
                     <textarea name="message" placeholder="Message" required className={cx("textarea")} rows={6} />
                 </div>
 
-                <Button className="button">Send Message</Button>
+                <Button className={cx("button-send-message")}>Send Message</Button>
             </form>
         </div>
     );

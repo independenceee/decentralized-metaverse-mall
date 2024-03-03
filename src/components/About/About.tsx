@@ -29,20 +29,20 @@ const About = function ({}: Props) {
                             </div>
                             <ul className={cx("content-list")}>
                                 <li className={cx("content-list-item")}>
-                                    <div>
-                                        <Image src={icons.listIcon} width={39} height={39} alt="list-icon" />
+                                    <div className={cx("list-icon-wrapper")}>
+                                        <Image src={icons.checkIcon} width={24} height={24} alt="list-icon" />
                                     </div>
                                     Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
                                 </li>
                                 <li className={cx("content-list-item")}>
-                                    <div>
-                                        <Image src={icons.listIcon} width={39} height={39} alt="list-icon" />
+                                    <div className={cx("list-icon-wrapper")}>
+                                        <Image src={icons.checkIcon} width={24} height={24} alt="list-icon" />
                                     </div>
                                     He oluptatem quia voluptas sit aspernatur
                                 </li>
                                 <li className={cx("content-list-item")}>
-                                    <div>
-                                        <Image src={icons.listIcon} width={39} height={39} alt="list-icon" />
+                                    <div className={cx("list-icon-wrapper")}>
+                                        <Image src={icons.checkIcon} width={24} height={24} alt="list-icon" />
                                     </div>
                                     Nemo enim ipsam voluptatem quia voluptas sit aspernatur
                                 </li>

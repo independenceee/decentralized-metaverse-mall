@@ -1,9 +1,9 @@
 .wrapper {
-    background: #4a28a9;
+    background: var(--linear-background-member);
     border-radius: 0.4rem;
-
+    opacity: 0.8;
     &:hover {
-        background-color: #331781;
+        opacity: 1;
     }
 }
 
@@ -19,11 +19,20 @@
 .image-container {
     width: 158px;
     height: 158px;
-    border: 5px solid #7149e2;
+    border: 5px solid var(--blue-color);
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 2rem;
     flex-shrink: 0;
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: inherit;
+        filter: blur(4px);
+        z-index: -1;
+    }
 }
 
 .image {
@@ -39,7 +48,7 @@
 }
 
 .name {
-    color: var(--text-color);
+    color: var(--primary-color);
     font-family: var(--font-family);
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
@@ -70,5 +79,5 @@
 
 .social-media-icon {
     font-size: 1.85rem;
-    color: #784cf2;
+    color: var(--gray-color);
 }
