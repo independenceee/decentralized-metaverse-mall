@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
-import Image from "next/image";
-import images from "@/assets/images";
 import { privateRoutes } from "@/routes";
 import SidebarOption from "./SidebarOption";
 import ModalContext from "@/contexts/components/ModalContext";

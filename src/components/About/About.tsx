@@ -5,11 +5,9 @@ import Image from "next/image";
 import images from "@/assets/images";
 import icons from "@/assets/icons";
 
-type Props = {};
-
 const cx = classNames.bind(styles);
 
-const About = function ({}: Props) {
+const About = function () {
     return (
         <section className={cx("about")}>
             <div className={cx("wrapper")}>
