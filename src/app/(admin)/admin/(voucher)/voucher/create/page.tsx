@@ -16,7 +16,6 @@ const AdminCreateVoucherPage = function ({}: Props) {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const totalPages = vouchers ? Math.ceil(vouchers.length / PAGE_SIZE) : 0;
     const currentPageData = vouchers && vouchers.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
-    console.log(currentPage, currentPageData);
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>

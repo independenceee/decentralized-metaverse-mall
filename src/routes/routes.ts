@@ -1,6 +1,6 @@
 import configs from "@/configs";
 
-import { HomeIcon, AddressCardIcon, TransactionIcon, UserIcon } from "@/components/Icons";
+import { HomeIcon, AddressCardIcon, TransactionIcon, UserIcon, CategoryIcon } from "@/components/Icons";
 
 const publicRoutes = [
     { name: "Home", redirect: configs.routes.home },
@@ -15,6 +15,7 @@ const privateRoutes = [
     { name: "Transaction", redirect: configs.routes.private.trasaction, Icon: TransactionIcon },
     { name: "Account", redirect: configs.routes.private.account, Icon: UserIcon },
     { name: "Voucher", redirect: configs.routes.private.voucher, Icon: AddressCardIcon },
+    { name: "Category", redirect: configs.routes.private.category, Icon: CategoryIcon },
 ];
 
 export { privateRoutes, publicRoutes };

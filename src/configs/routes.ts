@@ -11,6 +11,7 @@ const routes = {
         trasaction: "/admin/transaction",
         voucher: "/admin/voucher",
         account: "/admin/account",
+        category: "/admin/category",
     },
 } as const;
 

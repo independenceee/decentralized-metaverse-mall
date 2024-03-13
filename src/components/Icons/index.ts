@@ -15,6 +15,7 @@ import { GrTransaction as TransactionIcon } from "react-icons/gr";
 import { FiRefreshCw as RefreshIcon } from "react-icons/fi";
 import { FaRegCopy as CopyIcon } from "react-icons/fa6";
 import { FaAngleDown as DownIcon } from "react-icons/fa";
+import { BiCategory as CategoryIcon } from "react-icons/bi";
 
 export {
     TwitterIcon,
@@ -34,4 +35,5 @@ export {
     AddIcon,
     UserIcon,
     DownIcon,
+    CategoryIcon,
 };
