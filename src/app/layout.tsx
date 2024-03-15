@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import Aos from "@/components/Aos";
 import ContextProvider from "@/contexts";
+import StoreProvider from "@/redux/provider";
 
 const inner = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,9 @@ const RootLayout = function ({ children }: Readonly<Props>) {
         <html lang="en">
             <Aos />
             <body className={inner.className}>
-                <ContextProvider>{children}</ContextProvider>
+                <StoreProvider>
+                    <ContextProvider>{children}</ContextProvider>
+                </StoreProvider>
             </body>
             <Toaster />
         </html>

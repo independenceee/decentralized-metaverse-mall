@@ -189,16 +189,7 @@ const Notification = function ({}: Props) {
                                                         <TransactionIcon />
                                                     </div>
                                                     <div className={cx("voucher-notification-content")}>
-                                                        <div
-                                                            className={cx("voucher-notification-content-code")}
-                                                            style={
-                                                                {
-                                                                    "white-space": "nowrap",
-                                                                    "text-overflow": "ellipsis",
-                                                                    overflow: "hidden",
-                                                                } as any
-                                                            }
-                                                        >
+                                                        <div className={cx("voucher-notification-content-code")}>
                                                             AKJSGDJGASJFDJHGASDAKJSGDJGASJFDJHGASDAKJSGDJGASJFDJHGASD
                                                         </div>
                                                         <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>

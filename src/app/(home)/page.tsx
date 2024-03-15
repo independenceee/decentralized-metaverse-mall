@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import classNames from "classnames/bind";
 import PublicLayout from "@/layouts/PublicLayout";
@@ -15,18 +16,19 @@ import Contact from "@/components/Contact";
 import Faqs from "@/components/Faqs";
 import tokenomics from "@/data/tokenomics";
 import roadmaps from "@/data/roadmap";
-import teams from "@/data/teams";
-import images from "@/assets/images";
 import Sponsors from "@/components/Sponsors";
 import sponsors from "@/data/sponsors";
 import VoucherCategories from "@/components/VoucherCategories";
-import Image from "next/image";
+import { useGetFounderListQuery } from "@/redux/api/founders.api";
+import { Founder } from "@/redux/api/type";
 
 type Props = {};
 
 const cx = classNames.bind(styles);
 
 const HomePage = function ({}: Props) {
+    const { data: teams, isFetching } = useGetFounderListQuery();
+
     return (
         <PublicLayout>
             <section id="home" className={cx("voucher-categories")}>
@@ -57,9 +59,13 @@ const HomePage = function ({}: Props) {
             <section id="team" className={cx("team-wrapper")}>
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />
                 <div className={cx("team-container")}>
-                    {teams.map(function (team: TeamType, index: number) {
-                        return <Team key={team.id} index={index} team={team} />;
-                    })}
+                    {isFetching ? (
+                        <span>Loading...</span>
+                    ) : (
+                        (teams as Founder[]).map(function (team: TeamType, index: number) {
+                            return <Team key={team.id} index={index} team={team} />;
+                        })
+                    )}
                 </div>
             </section>
             <section id="faqs" className={cx("faqs-wrapper")}>

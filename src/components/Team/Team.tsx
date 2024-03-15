@@ -19,7 +19,13 @@ const Founder = function ({ team, index }: Props) {
         <div className={cx("wrapper")} data-aos="fade-up" data-aos-delay={`${10 * (index + 10)}`} data-aos-duration={`${1000 * (index + 10)}`}>
             <div className={cx("inner")}>
                 <div className={cx("image-container")}>
-                    <Image className={cx("image")} src={team.image ? team.image : images.user} alt="Member Avatar" />
+                    <Image
+                        className={cx("image")}
+                        src={team.image ? `${process.env.PUBLIC_IMAGES_DOMAIN}/founder/${team.image}` : images.user}
+                        width={80}
+                        height={80}
+                        alt="Member Avatar"
+                    />
                 </div>
                 <div className={cx("infomation")}>
                     <h3 className={cx("name")}>{team.username}</h3>
