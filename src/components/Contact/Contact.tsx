@@ -12,7 +12,12 @@ import { toast } from "sonner";
 const cx = classNames.bind(styles);
 
 const Contact = function () {
-    const [contact, setContact] = useState<{ name: string; subject: string; email: string; message: string }>({
+    const [contact, setContact] = useState<{
+        name: string;
+        subject: string;
+        email: string;
+        message: string;
+    }>({
         name: "",
         email: "",
         subject: "",
@@ -22,10 +27,7 @@ const Contact = function () {
     const handleChange = function (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         event.preventDefault();
         setContact(function (previous) {
-            return {
-                ...previous,
-                [event.target.name]: event.target.value,
-            };
+            return { ...previous, [event.target.name]: event.target.value };
         });
     };
 
@@ -37,7 +39,6 @@ const Contact = function () {
             html: contact.name,
             text: contact.message,
         });
-
         toast("Send email successfully.");
     };
 
