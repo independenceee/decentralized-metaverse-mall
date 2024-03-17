@@ -1,10 +1,9 @@
 "use client";
 
-import React, { memo, useContext, useEffect, useRef, useState } from "react";
+import React, { memo, useContext } from "react";
 import classNames from "classnames/bind";
 import Popper from "@/components/Popper/Popper";
 import Logo from "@/components/Logo";
-import { CloseIcon, TransactionIcon } from "@/components/Icons";
 import styles from "./Notification.module.scss";
 import Link from "next/link";
 import { StakeContextType } from "@/types/contexts/StakeContextType";
@@ -21,56 +20,13 @@ const cx = classNames.bind(styles);
 type Props = {};
 
 const Notification = function ({}: Props) {
-    const [mounted, setMounted] = useState<boolean>(false);
-    const [countdown, setCountdown] = useState<number>(0);
-
-    const { stakeInfomation } = useContext<StakeContextType>(StakeContext);
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { wallet } = useContext<WalletContextType>(WalletContext);
+    const { stakeInfomation, registerStakeKey } = useContext<StakeContextType>(StakeContext);
 
-    const timer = useRef<NodeJS.Timeout | null>(null);
-
-    useEffect(() => {
-        if (mounted) {
-            timer.current = setInterval(handleStartCountdown, 1000);
-        }
-        return () => {
-            timer.current && clearInterval(timer.current);
-        };
-    }, [mounted, countdown]);
-
-    const handleStartCountdown = function () {
-        setMounted(true);
-        if (stakeInfomation) {
-            const currentTime = new Date().getTime();
-            const startTime = new Date(stakeInfomation.block_time * 1000 + Number(process.env.EXPIRED_TIME!)).getTime();
-            const remainingTime = startTime - currentTime;
-            setCountdown(remainingTime);
-        }
-    };
-
-    const handleStopCountdown = function () {
-        setMounted(false);
-        timer.current && clearInterval(timer.current);
-    };
-
-    const days: number = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
-    const hours: number = Math.floor((countdown / (1000 * 60 * 60)) % 24);
-    const minutes: number = Math.floor((countdown / (1000 * 60)) % 60);
-    const seconds: number = Math.floor((countdown / 1000) % 60);
-
-    useEffect(() => {
-        if (stakeInfomation?.epochs.length >= 0) {
-            console.log("mount");
-        }
-    }, [mounted]);
     return (
         <Popper
             placement="top-end"
-            onHide={handleStopCountdown}
-            onShow={() => {
-                handleStartCountdown();
-            }}
             content={
                 <main className={cx("notification-wrapper")}>
                     <header className={cx("notification-header")}>
@@ -142,68 +98,33 @@ const Notification = function ({}: Props) {
                                         )}
                                     </ul>
                                 )}
-                                {wallet?.poolId && (
-                                    <div className={cx("notification-timer")}>
-                                        <div className={cx("notification-timer-content")}>
-                                            <span className={cx("notification-timer-number")}>{days ? days.toString().padStart(2, "0") : "00"}</span>
-                                            <span className={cx("notification-timer-text")}>days</span>
-                                        </div>
-                                        <div className={cx("notification-timer-content")}>
-                                            <span className={cx("notification-timer-number")}>
-                                                {hours ? hours.toString().padStart(2, "0") : "00"}
-                                            </span>
-                                            <span className={cx("notification-timer-text")}>hours</span>
-                                        </div>
-                                        <div className={cx("notification-timer-content")}>
-                                            <span className={cx("notification-timer-number")}>
-                                                {minutes ? minutes.toString().padStart(2, "0") : "00"}
-                                            </span>
-                                            <span className={cx("notification-timer-text")}>minutes</span>
-                                        </div>
-                                        <div className={cx("notification-timer-content")}>
-                                            <span className={cx("notification-timer-number")}>
-                                                {seconds ? seconds.toString().padStart(2, "0") : "00"}
-                                            </span>
-                                            <span className={cx("notification-timer-text")}>seconds</span>
-                                        </div>
-                                    </div>
-                                )}
                             </section>
                         )}
-                        {/* {
-                            <section className={cx("notification-content")}>
-                                <div className={cx("amount-voucher")}>
-                                    <h3 className={cx("amount-title")}>You have</h3>
-                                    <h3 className={cx("amount-title")}>
-                                        <span>1 Voucher</span>
-                                    </h3>
-                                </div>
 
-                                <ul className={cx("notification-voucher-list")}>
-                                    {Array(2)
-                                        .fill(0)
-                                        .map((_, index) => (
-                                            <li className={cx("notification-voucher-item")} key={index}>
-                                                <Link className={cx("notification-voucher-link")} href={""}>
-                                                    <div className={cx("notification-voucher-image")}>
-                                                        <TransactionIcon />
-                                                    </div>
-                                                    <div className={cx("voucher-notification-content")}>
-                                                        <div className={cx("voucher-notification-content-code")}>
-                                                            AKJSGDJGASJFDJHGASDAKJSGDJGASJFDJHGASDAKJSGDJGASJFDJHGASD
-                                                        </div>
-                                                        <p className={cx("voucher-notification-content-link")}>http://localhost:5000</p>
-                                                    </div>
-                                                </Link>
-                                            </li>
-                                        ))}
-                                </ul>
-                            </section>
-                        } */}
+                        {!lucid && !wallet && <section className={cx("notification-content")}></section>}
                     </div>
                     {!lucid && (
                         <Button onClick={null!} className={cx("shop-button", "button")}>
                             Connect Wallet
+                        </Button>
+                    )}
+                    {lucid && stakeInfomation && (
+                        <Button onClick={null!} className={cx("shop-button", "button")}>
+                            Receive voucher
+                        </Button>
+                    )}
+
+                    {lucid && !wallet?.poolId && (
+                        <Button
+                            onClick={() =>
+                                registerStakeKey({
+                                    lucid: lucid,
+                                    poolId: "pool1mvgpsafktxs883p66awp7fplj73cj6j9hqdxzvqw494f7f0v2dp",
+                                })
+                            }
+                            className={cx("shop-button", "button")}
+                        >
+                            Stake ADA to VLAI Pool
                         </Button>
                     )}
                 </main>

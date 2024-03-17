@@ -87,7 +87,11 @@ const WalletProvider = function ({ children }: Props) {
         }
     };
 
-    return <WalletContext.Provider value={{ wallet, loading, connectWallet, disconnectWallet, refreshWallet }}>{children}</WalletContext.Provider>;
+    return (
+        <WalletContext.Provider value={{ wallet, setWallet, loading, connectWallet, disconnectWallet, refreshWallet }}>
+            {children}
+        </WalletContext.Provider>
+    );
 };
 
 export default WalletProvider;

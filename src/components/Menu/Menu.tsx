@@ -7,6 +7,7 @@ import configs from "@/configs";
 import { publicRoutes } from "@/routes";
 import styles from "./Menu.module.scss";
 import Modal from "../Modal";
+import ConnectWallet from "@/layouts/components/ConnectWallet";
 
 const cx = classNames.bind(styles);
 
@@ -39,6 +40,7 @@ function Menu({ open, setOpen }: Props) {
                 })}
                 onClick={(e) => e.stopPropagation()}
             >
+                <ConnectWallet />
                 <ul className={cx("nav-list")}>
                     {publicRoutes.map(function ({ name, redirect }, index: number) {
                         return (

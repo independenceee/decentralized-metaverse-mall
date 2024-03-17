@@ -22,9 +22,10 @@ const cx = classNames.bind(styles);
 
 type Props = {
     isActive?: boolean;
+    className?: string;
 };
 
-const ConnectWallet = function ({ isActive }: Props) {
+const ConnectWallet = function ({ isActive, className }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
@@ -68,7 +69,7 @@ const ConnectWallet = function ({ isActive }: Props) {
     };
 
     return (
-        <div className={cx("wrapper", { open: isOpenShort })}>
+        <div className={cx("wrapper", className, { open: isOpenShort })}>
             {lucid ? (
                 <Button
                     loading={loading}
@@ -92,7 +93,7 @@ const ConnectWallet = function ({ isActive }: Props) {
                                     </h3>
                                 </div>
                             </CopyToClipboard>
-                            {/* <CopyToClipboard text={String(wallet?.stakeKey)}>
+                            <CopyToClipboard text={String(wallet?.stakeKey)}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Stake: </h3>
                                     <p className={cx("show-wallet-description")}>{wallet?.stakeKey}</p>
@@ -111,7 +112,7 @@ const ConnectWallet = function ({ isActive }: Props) {
                                         </h3>
                                     </div>
                                 </CopyToClipboard>
-                            )} */}
+                            )}
                             <div onClick={refreshWallet} className={cx("show-wallet-item")}>
                                 <h3 className={cx("show-wallet-name")}>
                                     <RefreshIcon className={cx("show-wallet-icon")} />
