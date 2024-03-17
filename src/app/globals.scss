@@ -13,6 +13,16 @@
     --font-family: "Rubik", sans-serif;
     --linear-background: linear-gradient(45deg, #00337c, #1c82ad, #a2b7d6);
     --linear-background-member: linear-gradient(45deg, #00337c, #1c82ad, #00337c);
+
+    // Admin themes
+    --admin-primary-color: #202b40;
+    --admin-secondary-color: #192132;
+    --admin-active-nav-item-color: #313e59;
+    --admin-border-color: #26334d;
+    --admin-card-color: #26334d;
+    --admin-text-color: #c2c9d6;
+    --admin-hovered-background-color: rgba(105, 122, 155, 0.2);
+    --admin-separate-color: #384766;
 }
 
 * {

@@ -2,7 +2,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3.2rem;
+    padding: 1.6rem 3.2rem;
+    background: var(--admin-primary-color);
+    border: 1px solid var(--admin-border-color);
 }
 
 .left {

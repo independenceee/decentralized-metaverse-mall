@@ -12,6 +12,7 @@ const routes = {
         voucher: "/admin/voucher",
         account: "/admin/account",
         category: "/admin/category",
+        founder: "/admin/founder",
     },
 } as const;
 

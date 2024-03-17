@@ -23,6 +23,7 @@ const Sidebar = function ({ selectedRouter, setSelectedRouter }: Props) {
     return (
         <main className={cx("wrapper", { open: isShowingSidebar })}>
             <Logo />
+            {/* <ConnectWallet /> */}
             <nav className={cx("navbar")}>
                 <ul className={cx("navbar-list")}>
                     {privateRoutes.map(function (route, index: number) {

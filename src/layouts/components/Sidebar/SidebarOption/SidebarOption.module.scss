@@ -16,14 +16,10 @@
     border: 1px solid transparent;
     transition: 0px 0px 5px rgba(0, 0, 0, 0.15);
 
+    &.active,
     &:hover {
-        border: 1px solid var(--primary-color);
-    }
-
-    &.active {
-        background-color: var(--primary-color);
-        border: 1px solid var(--primary-color);
-        // box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+        background-color: var(--admin-active-nav-item-color);
+        border: 1px solid var(--admin-active-nav-item-color);
     }
 }
 
@@ -67,4 +63,3 @@
         display: none;
     }
 }
-

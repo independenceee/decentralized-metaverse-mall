@@ -6,7 +6,6 @@ import Title from "@/components/Title";
 import Team from "@/components/Team";
 import Timeline from "@/components/Timeline";
 import { ServiceType, TeamType } from "@/types/GenericsType";
-import Banner from "@/components/Banner";
 import Service from "@/components/Service";
 import services from "@/data/services";
 import DoughnutChart from "@/components/DoughnutChart";
@@ -20,7 +19,6 @@ import Sponsors from "@/components/Sponsors";
 import sponsors from "@/data/sponsors";
 import VoucherCategories from "@/components/VoucherCategories";
 import { useGetFounderListQuery } from "@/redux/api/founders.api";
-import { Founder } from "@/redux/api/type";
 
 type Props = {};
 
@@ -62,7 +60,7 @@ const HomePage = function ({}: Props) {
                     {isFetching ? (
                         <span>Loading...</span>
                     ) : (
-                        (teams as Founder[]).map(function (team: TeamType, index: number) {
+                        (teams as TeamType[]).map(function (team: TeamType, index: number) {
                             return <Team key={team.id} index={index} team={team} />;
                         })
                     )}

@@ -12,6 +12,11 @@ const icons = {
     travel: require("./travel.png"),
     visa: require("./visa.png"),
     electricDevices: require("./electronic-devices.png"),
+    googleColor: require("./google-color.svg"),
+    twiterColor: require("./twitter-color.svg"),
+    rssColor: require("./rss-color.svg"),
+    facebookColor: require("./facebook-color.svg"),
+    linkedInColor: require("./linkedin-color.svg"),
     /* contact-icon */
     mailIcon: require("./mail-icon.svg"),
     phoneIcon: require("./phone-icon.svg"),
