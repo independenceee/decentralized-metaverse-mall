@@ -17,6 +17,7 @@ import Link from "next/link";
 import WalletContext from "@/contexts/components/WalletContext";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
 import { toast } from "sonner";
+import { createPortal } from "react-dom";
 
 const cx = classNames.bind(styles);
 
@@ -183,6 +184,8 @@ const ConnectWallet = function ({ isActive, className }: Props) {
                     </section>
                 </div>
             </Modal>
+
+           
 
             <Modal isShowing={isShowingNotificationDownload} toggle={toggleNotificationDownload}>
                 <div className={cx("wallet-download")}>
