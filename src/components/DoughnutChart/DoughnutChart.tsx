@@ -60,8 +60,7 @@ function DoughnutChart({ data }: Props) {
                                 <p className={cx("description")}>Breakdown of our Token Recipients.</p>
                             </div>
                             <div className={cx("content-body")}>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                                eaque ipsa quae ab illo inventore veritatis et tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                                The coin used in DMM is C2E token. The total supply is 1.200.000.000 C2E tokes distributed as below:
                             </div>
                         </div>
                         <ul className={cx("statistic-wrapper")}>
