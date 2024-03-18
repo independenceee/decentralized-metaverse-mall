@@ -126,6 +126,10 @@
     width: 100%;
 }
 
+.button {
+    cursor: pointer;
+}
+
 .action-button {
     width: 100%;
     white-space: nowrap;
@@ -145,4 +149,9 @@
     &:hover {
         background-color: var(--admin-active-nav-item-color);
     }
+}
+
+.image-wrapper {
+    border-radius: 50%;
+    border: 1px solid var(--admin-separate-color);
 }

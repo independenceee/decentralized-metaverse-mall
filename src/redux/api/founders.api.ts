@@ -7,9 +7,6 @@ export const foundersApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.NEXT_APP_BASE_URL,
         timeout: 5000,
-        headers: {
-            "Content-Type": "application/json",
-        },
     }),
     endpoints: (builder) => ({
         getFounderList: builder.query<Founder[], void>({
@@ -38,6 +35,7 @@ export const foundersApi = createApi({
                 method: "POST",
                 body,
             }),
+            invalidatesTags: [{ type: "Founders", id: "LIST" }],
         }),
         updateFounder: builder.mutation<Founder, { id: string; body: FormData }>({
             query: ({ id, body }) => ({

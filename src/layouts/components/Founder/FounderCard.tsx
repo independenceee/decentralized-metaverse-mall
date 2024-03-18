@@ -1,4 +1,3 @@
-import { Founder } from "@/redux/api/type";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import React from "react";
@@ -7,13 +6,15 @@ import images from "@/assets/images";
 import Tippy from "@tippyjs/react/headless";
 import Link from "next/link";
 import { FacebookIcon, LinkedinIcon, RssIcon, TwitterIcon } from "@/components/Icons";
+import { TeamType } from "@/types/GenericsType";
 const cx = classNames.bind(styles);
 
 type Props = {
-    founder: Founder;
+    founder: TeamType;
+    onDelete: (id: string) => void;
 };
 
-const FounderCard = function ({ founder }: Props) {
+const FounderCard = function ({ founder, onDelete }: Props) {
     return (
         <div className={cx("card")}>
             <div className={cx("card-header")}>
@@ -66,8 +67,8 @@ const FounderCard = function ({ founder }: Props) {
                         alt="Member Avatar"
                     />
                 </div>
-                <h3 className={cx("username")}>Konnor Guzman</h3>
-                <p className={cx("description")}>Senior Developer</p>
+                <h3 className={cx("username")}>{founder.username}</h3>
+                <p className={cx("description")}>{founder.description}</p>
                 <div className={cx("social-media")}>
                     <ul className={cx("social-media-list")}>
                         {founder.facebookLink && (
@@ -104,7 +105,7 @@ const FounderCard = function ({ founder }: Props) {
                     <button className={cx("button", "edit-button")}>
                         <span>Edit</span>
                     </button>
-                    <button className={cx("button", "delete-button")}>
+                    <button className={cx("button", "delete-button")} onClick={() => onDelete(founder.id as string)}>
                         <span>Delete</span>
                     </button>
                 </div>

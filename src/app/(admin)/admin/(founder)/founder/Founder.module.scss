@@ -106,7 +106,9 @@
         background: var(--admin-hovered-background-color);
     }
 }
-
+.filter-button.active {
+    background: var(--admin-hovered-background-color);
+}
 .filter-icon {
     width: 2rem;
     height: 2rem;
@@ -204,7 +206,9 @@
     font-weight: 600;
     min-width: 10rem;
     width: fit-content;
+    cursor: pointer;
 }
+
 .button-add,
 .save-button {
     background-color: #5f5af6;
