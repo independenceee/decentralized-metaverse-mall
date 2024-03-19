@@ -24,7 +24,7 @@
 
 .table-header-title {
     white-space: nowrap;
-    background-color: #4a28a970;
+    background-color: var(--admin-separate-color);
     color: var(--white-color);
     padding: 1.2rem 1.6rem;
     text-transform: uppercase;
@@ -42,12 +42,12 @@
 
 .table-row {
     border-top: 1px solid transparent;
-    border-bottom: 1px solid rgb(99, 117, 154);
-    background: var(--secondary-color);
+    border-bottom: 1px solid var(--admin-separate-color);
+    background-color: var(--admin-card-color);
     cursor: pointer;
     text-align: center;
     &:hover {
-        background-color: rgba(#4a28a9, 0.2);
+        background-color: rgba(var(--admin-card-color), 0.8);
     }
 
     &:last-child {

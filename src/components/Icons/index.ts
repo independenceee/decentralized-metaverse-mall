@@ -17,6 +17,7 @@ import { FaRegCopy as CopyIcon } from "react-icons/fa6";
 import { FaAngleDown as DownIcon } from "react-icons/fa";
 import { BiCategory as CategoryIcon } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
+import { BiDialpad } from "react-icons/bi";
 
 export {
     BiUser,
@@ -38,4 +39,5 @@ export {
     UserIcon,
     DownIcon,
     CategoryIcon,
+    BiDialpad,
 };

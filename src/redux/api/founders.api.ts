@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Founder } from "./type";
+import { Founder } from "./types";
 
 export const foundersApi = createApi({
     reducerPath: "foundersAPI",
@@ -43,6 +43,7 @@ export const foundersApi = createApi({
                 method: "PATCH",
                 body,
             }),
+            invalidatesTags: (result, error, arg) => [{ type: "Founders", id: arg.id }],
         }),
         deleteFounder: builder.mutation<void, string>({
             query: (id) => ({

@@ -1,30 +1,105 @@
 .wrapper {
-    display: grid;
-    row-gap: 20px;
+    padding: 3.2rem;
+    max-width: 896px;
+    margin: 0 auto;
+    color: var(--admin-text-color);
 }
 
 .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4.8rem;
+}
+.card {
+    padding: 2rem;
+    border-radius: 1rem;
+    background: var(--admin-card-color);
+    &:hover .icon {
+        animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+}
+
+@keyframes ping {
+    75%,
+    100% {
+        transform: scale(1.1);
+        opacity: 0.2;
+    }
+}
+
+.card-title {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+}
+.card-desc {
+    margin-top: 4px;
+    font-size: 1.5rem;
+}
+
+.route-link {
+    --color: #818cf8;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color);
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--color);
+    margin-top: 2rem;
+    transition: all 0.3s;
+    &:hover {
+        color: #818cf890;
+    }
+}
+
+.box-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(to right, rgb(228, 90, 182), rgb(241, 62, 92));
+}
+
+.body-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(to right, rgb(33, 124, 228), rgb(57, 70, 255));
+}
+
+.header-title {
+    margin-top: 12px;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.header-subtitle {
+    font-size: 1.6rem;
+    margin-top: 2px;
+}
+
+.icon {
+    width: 3.6rem;
+    height: 3.6rem;
+    color: white;
+}
+.body {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-
-@media screen and (max-width: 1200px) {
-    .header {
-        gap: 12px;
-    }
-}
-
-@media screen and (max-width: 992px) {
-    .header {
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 12px;
-    }
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.4rem;
+    margin-top: 3.2rem;
 }
 
 @media screen and (max-width: 768px) {
-    .header {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 12px;
+    .body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 }

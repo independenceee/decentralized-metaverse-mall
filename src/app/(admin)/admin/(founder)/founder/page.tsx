@@ -5,13 +5,20 @@ import styles from "./Founder.module.scss";
 import Tippy from "@tippyjs/react/headless";
 import Link from "next/link";
 import FounderCard from "@/layouts/components/Founder";
-import { Founder } from "@/redux/api/type";
+import { Founder } from "@/redux/api/types";
 import images from "@/assets/images";
 import Image from "next/image";
 import icons from "@/assets/icons";
-import { useAddFounderMutation, useDeleteFounderMutation, useGetFounderListQuery } from "@/redux/api/founders.api";
+import {
+    useAddFounderMutation,
+    useDeleteFounderMutation,
+    useGetFounderListQuery,
+    useGetFounderQuery,
+    useUpdateFounderMutation,
+} from "@/redux/api/founders.api";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useSearchParams, useRouter } from "next/navigation";
 const cx = classNames.bind(styles);
 
 type FounderFormData = {
@@ -29,9 +36,21 @@ const initialFormData: FounderFormData = {
 };
 
 const Founder = function () {
-    const { data: founders } = useGetFounderListQuery();
-    const [deleteFounder, deleteFounderResult] = useDeleteFounderMutation();
-    const [addFounder, addFounderResult] = useAddFounderMutation();
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const id = searchParams.get("id");
+    const { data: founders, isSuccess } = useGetFounderListQuery();
+    const {
+        data: founder,
+        isSuccess: getFounderSuccess,
+        error: getFounderError,
+    } = useGetFounderQuery(id || "", {
+        skip: !id,
+    });
+
+    const [deleteFounder] = useDeleteFounderMutation();
+    const [addFounder, { isLoading: isAddFounderLoading }] = useAddFounderMutation();
+    const [updateFounder, { isLoading: isUpdateFounderLoading }] = useUpdateFounderMutation();
 
     const {
         register,
@@ -47,6 +66,7 @@ const Founder = function () {
     const [searchResult, setSearchResult] = useState<Founder[] | null>(null);
     const [activeFilter, setActiveFilter] = useState<boolean>(false);
     const [avatar, setAvatar] = useState<string>("");
+
     const inputUploadImageRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -54,6 +74,18 @@ const Founder = function () {
             avatar && URL.revokeObjectURL(avatar);
         };
     }, [avatar]);
+
+    useEffect(() => {
+        if (founder) {
+            setValue("image", founder.image);
+            setValue("username", founder.username);
+            setValue("description", founder.description);
+            setValue("facebookLink", founder.facebookLink);
+            setValue("linkedinLink", founder.linkedinLink);
+            setValue("rrsLink", founder.rrsLink);
+            setValue("twitterLink", founder.twitterLink);
+        }
+    }, [founder, setValue]);
 
     const triggerInputFile = function () {
         inputUploadImageRef.current && inputUploadImageRef.current.click();
@@ -96,9 +128,9 @@ const Founder = function () {
     };
 
     const onSubmit = handleSubmit(
-        (data: { [key in keyof Omit<Founder, "id" | "createdAt" | "updatedAt">]: string }) => {
+        (data: FounderFormData) => {
             const formData: FormData = new FormData();
-            formData.append("image", fileAvatar);
+            fileAvatar && formData.append("image", fileAvatar);
             formData.append("description", data.description);
             formData.append("username", data.username);
             formData.append("facebookLink", data.facebookLink);
@@ -106,11 +138,27 @@ const Founder = function () {
             formData.append("rrsLink", data.rrsLink);
             formData.append("linkedinLink", data.linkedinLink);
 
-            addFounder(formData)
-                .unwrap()
-                .catch((error) => {
-                    toast(error.data.message);
-                });
+            if (id) {
+                updateFounder({ id, body: formData })
+                    .unwrap()
+                    .then(() => {
+                        toast.success("Update new founder successfully");
+                        handleClearForm();
+                        router.push("/admin/founder");
+                    })
+                    .catch((error) => {
+                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
+                    });
+            } else {
+                addFounder(formData)
+                    .unwrap()
+                    .then(() => {
+                        toast.success("Add a new founder successfully");
+                    })
+                    .catch((error) => {
+                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
+                    });
+            }
         },
         (errors) => {
             if (errors) {
@@ -131,10 +179,12 @@ const Founder = function () {
                 <div className={cx("form-wrapper")}>
                     <div className={cx("form-header")}>
                         <h2 className={cx("form-section-title")}>Founder</h2>
-                        {false && (
+                        {Boolean(id) && (
                             <div className={cx("buttons-wrapper")}>
                                 <button className={cx("button", "cancel-button")}>Cancel</button>
-                                <button className={cx("button", "save-button")}>Save</button>
+                                <button className={cx("button", "save-button")} disabled={isUpdateFounderLoading}>
+                                    Save
+                                </button>
                             </div>
                         )}
                     </div>
@@ -142,7 +192,13 @@ const Founder = function () {
                         <div className={cx("upload-avatar-section")}>
                             <span className={cx("avatar-title")}>Avatar</span>
                             <div className={cx("image-wrapper")}>
-                                <Image className={cx("image")} src={avatar || images.user} width={80} height={80} alt="Member Avatar" />
+                                <Image
+                                    className={cx("image")}
+                                    src={avatar || (founder && `${process.env.PUBLIC_IMAGES_DOMAIN}/founder/${founder?.image}`) || images.user}
+                                    width={80}
+                                    height={80}
+                                    alt="Member Avatar"
+                                />
                                 <div className={cx("button-change-image-wrapper")} onClick={triggerInputFile}>
                                     <input
                                         type="file"
@@ -256,12 +312,16 @@ const Founder = function () {
                                 </div>
                             </div>
                         </div>
-                        <div className={cx("buttons-wrapper", "buttons-button")}>
-                            <button className={cx("button", "clear-button")} type="button" onClick={handleClearForm}>
-                                Clear
-                            </button>
-                            <button className={cx("button", "button-add")}>Add</button>
-                        </div>
+                        {!Boolean(id) && (
+                            <div className={cx("buttons-wrapper", "buttons-button")}>
+                                <button className={cx("button", "clear-button")} type="button" onClick={handleClearForm}>
+                                    Clear
+                                </button>
+                                <button className={cx("button", "button-add")} disabled={isAddFounderLoading}>
+                                    Add
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </form>
@@ -355,12 +415,12 @@ const Founder = function () {
                 </div>
             </header>
             <section className={cx("body")}>
-                {founders &&
+                {isSuccess &&
+                    founders &&
                     (searchResult || (filteredFounders as Founder[])).map((founder, index) => (
                         <FounderCard onDelete={handleDeleteFounder} founder={founder} key={index} />
                     ))}
             </section>
-            {/* <FounderForm/> */}
         </main>
     );
 };

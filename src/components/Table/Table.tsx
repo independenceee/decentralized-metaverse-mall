@@ -29,7 +29,7 @@ const CustomPagination = styled(Pagination)({
         fontWeight: "bold",
     },
     "& .MuiPaginationItem-page.Mui-selected": {
-        backgroundColor: "#4a28a9",
+        backgroundColor: "var(--admin-separate-color)",
         color: "#fff",
         fontWeight: "bold",
 
@@ -58,7 +58,7 @@ const makeStyle = (status: string) => {
 
 type Props = {
     data: any[] | null;
-    title: string;
+    title?: string;
     type?: string;
     pathname?: string;
     totalPages: number;

@@ -1,16 +1,12 @@
 .wrapper {
     padding: 3.2rem;
-}
-
-.wrapper-inner {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
     width: 100%;
     gap: 24px;
 }
 
-.form-categories {
+.form-roamdap {
     grid-column: span 1;
 }
 .vouchers-by-category {
@@ -111,13 +107,10 @@
 }
 
 // Form styles
-.table-vouchers-by-category {
-    flex: 1;
-}
+
 .form-wrapper {
     border-radius: 1rem;
-    min-height: 500px;
-    // overflow: hidden;
+    overflow: hidden;
     background-color: var(--admin-card-color);
     color: var(--admin-text-color);
 }
@@ -317,17 +310,12 @@
         background-color: var(--admin-active-nav-item-color);
     }
 }
-.data-vouchers {
-    margin: 24px 0;
-    background-color: var(--admin-active-nav-item-color);
-    border-radius: 1rem;
-    height: 1000px;
-}
+
 @media screen and (max-width: 1024px) {
-    .wrapper-inner {
+    .wrapper {
         grid-template-columns: 100%;
     }
-    .form-categories {
+    .form-roamdap {
         grid-column: unset;
     }
     .vouchers-by-category {

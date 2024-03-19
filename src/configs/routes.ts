@@ -13,6 +13,7 @@ const routes = {
         account: "/admin/account",
         category: "/admin/category",
         founder: "/admin/founder",
+        roadmap: "/admin/roadmap",
     },
 } as const;
 

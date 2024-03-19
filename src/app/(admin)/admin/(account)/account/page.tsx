@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Table from "@/components/Table";
-import Upload from "@/components/Upload";
 import styles from "./AdminAccount.module.scss";
 import { get } from "@/utils/httpRequest";
 

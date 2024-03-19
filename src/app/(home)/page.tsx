@@ -60,7 +60,7 @@ const HomePage = function ({}: Props) {
                     {isFetching ? (
                         <span>Loading...</span>
                     ) : (
-                        (teams as TeamType[]).map(function (team: TeamType, index: number) {
+                        ((teams as TeamType[]) || []).map(function (team: TeamType, index: number) {
                             return <Team key={team.id} index={index} team={team} />;
                         })
                     )}
