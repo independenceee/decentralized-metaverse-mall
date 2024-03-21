@@ -1,10 +1,16 @@
 .wrapper {
     margin-top: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 65vh;
+    width: 100%;
 }
 
 .table-wrapper {
+    flex: 1;
     min-width: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
     margin-top: 1.2rem;
 }
 
@@ -16,6 +22,7 @@
     color: rgb(194, 201, 214);
     font-size: 1.4rem;
 }
+
 .actions-wrapper {
     display: flex;
     align-items: center;
@@ -23,6 +30,8 @@
 }
 
 .table-header-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
     white-space: nowrap;
     background-color: var(--admin-separate-color);
     color: var(--white-color);
@@ -59,7 +68,7 @@
     }
 }
 
-.table-column {
+.table-column:not(:last-child) {
     padding: 1.2rem 1.6rem;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -137,25 +146,17 @@
 .dropdown-menu {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    min-width: 200px;
+    width: 100%;
     position: absolute;
     right: 0;
-    border-radius: 5px;
-    background-color: var(--primary-color);
-    border: 1px solid rgb(136, 136, 149);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--admin-separate-color);
+    border: 1px solid var(--admin-border-color);
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     position: relative;
     min-width: 15rem;
-    &::before {
-        --height: 20px;
-        content: "";
-        position: absolute;
-        width: 100%;
-        left: 0;
-        top: calc(var(--height) * -1);
-        height: var(--height);
-        background: transparent !important;
-    }
 }
 
 .pagination-wrapper {
@@ -168,10 +169,7 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    padding-left: 1.2rem;
-    padding-right: 2.4rem;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding: 1.2rem 3.2rem 1.2rem 1.2rem;
     font-size: 1.4rem;
     line-height: 1.4;
     outline: none;
@@ -180,7 +178,7 @@
     color: var(--white-color);
 
     &:hover {
-        background-color: #6845c750;
+        background-color: var(--admin-primary-color);
     }
 }
 

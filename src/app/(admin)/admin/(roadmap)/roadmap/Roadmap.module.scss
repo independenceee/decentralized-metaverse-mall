@@ -86,6 +86,9 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 2.4rem;
 }
+.table-roadmap-list {
+    flex: 1;
+}
 
 @media screen and (max-width: 1024px) {
     .body {
@@ -109,10 +112,14 @@
 // Form styles
 
 .form-wrapper {
+    min-height: 376px;
     border-radius: 1rem;
     overflow: hidden;
     background-color: var(--admin-card-color);
     color: var(--admin-text-color);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .form-header {
@@ -123,18 +130,30 @@
     padding: 1.6rem 2rem;
 }
 .form-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
     padding: 2rem;
+    position: relative;
 }
 
 .buttons-wrapper {
     width: fit-content;
+    height: fit-content;
     display: grid;
-    align-items: center;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
-    align-items: center;
+    align-items: end;
+    margin-left: auto;
+    margin-top: 3.2rem;
 }
-
+.data-not-available {
+    font-size: 1.6rem;
+    padding-top: 3.2rem;
+    text-align: center;
+    text-decoration: underline;
+}
 .button {
     width: 100%;
     display: flex;
@@ -309,6 +328,13 @@
     &:hover {
         background-color: var(--admin-active-nav-item-color);
     }
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 1024px) {

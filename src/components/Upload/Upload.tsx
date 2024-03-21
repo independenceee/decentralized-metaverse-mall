@@ -8,6 +8,7 @@ import styles from "./Upload.module.scss";
 import { IoCloudUpload as UploadIcon } from "react-icons/io5";
 import { FaFileCsv as FileCsvIcon } from "react-icons/fa";
 import { FaCheck as CheckIcon } from "react-icons/fa";
+import { toast } from "sonner";
 const cx = classNames.bind(styles);
 type Props = {
     title: string;
@@ -21,7 +22,14 @@ const Upload = function ({ title, data, setData }: Props) {
     const handleChangeFile = async function (event: ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
         const file = event.target.files?.[0];
+
         if (file) {
+            const fileExtension = file.name.split(".")[1];
+            if (fileExtension !== "csv") {
+                toast.warning(`File extension (.${fileExtension}) is not .csv`);
+                return;
+            }
+
             setFile(file);
             parse(file, {
                 header: true,
@@ -32,7 +40,7 @@ const Upload = function ({ title, data, setData }: Props) {
                     setData(data);
                 },
                 error: (error) => {
-                    console.error("Error parsing CSV: ", error.message);
+                    toast.error(error.message);
                 },
             });
         }
@@ -56,7 +64,7 @@ const Upload = function ({ title, data, setData }: Props) {
                     <div className={cx("upload-success")}>
                         <FileCsvIcon className={cx("upload-success-icon")} />
                         <p className={cx("upload-success-file-name")}>{file.name}</p>
-                        <CheckIcon className={cx("upload-success-icon")} />
+                        <CheckIcon className={cx("upload-success-icon", "icon-check")} />
                     </div>
                 </section>
             )}

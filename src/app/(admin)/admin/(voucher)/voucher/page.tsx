@@ -4,56 +4,137 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AdminVoucher.module.scss";
 import Table from "@/components/Table";
-import { AddressCardIcon } from "@/components/Icons";
 
-import Card from "@/components/Card";
-import { get } from "@/utils/httpRequest";
 import Tippy from "@tippyjs/react/headless";
-import Image from "next/image";
-
-type Props = {};
+import { useGetCategoriesQuery } from "@/redux/api/categories.api";
+import {
+    useAddVoucherMutation,
+    useDeleteVoucherMutation,
+    useGetVoucherListQuery,
+    useGetVoucherQuery,
+    useUpdateVoucherMutation,
+} from "@/redux/api/vouchers.api";
+import Upload from "@/components/Upload";
+import { useForm } from "react-hook-form";
+import { Category, Voucher, VoucherStatus } from "@/redux/api/types";
+import { toast } from "sonner";
+import { useRouter, useSearchParams } from "next/navigation";
+import { omit } from "lodash";
 
 const cx = classNames.bind(styles);
 
-const AdminVoucherPage = function ({}: Props) {
-    const [vouchers, setVouchers] = useState<any[] | null>(null);
-    const [totalPagesVouchers, setTotalPagesVouchers] = useState<number>(1);
-    const [currentPageVouchers, setCurrentPageVouchers] = useState<number>(1);
-    const [statusVouchers, setStatusVouchers] = useState<string>("FREE");
+type VoucherFormData = Pick<Voucher, "code" | "price" | "status" | "link" | "categoryId">;
+
+const initialVoucherFormData: VoucherFormData = {
+    categoryId: "",
+    code: "",
+    link: "",
+    price: "",
+    status: VoucherStatus.FREE,
+};
+
+const AdminVoucherPage = function () {
+    const searchParams = useSearchParams();
+    const id = searchParams.get("id");
+    const router = useRouter();
+    const [page, setPage] = useState<number>(1);
+    const [category, setCategory] = useState<Omit<Category, "image"> | null>(null);
+    const { data: categories, isSuccess: getCategoriesSuccess, isLoading: isCategoryListLoading } = useGetCategoriesQuery();
+    const { data: voucherDataResponse, isSuccess: getVoucherListSuccess, isLoading: isVoucherListLoading } = useGetVoucherListQuery();
+    const { data: voucher, isSuccess: getVoucherSuccess } = useGetVoucherQuery(id || "", {
+        skip: !id,
+    });
+    const [addVoucher, { isLoading: isAddVoucherLoading }] = useAddVoucherMutation();
+    const [udpateVoucher, { isLoading: isUpdateVoucherLoading }] = useUpdateVoucherMutation();
+    const [deleteVoucher, { isLoading: isDeleteVoucherLoading }] = useDeleteVoucherMutation();
+
+    const { register, handleSubmit, reset, setValue, getValues, setError, clearErrors } = useForm<VoucherFormData>({
+        defaultValues: initialVoucherFormData,
+    });
 
     useEffect(() => {
-        (async function () {
-            const { vouchers, totalPage }: any = await get("/voucher", {
-                params: {
-                    page: currentPageVouchers,
-                    status: statusVouchers,
-                },
+        if (voucher) {
+            setValue("code", voucher.code);
+            setValue("price", voucher.price);
+            setValue("status", voucher.status);
+            setValue("link", voucher.link);
+            setValue("categoryId", voucher.categoryId);
+            setCategory((prev) => {
+                if (categories) {
+                    const category = categories.find(({ id }) => voucher.categoryId === id);
+                    if (category) return omit(category, ["image"]);
+                }
+                return prev;
             });
-            setVouchers(vouchers);
-            setTotalPagesVouchers(totalPage);
-        })();
-    }, [currentPageVouchers, statusVouchers]);
+        }
+    }, [voucher, setValue, categories]);
+
+    const handleChooseCategory = function ({ id, name }: Omit<Category, "image">) {
+        setValue("categoryId", id);
+        setCategory({ id, name });
+        clearErrors("categoryId");
+    };
+
+    const onSubmit = handleSubmit(
+        (data) => {
+            if (data.categoryId === "") {
+                setError("categoryId", {
+                    message: "Please select category to add vouchers",
+                });
+                toast.warning("Please select category");
+            }
+
+            if (id) {
+                udpateVoucher({ id, body: data })
+                    .unwrap()
+                    .then(() => {
+                        toast.success(`Updated voucher to category ${category?.name} successfully`);
+                        reset();
+                        setCategory(null);
+                    })
+                    .catch((error) => {
+                        toast.error(JSON.parse(JSON.stringify(error?.data?.message)));
+                    });
+            } else {
+                addVoucher([data])
+                    .unwrap()
+                    .then(() => {
+                        toast.success(`Added voucher to category ${category?.name} successfully`);
+                        reset();
+                        setCategory(null);
+                    })
+                    .catch((error) => {
+                        toast.error(JSON.parse(JSON.stringify(error?.data?.message)));
+                    });
+            }
+        },
+        (errors) => {
+            if (errors) {
+                const firstInputName = Object.keys(errors)[0];
+                toast(`${firstInputName} is required`);
+            }
+            console.log(errors);
+        },
+    );
+
+    const handleClearForm = function () {
+        reset();
+        setCategory(null);
+    };
+
+    const handleDeleteVoucher = function (id: string) {
+        deleteVoucher(id)
+            .unwrap()
+            .then(() => {
+                toast.success(`Deleted voucher successfully`);
+            })
+            .catch((error) => {
+                toast.error(JSON.parse(JSON.stringify(error?.data?.message)));
+            });
+    };
 
     return (
-        // <div className={cx("wrapper")}>
-        //     <div className={cx("header")}>
-        //         <Card title="Create Voucher" Icon={AddressCardIcon} type="add" to="/admin/voucher/create" />
-        //     </div>
-        //     {vouchers?.length ? (
-        //         <Table
-        //             setCurrentPage={setCurrentPageVouchers}
-        //             totalPages={totalPagesVouchers}
-        //             currentPage={currentPageVouchers}
-        //             pathname="/admin/voucher/edit"
-        //             title="Vouchers"
-        //             type="Vouchers"
-        //             data={vouchers}
-        //             setData={setVouchers}
-        //             setStatus={setStatusVouchers}
-        //         />
-        //     ) : null}
-        // </div>
-        <main className={cx("wrapper")}>
+        <main className={cx("wrapper")} onSubmit={onSubmit}>
             <div className={cx("wrapper-inner")}>
                 <form className={cx("form-categories")}>
                     <div className={cx("form-wrapper")}>
@@ -71,25 +152,69 @@ const AdminVoucherPage = function ({}: Props) {
                                 <label className={cx("field-label")}>
                                     <span className={cx("input-title")}>Code</span>
                                     <span className={cx("input-wrapper")}>
-                                        <input className={cx("input")} placeholder="Enter name" type="text" />
+                                        <input
+                                            {...register("code", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Code is required",
+                                                },
+                                            })}
+                                            className={cx("input")}
+                                            placeholder="Enter name"
+                                            type="text"
+                                        />
                                     </span>
                                 </label>
                                 <label className={cx("field-label")}>
                                     <span className={cx("input-title")}>Price</span>
                                     <span className={cx("input-wrapper")}>
-                                        <input className={cx("input")} placeholder="Enter name" type="text" />
+                                        <input
+                                            {...register("price", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Price is required",
+                                                },
+                                            })}
+                                            className={cx("input")}
+                                            placeholder="Enter name"
+                                            type="text"
+                                        />
                                     </span>
                                 </label>
                                 <label className={cx("field-label")}>
                                     <span className={cx("input-title")}>Product Link</span>
                                     <span className={cx("input-wrapper")}>
-                                        <input className={cx("input")} placeholder="Enter name" type="text" />
+                                        <input
+                                            {...register("link", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Link is required",
+                                                },
+                                            })}
+                                            className={cx("input")}
+                                            placeholder="Enter name"
+                                            type="text"
+                                        />
                                     </span>
                                 </label>
                                 <label className={cx("field-label")}>
                                     <span className={cx("input-title")}>Status</span>
                                     <span className={cx("input-wrapper")}>
-                                        <input className={cx("input")} placeholder="Enter name" type="text" />
+                                        <input
+                                            {...register("status", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Status is required",
+                                                },
+                                                pattern: {
+                                                    value: /^FREE|USED$/,
+                                                    message: "Status must be FREE or USED",
+                                                },
+                                            })}
+                                            className={cx("input")}
+                                            placeholder="Enter name"
+                                            type="text"
+                                        />
                                     </span>
                                 </label>
 
@@ -103,25 +228,26 @@ const AdminVoucherPage = function ({}: Props) {
                                                 <div tabIndex={-1} {...attrs}>
                                                     <div className={cx("tippy-wrapper")}>
                                                         <div className={cx("tippy-content")}>
-                                                            <button className={cx("action")} type="button">
-                                                                <span>Category 1</span>
-                                                            </button>
-                                                            <button className={cx("action")} type="button">
-                                                                <span>Category 1</span>
-                                                            </button>
-                                                            <button className={cx("action")} type="button">
-                                                                <span>Category 1</span>
-                                                            </button>
-                                                            <button className={cx("action")} type="button">
-                                                                <span>Category 1</span>
-                                                            </button>
+                                                            {categories &&
+                                                                categories.map(({ id, name }) => (
+                                                                    <button
+                                                                        type="button"
+                                                                        key={id}
+                                                                        className={cx("action", {
+                                                                            active: category && category.id === id,
+                                                                        })}
+                                                                        onClick={() => handleChooseCategory({ id, name })}
+                                                                    >
+                                                                        <span>{name}</span>
+                                                                    </button>
+                                                                ))}
                                                         </div>
                                                     </div>
                                                 </div>
                                             )}
                                         >
-                                            <button className={cx("chevron-down-button")}>
-                                                <span>Categories</span>
+                                            <button className={cx("chevron-down-button")} type="button">
+                                                <span>{category ? category.name : "Categories"}</span>
                                                 <svg
                                                     width={24}
                                                     height={24}
@@ -141,7 +267,7 @@ const AdminVoucherPage = function ({}: Props) {
                             </div>
 
                             <div className={cx("buttons-wrapper", "buttons-button")}>
-                                <button className={cx("button", "clear-button")} type="button">
+                                <button className={cx("button", "clear-button")} type="button" onClick={handleClearForm}>
                                     Clear
                                 </button>
                                 <button className={cx("button", "button-add")}>Add</button>
@@ -156,10 +282,10 @@ const AdminVoucherPage = function ({}: Props) {
                             <h2 className={cx("form-section-title")}>Vouchers by category</h2>
                         </div>
                         <div className={cx("form-body")}>
+                            <Upload title="File uploader vouchers" data={[]} setData={() => {}} />
                             <div className={cx("table-vouchers-by-category")}>
-                                {/* <Table totalPages={2} currentPage={2} setStatus={null!} data={accounts} setData={setAccounts} /> */}
+                                <Table pathname="" totalPages={2} currentPage={1} data={[]} onDelete={handleDeleteVoucher} />
                             </div>
-
                             <div className={cx("buttons-wrapper", "buttons-button")}>
                                 <button className={cx("button", "clear-button")} type="button">
                                     Clear
@@ -168,7 +294,35 @@ const AdminVoucherPage = function ({}: Props) {
                             </div>
                         </div>
                     </div>
-                    <div className={cx("data-vouchers")}>Test</div>
+                    <div className={cx("data-vouchers")}>
+                        <div className={cx("form-wrapper")}>
+                            <div className={cx("form-header")}>
+                                <h2 className={cx("form-section-title")}>Data vouchers</h2>
+                            </div>
+                            <div className={cx("form-body")}>
+                                {getVoucherListSuccess && voucherDataResponse.vouchers.length > 0 && (
+                                    <div className={cx("table-vouchers-by-category")}>
+                                        <Table
+                                            pathname="voucher"
+                                            totalPages={2}
+                                            currentPage={2}
+                                            data={voucherDataResponse.vouchers}
+                                            onDelete={handleDeleteVoucher}
+                                        />
+                                    </div>
+                                )}
+
+                                {getVoucherListSuccess && (
+                                    <div className={cx("buttons-wrapper", "buttons-button")}>
+                                        {/* <button className={cx("button", "clear-button")} type="button">
+                                            Clear
+                                        </button>
+                                        <button className={cx("button", "button-add")}>Add</button> */}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -176,80 +330,3 @@ const AdminVoucherPage = function ({}: Props) {
 };
 
 export default AdminVoucherPage;
-
-//  <form onSubmit={onSubmit} className={cx("form-vouchers")}>
-//      <div className={cx("form-wrapper")}>
-//          <div className={cx("form-header")}>
-//              <h2 className={cx("form-section-title")}>Vouchers</h2>
-//              {false && (
-//                  <div className={cx("buttons-wrapper")}>
-//                      <button className={cx("button", "cancel-button")}>Cancel</button>
-//                      <button className={cx("button", "save-button")}>Save</button>
-//                  </div>
-//              )}
-//          </div>
-//          <div className={cx("form-body")}>
-//              <div className={cx("form-fields-wrapper")}>
-//                  <label className={cx("field-label")}>
-//                      <span className={cx("input-title")}>Code</span>
-//                      <span className={cx("input-wrapper")}>
-//                          <input
-//                              {...register("name", {
-//                                  required: { value: true, message: "This field is required" },
-//                              })}
-//                              className={cx("input")}
-//                              placeholder="Enter name"
-//                              type="text"
-//                          />
-//                      </span>
-//                  </label>
-//                  <label className={cx("field-label")}>
-//                      <span className={cx("input-title")}>Price</span>
-//                      <span className={cx("input-wrapper")}>
-//                          <input
-//                              {...register("name", {
-//                                  required: { value: true, message: "This field is required" },
-//                              })}
-//                              className={cx("input")}
-//                              placeholder="Enter name"
-//                              type="text"
-//                          />
-//                      </span>
-//                  </label>
-//                  <label className={cx("field-label")}>
-//                      <span className={cx("input-title")}>Product Link</span>
-//                      <span className={cx("input-wrapper")}>
-//                          <input
-//                              {...register("name", {
-//                                  required: { value: true, message: "This field is required" },
-//                              })}
-//                              className={cx("input")}
-//                              placeholder="Enter name"
-//                              type="text"
-//                          />
-//                      </span>
-//                  </label>
-//                  <label className={cx("field-label")}>
-//                      <span className={cx("input-title")}>Status</span>
-//                      <span className={cx("input-wrapper")}>
-//                          <input
-//                              {...register("name", {
-//                                  required: { value: true, message: "This field is required" },
-//                              })}
-//                              className={cx("input")}
-//                              placeholder="Enter name"
-//                              type="text"
-//                          />
-//                      </span>
-//                  </label>
-//              </div>
-
-//              <div className={cx("buttons-wrapper", "buttons-button")}>
-//                  <button className={cx("button", "clear-button")} type="button" onClick={handleClearForm}>
-//                      Clear
-//                  </button>
-//                  <button className={cx("button", "button-add")}>Add</button>
-//              </div>
-//          </div>
-//      </div>
-//  </form>;

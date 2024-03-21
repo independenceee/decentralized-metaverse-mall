@@ -23,7 +23,7 @@ const AdminCreateVoucherPage = function ({}: Props) {
             </header>
             <aside>
                 <Table
-                    setStatus={() => null}
+                    onDelete={() => null}
                     setCurrentPage={setCurrentPage}
                     totalPages={totalPages}
                     currentPage={currentPage}

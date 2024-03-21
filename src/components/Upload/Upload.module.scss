@@ -1,12 +1,12 @@
 .wrapper {
     padding: 3rem;
-    background: var(--secondary-color);
+    background: var(--admin-card-color);
     border-radius: 0.5rem;
     max-width: 100%;
 }
 
 .header {
-    color: var(--text-color);
+    color: var(--admin-text-color);
     font-size: 1.7rem;
     font-weight: 400;
     text-align: center;
@@ -19,13 +19,13 @@
     justify-content: center;
     flex-direction: column;
     border-radius: 0.5rem;
-    border: 1px dashed var(--text-color);
+    border: 1px dashed var(--admin-separate-color);
     margin: 2rem 0;
     cursor: pointer;
 }
 
 .icon {
-    color: var(--text-color);
+    color: var(--admin-text-color);
     font-size: 3rem;
 }
 
@@ -42,7 +42,7 @@
     align-items: center;
     gap: 5px;
     border-radius: 4px;
-    background: var(--primary-color);
+    background: var(--admin-separate-color);
     cursor: pointer;
 }
 .upload-success-file-name {
@@ -52,6 +52,9 @@
 }
 
 .upload-success-icon {
-    color: var(--text-color);
+    color: var(--admin-text-color);
     font-size: 2rem;
+}
+.icon-check {
+    color: var(--admin-success-color);
 }

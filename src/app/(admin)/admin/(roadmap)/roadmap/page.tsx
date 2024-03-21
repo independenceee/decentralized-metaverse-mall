@@ -1,14 +1,22 @@
 "use client";
 
 import classNames from "classnames/bind";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import styles from "./Roadmap.module.scss";
 import Tippy from "@tippyjs/react/headless";
 import { RoadmapItem } from "@/redux/api/types";
 import { useForm } from "react-hook-form";
-import { useAddRoadmapMutation, useGetRoadmapByIdQuery, useGetRoadmapListQuery, useUpdateRoadmapMutation } from "@/redux/api/roadmap.api";
+import {
+    useAddRoadmapMutation,
+    useDeleteRoadmapMutation,
+    useGetRoadmapByIdQuery,
+    useGetRoadmapListQuery,
+    useUpdateRoadmapMutation,
+} from "@/redux/api/roadmap.api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import Table from "@/components/Table";
+import Loading from "@/layouts/components/Loading";
 
 const cx = classNames.bind(styles);
 
@@ -25,30 +33,41 @@ const Roadmap = function () {
     const router = useRouter();
     const id = searchParams.get("id");
 
-    const { data: roadmapList, isSuccess: getRoadmapListSuccess } = useGetRoadmapListQuery();
-    const { data: roadmap, isSuccess: getRoadmapSuccess } = useGetRoadmapByIdQuery(id || "", {
+    const { data: roadmapList, isSuccess: getRoadmapListSuccess, isLoading: isRoadmapListLoading } = useGetRoadmapListQuery();
+    const { currentData: roadmap, isSuccess: getRoadmapSuccess } = useGetRoadmapByIdQuery(id || "", {
         skip: !id,
     });
+
     const [addRoadmap] = useAddRoadmapMutation();
     const [updateRoadmap] = useUpdateRoadmapMutation();
+    const [deleteRoadmap] = useDeleteRoadmapMutation();
 
     const {
         register,
         handleSubmit,
         reset,
+        setValue,
         formState: { errors },
     } = useForm<RoadmapFormData>({
         defaultValues: initialRoadmapFormData,
     });
+
+    useEffect(() => {
+        if (roadmap) {
+            setValue("title", roadmap.title);
+            setValue("description", roadmap.description);
+            setValue("datetime", roadmap.datetime);
+        }
+    }, [roadmap, setValue]);
 
     const onSubmit = handleSubmit(
         (body) => {
             if (id) {
                 updateRoadmap({ id, body })
                     .unwrap()
-                    .then((data) => {
-                        toast.success("Update new founder successfully");
-                        handleClearForm();
+                    .then(() => {
+                        toast.success("Update new roadmap successfully");
+                        reset();
                         router.push("/admin/roadmap");
                     })
                     .catch((error) => {
@@ -58,6 +77,7 @@ const Roadmap = function () {
                 addRoadmap(body)
                     .unwrap()
                     .then(() => {
+                        reset();
                         toast.success("Add Roadmap successfully");
                     })
                     .catch((error) => {
@@ -71,6 +91,15 @@ const Roadmap = function () {
         },
     );
 
+    const handleDeleteRoadmap = function (id: string) {
+        deleteRoadmap(id)
+            .then(() => {
+                toast.success("Delete Roadmap successfully");
+            })
+            .catch((error) => {
+                toast.error("Failed to delete roadmap");
+            });
+    };
     const handleClearForm = function () {
         reset();
     };
@@ -81,12 +110,6 @@ const Roadmap = function () {
                 <div className={cx("form-wrapper")}>
                     <div className={cx("form-header")}>
                         <h2 className={cx("form-section-title")}>Roadmap</h2>
-                        {false && (
-                            <div className={cx("buttons-wrapper")}>
-                                <button className={cx("button", "cancel-button")}>Cancel</button>
-                                <button className={cx("button", "save-button")}>Save</button>
-                            </div>
-                        )}
                     </div>
                     <div className={cx("form-body")}>
                         <div className={cx("form-fields-wrapper")}>
@@ -139,12 +162,20 @@ const Roadmap = function () {
                                 </span>
                             </label>
                         </div>
-
-                        <div className={cx("buttons-wrapper", "buttons-button")}>
-                            <button className={cx("button", "clear-button")} type="button" onClick={handleClearForm}>
-                                Clear
-                            </button>
-                            <button className={cx("button", "button-add")}>Add</button>
+                        <div className={cx("buttons-wrapper")}>
+                            {getRoadmapSuccess && roadmap ? (
+                                <>
+                                    <button className={cx("button", "cancel-button")}>Cancel</button>
+                                    <button className={cx("button", "save-button")}>Save</button>
+                                </>
+                            ) : (
+                                <>
+                                    <button className={cx("button", "clear-button")} type="button" onClick={handleClearForm}>
+                                        Clear
+                                    </button>
+                                    <button className={cx("button", "button-add")}>Add</button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -154,62 +185,31 @@ const Roadmap = function () {
                 <div className={cx("form-wrapper")}>
                     <div className={cx("form-header")}>
                         <h2 className={cx("form-section-title")}>Roadmap List</h2>
-                        <div className={cx("actions")}>
-                            <Tippy
-                                offset={[0, 4]}
-                                placement="bottom-end"
-                                interactive
-                                render={(attrs) => (
-                                    <div tabIndex={-1} {...attrs}>
-                                        <div className={cx("tippy-wrapper")}>
-                                            <div className={cx("tippy-content")}>
-                                                <button className={cx("action")}>
-                                                    <span>Category 1</span>
-                                                </button>
-                                                <button className={cx("action")}>
-                                                    <span>Category 1</span>
-                                                </button>
-                                                <button className={cx("action")}>
-                                                    <span>Category 1</span>
-                                                </button>
-                                                <button className={cx("action")}>
-                                                    <span>Category 1</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            >
-                                <button className={cx("chevron-down-button")}>
-                                    <span>Categories</span>
-                                    <svg
-                                        width={24}
-                                        height={24}
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        className={cx("chevron-down-icon")}
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                    </svg>
-                                </button>
-                            </Tippy>
-                        </div>
                     </div>
                     <div className={cx("form-body")}>
-                        <div className={cx("table-vouchers-by-category")}>
-                            {/* <Table totalPages={2} currentPage={2} setStatus={null!} data={[]} setData={null!} /> */}
-                            {getRoadmapListSuccess && roadmapList && JSON.stringify(roadmapList)}
-                        </div>
+                        {getRoadmapListSuccess && (
+                            <>
+                                {roadmapList.length !== 0 ? (
+                                    <>
+                                        <div className={cx("table-roadmap-list")}>
+                                            <Table
+                                                pathname="roadmap"
+                                                paginate={false}
+                                                onDelete={handleDeleteRoadmap}
+                                                onUpdate={() => {}}
+                                                totalPages={2}
+                                                currentPage={2}
+                                                data={roadmapList}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <span className={cx("data-not-available")}>Empty data</span>
+                                )}
+                            </>
+                        )}
 
-                        <div className={cx("buttons-wrapper", "buttons-button")}>
-                            <button className={cx("button", "clear-button")} type="button">
-                                Clear
-                            </button>
-                            <button className={cx("button", "button-add")}>Add</button>
-                        </div>
+                        {isRoadmapListLoading && <Loading className={cx("loading-overlay")} />}
                     </div>
                 </div>
             </div>

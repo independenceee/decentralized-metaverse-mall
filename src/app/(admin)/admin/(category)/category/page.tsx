@@ -82,12 +82,17 @@ const CategoryPage = function () {
     };
 
     const handleDeleteCategory = function (id: string) {
-        deleteCategory(id);
+        deleteCategory(id)
+            .then(() => {
+                toast.success("Delete category successfully");
+            })
+            .catch((error) => {
+                toast.warning("Delete category failed");
+            });
     };
 
     const onSubmit = handleSubmit(
         (data: CategoryFormData) => {
-            console.log(data);
             const formData: FormData = new FormData();
             formData.append("image", fileCategoryImage);
             formData.append("name", data.name);
@@ -95,23 +100,23 @@ const CategoryPage = function () {
                 updateCategory({ id, body: formData })
                     .unwrap()
                     .then((res) => {
-                        console.log(res);
+                        toast.success("Update category successfully");
                         setCategoryImage("");
                         reset();
+                        router.push("/admin/category");
                     })
-                    .catch((err) => {
-                        console.log(err);
+                    .catch((error) => {
+                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
                     });
             } else {
                 addCategory(formData)
                     .unwrap()
                     .then((res) => {
-                        console.log(res);
                         setCategoryImage("");
                         reset();
                     })
-                    .catch((err) => {
-                        console.log(err);
+                    .catch((error) => {
+                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
                     });
             }
         },
@@ -142,7 +147,9 @@ const CategoryPage = function () {
                                 <Image
                                     className={cx("image")}
                                     src={
-                                        categoryImage || (category && `${process.env.PUBLIC_IMAGES_DOMAIN}/category/${category.image}`) || images.user
+                                        categoryImage ||
+                                        (id && category && `${process.env.PUBLIC_IMAGES_DOMAIN}/category/${category.image}`) ||
+                                        images.user
                                     }
                                     width={80}
                                     height={80}
@@ -200,7 +207,9 @@ const CategoryPage = function () {
                                 </>
                             ) : (
                                 <>
-                                    <button className={cx("button", "cancel-button")}>Cancel</button>
+                                    <button type="button" className={cx("button", "cancel-button")} onClick={handleClearForm}>
+                                        Cancel
+                                    </button>
                                     <button className={cx("button", "save-button")} disabled={isUpdateCategoryLoading}>
                                         Save
                                     </button>
@@ -212,7 +221,7 @@ const CategoryPage = function () {
             </form>
 
             <div className={cx("vouchers-by-category")}>
-                <div className={cx("form-wrapper")}>
+                <div className={cx("form-wrapper", "data-vouchers")}>
                     <div className={cx("form-header")}>
                         <h2 className={cx("form-section-title")}>Vouchers by category</h2>
                         <div className={cx("actions")}>
@@ -226,7 +235,7 @@ const CategoryPage = function () {
                                             <div className={cx("tippy-content")}>
                                                 {isSuccess &&
                                                     categories.map(({ id, name }) => (
-                                                        <button className={cx("action")} key={id} onClick={() => handleDeleteCategory(id)}>
+                                                        <button className={cx("action")} key={id} onClick={() => null}>
                                                             <span className={cx("category-name")}>{name}</span>
                                                         </button>
                                                     ))}
@@ -255,8 +264,19 @@ const CategoryPage = function () {
                     </div>
                     <div className={cx("form-body")}>
                         <div className={cx("table-vouchers-by-category")}>
-                            {isSuccess && JSON.stringify(categories)}
-                            {/* <Table totalPages={2} currentPage={2} setStatus={null!} data={accounts} setData={setAccounts} /> */}
+                            {isSuccess && categories.length !== 0 ? (
+                                <Table
+                                    pathname="category"
+                                    paginate={false}
+                                    onDelete={handleDeleteCategory}
+                                    onUpdate={() => {}}
+                                    totalPages={2}
+                                    currentPage={2}
+                                    data={categories}
+                                />
+                            ) : (
+                                <span className={cx("no-data-available")}>Empty data</span>
+                            )}
                         </div>
 
                         {/* <div className={cx("buttons-wrapper", "buttons-button")}>

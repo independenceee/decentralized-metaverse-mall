@@ -144,6 +144,19 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2.4rem;
+
+    &.loading {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.no-data-available {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 3.2rem;
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 1024px) {

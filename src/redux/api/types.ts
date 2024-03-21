@@ -1,5 +1,3 @@
-import { VoucherStatus } from "@/types/GenericsType";
-
 export interface Founder {
     id: string;
     createdAt: string;
@@ -17,6 +15,11 @@ export interface Category {
     id: string;
     name: string;
     image: string;
+}
+
+export enum VoucherStatus {
+    FREE = "FREE",
+    USED = "USED",
 }
 
 export interface Voucher {
@@ -39,11 +42,44 @@ export interface RoadmapItem {
     datetime: string;
 }
 
-export interface Account {}
+export interface Account {
+    id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    walletAddress: string;
+    stakeKey?: string;
+}
 
-export interface Banner {}
+enum UserRole {
+    User,
+    Admin,
+}
 
-export interface HotDeal {}
+export interface User {
+    id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    role: UserRole;
+}
+
+export interface Banner {
+    id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    title: string;
+    image: string;
+    description: string;
+    link: string;
+    categoryId: string;
+}
+
+export interface HotDeal {
+    id?: string;
+    createAt?: string;
+    updatedAt?: string;
+    name: string;
+    image: string;
+}
 
 // Define ReturnType
 

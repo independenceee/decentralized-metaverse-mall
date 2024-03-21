@@ -19,7 +19,7 @@ const AdminTransactionPage = function ({}: Props) {
                 <Upload title="File uploader transaction" data={accounts} setData={setAccounts} />
             </div>
             <aside>
-                <Table totalPages={1} currentPage={1} setStatus={null!} title="Transaction" data={accounts} setData={setAccounts} />
+                <Table onDelete={() => {}} onUpdate={() => {}} totalPages={1} currentPage={1} title="Transaction" data={accounts} />
             </aside>
         </div>
     );

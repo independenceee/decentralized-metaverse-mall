@@ -19,6 +19,8 @@ import {
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useSearchParams, useRouter } from "next/navigation";
+import Loading from "@/layouts/components/Loading";
+
 const cx = classNames.bind(styles);
 
 type FounderFormData = {
@@ -39,7 +41,7 @@ const Founder = function () {
     const searchParams = useSearchParams();
     const router = useRouter();
     const id = searchParams.get("id");
-    const { data: founders, isSuccess } = useGetFounderListQuery();
+    const { data: founders, isSuccess: getFounderListSuccess, isLoading: isFounderListLoading } = useGetFounderListQuery();
     const {
         data: founder,
         isSuccess: getFounderSuccess,
@@ -92,7 +94,7 @@ const Founder = function () {
     };
 
     const filteredFounders = useMemo(() => {
-        if (activeFilter && founders) {
+        if (activeFilter && founders && founders.length > 0) {
             return founders.slice().sort((f1, f2) => f2.username.localeCompare(f1.username));
         }
 
@@ -142,8 +144,9 @@ const Founder = function () {
                 updateFounder({ id, body: formData })
                     .unwrap()
                     .then(() => {
-                        toast.success("Update new founder successfully");
-                        handleClearForm();
+                        toast.success("Update founder successfully");
+                        reset();
+                        setAvatar("");
                         router.push("/admin/founder");
                     })
                     .catch((error) => {
@@ -153,6 +156,8 @@ const Founder = function () {
                 addFounder(formData)
                     .unwrap()
                     .then(() => {
+                        reset();
+                        setAvatar("");
                         toast.success("Add a new founder successfully");
                     })
                     .catch((error) => {
@@ -171,6 +176,10 @@ const Founder = function () {
     const handleClearForm = function () {
         reset();
         setAvatar("");
+
+        if (id) {
+            router.push("/admin/founder");
+        }
     };
 
     return (
@@ -179,9 +188,11 @@ const Founder = function () {
                 <div className={cx("form-wrapper")}>
                     <div className={cx("form-header")}>
                         <h2 className={cx("form-section-title")}>Founder</h2>
-                        {Boolean(id) && (
+                        {Boolean(id) && founder && (
                             <div className={cx("buttons-wrapper")}>
-                                <button className={cx("button", "cancel-button")}>Cancel</button>
+                                <button type="button" className={cx("button", "cancel-button")} onClick={handleClearForm}>
+                                    Cancel
+                                </button>
                                 <button className={cx("button", "save-button")} disabled={isUpdateFounderLoading}>
                                     Save
                                 </button>
@@ -194,7 +205,7 @@ const Founder = function () {
                             <div className={cx("image-wrapper")}>
                                 <Image
                                     className={cx("image")}
-                                    src={avatar || (founder && `${process.env.PUBLIC_IMAGES_DOMAIN}/founder/${founder?.image}`) || images.user}
+                                    src={avatar || (id && founder && `${process.env.PUBLIC_IMAGES_DOMAIN}/founder/${founder?.image}`) || images.user}
                                     width={80}
                                     height={80}
                                     alt="Member Avatar"
@@ -414,12 +425,24 @@ const Founder = function () {
                     </button>
                 </div>
             </header>
-            <section className={cx("body")}>
-                {isSuccess &&
-                    founders &&
-                    (searchResult || (filteredFounders as Founder[])).map((founder, index) => (
-                        <FounderCard onDelete={handleDeleteFounder} founder={founder} key={index} />
-                    ))}
+            <section
+                className={cx("body", {
+                    loading: isFounderListLoading,
+                })}
+            >
+                {getFounderListSuccess && (
+                    <>
+                        {founders.length > 0 ? (
+                            (searchResult || (filteredFounders as Founder[])).map((founder, index) => (
+                                <FounderCard onDelete={handleDeleteFounder} founder={founder} key={index} />
+                            ))
+                        ) : (
+                            <span className={cx("no-data-available")}>Empty data</span>
+                        )}
+                    </>
+                )}
+
+                {isFounderListLoading && <Loading className={cx("loading-overlay")} />}
             </section>
         </main>
     );

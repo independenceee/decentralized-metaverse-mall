@@ -46,4 +46,4 @@ export const vouchersApi = createApi({
     }),
 });
 
-export const { useGetVoucherQuery, useGetVoucherListQuery, useAddVoucherMutation, useDeleteVoucherMutation } = vouchersApi;
+export const { useGetVoucherQuery, useGetVoucherListQuery, useUpdateVoucherMutation, useAddVoucherMutation, useDeleteVoucherMutation } = vouchersApi;
