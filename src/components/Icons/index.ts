@@ -7,6 +7,8 @@ import {
     FaYoutube as YoutubeIcon,
     FaAddressCard as AddressCardIcon,
     FaUser as UserIcon,
+    FaIdeal,
+    FaStickerMule,
 } from "react-icons/fa";
 import { IoLogOutOutline as LogoutIcon, IoAdd as AddIcon } from "react-icons/io5";
 import { AiFillHome as HomeIcon, AiOutlineClose as CloseIcon } from "react-icons/ai";
@@ -20,6 +22,7 @@ import { BiUser } from "react-icons/bi";
 import { BiDialpad } from "react-icons/bi";
 
 export {
+    FaStickerMule,
     BiUser,
     TwitterIcon,
     FacebookIcon,
@@ -40,4 +43,5 @@ export {
     DownIcon,
     CategoryIcon,
     BiDialpad,
+    FaIdeal,
 };

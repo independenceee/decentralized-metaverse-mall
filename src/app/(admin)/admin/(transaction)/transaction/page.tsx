@@ -6,11 +6,9 @@ import styles from "./AdminTransaction.module.scss";
 import Upload from "@/components/Upload";
 import Table from "@/components/Table";
 
-type Props = {};
-
 const cx = classNames.bind(styles);
 
-const AdminTransactionPage = function ({}: Props) {
+const AdminTransactionPage = function () {
     const [accounts, setAccounts] = useState<any[] | null>(null);
 
     return (
@@ -19,7 +17,16 @@ const AdminTransactionPage = function ({}: Props) {
                 <Upload title="File uploader transaction" data={accounts} setData={setAccounts} />
             </div>
             <aside>
-                <Table onDelete={() => {}} onUpdate={() => {}} totalPages={1} currentPage={1} title="Transaction" data={accounts} />
+                <Table
+                    type="IMPORT"
+                    onDelete={() => {}}
+                    onUpdate={() => {}}
+                    totalPages={1}
+                    currentPage={1}
+                    title="Transaction"
+                    data={accounts}
+                    pathname=""
+                />
             </aside>
         </div>
     );

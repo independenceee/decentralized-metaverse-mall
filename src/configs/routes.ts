@@ -14,6 +14,8 @@ const routes = {
         category: "/admin/category",
         founder: "/admin/founder",
         roadmap: "/admin/roadmap",
+        deal: "/admin/hot-deal",
+        banner: "/admin/banner",
     },
 } as const;
 

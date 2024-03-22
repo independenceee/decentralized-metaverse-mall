@@ -66,12 +66,13 @@ textarea {
 // Scrollbar CSS
 html *::-webkit-scrollbar {
     border-radius: 0.5rem;
-    width: 6px;
+    width: 8px;
 }
 
 html *::-webkit-scrollbar-thumb {
     border-radius: var(--border-radius-primary);
     background: #c2c2c2;
+    border-radius: 0.5rem;
 }
 
 html *::-webkit-scrollbar-track {

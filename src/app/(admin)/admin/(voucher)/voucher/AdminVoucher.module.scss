@@ -150,7 +150,11 @@
     gap: 8px;
     align-items: center;
 }
-
+.button-imported-voucher-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .button {
     width: 100%;
     display: flex;
@@ -164,6 +168,11 @@
     min-width: 10rem;
     width: fit-content;
     cursor: pointer;
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        background-color: #4d47f5;
+    }
 }
 
 .button-add,
@@ -179,6 +188,7 @@
     margin-top: 3.2rem;
     width: fit-content;
 }
+
 .button-add {
     margin-left: auto;
 }
@@ -326,6 +336,19 @@
     &.active {
         background-color: var(--admin-active-nav-item-color);
     }
+}
+
+.no-data-available {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 3.2rem;
+    text-decoration: underline;
+}
+
+.loading-overlay {
+    margin-top: 10rem;
 }
 .data-vouchers {
     margin: 24px 0;

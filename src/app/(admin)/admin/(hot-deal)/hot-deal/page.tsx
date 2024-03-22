@@ -2,36 +2,36 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./Category.module.scss";
+import styles from "./HotDeal.module.scss";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import { Category } from "@/redux/api/types";
+import { HotDeal } from "@/redux/api/types";
 import { toast } from "sonner";
 import images from "@/assets/images";
 import Tippy from "@tippyjs/react/headless";
 import Table from "@/components/Table";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-    useAddCategoryMutation,
-    useDeleteCategoryMutation,
-    useGetCategoriesQuery,
-    useGetCategoryQuery,
-    useUpdateCategoryMutation,
-} from "@/redux/api/categories.api";
+    useAddHotDealMutation,
+    useDeleteHotDealMutation,
+    useGetHotDealListQuery,
+    useGetHotDealQuery,
+    useUpdateHotDealMutation,
+} from "@/redux/api/deals.api";
 import Loading from "@/layouts/components/Loading";
 
 const cx = classNames.bind(styles);
 
-type CategoryFormData = {
-    [key in keyof Omit<Category, "id">]: string;
+type HotDealFormData = {
+    [key in keyof Omit<HotDeal, "id" | "createdAt" | "updatedAt">]: string;
 };
 
-const initialFormData: CategoryFormData = {
+const initialFormData: HotDealFormData = {
     image: "",
     name: "",
 };
 
-const CategoryPage = function () {
+const HotDeal = function () {
     const searchParams = useSearchParams();
     const router = useRouter();
     const id = searchParams.get("id");
@@ -41,33 +41,33 @@ const CategoryPage = function () {
         reset,
         formState: { errors },
         setValue,
-    } = useForm<CategoryFormData>({
+    } = useForm<HotDealFormData>({
         defaultValues: initialFormData,
     });
-    const { data: category } = useGetCategoryQuery(id || "", {
+    const { data: deal } = useGetHotDealQuery(id || "", {
         skip: !id,
     });
-    const { data: categories, isSuccess, isLoading: isCategoriesLoading } = useGetCategoriesQuery();
-    const [addCategory, { isLoading: isAddCategoryLoading }] = useAddCategoryMutation();
-    const [updateCategory, { isLoading: isUpdateCategoryLoading }] = useUpdateCategoryMutation();
-    const [deleteCategory, { isLoading: isDeleteCategoryLoading }] = useDeleteCategoryMutation();
+    const { data: deals, isSuccess, isLoading: isHotDealsLoading } = useGetHotDealListQuery();
+    const [addHotDeal, { isLoading: isAddHotDealLoading }] = useAddHotDealMutation();
+    const [updateHotDeal, { isLoading: isUpdateHotDealLoading }] = useUpdateHotDealMutation();
+    const [deleteHotDeal] = useDeleteHotDealMutation();
 
-    const [fileCategoryImage, setFileCategoryImage] = useState<File>(null!);
-    const [categoryImage, setCategoryImage] = useState<string>("");
+    const [fileDealImage, setFileCategoryImage] = useState<File>(null!);
+    const [dealImage, setCategoryImage] = useState<string>("");
     const inputUploadImageRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         return () => {
-            categoryImage && URL.revokeObjectURL(categoryImage);
+            dealImage && URL.revokeObjectURL(dealImage);
         };
-    }, [categoryImage]);
+    }, [dealImage]);
 
     useEffect(() => {
-        if (category) {
-            setValue("name", category.name);
-            setValue("image", category.image);
+        if (deal) {
+            setValue("name", deal.name);
+            setValue("image", deal.image);
         }
-    }, [category, setValue]);
+    }, [deal, setValue]);
 
     const triggerInputFile = function () {
         inputUploadImageRef.current && inputUploadImageRef.current.click();
@@ -83,36 +83,34 @@ const CategoryPage = function () {
     };
 
     const handleDeleteCategory = function (id: string) {
-        deleteCategory(id)
+        deleteHotDeal(id)
             .then(() => {
-                toast.success("Delete category successfully");
+                toast.success("Delete hot deal successfully");
             })
             .catch((error) => {
-                toast.warning("Delete category failed");
+                toast.warning("Delete hot deal failed");
             });
     };
 
     const onSubmit = handleSubmit(
-        (data: CategoryFormData) => {
+        (data: HotDealFormData) => {
             const formData: FormData = new FormData();
-            formData.append("image", fileCategoryImage);
+            formData.append("image", fileDealImage);
             formData.append("name", data.name);
             if (id) {
-                updateCategory({ id, body: formData })
+                updateHotDeal({ id, body: formData })
                     .unwrap()
                     .then((res) => {
-                        toast.success("Update category successfully");
-                        router.push("/admin/category");
-                    })
-                    .then(() => {
+                        toast.success("Update hot deal successfully");
                         setCategoryImage("");
                         reset();
+                        router.push("/admin/hot-deal");
                     })
                     .catch((error) => {
                         toast.warning(JSON.parse(JSON.stringify(error.data.message)));
                     });
             } else {
-                addCategory(formData)
+                addHotDeal(formData)
                     .unwrap()
                     .then((res) => {
                         setCategoryImage("");
@@ -141,7 +139,7 @@ const CategoryPage = function () {
             <form className={cx("form-categories")} onSubmit={onSubmit}>
                 <div className={cx("form-wrapper")}>
                     <div className={cx("form-header")}>
-                        <h2 className={cx("form-section-title")}>Categories</h2>
+                        <h2 className={cx("form-section-title")}>{id ? "Update" : "Create"} Hot Deal</h2>
                     </div>
                     <div className={cx("form-body")}>
                         <div className={cx("upload-avatar-section")}>
@@ -149,11 +147,7 @@ const CategoryPage = function () {
                             <div className={cx("image-wrapper")}>
                                 <Image
                                     className={cx("image")}
-                                    src={
-                                        categoryImage ||
-                                        (id && category && `${process.env.PUBLIC_IMAGES_DOMAIN}/category/${category.image}`) ||
-                                        images.user
-                                    }
+                                    src={dealImage || (id && deal && `${process.env.PUBLIC_IMAGES_DOMAIN}/dealhot/${deal.image}`) || images.user}
                                     width={80}
                                     height={80}
                                     alt="Member Avatar"
@@ -162,7 +156,7 @@ const CategoryPage = function () {
                                     <input
                                         type="file"
                                         {...register("image", {
-                                            required: { value: true, message: "This field is required" },
+                                            required: { value: true, message: "Image is required" },
                                         })}
                                         ref={inputUploadImageRef}
                                         hidden
@@ -188,7 +182,7 @@ const CategoryPage = function () {
                                 <span className={cx("input-wrapper")}>
                                     <input
                                         {...register("name", {
-                                            required: { value: true, message: "This field is required" },
+                                            required: { value: true, message: "Name is required" },
                                         })}
                                         className={cx("input")}
                                         placeholder="Enter name"
@@ -204,7 +198,7 @@ const CategoryPage = function () {
                                     <button className={cx("button", "clear-button")} type="button" onClick={handleClearForm}>
                                         Clear
                                     </button>
-                                    <button className={cx("button", "button-add")} type="submit" disabled={isAddCategoryLoading}>
+                                    <button className={cx("button", "button-add")} type="submit" disabled={isAddHotDealLoading}>
                                         Add
                                     </button>
                                 </>
@@ -213,7 +207,7 @@ const CategoryPage = function () {
                                     <button type="button" className={cx("button", "cancel-button")} onClick={handleClearForm}>
                                         Cancel
                                     </button>
-                                    <button className={cx("button", "save-button")} disabled={isUpdateCategoryLoading}>
+                                    <button className={cx("button", "save-button")} disabled={isUpdateHotDealLoading}>
                                         Save
                                     </button>
                                 </>
@@ -226,60 +220,23 @@ const CategoryPage = function () {
             <div className={cx("vouchers-by-category")}>
                 <div className={cx("form-wrapper", "data-vouchers")}>
                     <div className={cx("form-header")}>
-                        <h2 className={cx("form-section-title")}>Vouchers by category</h2>
-                        <div className={cx("actions")}>
-                            <Tippy
-                                offset={[0, 4]}
-                                placement="bottom-end"
-                                interactive
-                                render={(attrs) => (
-                                    <div tabIndex={-1} {...attrs}>
-                                        <div className={cx("tippy-wrapper")}>
-                                            <div className={cx("tippy-content")}>
-                                                {isSuccess &&
-                                                    categories.map(({ id, name }) => (
-                                                        <button className={cx("action")} key={id} onClick={() => null}>
-                                                            <span className={cx("category-name")}>{name}</span>
-                                                        </button>
-                                                    ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            >
-                                <button className={cx("chevron-down-button")}>
-                                    <span>Categories</span>
-                                    <svg
-                                        width={24}
-                                        height={24}
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        className={cx("chevron-down-icon")}
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                    </svg>
-                                </button>
-                            </Tippy>
-                        </div>
+                        <h2 className={cx("form-section-title")}>Hot Deals</h2>
                     </div>
                     <div className={cx("form-body")}>
                         <div className={cx("table-vouchers-by-category")}>
-                            {isCategoriesLoading && <Loading className={cx("loading-overlay")} />}
+                            {isHotDealsLoading && <Loading className={cx("loading-overlay")} />}
                             {isSuccess && (
                                 <>
-                                    {categories.length > 0 ? (
+                                    {deals.length > 0 ? (
                                         <Table
                                             type="MANUAL"
-                                            pathname="category"
+                                            pathname="hot-deal"
                                             paginate={false}
                                             onDelete={handleDeleteCategory}
                                             onUpdate={() => {}}
                                             totalPages={2}
                                             currentPage={2}
-                                            data={categories}
+                                            data={deals}
                                         />
                                     ) : (
                                         <span className={cx("no-data-available")}>Empty data</span>
@@ -294,4 +251,4 @@ const CategoryPage = function () {
     );
 };
 
-export default CategoryPage;
+export default HotDeal;

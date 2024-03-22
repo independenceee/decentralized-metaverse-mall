@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import { parse } from "papaparse";
 
@@ -12,13 +12,20 @@ import { toast } from "sonner";
 const cx = classNames.bind(styles);
 type Props = {
     title: string;
-    data: any[] | null;
     setData: Dispatch<SetStateAction<any[] | null>>;
+    isImported?: boolean;
 };
 
-const Upload = function ({ title, data, setData }: Props) {
-    const [file, setFile] = useState<File>(null!);
+const Upload = function ({ title, setData, isImported = false }: Props) {
+    const [file, setFile] = useState<File | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (isImported) {
+            setFile(null);
+        }
+    }, [isImported]);
+
     const handleChangeFile = async function (event: ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
         const file = event.target.files?.[0];

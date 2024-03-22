@@ -30,7 +30,7 @@ export interface Voucher {
     status: VoucherStatus;
     link: string;
     price: string;
-    categoryId: string;
+    categoryName: string;
 }
 
 export interface RoadmapItem {
@@ -70,12 +70,12 @@ export interface Banner {
     image: string;
     description: string;
     link: string;
-    categoryId: string;
+    categoryName: string;
 }
 
 export interface HotDeal {
     id?: string;
-    createAt?: string;
+    createdAt?: string;
     updatedAt?: string;
     name: string;
     image: string;

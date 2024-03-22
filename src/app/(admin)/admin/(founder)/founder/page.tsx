@@ -442,7 +442,7 @@ const Founder = function () {
                     </>
                 )}
 
-                {isFounderListLoading && <Loading className={cx("loading-overlay")} />}
+                {isFounderListLoading && <Loading />}
             </section>
         </main>
     );

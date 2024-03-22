@@ -1,13 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Founder } from "./types";
+import { fetchBaseQueryConfig } from "../config/config";
 
 export const foundersApi = createApi({
     reducerPath: "foundersAPI",
     tagTypes: ["Founders"],
-    baseQuery: fetchBaseQuery({
-        baseUrl: process.env.NEXT_APP_BASE_URL,
-        timeout: 5000,
-    }),
+    baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
     endpoints: (builder) => ({
         getFounderList: builder.query<Founder[], void>({
             query: () => "/founder",

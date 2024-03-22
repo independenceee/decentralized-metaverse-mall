@@ -67,8 +67,10 @@ const Roadmap = function () {
                     .unwrap()
                     .then(() => {
                         toast.success("Update new roadmap successfully");
-                        reset();
                         router.push("/admin/roadmap");
+                    })
+                    .then(() => {
+                        reset();
                     })
                     .catch((error) => {
                         toast.warning(JSON.parse(JSON.stringify(error.data.message)));
@@ -193,6 +195,7 @@ const Roadmap = function () {
                                     <>
                                         <div className={cx("table-roadmap-list")}>
                                             <Table
+                                                type="MANUAL"
                                                 pathname="roadmap"
                                                 paginate={false}
                                                 onDelete={handleDeleteRoadmap}

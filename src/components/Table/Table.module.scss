@@ -2,18 +2,20 @@
     margin-top: 1.6rem;
     display: flex;
     flex-direction: column;
-    max-height: 65vh;
     width: 100%;
 }
 
 .table-wrapper {
     flex: 1;
     min-width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    margin-top: 1.2rem;
 }
 
+.table-content {
+    max-height: 65vh;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 .table {
     width: 100%;
     text-align: left;
@@ -55,6 +57,7 @@
     background-color: var(--admin-card-color);
     cursor: pointer;
     text-align: center;
+
     &:hover {
         background-color: rgba(var(--admin-card-color), 0.8);
     }
@@ -68,20 +71,18 @@
     }
 }
 
-.table-column:not(:last-child) {
+.table-column.manual:not(:last-child) {
     padding: 1.2rem 1.6rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
 }
 
 .table-column-content {
+    display: block;
     font-weight: 400;
     font-size: 1.4rem;
     color: rgb(194, 201, 214);
-    text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
     width: 100%;
 }
 
