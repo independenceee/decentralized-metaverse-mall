@@ -53,7 +53,7 @@ const AdminVoucherPage = function () {
 
     const [addVoucher, { isLoading: isAddVoucherLoading, isSuccess: addVoucherSuccess }] = useAddVoucherMutation();
     const [udpateVoucher, { isLoading: isUpdateVoucherLoading }] = useUpdateVoucherMutation();
-    const [deleteVoucher, { isSuccess: deleteVoucherSuccess }] = useDeleteVoucherMutation();
+    const [deleteVoucher] = useDeleteVoucherMutation();
 
     const { register, handleSubmit, reset, setValue, getValues, setError, clearErrors } = useForm<VoucherFormData>({
         defaultValues: initialVoucherFormData,
