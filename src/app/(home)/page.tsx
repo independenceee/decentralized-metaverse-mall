@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import PublicLayout from "@/layouts/PublicLayout";
 import Title from "@/components/Title";
 import Team from "@/components/Team";
-import Timeline from "@/components/Timeline";
+import Timeline from "@/components/Roadmap";
 import { ServiceType, TeamType } from "@/types/GenericsType";
 import Service from "@/components/Service";
 import services from "@/data/services";
@@ -14,11 +14,12 @@ import styles from "./Home.module.scss";
 import Contact from "@/components/Contact";
 import Faqs from "@/components/Faqs";
 import tokenomics from "@/data/tokenomics";
-import roadmaps from "@/data/roadmap";
+// import roadmaps from "@/data/roadmap";
 import Sponsors from "@/components/Sponsors";
 import sponsors from "@/data/sponsors";
 import VoucherCategories from "@/components/VoucherCategories";
 import { useGetFounderListQuery } from "@/redux/api/founders.api";
+import { useGetRoadmapListQuery } from "@/redux/api/roadmap.api";
 
 type Props = {};
 
@@ -26,6 +27,7 @@ const cx = classNames.bind(styles);
 
 const HomePage = function ({}: Props) {
     const { data: teams, isFetching } = useGetFounderListQuery();
+    const { data: roadmaps } = useGetRoadmapListQuery();
 
     return (
         <PublicLayout>
@@ -52,7 +54,7 @@ const HomePage = function ({}: Props) {
                 <div className={cx("title-wrapper")}>
                     <Title title="Roadmap" subTitle="Emergence and design of the idea" />
                 </div>
-                <Timeline timelines={roadmaps} />
+                <Timeline roadmaps={roadmaps} />
             </section>
             <section id="team" className={cx("team-wrapper")}>
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />

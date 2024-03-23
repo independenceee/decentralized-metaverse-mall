@@ -1,4 +1,7 @@
 const nextConfig = {
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
+    },
     env: {
         BLOCKFROST_NETWORK_NAME_PREPROD: "Preprod",
         BLOCKFROST_NETWORK_NAME_PREVIEW: "Preview",

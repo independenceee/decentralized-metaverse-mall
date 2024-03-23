@@ -22,8 +22,8 @@ const Founder = function ({ team, index }: Props) {
                     <Image
                         className={cx("image")}
                         src={team.image ? `${process.env.PUBLIC_IMAGES_DOMAIN}/founder/${team.image}` : images.user}
-                        width={80}
-                        height={80}
+                        width={999999}
+                        height={999999}
                         alt="Member Avatar"
                     />
                 </div>

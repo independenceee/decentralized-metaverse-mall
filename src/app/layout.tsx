@@ -24,7 +24,7 @@ type Props = {
 };
 
 const RootLayout = function ({ children }: Readonly<Props>) {
-    return <Loading />;
+    // return <Loading />;
     return (
         <html lang="en">
             <Aos />
