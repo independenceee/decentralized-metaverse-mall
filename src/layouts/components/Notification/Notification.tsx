@@ -14,6 +14,7 @@ import convertDatetime from "@/helpers/convert-datetime";
 import Button from "@/components/Button";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
+import { BeatLoader } from "react-spinners";
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +23,7 @@ type Props = {};
 const Notification = function ({}: Props) {
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { wallet } = useContext<WalletContextType>(WalletContext);
-    const { stakeInfomation, registerStakeKey } = useContext<StakeContextType>(StakeContext);
+    const { stakeInfomation, registerStakeKey, waiting } = useContext<StakeContextType>(StakeContext);
 
     return (
         <Popper
@@ -116,6 +117,7 @@ const Notification = function ({}: Props) {
 
                     {lucid && !wallet?.poolId && (
                         <Button
+                            
                             onClick={() =>
                                 registerStakeKey({
                                     lucid: lucid,
@@ -124,7 +126,7 @@ const Notification = function ({}: Props) {
                             }
                             className={cx("shop-button", "button")}
                         >
-                            Stake ADA to VLAI Pool
+                            {waiting ? <BeatLoader size={7} color="#fff" /> : "Stake ADA to VLAI Pool"}
                         </Button>
                     )}
                 </main>

@@ -54,7 +54,7 @@ type Props = {
     totalPages?: number;
     currentPage?: number;
     paginate?: boolean;
-    pathname: string;
+    pathname?: string;
     type: "IMPORT" | "MANUAL";
     onDelete: (id: string) => void;
     onUpdate?: (id: string) => void;

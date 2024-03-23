@@ -9,12 +9,12 @@ import Table from "@/components/Table";
 const cx = classNames.bind(styles);
 
 const AdminTransactionPage = function () {
-    const [accounts, setAccounts] = useState<any[] | null>(null);
+    const [accounts, setAccounts] = useState<any>(null!);
 
     return (
         <div className={cx("wrapper")}>
             <div className={cx("header")}>
-                <Upload title="File uploader transaction" data={accounts} setData={setAccounts} />
+                <Upload title="File uploader transaction" setData={setAccounts} />
             </div>
             <aside>
                 <Table

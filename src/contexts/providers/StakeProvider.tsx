@@ -13,10 +13,11 @@ type Props = {
 
 const StakeProvider = function ({ children }: Props) {
     const { wallet, setWallet } = useContext<WalletContextType>(WalletContext);
-
     const [stakeInfomation, setStateInfomation] = useState<any>(null!);
+    const [waiting, setWaiting] = useState<boolean>(false);
 
     const registerStakeKey = async function ({ lucid, poolId }: { lucid: Lucid; poolId?: string }): Promise<TxHash> {
+        setWaiting(true);
         const rewardAddress: string = (await lucid.wallet.rewardAddress()) as string;
         const tx: TxComplete = await lucid
             .newTx()
@@ -30,6 +31,7 @@ const StakeProvider = function ({ children }: Props) {
             setWallet(function (previous) {
                 return { ...previous, poolId: poolId };
             });
+            setWaiting(true);
         }
         return txHash;
     };
@@ -84,7 +86,7 @@ const StakeProvider = function ({ children }: Props) {
     }, [wallet?.address, wallet?.poolId]);
 
     return (
-        <StakeContext.Provider value={{ stakeInfomation, registerStakeKey, delegateToStakePool, withdrawRewards, deregisterStakeKey }}>
+        <StakeContext.Provider value={{ stakeInfomation, registerStakeKey, delegateToStakePool, withdrawRewards, deregisterStakeKey, waiting }}>
             {children}
         </StakeContext.Provider>
     );
