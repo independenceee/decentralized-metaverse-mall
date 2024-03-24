@@ -46,7 +46,8 @@
         "sass": "^1.70.0",
         "sharp": "^0.33.2",
         "slick-carousel": "^1.8.1",
-        "sonner": "^1.4.0"
+        "sonner": "^1.4.0",
+        "sweetalert2": "^11.10.7"
     },
     "devDependencies": {
         "@types/aos": "^3.0.7",
