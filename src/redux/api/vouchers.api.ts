@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { SuccessResponseWithPagination, Voucher } from "./types";
+import { SuccessResponseWithPagination, Voucher, VoucherQueryConfig } from "./types";
 import { fetchBaseQueryConfig } from "../config/config";
 
 export const vouchersApi = createApi({
@@ -7,8 +7,13 @@ export const vouchersApi = createApi({
     baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
     tagTypes: ["Vouchers"],
     endpoints: (builder) => ({
-        getVoucherList: builder.query<SuccessResponseWithPagination<Voucher>, string>({
-            query: (queryParams) => `/voucher?${queryParams}`,
+        getVoucherList: builder.query<SuccessResponseWithPagination<Voucher>, VoucherQueryConfig>({
+            query: (queryParams) => {
+                return {
+                    url: `/voucher`,
+                    params: queryParams,
+                };
+            },
             providesTags: (result) =>
                 result
                     ? [...result.vouchers.map(({ id }) => ({ type: "Vouchers" as const, id })), { type: "Vouchers", id: "PARTIAL-LIST" }]

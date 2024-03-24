@@ -90,6 +90,12 @@ export interface HotDeal {
     image: string;
 }
 
+export interface VoucherQueryConfig {
+    status?: VoucherStatus;
+    page?: string;
+    categoryId?: string;
+}
+
 // Define ReturnType
 
 export interface SuccessResponseWithPagination<T> {

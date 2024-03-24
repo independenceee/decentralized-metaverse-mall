@@ -11,6 +11,7 @@ import Button from "@/components/Button";
 import { useModal } from "@/hooks";
 import Modal from "../Modal";
 import { useRouter, useSearchParams } from "next/navigation";
+import useQueryString from "@/hooks/useQueryString";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
@@ -58,21 +59,10 @@ type Props = {
     type: "IMPORT" | "MANUAL";
     onDelete: (id: string) => void;
     onUpdate?: (id: string) => void;
-    setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function CustomTable({
-    data,
-    title,
-    pathname,
-    totalPages = 1,
-    paginate = true,
-    onDelete,
-    onUpdate,
-    type,
-    currentPage = 1,
-    setCurrentPage,
-}: Props) {
+export default function CustomTable({ data, title, pathname, totalPages = 1, paginate = true, onDelete, onUpdate, type, currentPage = 1 }: Props) {
+    const { pathname: URL_PATH_NAME, params, router } = useQueryString();
     const { replace } = useRouter();
     const { isShowing, toggle } = useModal();
     if (!data) return;
@@ -84,7 +74,10 @@ export default function CustomTable({
     };
 
     const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {
-        setCurrentPage && setCurrentPage(page);
+        params.set("page", String(page));
+        router.push(URL_PATH_NAME + "?" + params.toString(), {
+            scroll: false,
+        });
     };
 
     const titles = (data[0] && Object.keys(data[0])) || [];

@@ -22,7 +22,6 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { omit } from "lodash";
 import Loading from "@/layouts/components/Loading";
-import Link from "next/link";
 import useQueryString from "@/hooks/useQueryString";
 
 const cx = classNames.bind(styles);
@@ -39,21 +38,25 @@ const initialVoucherFormData: VoucherFormData = {
 
 const AdminVoucherPage = function () {
     const { params, pathname, searchParams, objectSearchParams } = useQueryString();
+    console.log(new URLSearchParams({ ...objectSearchParams, page: "10" }).toString());
     const router = useRouter();
     const [category, setCategory] = useState<Omit<Category, "image"> | null>(null);
+    const [filteredCategory, setFilteredCategory] = useState<Omit<Category, "image"> | null>(null);
     const [importedVouchers, setImportedVouchers] = useState<any[] | null>(null);
     const { data: categories } = useGetCategoriesQuery();
-    const [page, setPage] = useState<number>(1);
+
     const [hasPrefetchedAll, setHasPrefetchedAll] = useState<boolean>(false);
     const {
         data: voucherDataResponse,
         isSuccess: getVoucherListSuccess,
         isLoading: isVoucherListLoading,
-    } = useGetVoucherListQuery(params.toString());
+    } = useGetVoucherListQuery(objectSearchParams);
+
+    const page = searchParams.get("page") || "1";
+    const status = searchParams.get("status");
+    const categoryId = searchParams.get("categoryId");
 
     const id = searchParams.get("id");
-    const status = searchParams.get("status");
-    const categoryId = searchParams.get("category");
     const { data: voucher } = useGetVoucherQuery(id || "", {
         skip: !id,
     });
@@ -83,21 +86,27 @@ const AdminVoucherPage = function () {
         }
     }, [voucher, setValue, categories]);
 
-    // useEffect(() => {
-    //     if (!hasPrefetchedAll) {
-    //         if (getVoucherListSuccess && voucherDataResponse.totalPage > 1) {
-    //             [...new Array(voucherDataResponse.totalPage)].forEach((_, index) => {
-    //                 if (index >= voucherDataResponse.totalPage) return;
-    //                 prefetchVoucherPage(index + 1, {
-    //                     force: true,
-    //                 });
-    //             });
+    useEffect(() => {
+        if (!hasPrefetchedAll) {
+            if (getVoucherListSuccess && voucherDataResponse.totalPage > 1) {
+                [...new Array(voucherDataResponse.totalPage)].forEach((_, index) => {
+                    if (index >= voucherDataResponse.totalPage) return;
+                    prefetchVoucherPage(
+                        {
+                            ...objectSearchParams,
+                            page: String(index + 1),
+                        },
+                        {
+                            force: true,
+                        },
+                    );
+                });
 
-    //             setHasPrefetchedAll(true);
-    //         }
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [voucherDataResponse, getVoucherListSuccess, hasPrefetchedAll, page]);
+                setHasPrefetchedAll(true);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [voucherDataResponse, getVoucherListSuccess, hasPrefetchedAll, page]);
 
     const handleChooseCategory = function ({ id, name }: Omit<Category, "image">) {
         setValue("categoryName", name);
@@ -192,11 +201,13 @@ const AdminVoucherPage = function () {
             .then(() => {
                 toast.success(`Deleted voucher successfully`);
                 if (voucherDataResponse && voucherDataResponse.totalPage > 0 && voucherDataResponse.vouchers.length === 1) {
-                    setPage((prevPage) => {
-                        if (prevPage <= 1) {
-                            return 1;
-                        }
-                        return prevPage - 1;
+                    if ((+page || 1) <= 1) {
+                        params.set("page", "1");
+                    } else {
+                        params.set("page", String(+page - 1));
+                    }
+                    router.push(pathname + "?" + params.toString(), {
+                        scroll: false,
                     });
                 }
             })
@@ -224,7 +235,7 @@ const AdminVoucherPage = function () {
     const handleChangeCategory = function (category: Omit<Category, "image"> | null) {
         if (!category) {
             params.delete("category");
-            setCategory(null);
+            setFilteredCategory(null);
             router.push(pathname + "?" + params.toString(), {
                 scroll: false,
             });
@@ -389,7 +400,6 @@ const AdminVoucherPage = function () {
                                     currentPage={1}
                                     data={importedVouchers}
                                     onDelete={() => null}
-                                    setCurrentPage={setPage}
                                 />
                             </div>
                             {importedVouchers && importedVouchers.length > 0 && (
@@ -502,7 +512,7 @@ const AdminVoucherPage = function () {
                                         )}
                                     >
                                         <button className={cx("chevron-down-button", "filter-by-category")} type="button">
-                                            <span>{category ? category.name : "Categories"}</span>
+                                            <span>{filteredCategory ? filteredCategory.name : "Categories"}</span>
                                             <svg
                                                 width={24}
                                                 height={24}
@@ -527,10 +537,9 @@ const AdminVoucherPage = function () {
                                                 type="MANUAL"
                                                 pathname="voucher"
                                                 totalPages={voucherDataResponse.totalPage}
-                                                currentPage={page}
+                                                currentPage={+page}
                                                 data={voucherDataResponse.vouchers}
                                                 onDelete={handleDeleteVoucher}
-                                                setCurrentPage={setPage}
                                             />
                                         ) : (
                                             <span className={cx("no-data-available")}>Empty data</span>
