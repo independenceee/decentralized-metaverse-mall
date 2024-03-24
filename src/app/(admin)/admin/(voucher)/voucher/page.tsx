@@ -50,7 +50,6 @@ const AdminVoucherPage = function () {
         skip: !id,
     });
     const prefetchVoucherPage = usePrefetch("getVoucherList");
-
     const [addVoucher, { isLoading: isAddVoucherLoading, isSuccess: addVoucherSuccess }] = useAddVoucherMutation();
     const [udpateVoucher, { isLoading: isUpdateVoucherLoading }] = useUpdateVoucherMutation();
     const [deleteVoucher] = useDeleteVoucherMutation();
@@ -85,6 +84,8 @@ const AdminVoucherPage = function () {
                         force: true,
                     });
                 });
+
+                setHasPrefetchedAll(true);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
