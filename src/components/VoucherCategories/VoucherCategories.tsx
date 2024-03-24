@@ -8,9 +8,12 @@ import styles from "./VoucherCategories.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
+import images from "@/assets/images";
 import Button from "../Button";
 import icons from "@/assets/icons";
+import categories from "@/data/categories";
 import { useGetCategoryWithBannerQuery } from "@/redux/api/categories.api";
+import { VoucherCategory } from "@/redux/api/types";
 
 const cx = classNames.bind(styles);
 
@@ -80,7 +83,8 @@ const VoucherCategories = function ({}: Props) {
         return (
             <div className={cx("wrapper")}>
                 <Slider {...settings} className={cx("categories-slider")} ref={slider}>
-                    {data.map((category, index) => {
+                    {data.map(function (category: VoucherCategory, index: number) {
+                        console.log(category.banner?.image);
                         const active = slideIndex === index;
                         return (
                             <div
@@ -105,20 +109,14 @@ const VoucherCategories = function ({}: Props) {
                                         </div>
                                         <div className={cx("voucher-floating", "voucher-floating-bottom")}>
                                             <span className={cx("icon-wrapper")}>
-                                                <Image
-                                                    width={999999}
-                                                    height={999999}
-                                                    src={process.env.PUBLIC_IMAGES_DOMAIN! + "/banner/" + category.banner?.image}
-                                                    alt="icon-chart"
-                                                    className={cx("icon")}
-                                                />
+                                                <Image src={icons.message} alt="icon-chart" className={cx("icon")} />
                                             </span>
                                             <div>100% Business Growth</div>
                                         </div>
                                         <Image
                                             width={999999}
                                             height={999999}
-                                            src={process.env.PUBLIC_IMAGES_DOMAIN! + "/category/" + category.image}
+                                            src={process.env.PUBLIC_IMAGES_DOMAIN! + "/image/" + category.banner?.image}
                                             alt="voucher"
                                             className={cx("voucher-image")}
                                         />
