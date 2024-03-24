@@ -8,10 +8,9 @@ import styles from "./VoucherCategories.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
-import images from "@/assets/images";
 import Button from "../Button";
 import icons from "@/assets/icons";
-import categories from "@/data/categories";
+import { useGetCategoryWithBannerQuery } from "@/redux/api/categories.api";
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +19,8 @@ type Props = {};
 const VoucherCategories = function ({}: Props) {
     const [slideIndex, setSlideIndex] = useState<number>(0);
     const slider = React.useRef<Slider>(null);
+
+    const { data } = useGetCategoryWithBannerQuery();
 
     const settings: Settings = {
         dots: false,
@@ -75,12 +76,11 @@ const VoucherCategories = function ({}: Props) {
         slider.current?.slickGoTo(index);
     };
 
-    return (
-        <div className={cx("wrapper")}>
-            <Slider {...settings} className={cx("categories-slider")} ref={slider}>
-                {Array(5)
-                    .fill(0)
-                    .map((_, index) => {
+    if (data) {
+        return (
+            <div className={cx("wrapper")}>
+                <Slider {...settings} className={cx("categories-slider")} ref={slider}>
+                    {data.map((category, index) => {
                         const active = slideIndex === index;
                         return (
                             <div
@@ -91,11 +91,8 @@ const VoucherCategories = function ({}: Props) {
                             >
                                 <div className={cx("catergory-left")} data-aos="fade-right">
                                     <div className={cx("trending")}>Trending</div>
-                                    <h2 className={cx("title")}>Tappy by TapTools</h2>
-                                    <div className={cx("description")}>
-                                        Tappy is a collection of 5,555 unique penguins living on the Cardano blockchain, each acting as an access pass
-                                        to TapTools Pro, with access valid until September 1, 2024.
-                                    </div>
+                                    <h2 className={cx("title")}>{category.banner?.title}</h2>
+                                    <div className={cx("description")}>{category.banner?.description}</div>
                                     <Button className={cx("button-view-details")}>View details</Button>
                                 </div>
                                 <div className={cx("catergory-right")} data-aos="fade-left">
@@ -108,40 +105,59 @@ const VoucherCategories = function ({}: Props) {
                                         </div>
                                         <div className={cx("voucher-floating", "voucher-floating-bottom")}>
                                             <span className={cx("icon-wrapper")}>
-                                                <Image src={icons.message} alt="icon-chart" className={cx("icon")} />
+                                                <Image
+                                                    width={999999}
+                                                    height={999999}
+                                                    src={process.env.PUBLIC_IMAGES_DOMAIN! + "/banner/" + category.banner?.image}
+                                                    alt="icon-chart"
+                                                    className={cx("icon")}
+                                                />
                                             </span>
                                             <div>100% Business Growth</div>
                                         </div>
-                                        <Image src={images.voucher} alt="voucher" className={cx("voucher-image")} />
+                                        <Image
+                                            width={999999}
+                                            height={999999}
+                                            src={process.env.PUBLIC_IMAGES_DOMAIN! + "/category/" + category.image}
+                                            alt="voucher"
+                                            className={cx("voucher-image")}
+                                        />
                                     </div>
                                 </div>
                             </div>
                         );
                     })}
-            </Slider>
-            <div className={cx("categories-overflow")} data-aos="fade-up">
-                <div className={cx("category-buttons-wrapper")}>
-                    {categories.map((category, index: number) => {
-                        const active = slideIndex === index;
-                        return (
-                            <div
-                                onClick={() => handleGoToSlide(index)}
-                                className={cx("category-button", {
-                                    active,
-                                })}
-                                key={index}
-                            >
-                                <div className={cx("category-button-icon-wrapper")}>
-                                    <Image className={cx("category-button-icon")} src={category.image} alt={category.name} />
+                </Slider>
+                <div className={cx("categories-overflow")} data-aos="fade-up">
+                    <div className={cx("category-buttons-wrapper")}>
+                        {data.map((category, index: number) => {
+                            const active = slideIndex === index;
+                            return (
+                                <div
+                                    onClick={() => handleGoToSlide(index)}
+                                    className={cx("category-button", {
+                                        active,
+                                    })}
+                                    key={index}
+                                >
+                                    <div className={cx("category-button-icon-wrapper")}>
+                                        <Image
+                                            className={cx("category-button-icon")}
+                                            width={999999}
+                                            height={999999}
+                                            src={process.env.PUBLIC_IMAGES_DOMAIN! + "/category/" + category.image}
+                                            alt={category.name}
+                                        />
+                                    </div>
+                                    <div className={cx("category-name")}>{category.name}</div>
                                 </div>
-                                <div className={cx("category-name")}>{category.name}</div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default VoucherCategories;

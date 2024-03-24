@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Category } from "./types";
+import { Category, VoucherCategory } from "./types";
 import { fetchBaseQueryConfig } from "../config/config";
 
 export const categoriesApi = createApi({
@@ -20,6 +20,11 @@ export const categoriesApi = createApi({
                       ]
                     : [{ type: "Categories", id: "LIST" }],
         }),
+
+        getCategoryWithBanner: builder.query<VoucherCategory[], void>({
+            query: () => `/category/banner`,
+        }),
+
         getCategory: builder.query<Category, string>({
             query: (id) => `/category/${id}`,
             providesTags: (result, error, id) => [{ type: "Categories", id }],
@@ -50,5 +55,11 @@ export const categoriesApi = createApi({
     }),
 });
 
-export const { useGetCategoriesQuery, useUpdateCategoryMutation, useAddCategoryMutation, useDeleteCategoryMutation, useGetCategoryQuery } =
-    categoriesApi;
+export const {
+    useGetCategoriesQuery,
+    useUpdateCategoryMutation,
+    useAddCategoryMutation,
+    useDeleteCategoryMutation,
+    useGetCategoryQuery,
+    useGetCategoryWithBannerQuery,
+} = categoriesApi;

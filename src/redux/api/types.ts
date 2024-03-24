@@ -11,6 +11,15 @@ export interface Founder {
     rrsLink: string;
 }
 
+export interface VoucherCategory {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    name: string;
+    image: string;
+    banner?: Banner;
+}
+
 export interface Category {
     id: string;
     name: string;
