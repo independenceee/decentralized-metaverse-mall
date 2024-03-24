@@ -1,4 +1,5 @@
 "use client";
+
 import classNames from "classnames/bind";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./Founder.module.scss";
@@ -428,6 +429,7 @@ const Founder = function () {
             <section
                 className={cx("body", {
                     loading: isFounderListLoading,
+                    empty: getFounderListSuccess && founders.length === 0,
                 })}
             >
                 {getFounderListSuccess && (

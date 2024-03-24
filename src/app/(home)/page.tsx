@@ -21,11 +21,9 @@ import VoucherCategories from "@/components/VoucherCategories";
 import { useGetFounderListQuery } from "@/redux/api/founders.api";
 import { useGetRoadmapListQuery } from "@/redux/api/roadmap.api";
 
-type Props = {};
-
 const cx = classNames.bind(styles);
 
-const HomePage = function ({}: Props) {
+const HomePage = function () {
     const { data: teams, isFetching } = useGetFounderListQuery();
     const { data: roadmaps } = useGetRoadmapListQuery();
 

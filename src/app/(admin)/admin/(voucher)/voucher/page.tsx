@@ -22,6 +22,8 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { omit } from "lodash";
 import Loading from "@/layouts/components/Loading";
+import Link from "next/link";
+import useQueryString from "@/hooks/useQueryString";
 
 const cx = classNames.bind(styles);
 
@@ -36,16 +38,22 @@ const initialVoucherFormData: VoucherFormData = {
 };
 
 const AdminVoucherPage = function () {
-    const searchParams = useSearchParams();
-    const id = searchParams.get("id");
+    const { params, pathname, searchParams, objectSearchParams } = useQueryString();
     const router = useRouter();
     const [category, setCategory] = useState<Omit<Category, "image"> | null>(null);
     const [importedVouchers, setImportedVouchers] = useState<any[] | null>(null);
     const { data: categories } = useGetCategoriesQuery();
     const [page, setPage] = useState<number>(1);
     const [hasPrefetchedAll, setHasPrefetchedAll] = useState<boolean>(false);
-    console.log(page);
-    const { data: voucherDataResponse, isSuccess: getVoucherListSuccess, isLoading: isVoucherListLoading } = useGetVoucherListQuery(page);
+    const {
+        data: voucherDataResponse,
+        isSuccess: getVoucherListSuccess,
+        isLoading: isVoucherListLoading,
+    } = useGetVoucherListQuery(params.toString());
+
+    const id = searchParams.get("id");
+    const status = searchParams.get("status");
+    const categoryId = searchParams.get("category");
     const { data: voucher } = useGetVoucherQuery(id || "", {
         skip: !id,
     });
@@ -75,21 +83,21 @@ const AdminVoucherPage = function () {
         }
     }, [voucher, setValue, categories]);
 
-    useEffect(() => {
-        if (!hasPrefetchedAll) {
-            if (getVoucherListSuccess && voucherDataResponse.totalPage > 1) {
-                [...new Array(voucherDataResponse.totalPage)].forEach((_, index) => {
-                    if (index >= voucherDataResponse.totalPage) return;
-                    prefetchVoucherPage(index + 1, {
-                        force: true,
-                    });
-                });
+    // useEffect(() => {
+    //     if (!hasPrefetchedAll) {
+    //         if (getVoucherListSuccess && voucherDataResponse.totalPage > 1) {
+    //             [...new Array(voucherDataResponse.totalPage)].forEach((_, index) => {
+    //                 if (index >= voucherDataResponse.totalPage) return;
+    //                 prefetchVoucherPage(index + 1, {
+    //                     force: true,
+    //                 });
+    //             });
 
-                setHasPrefetchedAll(true);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [voucherDataResponse, getVoucherListSuccess, hasPrefetchedAll, page]);
+    //             setHasPrefetchedAll(true);
+    //         }
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [voucherDataResponse, getVoucherListSuccess, hasPrefetchedAll, page]);
 
     const handleChooseCategory = function ({ id, name }: Omit<Category, "image">) {
         setValue("categoryName", name);
@@ -195,6 +203,39 @@ const AdminVoucherPage = function () {
             .catch((error) => {
                 toast.error(JSON.parse(JSON.stringify(error?.data?.message)));
             });
+    };
+
+    const handleChangeStatus = function (status?: string) {
+        if (!status) {
+            params.delete("status");
+            router.push(pathname + "?" + params.toString(), {
+                scroll: false,
+            });
+
+            return;
+        }
+
+        params.set("status", status);
+        router.push(pathname + "?" + params.toString(), {
+            scroll: false,
+        });
+    };
+
+    const handleChangeCategory = function (category: Omit<Category, "image"> | null) {
+        if (!category) {
+            params.delete("category");
+            setCategory(null);
+            router.push(pathname + "?" + params.toString(), {
+                scroll: false,
+            });
+
+            return;
+        }
+
+        params.set("category", category.id);
+        router.push(pathname + "?" + params.toString(), {
+            scroll: false,
+        });
     };
 
     return (
@@ -364,6 +405,119 @@ const AdminVoucherPage = function () {
                         <div className={cx("form-wrapper")}>
                             <div className={cx("form-header")}>
                                 <h2 className={cx("form-section-title")}>Data vouchers</h2>
+                                <div className={cx("actions")}>
+                                    <Tippy
+                                        offset={[0, 4]}
+                                        placement="bottom-end"
+                                        interactive
+                                        render={(attrs) => (
+                                            <div tabIndex={-1} {...attrs}>
+                                                <div className={cx("tippy-wrapper")}>
+                                                    <div className={cx("tippy-content")}>
+                                                        <button
+                                                            type="button"
+                                                            key={id}
+                                                            className={cx("action", {
+                                                                active: !status,
+                                                            })}
+                                                            onClick={() => handleChangeStatus()}
+                                                        >
+                                                            <span>All</span>
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            key={id}
+                                                            className={cx("action", {
+                                                                active: status === VoucherStatus.FREE,
+                                                            })}
+                                                            onClick={() => handleChangeStatus(VoucherStatus.FREE)}
+                                                        >
+                                                            <span>Free</span>
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            key={id}
+                                                            className={cx("action", {
+                                                                active: status === VoucherStatus.USED,
+                                                            })}
+                                                            onClick={() => handleChangeStatus(VoucherStatus.USED)}
+                                                        >
+                                                            <span>Used</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    >
+                                        <button className={cx("chevron-down-button", "filter-status")} type="button">
+                                            <span>{status ? status : "Status"}</span>
+                                            <svg
+                                                width={24}
+                                                height={24}
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth="1.5"
+                                                stroke="currentColor"
+                                                className={cx("chevron-down-icon")}
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                            </svg>
+                                        </button>
+                                    </Tippy>
+                                    <Tippy
+                                        offset={[0, 4]}
+                                        placement="bottom-end"
+                                        interactive
+                                        render={(attrs) => (
+                                            <div tabIndex={-1} {...attrs}>
+                                                <div className={cx("tippy-wrapper")}>
+                                                    <div className={cx("tippy-content")}>
+                                                        <button
+                                                            type="button"
+                                                            key={id}
+                                                            className={cx("action", {
+                                                                active: !categoryId,
+                                                            })}
+                                                            onClick={() => handleChangeCategory(null)}
+                                                        >
+                                                            <span>All</span>
+                                                        </button>
+                                                        {categories &&
+                                                            categories.map((category) => (
+                                                                <button
+                                                                    onClick={() => handleChangeCategory(category)}
+                                                                    type="button"
+                                                                    key={category.id}
+                                                                    className={cx("action", {
+                                                                        active: category.id === categoryId,
+                                                                    })}
+                                                                >
+                                                                    <span>{category.name}</span>
+                                                                </button>
+                                                            ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    >
+                                        <button className={cx("chevron-down-button", "filter-by-category")} type="button">
+                                            <span>{category ? category.name : "Categories"}</span>
+                                            <svg
+                                                width={24}
+                                                height={24}
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth="1.5"
+                                                stroke="currentColor"
+                                                className={cx("chevron-down-icon")}
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                            </svg>
+                                        </button>
+                                    </Tippy>
+                                </div>
                             </div>
                             <div className={cx("form-body")}>
                                 {getVoucherListSuccess && (

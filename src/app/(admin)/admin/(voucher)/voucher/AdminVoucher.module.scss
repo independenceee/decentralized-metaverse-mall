@@ -72,7 +72,8 @@
 }
 
 .chevron-down-button {
-    width: 200px;
+    max-width: 200px;
+    width: 100%;
     white-space: nowrap;
     border-radius: 1rem;
     color: var(--admin-text-color);
@@ -83,6 +84,9 @@
     padding: 8px 16px;
     gap: 12px;
     background-color: var(--admin-hovered-background-color);
+}
+.filter-by-category {
+    margin-left: 1.6rem;
 }
 
 .body {
@@ -123,6 +127,9 @@
 }
 
 .table-vouchers-by-category {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     flex: 1;
 }
 

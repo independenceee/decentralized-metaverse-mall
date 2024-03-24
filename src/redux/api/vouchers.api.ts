@@ -7,8 +7,8 @@ export const vouchersApi = createApi({
     baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
     tagTypes: ["Vouchers"],
     endpoints: (builder) => ({
-        getVoucherList: builder.query<SuccessResponseWithPagination<Voucher>, number | void>({
-            query: (page = 1) => `/voucher?page=${page}&pageSize=5`,
+        getVoucherList: builder.query<SuccessResponseWithPagination<Voucher>, string>({
+            query: (queryParams) => `/voucher?${queryParams}`,
             providesTags: (result) =>
                 result
                     ? [...result.vouchers.map(({ id }) => ({ type: "Vouchers" as const, id })), { type: "Vouchers", id: "PARTIAL-LIST" }]
