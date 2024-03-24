@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import Popper from "@/components/Popper/Popper";
 import Logo from "@/components/Logo";
@@ -15,6 +15,8 @@ import Button from "@/components/Button";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
 import { BeatLoader } from "react-spinners";
+import { useGetCategoriesQuery } from "@/redux/api/categories.api";
+import { Category } from "@/redux/api/types";
 
 const cx = classNames.bind(styles);
 
@@ -23,11 +25,54 @@ type Props = {};
 const Notification = function ({}: Props) {
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { wallet } = useContext<WalletContextType>(WalletContext);
+    const [receive, setReceive] = useState<boolean>(false);
     const { stakeInfomation, registerStakeKey, waiting } = useContext<StakeContextType>(StakeContext);
+    const { data: categories } = useGetCategoriesQuery();
+    const [mounted, setMounted] = useState<boolean>(false);
+    const [countdown, setCountdown] = useState<number>(0);
 
+    const timer = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        if (mounted) {
+            timer.current = setInterval(handleStartCountdown, 1000);
+        }
+        return () => {
+            timer.current && clearInterval(timer.current);
+        };
+    }, [mounted, countdown]);
+
+    const handleStartCountdown = function () {
+        setMounted(true);
+        if (stakeInfomation) {
+            const currentTime = new Date().getTime();
+            const startTime = new Date(stakeInfomation.block_time * 1000 + Number(process.env.EXPIRED_TIME!)).getTime();
+            const remainingTime = startTime - currentTime;
+            setCountdown(remainingTime);
+        }
+    };
+
+    const handleStopCountdown = function () {
+        setMounted(false);
+        timer.current && clearInterval(timer.current);
+    };
+
+    const days: number = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
+    const hours: number = Math.floor((countdown / (1000 * 60 * 60)) % 24);
+    const minutes: number = Math.floor((countdown / (1000 * 60)) % 60);
+    const seconds: number = Math.floor((countdown / 1000) % 60);
+
+    useEffect(() => {
+        if (stakeInfomation?.epochs.length >= 0) {
+        }
+    }, [mounted]);
     return (
         <Popper
             placement="top-end"
+            onHide={handleStopCountdown}
+            onShow={() => {
+                handleStartCountdown();
+            }}
             content={
                 <main className={cx("notification-wrapper")}>
                     <header className={cx("notification-header")}>
@@ -36,88 +81,144 @@ const Notification = function ({}: Props) {
                         </div>
                     </header>
 
-                    <div className={cx("notification-container")}>
-                        {lucid && wallet && (
+                    {receive ? (
+                        <div className={cx("notification-container")}>
                             <section className={cx("notification-content")}>
                                 <div className={cx("amount-voucher")}>
-                                    <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
+                                    <h3 className={cx("amount-title")}>Select the category for which you want to get the voucher</h3>
                                 </div>
-                                {wallet && (
-                                    <ul className={cx("notification-voucher-list")}>
-                                        <li className={cx("notification-voucher-item")}>
-                                            <Link className={cx("notification-voucher-link")} href={""}>
-                                                <div className={cx("voucher-notification-content")}>
-                                                    <p className={cx("voucher-notification-content-link")}>Stake address:</p>
-                                                    <h3 className={cx("voucher-notification-content-code")}>{wallet.stakeKey}</h3>
-                                                </div>
-                                            </Link>
-                                        </li>
-
-                                        {wallet?.poolId && stakeInfomation && (
-                                            <>
-                                                <li className={cx("notification-voucher-item")}>
-                                                    <Link className={cx("notification-voucher-link")} href={""}>
-                                                        <div className={cx("voucher-notification-content")}>
-                                                            <p className={cx("voucher-notification-content-link")}>Pool id:</p>
-                                                            <h3 className={cx("voucher-notification-content-code")}>{wallet.poolId}</h3>
-                                                        </div>
-                                                    </Link>
+                                <ul className={cx("notification-voucher-list")}>
+                                    {categories &&
+                                        categories.map(function (category: Category, index: number) {
+                                            return (
+                                                <li key={index} className={cx("notification-voucher-item")}>
+                                                    <input name="category" type="radio" className={cx("")} />
+                                                    <p className={cx("voucher-notification-content-link")}>{category.name}</p>
                                                 </li>
-                                                <li className={cx("notification-voucher-item")}>
-                                                    <Link className={cx("notification-voucher-link")} href={""}>
-                                                        <div className={cx("voucher-notification-content")}>
-                                                            <p className={cx("voucher-notification-content-link")}>Register date:</p>
-                                                            <h3 className={cx("voucher-notification-content-code")}>
-                                                                {convertDatetime(stakeInfomation?.block_time)}
-                                                            </h3>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                                <li className={cx("notification-voucher-item")}>
-                                                    <Link className={cx("notification-voucher-link")} href={""}>
-                                                        <div className={cx("voucher-notification-content")}>
-                                                            <p className={cx("voucher-notification-content-link")}>Expired date:</p>
-                                                            <h3 className={cx("voucher-notification-content-code")}>
-                                                                {convertDatetime(
-                                                                    stakeInfomation?.block_time + Number(process.env.EXPIRED_TIME!) / 1000,
-                                                                )}
-                                                            </h3>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                                <li className={cx("notification-voucher-item")}>
-                                                    <Link className={cx("notification-voucher-link")} href={""}>
-                                                        <div className={cx("voucher-notification-content")}>
-                                                            <p className={cx("voucher-notification-content-link")}>Number of Epoch:</p>
-                                                            <h3 className={cx("voucher-notification-content-code")}>
-                                                                {stakeInfomation?.epochs.length}
-                                                            </h3>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                            </>
-                                        )}
-                                    </ul>
-                                )}
+                                            );
+                                        })}
+                                </ul>
                             </section>
-                        )}
+                        </div>
+                    ) : (
+                        <div className={cx("notification-container")}>
+                            {lucid && wallet && (
+                                <section className={cx("notification-content")}>
+                                    <div className={cx("amount-voucher")}>
+                                        <h3 className={cx("amount-title")}>You need enough 4 epoches to be received the first voucher</h3>
+                                    </div>
+                                    {wallet && (
+                                        <ul className={cx("notification-voucher-list")}>
+                                            <li className={cx("notification-voucher-item")}>
+                                                <Link className={cx("notification-voucher-link")} href={""}>
+                                                    <div className={cx("voucher-notification-content")}>
+                                                        <p className={cx("voucher-notification-content-link")}>Stake address:</p>
+                                                        <h3 className={cx("voucher-notification-content-code")}>{wallet.stakeKey}</h3>
+                                                    </div>
+                                                </Link>
+                                            </li>
 
-                        {!lucid && !wallet && <section className={cx("notification-content")}></section>}
-                    </div>
+                                            {wallet?.poolId && stakeInfomation && (
+                                                <div>
+                                                    <li className={cx("notification-voucher-item")}>
+                                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                                            <div className={cx("voucher-notification-content")}>
+                                                                <p className={cx("voucher-notification-content-link")}>Pool id:</p>
+                                                                <h3 className={cx("voucher-notification-content-code")}>{wallet.poolId}</h3>
+                                                            </div>
+                                                        </Link>
+                                                    </li>
+                                                    <li className={cx("notification-voucher-item")}>
+                                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                                            <div className={cx("voucher-notification-content")}>
+                                                                <p className={cx("voucher-notification-content-link")}>Register date:</p>
+                                                                <h3 className={cx("voucher-notification-content-code")}>
+                                                                    {convertDatetime(stakeInfomation?.block_time)}
+                                                                </h3>
+                                                            </div>
+                                                        </Link>
+                                                    </li>
+                                                    <li className={cx("notification-voucher-item")}>
+                                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                                            <div className={cx("voucher-notification-content")}>
+                                                                <p className={cx("voucher-notification-content-link")}>Expired date:</p>
+                                                                <h3 className={cx("voucher-notification-content-code")}>
+                                                                    {convertDatetime(
+                                                                        stakeInfomation?.block_time + Number(process.env.EXPIRED_TIME!) / 1000,
+                                                                    )}
+                                                                </h3>
+                                                            </div>
+                                                        </Link>
+                                                    </li>
+                                                    <li className={cx("notification-voucher-item")}>
+                                                        <Link className={cx("notification-voucher-link")} href={""}>
+                                                            <div className={cx("voucher-notification-content")}>
+                                                                <p className={cx("voucher-notification-content-link")}>Number of Epoch:</p>
+                                                                <h3 className={cx("voucher-notification-content-code")}>
+                                                                    {stakeInfomation?.epochs.length}
+                                                                </h3>
+                                                            </div>
+                                                        </Link>
+                                                    </li>
+                                                </div>
+                                            )}
+                                        </ul>
+                                    )}
+
+                                    {lucid && stakeInfomation?.epochs.length == 0 && (
+                                        <div className={cx("notification-timer")}>
+                                            <div className={cx("notification-timer-content")}>
+                                                <span className={cx("notification-timer-number")}>
+                                                    {days ? days.toString().padStart(2, "0") : "00"}
+                                                </span>
+                                                <span className={cx("notification-timer-text")}>days</span>
+                                            </div>
+                                            <div className={cx("notification-timer-content")}>
+                                                <span className={cx("notification-timer-number")}>
+                                                    {hours ? hours.toString().padStart(2, "0") : "00"}
+                                                </span>
+                                                <span className={cx("notification-timer-text")}>hours</span>
+                                            </div>
+                                            <div className={cx("notification-timer-content")}>
+                                                <span className={cx("notification-timer-number")}>
+                                                    {minutes ? minutes.toString().padStart(2, "0") : "00"}
+                                                </span>
+                                                <span className={cx("notification-timer-text")}>minutes</span>
+                                            </div>
+                                            <div className={cx("notification-timer-content")}>
+                                                <span className={cx("notification-timer-number")}>
+                                                    {seconds ? seconds.toString().padStart(2, "0") : "00"}
+                                                </span>
+                                                <span className={cx("notification-timer-text")}>seconds</span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </section>
+                            )}
+
+                            {!lucid && !wallet && <section className={cx("notification-content")}></section>}
+                        </div>
+                    )}
+
                     {!lucid && (
                         <Button onClick={null!} className={cx("shop-button", "button")}>
                             Connect Wallet
                         </Button>
                     )}
-                    {lucid && stakeInfomation && (
-                        <Button onClick={null!} className={cx("shop-button", "button")}>
+                    {lucid && stakeInfomation?.epochs.length > 0 && !receive && (
+                        <Button onClick={() => setReceive(!receive)} className={cx("shop-button", "button")}>
                             Receive voucher
+                        </Button>
+                    )}
+
+                    {receive && (
+                        <Button onClick={() => setReceive(!receive)} className={cx("shop-button", "button")}>
+                            Receive Voucher With Category
                         </Button>
                     )}
 
                     {lucid && !wallet?.poolId && (
                         <Button
-                            
                             onClick={() =>
                                 registerStakeKey({
                                     lucid: lucid,
