@@ -17,7 +17,7 @@ import {
 } from "@/redux/api/vouchers.api";
 import Upload from "@/components/Upload";
 import { useForm } from "react-hook-form";
-import { Category, Voucher, VoucherStatus } from "@/redux/api/types";
+import { Category, Voucher, VoucherQueryConfig, VoucherStatus } from "@/redux/api/types";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { omit } from "lodash";
@@ -38,7 +38,7 @@ const initialVoucherFormData: VoucherFormData = {
 
 const AdminVoucherPage = function () {
     const { params, pathname, searchParams, objectSearchParams } = useQueryString();
-    console.log(new URLSearchParams({ ...objectSearchParams, page: "10" }).toString());
+    console.log(new URLSearchParams({ ...objectSearchParams }).toString());
     const router = useRouter();
     const [category, setCategory] = useState<Omit<Category, "image"> | null>(null);
     const [filteredCategory, setFilteredCategory] = useState<Omit<Category, "image"> | null>(null);
@@ -136,8 +136,7 @@ const AdminVoucherPage = function () {
                         setCategory(null);
                     })
                     .catch((error) => {
-                        console.log(error);
-                        toast.error(JSON.parse(JSON.stringify(error?.data?.message)));
+                        toast.error("Please add categories to add vouchers");
                     });
             } else {
                 addVoucher([data])
@@ -233,8 +232,9 @@ const AdminVoucherPage = function () {
     };
 
     const handleChangeCategory = function (category: Omit<Category, "image"> | null) {
+        params.set("page", "1");
         if (!category) {
-            params.delete("category");
+            params.delete("categoryName");
             setFilteredCategory(null);
             router.push(pathname + "?" + params.toString(), {
                 scroll: false,
@@ -243,7 +243,7 @@ const AdminVoucherPage = function () {
             return;
         }
 
-        params.set("category", category.id);
+        params.set("categoryName", category.name);
         router.push(pathname + "?" + params.toString(), {
             scroll: false,
         });
@@ -500,7 +500,8 @@ const AdminVoucherPage = function () {
                                                                     type="button"
                                                                     key={category.id}
                                                                     className={cx("action", {
-                                                                        active: category.id === categoryId,
+                                                                        active:
+                                                                            category.name === (objectSearchParams as VoucherQueryConfig).categoryName,
                                                                     })}
                                                                 >
                                                                     <span>{category.name}</span>

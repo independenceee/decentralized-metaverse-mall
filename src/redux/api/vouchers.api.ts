@@ -40,8 +40,8 @@ export const vouchersApi = createApi({
             invalidatesTags: (result, error, { id }) => [{ type: "Vouchers", id }],
         }),
         deleteVoucher: builder.mutation<Voucher, string>({
-            query: (string) => ({
-                url: `/voucher/${string}`,
+            query: (id) => ({
+                url: `/voucher/${id}`,
                 method: "DELETE",
             }),
             invalidatesTags: [{ type: "Vouchers", id: "PARTIAL-LIST" }],

@@ -1,3 +1,4 @@
+import { VoucherQueryConfig } from "@/redux/api/types";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const useQueryString = function () {

@@ -84,11 +84,12 @@ const CategoryPage = function () {
 
     const handleDeleteCategory = function (id: string) {
         deleteCategory(id)
+            .unwrap()
             .then(() => {
                 toast.success("Delete category successfully");
             })
             .catch((error) => {
-                toast.warning("Delete category failed");
+                toast.warning("Cannot delete category. There are vouchers in the category");
             });
     };
 
