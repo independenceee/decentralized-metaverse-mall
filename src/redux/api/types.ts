@@ -93,7 +93,7 @@ export interface HotDeal {
 export interface VoucherQueryConfig {
     status?: VoucherStatus;
     page?: string;
-    categoryId?: string;
+    categoryName?: string;
 }
 
 // Define ReturnType
