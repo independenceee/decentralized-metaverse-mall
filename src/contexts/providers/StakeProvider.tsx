@@ -107,6 +107,7 @@ const StakeProvider = function ({ children }: Props) {
                 deregisterStakeKey,
                 waiting,
                 vouchers,
+                setVouchers,
             }}
         >
             {children}

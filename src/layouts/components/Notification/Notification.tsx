@@ -18,6 +18,7 @@ import { BeatLoader } from "react-spinners";
 import { useGetCategoriesQuery } from "@/redux/api/categories.api";
 import { Category } from "@/redux/api/types";
 import { useRecieveVoucherMutation } from "@/redux/api/vouchers.api";
+import { post } from "@/utils/httpRequest";
 
 const cx = classNames.bind(styles);
 
@@ -27,12 +28,10 @@ const Notification = function ({}: Props) {
     const { lucid } = useContext<LucidContextType>(LucidContext);
     const { wallet } = useContext<WalletContextType>(WalletContext);
     const [receive, setReceive] = useState<boolean>(false);
-    const { stakeInfomation, registerStakeKey, waiting, vouchers } = useContext<StakeContextType>(StakeContext);
+    const { stakeInfomation, registerStakeKey, waiting, vouchers, setVouchers } = useContext<StakeContextType>(StakeContext);
     const { data: categories } = useGetCategoriesQuery();
     const [mounted, setMounted] = useState<boolean>(false);
     const [countdown, setCountdown] = useState<number>(0);
-
-    const [receiveVoucher] = useRecieveVoucherMutation();
 
     const timer = useRef<NodeJS.Timeout | null>(null);
 
@@ -62,8 +61,14 @@ const Notification = function ({}: Props) {
 
     const [category, setCategory] = useState<string>("");
 
-    const handleRecieveVoucher = function () {
-        receiveVoucher({ walletAddress: wallet?.address, categoryName: category, epoch: stakeInfomation?.epochs.length });
+    const handleRecieveVoucher = async function () {
+        const data = await post("/voucher/recieve", {
+            walletAddress: wallet?.address,
+            categoryName: category,
+            epoch: stakeInfomation?.epochs.length,
+        });
+        console.log(data);
+        setVouchers(data);
     };
 
     const days: number = Math.floor((countdown / (1000 * 60 * 60 * 24)) % 24);
