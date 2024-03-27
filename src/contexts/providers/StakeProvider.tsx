@@ -6,6 +6,7 @@ import { WalletContextType } from "@/types/contexts/WalletContextType";
 import WalletContext from "../components/WalletContext";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "../components/LucidContext";
+import { Voucher } from "@/redux/api/types";
 
 type Props = {
     children: ReactNode;
@@ -14,6 +15,7 @@ type Props = {
 const StakeProvider = function ({ children }: Props) {
     const { wallet, setWallet } = useContext<WalletContextType>(WalletContext);
     const [stakeInfomation, setStateInfomation] = useState<any>(null!);
+    const [vouchers, setVouchers] = useState<Voucher[]>([]);
     const [waiting, setWaiting] = useState<boolean>(false);
 
     const registerStakeKey = async function ({ lucid, poolId }: { lucid: Lucid; poolId?: string }): Promise<TxHash> {
@@ -74,8 +76,6 @@ const StakeProvider = function ({ children }: Props) {
                             params: { stake_address: wallet.stakeKey as string },
                         });
 
-                        console.log(stakeInfomation);
-
                         setStateInfomation(stakeInfomation);
                     }
                 } catch (error) {
@@ -85,8 +85,30 @@ const StakeProvider = function ({ children }: Props) {
         }
     }, [wallet?.address, wallet?.poolId]);
 
+    useEffect(() => {
+        if (wallet?.address) {
+            (async function () {
+                try {
+                    setVouchers(await get(`/voucher/wallet-address?walletAddress=${wallet?.address}`));
+                } catch (error) {
+                    console.log(error);
+                }
+            })();
+        }
+    }, [wallet?.address, wallet?.poolId]);
+
     return (
-        <StakeContext.Provider value={{ stakeInfomation, registerStakeKey, delegateToStakePool, withdrawRewards, deregisterStakeKey, waiting }}>
+        <StakeContext.Provider
+            value={{
+                stakeInfomation,
+                registerStakeKey,
+                delegateToStakePool,
+                withdrawRewards,
+                deregisterStakeKey,
+                waiting,
+                vouchers,
+            }}
+        >
             {children}
         </StakeContext.Provider>
     );

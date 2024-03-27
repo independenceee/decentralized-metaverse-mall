@@ -16,17 +16,13 @@ const TransactionProvider = function ({ children }: Props) {
 
         let tx: any = lucid.newTx();
         accounts.forEach(async function (account) {
-            tx = await tx
-                .payToAddress(account.walletAddress, {
-                    [policyId + fromText(assetName)]: BigInt(account?.amount!),
-                })
-                .attachMetadata(1, { voucher: "Hello from Lucid." });
+            tx = await tx.payToAddress(account.walletAddress, {
+                [policyId + fromText(assetName)]: BigInt(account?.amount!),
+            });
         });
 
         tx = await tx.complete();
-
-        const signedTx = await tx.sign().complete();
-
+        const signedTx: TxSigned = await tx.sign().complete();
         const txHash: string = await signedTx.submit();
         await lucid.awaitTx(txHash);
         return txHash;
