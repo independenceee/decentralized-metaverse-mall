@@ -52,6 +52,8 @@ export const categoriesApi = createApi({
             }),
             invalidatesTags: [{ type: "Categories", id: "LIST" }],
         }),
+
+        
     }),
 });
 

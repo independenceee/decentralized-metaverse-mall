@@ -23,6 +23,15 @@ export const vouchersApi = createApi({
             query: (id) => `/voucher/${id}`,
             providesTags: (result, error, id) => [{ type: "Vouchers", id }],
         }),
+
+        recieveVoucher: builder.mutation<Voucher[], Partial<{ walletAddress: string; epoch: number; categoryName: string }>>({
+            query: (body) => ({
+                url: `/voucher/recieve`,
+                method: "POST",
+                body,
+            }),
+        }),
+
         addVoucher: builder.mutation<{ count: number }, Voucher[]>({
             query: (body) => ({
                 url: "/voucher",
@@ -49,5 +58,12 @@ export const vouchersApi = createApi({
     }),
 });
 
-export const { useGetVoucherQuery, useGetVoucherListQuery, useUpdateVoucherMutation, useAddVoucherMutation, useDeleteVoucherMutation, usePrefetch } =
-    vouchersApi;
+export const {
+    useGetVoucherQuery,
+    useGetVoucherListQuery,
+    useUpdateVoucherMutation,
+    useAddVoucherMutation,
+    useDeleteVoucherMutation,
+    usePrefetch,
+    useRecieveVoucherMutation,
+} = vouchersApi;

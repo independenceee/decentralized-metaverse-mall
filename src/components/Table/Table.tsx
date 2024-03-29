@@ -59,9 +59,21 @@ type Props = {
     type: "IMPORT" | "MANUAL";
     onDelete: (id: string) => void;
     onUpdate?: (id: string) => void;
+    onSend?: () => void;
 };
 
-export default function CustomTable({ data, title, pathname, totalPages = 1, paginate = true, onDelete, onUpdate, type, currentPage = 1 }: Props) {
+export default function CustomTable({
+    data,
+    title,
+    pathname,
+    totalPages = 1,
+    paginate = true,
+    onDelete,
+    onUpdate,
+    type,
+    currentPage = 1,
+    onSend,
+}: Props) {
     const { pathname: URL_PATH_NAME, params, router } = useQueryString();
     const { replace } = useRouter();
     const { isShowing, toggle } = useModal();
@@ -86,6 +98,11 @@ export default function CustomTable({ data, title, pathname, totalPages = 1, pag
         <div className={cx("wrapper")}>
             <header className={cx("header-control")}>
                 <h2 className={cx("table-main-title")}>{title}</h2>
+                {onSend && (
+                    <Button className="" onClick={onSend}>
+                        Send Token
+                    </Button>
+                )}
             </header>
 
             <div className={cx("table-wrapper")}>
