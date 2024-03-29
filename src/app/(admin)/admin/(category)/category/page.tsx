@@ -110,7 +110,8 @@ const CategoryPage = function () {
                         reset();
                     })
                     .catch((error) => {
-                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
+                        // toast.warning(JSON.parse(JSON.stringify(error?.data?.message)));
+                        toast.warning("Error while updating category");
                     });
             } else {
                 addCategory(formData)
@@ -120,7 +121,8 @@ const CategoryPage = function () {
                         reset();
                     })
                     .catch((error) => {
-                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
+                        // toast.warning(JSON.parse(JSON.stringify(error?.data?.message)));
+                        toast.warning("Error while adding category");
                     });
             }
         },

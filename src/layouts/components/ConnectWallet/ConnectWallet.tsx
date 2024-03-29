@@ -17,7 +17,6 @@ import Link from "next/link";
 import WalletContext from "@/contexts/components/WalletContext";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
 import { toast } from "sonner";
-import { createPortal } from "react-dom";
 
 const cx = classNames.bind(styles);
 
@@ -28,7 +27,6 @@ type Props = {
 
 const ConnectWallet = function ({ isActive, className }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
-    const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
     const { isShowing: isShowingWalletLong, toggle: toggleWalletLong } = useModal();
     const { isShowing: isShowingNotificationDownload, toggle: toggleNotificationDownload } = useModal();
@@ -38,18 +36,14 @@ const ConnectWallet = function ({ isActive, className }: Props) {
     useEffect(() => {
         const handleScroll = function () {
             setIsScrolled(window.scrollY > 0);
-            setIsOpenShort(false);
         };
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    });
+    }, []);
 
     const handleOpenShowWallet = function () {
         setIsOpenShowWallet(!isOpenShowWallet);
-    };
-
-    const handleOpenWallet = function () {
-        setIsOpenShort(!isOpenShort);
     };
 
     const handleConnectWallet = async function (wallet: WalletType) {
@@ -70,7 +64,7 @@ const ConnectWallet = function ({ isActive, className }: Props) {
     };
 
     return (
-        <div className={cx("wrapper", className, { open: isOpenShort })}>
+        <div className={cx("wrapper", className)}>
             {lucid ? (
                 <Button
                     loading={loading}
@@ -132,26 +126,11 @@ const ConnectWallet = function ({ isActive, className }: Props) {
             ) : (
                 <Button
                     loading={loading}
-                    onClick={handleOpenWallet}
+                    onClick={toggleWalletLong}
                     RightIcon={ArrowDownIcon}
                     className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
                 >
                     {!loading && "Connect wallet"}
-                    {isOpenShort && (
-                        <div className={cx("wallet-short", { scrolled: isScrolled || isActive })}>
-                            {wallets.slice(0, 5).map(function (wallet: WalletType, index: number) {
-                                return (
-                                    <div onClick={() => handleConnectWallet(wallet)} key={index} className={cx("wallet-short-container")}>
-                                        <Image className={cx("wallet-short-image")} src={wallet.image} alt="" />
-                                        <span className={cx("wallet-short-name")}>{wallet.name}</span>
-                                    </div>
-                                );
-                            })}
-                            <div onClick={toggleWalletLong} className={cx("wallet-short-container")}>
-                                <span className={cx("wallet-short-name")}>View all</span>
-                            </div>
-                        </div>
-                    )}
                 </Button>
             )}
 
@@ -184,8 +163,6 @@ const ConnectWallet = function ({ isActive, className }: Props) {
                     </section>
                 </div>
             </Modal>
-
-           
 
             <Modal isShowing={isShowingNotificationDownload} toggle={toggleNotificationDownload}>
                 <div className={cx("wallet-download")}>

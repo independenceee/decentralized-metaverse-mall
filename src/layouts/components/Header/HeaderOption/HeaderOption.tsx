@@ -10,19 +10,19 @@ type Props = {
     name: string;
     isActive: boolean;
     setSelected: React.Dispatch<React.SetStateAction<string>>;
+    className?: string;
 };
 
-const HeaderOption = function ({ redirect, name, isActive, setSelected }: Props) {
+const HeaderOption = function ({ redirect, name, isActive, setSelected, className }: Props) {
     const handleClickNavItem = function (redirect: string) {
         setSelected(redirect);
-        console.log(redirect);
     };
 
     return (
         <li className={cx("nav-item")}>
             <Link
                 to={redirect}
-                className={cx("nav-item-link", { "nav-item-link-active": isActive })}
+                className={cx("nav-item-link", { "nav-item-link-active": isActive }, className)}
                 spy={true}
                 smooth={true}
                 offset={-105}

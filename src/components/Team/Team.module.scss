@@ -1,9 +1,9 @@
 .wrapper {
-    background: var(--linear-background-member);
+    background: var(--secondary-color);
     border-radius: 0.4rem;
     opacity: 0.8;
     &:hover {
-        opacity: 1;
+        background: var(--tertiary-color);
     }
 }
 
@@ -25,6 +25,8 @@
     margin-bottom: 2rem;
     flex-shrink: 0;
     position: relative;
+    background: var(--tab-color);
+
     &::after {
         content: "";
         position: absolute;
@@ -48,7 +50,7 @@
 }
 
 .name {
-    color: var(--primary-color);
+    color: var(--text-color);
     font-family: var(--font-family);
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
@@ -79,5 +81,5 @@
 
 .social-media-icon {
     font-size: 1.85rem;
-    color: var(--gray-color);
+    color: var(--white-color);
 }

@@ -1,5 +1,5 @@
 .connect-wallet {
-    background-color: var(--primary-color);
+    background: var(--secondary-color);
     font-weight: 500;
     font-size: 1.6rem;
     position: relative;
@@ -11,7 +11,7 @@
     position: absolute;
     left: 0;
     top: 120%;
-    background-color: var(--primary-color);
+    background: var(--secondary-color);
     font-weight: 500;
     font-size: 1.8rem;
     color: var(--text-color);
@@ -20,7 +20,7 @@
 
 .wallet-short-container {
     align-items: center;
-    border-bottom: 0.5px solid;
+    border-bottom: 0.5px solid var(--tab-color);
     box-sizing: border-box;
     color: var(--text-color);
     cursor: pointer;
@@ -85,7 +85,7 @@
 
 .show-wallet-item {
     align-items: center;
-    border-bottom: 0.5px solid;
+    border-bottom: 0.5px solid var(--tab-color);
     box-sizing: border-box;
     color: var(--text-color);
     cursor: pointer;
@@ -125,7 +125,7 @@
 /* wallet-long-begin*/
 .wallet-long-wrapper {
     width: 448px;
-    background: var(--dark-color);
+    background: var(--secondary-color);
     z-index: 50;
     border-radius: 4px;
 }
@@ -167,7 +167,6 @@
     width: 400px;
     height: 50px;
     border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
     margin-bottom: 12px;
     box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 5px;
     display: flex;

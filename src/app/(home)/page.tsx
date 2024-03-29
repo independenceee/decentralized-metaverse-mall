@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { Element, scroller } from "react-scroll";
 import classNames from "classnames/bind";
 import PublicLayout from "@/layouts/PublicLayout";
 import Title from "@/components/Title";
@@ -20,22 +21,38 @@ import sponsors from "@/data/sponsors";
 import VoucherCategories from "@/components/VoucherCategories";
 import { useGetFounderListQuery } from "@/redux/api/founders.api";
 import { useGetRoadmapListQuery } from "@/redux/api/roadmap.api";
+import { toast } from "sonner";
 
 const cx = classNames.bind(styles);
 
 const HomePage = function () {
     const { data: teams, isFetching } = useGetFounderListQuery();
     const { data: roadmaps } = useGetRoadmapListQuery();
+    const faqsRef = useRef<HTMLElement>(null);
+    useEffect(() => {
+        (() => {
+            if (!window.cardano) {
+                setTimeout(() => {
+                    toast.warning("You haven't installed any wallets yet. Please check our tutorials");
+                    faqsRef.current &&
+                        faqsRef.current.scrollIntoView({
+                            block: "nearest",
+                            behavior: "smooth",
+                        });
+                }, 1500);
+            }
+        })();
+    }, []);
 
     return (
         <PublicLayout>
-            <section id="home" className={cx("voucher-categories")}>
+            <Element name="home" className={cx("voucher-categories")}>
                 <VoucherCategories />
-            </section>
-            <section id="about" className={cx("about-wrapper")}>
+            </Element>
+            <Element name="about" className={cx("about-wrapper")}>
                 <About />
-            </section>
-            <section id="services" className={cx("service-wrapper")}>
+            </Element>
+            <Element name="services" className={cx("service-wrapper")}>
                 <div className={cx("title-wrapper")}>
                     <Title title="Services" subTitle="We Translate Your Dream Into Reality" />
                 </div>
@@ -44,17 +61,17 @@ const HomePage = function () {
                         return <Service service={service} key={index} index={index} />;
                     })}
                 </div>
-            </section>
-            <section id="token-sale" className={cx("token-sale-wrapper")}>
+            </Element>
+            <Element name="token-sale" className={cx("token-sale-wrapper")}>
                 <DoughnutChart data={tokenomics} />
-            </section>
-            <section id="roadmap" className={cx("roadmap-wrapper")}>
+            </Element>
+            <Element name="roadmap" className={cx("roadmap-wrapper")}>
                 <div className={cx("title-wrapper")}>
                     <Title title="Roadmap" subTitle="Emergence and design of the idea" />
                 </div>
-                <Timeline roadmaps={roadmaps} />
-            </section>
-            <section id="team" className={cx("team-wrapper")}>
+                {roadmaps && <Timeline roadmaps={roadmaps} />}
+            </Element>
+            <Element name="team" className={cx("team-wrapper")}>
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />
                 <div className={cx("team-container")}>
                     {isFetching ? (
@@ -65,21 +82,21 @@ const HomePage = function () {
                         })
                     )}
                 </div>
-            </section>
-            <section id="faqs" className={cx("faqs-wrapper")}>
+            </Element>
+            <section ref={faqsRef} id="faqs" className={cx("faqs-wrapper")}>
                 <Faqs />
             </section>
-            <section id="contact" className={cx("contact-wrapper")}>
+            <Element name="contact" className={cx("contact-wrapper")}>
                 <div className={cx("title-wrapper")}>
                     <Title title="Get In Touch" subTitle="Emergence and design of the idea" />
                 </div>
                 <div className={cx("contact-container")}>
                     <Contact />
                 </div>
-            </section>
-            <section className={cx("sponsors")}>
+            </Element>
+            <Element name="sponsors" className={cx("sponsors")}>
                 <Sponsors sponsors={sponsors} />
-            </section>
+            </Element>
         </PublicLayout>
     );
 };

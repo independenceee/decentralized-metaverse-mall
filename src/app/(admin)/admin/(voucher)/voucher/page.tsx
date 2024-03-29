@@ -487,7 +487,7 @@ const AdminVoucherPage = function () {
                                                             type="button"
                                                             key={id}
                                                             className={cx("action", {
-                                                                active: !categoryId,
+                                                                active: !(objectSearchParams as VoucherQueryConfig)?.categoryName,
                                                             })}
                                                             onClick={() => handleChangeCategory(null)}
                                                         >

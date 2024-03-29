@@ -64,7 +64,7 @@
 }
 
 .form-control {
-    background-color: var(--white-color);
+    background-color: var(--secondary-color);
     border: none;
     min-height: 5rem;
     height: 100%;
@@ -72,11 +72,15 @@
     display: block;
     font-size: 1.5rem;
     font-weight: 400;
-    color: var(--text-color);
+    color: var(--white-color);
     width: 100%;
     background-clip: padding-box;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
 }
 
 .textarea {
@@ -89,10 +93,10 @@
     width: 100%;
 }
 
-.button-send-message{
+.button-send-message {
     width: fit-content;
     font-weight: 500;
-    background-color: var(--primary-color);
+    background: var(--secondary-color) !important;
     font-weight: 400;
     font-size: 1.4rem;
     color: var(--text-color);

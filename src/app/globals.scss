@@ -2,17 +2,15 @@
 // @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
 
 :root {
-    --blue-fade-color: #1c82ad;
-    --gray-color: #eeeeee;
-    --blue-color: #01e8fe;
-    --dark-color: #020331;
-    --primary-color: #ffdb24;
-    --secondary-color: hsl(256, 62%, 41%);
-    --white-color: #ffffff;
-    --text-color: #323232;
+    --primary-color: #412394;
+    --secondary-color: #4a28a9;
+    --tertiary-color: #331781;
+    --white-color: #fff;
+    --text-color: #01e8fe;
     --font-family: "Rubik", sans-serif;
-    --linear-background: linear-gradient(45deg, #00337c, #1c82ad, #a2b7d6);
-    --linear-background-member: linear-gradient(45deg, #00337c, #1c82ad, #00337c);
+    --tab-color: #7049df;
+    --tab-active-color: #3d1f94;
+    --timeline-color: #6c44db;
 
     // Admin themes
     --admin-primary-color: #202b40;

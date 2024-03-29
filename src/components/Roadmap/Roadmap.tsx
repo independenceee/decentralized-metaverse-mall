@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import classNames from "classnames/bind";
 import styles from "./Roadmap.module.scss";
 import { RoadmapType } from "@/types/GenericsType";
+import { isArray } from "lodash";
 
 type Props = {
     roadmaps: Array<RoadmapType> | any;
@@ -34,7 +35,6 @@ const Roadmap = function ({ roadmaps }: Props) {
             { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
         ],
     };
-
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.timeline({ scrollTrigger: { trigger: timelineRef.current, start: "top center", end: "bottom center" } })
@@ -57,64 +57,64 @@ const Roadmap = function ({ roadmaps }: Props) {
 
         return () => ctx.revert();
     }, []);
+    if (!isArray(roadmaps) && roadmaps.length === 0) return;
 
     return (
         <div className={cx("wrapper")} ref={timelineRef}>
             <div className={cx("wrapper-inner")}>
                 <div id="gsap-timeline_linethrough" className={cx("line")} />
                 <Slider {...settings}>
-                    {roadmaps &&
-                        roadmaps.concat(roadmaps).map(function ({ title, description, datetime }: RoadmapType, index: number) {
-                            const isEvent = index % 2 === 0;
-                            return (
-                                <section className={cx("timelime-wrapper")} key={index}>
+                    {roadmaps.concat(roadmaps).map(function ({ title, description, datetime }: RoadmapType, index: number) {
+                        const isEvent = index % 2 === 0;
+                        return (
+                            <section className={cx("timelime-wrapper")} key={index}>
+                                <div
+                                    className={cx("timeline-item", {
+                                        "timeline-item-col-reverse": isEvent,
+                                        "timeline-item-col": !isEvent,
+                                    })}
+                                >
+                                    <div className={cx("timeline-item-dot") + " gsap-dot"} />
                                     <div
-                                        className={cx("timeline-item", {
-                                            "timeline-item-col-reverse": isEvent,
-                                            "timeline-item-col": !isEvent,
+                                        className={cx("timeline-item-inner", {
+                                            "timeline-item-inner-end": isEvent,
+                                            "timeline-item-inner-start": !isEvent,
                                         })}
                                     >
-                                        <div className={cx("timeline-item-dot") + " gsap-dot"} />
-                                        <div
-                                            className={cx("timeline-item-inner", {
-                                                "timeline-item-inner-end": isEvent,
-                                                "timeline-item-inner-start": !isEvent,
-                                            })}
-                                        >
-                                            <div
-                                                className={
-                                                    cx("vertical-line", {
-                                                        "vertical-line-up": !isEvent,
-                                                        "vertical-line-down": isEvent,
-                                                    }) + (isEvent ? " gsap-vertical-line-down" : " gsap-vertical-line-up")
-                                                }
-                                            />
-                                            <div
-                                                className={
-                                                    cx("timeline-content", {
-                                                        "timeline-content-odd": !isEvent,
-                                                        "timeline-content-even": isEvent,
-                                                    }) + (!isEvent ? " gsap-timeline-content-odd" : " gsap-timeline-content-even")
-                                                }
-                                            >
-                                                <h3 className={cx("timeline-title")}>{title}</h3>
-                                                <p className={cx("timeline-description")}>{description}</p>
-                                            </div>
-                                        </div>
                                         <div
                                             className={
-                                                cx("timeline-item-datetime", {
-                                                    "datetime-end": isEvent,
-                                                    "datetime-start": !isEvent,
-                                                }) + (isEvent ? " gsap-date-odd" : " gsap-date-even")
+                                                cx("vertical-line", {
+                                                    "vertical-line-up": !isEvent,
+                                                    "vertical-line-down": isEvent,
+                                                }) + (isEvent ? " gsap-vertical-line-down" : " gsap-vertical-line-up")
+                                            }
+                                        />
+                                        <div
+                                            className={
+                                                cx("timeline-content", {
+                                                    "timeline-content-odd": !isEvent,
+                                                    "timeline-content-even": isEvent,
+                                                }) + (!isEvent ? " gsap-timeline-content-odd" : " gsap-timeline-content-even")
                                             }
                                         >
-                                            {datetime}
+                                            <h3 className={cx("timeline-title")}>{title}</h3>
+                                            <p className={cx("timeline-description")}>{description}</p>
                                         </div>
                                     </div>
-                                </section>
-                            );
-                        })}
+                                    <div
+                                        className={
+                                            cx("timeline-item-datetime", {
+                                                "datetime-end": isEvent,
+                                                "datetime-start": !isEvent,
+                                            }) + (isEvent ? " gsap-date-odd" : " gsap-date-even")
+                                        }
+                                    >
+                                        {datetime}
+                                    </div>
+                                </div>
+                            </section>
+                        );
+                    })}
                 </Slider>
             </div>
         </div>

@@ -20,10 +20,10 @@ export type ServiceType = {
 };
 
 export type RoadmapType = {
-    id?: number;
-    title?: string;
-    description?: string;
-    datetime?: string;
+    id: number;
+    title: string;
+    description: string;
+    datetime: string;
 };
 
 export type WalletType = {

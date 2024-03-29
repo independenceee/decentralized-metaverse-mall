@@ -84,7 +84,6 @@ const VoucherCategories = function ({}: Props) {
             <div className={cx("wrapper")}>
                 <Slider {...settings} className={cx("categories-slider")} ref={slider}>
                     {data.map(function (category: VoucherCategory, index: number) {
-                        console.log(category.banner?.image);
                         const active = slideIndex === index;
                         return (
                             <div
@@ -126,33 +125,6 @@ const VoucherCategories = function ({}: Props) {
                         );
                     })}
                 </Slider>
-                <div className={cx("categories-overflow")} data-aos="fade-up">
-                    <div className={cx("category-buttons-wrapper")}>
-                        {data.map((category, index: number) => {
-                            const active = slideIndex === index;
-                            return (
-                                <div
-                                    onClick={() => handleGoToSlide(index)}
-                                    className={cx("category-button", {
-                                        active,
-                                    })}
-                                    key={index}
-                                >
-                                    <div className={cx("category-button-icon-wrapper")}>
-                                        <Image
-                                            className={cx("category-button-icon")}
-                                            width={999999}
-                                            height={999999}
-                                            src={process.env.PUBLIC_IMAGES_DOMAIN! + "/category/" + category.image}
-                                            alt={category.name}
-                                        />
-                                    </div>
-                                    <div className={cx("category-name")}>{category.name}</div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
             </div>
         );
     }

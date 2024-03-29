@@ -1,7 +1,7 @@
 const icons = {
     walletIcon: require("./wallet-icon.svg"),
     intergationIcon: require("./integation-icon.svg"),
-    checkIcon: require("./check.svg"),
+    checkIcon: require("./list-icon.png"),
     menuIcon: require("./menu.svg"),
     chevretLeft: require("./chevret-left.svg"),
     chevretRight: require("./chevret-right.svg"),

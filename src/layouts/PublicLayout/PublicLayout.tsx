@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Header from "@/layouts/components/Header";
 import Footer from "@/layouts/components/Footer";
@@ -10,15 +10,23 @@ import StakeContext from "@/contexts/components/StakeContext";
 import Form from "@/layouts/components/Form";
 import styles from "./PublicLayout.module.scss";
 import HotDeal from "@/components/HotDeal";
+import Loading from "@/app/(loading)/loading";
 
 type Props = {
     children: ReactNode;
 };
 
 const cx = classNames.bind(styles);
-
+const LOADING_TIME = 3000;
 const PublicLayout = function ({ children }: Props) {
-    const { stakeInfomation } = useContext<StakeContextType>(StakeContext);
+    const [pageLoading, setPageLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setPageLoading(false);
+        }, LOADING_TIME);
+    }, []);
+
     return (
         <main className={cx("wrapper")}>
             <Header />
@@ -27,6 +35,7 @@ const PublicLayout = function ({ children }: Props) {
             <Notification />
             <HotDeal />
             <Footer />
+            {pageLoading && <Loading />}
         </main>
     );
 };
