@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email        String  @unique @db.Text
+  role         String? @db.Text
+  password     String  @db.Text
+  refreshToken String? @db.Text
+}
+
+model Account {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  walletAddress  String           @unique @db.Text
+  stakeKey       String?          @db.Text
+  accountVoucher AccountVoucher[]
+}
+
+model Voucher {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  price          String?          @db.Text
+  code           String           @unique() @db.Text
+  link           String           @db.Text
+  status         StatusVoucher?   @default(USED)
+  categoryName     String           @db.Text
+  category       Category         @relation(fields: [categoryName], references: [name])
+  accountVoucher AccountVoucher[]
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name     String    @db.Text @unique
+  image    String?   @db.Text
+  vouchers Voucher[]
+  banner  Banner?
+}
+
+
+model DealHot {
+    id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String @db.Text
+  image String @db.Text
+}
+
+model Banner {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String  @db.Text
+  image       String? @db.Text
+  description String? @db.Text
+  link        String  @db.Text
+
+  categoryName String @db.Text @unique
+  category Category @relation(fields: [categoryName], references: [name])
+
+}
+
+model AccountVoucher {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accountId String  @db.Text
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  voucherId String  @db.Text
+  voucher   Voucher @relation(fields: [voucherId], references: [id], onDelete: Cascade)
+
+  @@id([accountId, voucherId])
+}
+
+
+
+
+model Roadmap {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String @db.Text
+  description String
+  datetime    String
+}
+
+
+
+model Founder {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  username     String  @db.Text
+  description  String  @db.Text
+  image        String  @db.Text
+  facebookLink String? @db.Text
+  twitterLink  String? @db.Text
+  linkedinLink String? @db.Text
+  rrsLink      String? @db.Text
+}
+
+enum StatusVoucher {
+  USED
+  FREE
+}
