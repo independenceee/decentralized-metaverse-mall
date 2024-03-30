@@ -75,7 +75,7 @@ const HomePage = function () {
                 <Title title="Executive Team" subTitle="Emergence and design of the idea" />
                 <div className={cx("team-container")}>
                     {isFetching ? (
-                        <span>Loading...</span>
+                        <span></span>
                     ) : (
                         ((teams as TeamType[]) || []).map(function (team: TeamType, index: number) {
                             return <Team key={team.id} index={index} team={team} />;

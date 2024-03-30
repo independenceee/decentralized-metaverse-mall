@@ -40,7 +40,6 @@ function Menu({ open, setOpen }: Props) {
                 })}
                 onClick={(e) => e.stopPropagation()}
             >
-                <ConnectWallet />
                 <ul className={cx("nav-list")}>
                     {publicRoutes.map(function ({ name, redirect }, index: number) {
                         return (
@@ -62,6 +61,7 @@ function Menu({ open, setOpen }: Props) {
                         );
                     })}
                 </ul>
+                <ConnectWallet className={cx("connect-wallet")} />
             </nav>
         </div>
     );
