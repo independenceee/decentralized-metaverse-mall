@@ -7,17 +7,18 @@ import Slider from "react-slick";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import classNames from "classnames/bind";
-import styles from "./Timeline.module.scss";
+import styles from "./Roadmap.module.scss";
 import { RoadmapType } from "@/types/GenericsType";
+import { isArray } from "lodash";
 
 type Props = {
-    timelines: Array<RoadmapType>;
+    roadmaps: Array<RoadmapType> | any;
 };
 
 gsap.registerPlugin(ScrollTrigger);
 const cx = classNames.bind(styles);
 
-const Timeline = function ({ timelines }: Props) {
+const Roadmap = function ({ roadmaps }: Props) {
     const timelineRef = useRef<HTMLDivElement>(null!);
 
     const settings = {
@@ -34,7 +35,6 @@ const Timeline = function ({ timelines }: Props) {
             { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
         ],
     };
-
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.timeline({ scrollTrigger: { trigger: timelineRef.current, start: "top center", end: "bottom center" } })
@@ -57,13 +57,14 @@ const Timeline = function ({ timelines }: Props) {
 
         return () => ctx.revert();
     }, []);
+    if (!isArray(roadmaps) && roadmaps.length === 0) return;
 
     return (
         <div className={cx("wrapper")} ref={timelineRef}>
             <div className={cx("wrapper-inner")}>
                 <div id="gsap-timeline_linethrough" className={cx("line")} />
                 <Slider {...settings}>
-                    {timelines.concat(timelines).map(function ({ title, description, datetime }: RoadmapType, index: number) {
+                    {roadmaps.concat(roadmaps).map(function ({ title, description, datetime }: RoadmapType, index: number) {
                         const isEvent = index % 2 === 0;
                         return (
                             <section className={cx("timelime-wrapper")} key={index}>
@@ -120,4 +121,4 @@ const Timeline = function ({ timelines }: Props) {
     );
 };
 
-export default Timeline;
+export default Roadmap;

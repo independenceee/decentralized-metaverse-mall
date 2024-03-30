@@ -9,6 +9,21 @@
     font-weight: 400;
     cursor: pointer;
     border: 1px solid transparent;
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        background: inherit;
+        filter: blur(10px);
+        border: 4px;
+        z-index: -1;
+        opacity: 0;
+        transition: all 0.3s;
+    }
+    &:hover::after {
+        opacity: 1;
+    }
 }
 
 .icon + .title,

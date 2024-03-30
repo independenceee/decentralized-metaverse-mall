@@ -20,25 +20,72 @@
     &.appear {
         opacity: 1;
     }
-    &-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 200px;
-        min-width: 120px;
-        width: 100%;
-        height: 90px;
-        padding: 12px 32px;
-        opacity: 0.8;
-        background-color: white;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-        color: black;
-        opacity: 0.4;
-        &.active {
-            opacity: 1;
+}
+
+.category-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 200px;
+    min-width: 120px;
+    width: 100%;
+    height: 90px;
+    padding: 12px 32px;
+    background: var(--linear-background-member);
+    font-weight: 600;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    color: var(--white-color);
+    opacity: 0.7;
+    overflow: hidden;
+    position: relative;
+
+    &.active {
+        opacity: 1;
+        max-width: 210px;
+        height: 100px;
+
+        &::before,
+        &:hover::before {
+            content: "";
+            position: absolute;
+            top: -180px;
+            left: -100px;
+            width: 15px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(45deg);
+            animation: glass 0.6s ease-in-out 1s forwards;
         }
     }
+}
+@keyframes glass {
+    0% {
+        left: -100px;
+    }
+    100% {
+        left: 300px;
+    }
+}
+.category-button-icon-wrapper {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    position: relative;
+}
+.category-button-icon {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.category-name {
+    font-size: 1.6rem;
+    padding-left: 1.6rem;
 }
 
 .voucher-floating {
@@ -123,8 +170,10 @@
 
 .trending {
     font-size: 1.4rem;
-    color: #ffdb24;
+    color: var(--white-color);
     margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
 }
 
@@ -141,15 +190,12 @@
     width: fit-content;
     font-weight: 500;
     width: fit-content;
-    background-color: #4a28a9;
+    background-color: var(--primary-color);
     font-weight: 400;
     font-size: 1.4rem;
     position: relative;
-    color: var(--white-color);
+    color: var(--text-color);
     padding: 16px 32px;
-    &:hover {
-        opacity: 0.8;
-    }
 }
 
 .voucher-image-wrapper {
@@ -169,6 +215,13 @@
 @media screen and (max-width: 1024px) {
     .category {
         flex-direction: column;
+    }
+
+    .category-button {
+        padding: 8px 24px;
+    }
+    .category-name {
+        display: none;
     }
 
     .voucher-floating {

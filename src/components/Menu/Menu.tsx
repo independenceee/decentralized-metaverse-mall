@@ -7,6 +7,7 @@ import configs from "@/configs";
 import { publicRoutes } from "@/routes";
 import styles from "./Menu.module.scss";
 import Modal from "../Modal";
+import ConnectWallet from "@/layouts/components/ConnectWallet";
 
 const cx = classNames.bind(styles);
 
@@ -60,6 +61,7 @@ function Menu({ open, setOpen }: Props) {
                         );
                     })}
                 </ul>
+                <ConnectWallet className={cx("connect-wallet")} />
             </nav>
         </div>
     );

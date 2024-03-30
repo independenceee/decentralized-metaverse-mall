@@ -1,13 +1,27 @@
-@import "normalize.css";
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
+// @import "normalize.css";
+// @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
 
 :root {
     --primary-color: #412394;
     --secondary-color: #4a28a9;
-    --white-color: #ffffff;
+    --tertiary-color: #331781;
+    --white-color: #fff;
     --text-color: #01e8fe;
     --font-family: "Rubik", sans-serif;
-    // responsive breakpoints
+    --tab-color: #7049df;
+    --tab-active-color: #3d1f94;
+    --timeline-color: #6c44db;
+
+    // Admin themes
+    --admin-primary-color: #202b40;
+    --admin-secondary-color: #192132;
+    --admin-active-nav-item-color: #313e59;
+    --admin-border-color: #26334d;
+    --admin-card-color: #26334d;
+    --admin-text-color: #c2c9d6;
+    --admin-hovered-background-color: rgba(105, 122, 155, 0.2);
+    --admin-separate-color: #384766;
+    --admin-success-color: #00c000;
 }
 
 * {
@@ -17,12 +31,11 @@
 }
 
 html {
-    scroll-behavior: smooth;
     font-size: 62.5%;
 }
 
 body {
-    // background: var(--primary-color);
+    background: var(--admin-primary-color);
     color: var(--white-color);
     font-family: var(--font-family);
     overflow-x: hidden;
@@ -51,12 +64,13 @@ textarea {
 // Scrollbar CSS
 html *::-webkit-scrollbar {
     border-radius: 0.5rem;
-    width: 6px;
+    width: 8px;
 }
 
 html *::-webkit-scrollbar-thumb {
     border-radius: var(--border-radius-primary);
     background: #c2c2c2;
+    border-radius: 0.5rem;
 }
 
 html *::-webkit-scrollbar-track {
@@ -102,4 +116,10 @@ html *::-webkit-scrollbar-track {
 
 .slick-arrow.slick-prev {
     left: 50px;
+}
+
+@media screen and (max-width: 1360px) {
+    .arrow-icon {
+        display: none;
+    }
 }

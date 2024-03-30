@@ -5,11 +5,9 @@ import Image from "next/image";
 import images from "@/assets/images";
 import icons from "@/assets/icons";
 
-type Props = {};
-
 const cx = classNames.bind(styles);
 
-const About = function ({}: Props) {
+const About = function () {
     return (
         <section className={cx("about")}>
             <div className={cx("wrapper")}>
@@ -29,20 +27,20 @@ const About = function ({}: Props) {
                             </div>
                             <ul className={cx("content-list")}>
                                 <li className={cx("content-list-item")}>
-                                    <div>
-                                        <Image src={icons.listIcon} width={39} height={39} alt="list-icon" />
+                                    <div className={cx("list-icon-wrapper")}>
+                                        <Image src={icons.checkIcon} width={39} height={39} alt="list-icon" />
                                     </div>
                                     Nemo enim ipsam voluptatem quia voluptas sit aspernatur.
                                 </li>
                                 <li className={cx("content-list-item")}>
-                                    <div>
-                                        <Image src={icons.listIcon} width={39} height={39} alt="list-icon" />
+                                    <div className={cx("list-icon-wrapper")}>
+                                        <Image src={icons.checkIcon} width={39} height={39} alt="list-icon" />
                                     </div>
                                     He oluptatem quia voluptas sit aspernatur
                                 </li>
                                 <li className={cx("content-list-item")}>
-                                    <div>
-                                        <Image src={icons.listIcon} width={39} height={39} alt="list-icon" />
+                                    <div className={cx("list-icon-wrapper")}>
+                                        <Image src={icons.checkIcon} width={39} height={39} alt="list-icon" />
                                     </div>
                                     Nemo enim ipsam voluptatem quia voluptas sit aspernatur
                                 </li>

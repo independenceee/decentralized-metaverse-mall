@@ -20,10 +20,10 @@ export type ServiceType = {
 };
 
 export type RoadmapType = {
-    id?: number;
-    title?: string;
-    description?: string;
-    datetime?: string;
+    id: number;
+    title: string;
+    description: string;
+    datetime: string;
 };
 
 export type WalletType = {
@@ -44,8 +44,6 @@ export type AccountType = {
     updatedAt?: string;
     walletAddress: string;
     stakeKey?: string;
-    email?: string;
-    username?: string;
     amount?: number;
 };
 
@@ -75,5 +73,5 @@ export type Category = {
     id: number;
     title: string;
     description: string;
-    voucherImage: (string | StaticImport);
+    voucherImage: string | StaticImport;
 };

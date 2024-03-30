@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Table from "@/components/Table";
-import Upload from "@/components/Upload";
 import styles from "./AdminAccount.module.scss";
 import { get } from "@/utils/httpRequest";
 
@@ -35,7 +34,17 @@ const AdminAccountPage = function ({}: Props) {
     return (
         <div className={cx("wrapper")}>
             <aside>
-                <Table totalPages={1} currentPage={1} setStatus={null!} title="Account" data={accounts} setData={setAccounts} />
+                <Table
+                    pathname=""
+                    type="MANUAL"
+                    onDelete={() => {}}
+                    onUpdate={() => {}}
+                    paginate={false}
+                    totalPages={1}
+                    currentPage={1}
+                    title="Account"
+                    data={accounts}
+                />
             </aside>
         </div>
     );

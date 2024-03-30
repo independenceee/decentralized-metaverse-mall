@@ -15,7 +15,7 @@
     line-height: 40px;
     margin-bottom: 10px;
     letter-spacing: 0px;
-    color: #fff;
+    color: var(--white-color);
     font-weight: 400;
 }
 
@@ -57,7 +57,27 @@
     font-size: 1.6rem;
     margin-bottom: 1.7rem;
 }
-
+.list-icon-wrapper {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    color: var(--white-color);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        background: inherit;
+        filter: blur(4px);
+        border-radius: 50%;
+        z-index: -1;
+    }
+}
 @media (max-width: 991px) {
     .wrapper-inner {
         flex-direction: column-reverse;
@@ -71,10 +91,4 @@
     .content-wrapper {
         width: 100%;
     }
-}
-.tab {
-    padding: 1rem 2.5rem;
-    margin-bottom: 1.5rem;
-    border: 2px solid #3d1f94;
-    background: #3d1f94;
 }

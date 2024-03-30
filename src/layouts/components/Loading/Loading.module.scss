@@ -1,0 +1,32 @@
+.loading {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border-top: 4px solid var(--admin-hovered-background-color);
+    border-bottom: 4px solid var(--admin-hovered-background-color);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    animation: spin 1s linear infinite;
+    position: relative;
+    margin: 0 auto;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        border-radius: 50%;
+        border-top: 4px solid var(--admin-hovered-background-color);
+        border-bottom: 4px solid var(--admin-hovered-background-color);
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        animation: spin 500ms linear infinite alternate-reverse;
+    }
+}
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

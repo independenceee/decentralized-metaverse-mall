@@ -24,7 +24,8 @@
 }
 
 .description {
-    color: #01e8fe;
+    color: var(--blue-color);
+    text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.2);
     font-size: 20px;
     font-weight: 400;
 }

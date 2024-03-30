@@ -3,6 +3,7 @@
 import React, { ReactNode, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Modal.module.scss";
+import { createPortal } from "react-dom";
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -18,11 +19,12 @@ const Modal: React.FC<Props> = function ({ isShowing, toggle, children }: Props)
     }, [isShowing]);
 
     if (!isShowing) return;
-    return (
+    return createPortal(
         <main className={cx("wrapper")}>
             <section className={cx("modal")} onClick={toggle}></section>
             {children}
-        </main>
+        </main>,
+        document.body,
     );
 };
 

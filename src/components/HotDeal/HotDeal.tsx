@@ -8,11 +8,14 @@ import images from "@/assets/images";
 import icons from "@/assets/icons";
 import { Link } from "react-scroll";
 import routes from "@/configs/routes";
+import { useGetHotDealListQuery } from "@/redux/api/deals.api";
 
 const cx = classNames.bind(styles);
 
 const HotDeal = function () {
     const [open, setOpen] = useState<boolean>(true);
+
+    const { data: hotdeal } = useGetHotDealListQuery();
 
     const closeHotDeal = function (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         e.stopPropagation();
@@ -31,7 +34,13 @@ const HotDeal = function () {
                         <Image src={icons.closeIcon} alt="" />
                     </div>
 
-                    <Image src={images.hotDeal} alt="hot deal" className={cx("image")} />
+                    <Image
+                        width={99999999}
+                        height={99999999}
+                        src={hotdeal ? `${process.env.PUBLIC_IMAGES_DOMAIN}/dealhot/${hotdeal[0]?.image}` : images.hotDeal}
+                        alt="hot deal"
+                        className={cx("image")}
+                    />
                 </Link>
             </div>
         </div>

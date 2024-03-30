@@ -1,12 +1,3 @@
 .wrapper {
-    background: url("../../assets/images/background/categories-bg.jpg") center center / cover no-repeat fixed;
-
-    &:after {
-        background: url("../../assets/images/background/categories-bg.jpg") center center / cover no-repeat fixed;
-        content: "";
-        position: absolute;
-        inset: 0px;
-        opacity: 1;
-        z-index: -1;
-    }
+    background: var(--primary-color);
 }

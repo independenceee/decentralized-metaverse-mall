@@ -22,11 +22,11 @@ const cx = classNames.bind(styles);
 
 type Props = {
     isActive?: boolean;
+    className?: string;
 };
 
-const ConnectWallet = function ({ isActive }: Props) {
+const ConnectWallet = function ({ isActive, className }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
-    const [isOpenShort, setIsOpenShort] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
     const { isShowing: isShowingWalletLong, toggle: toggleWalletLong } = useModal();
     const { isShowing: isShowingNotificationDownload, toggle: toggleNotificationDownload } = useModal();
@@ -37,16 +37,13 @@ const ConnectWallet = function ({ isActive }: Props) {
         const handleScroll = function () {
             setIsScrolled(window.scrollY > 0);
         };
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    });
+    }, []);
 
     const handleOpenShowWallet = function () {
         setIsOpenShowWallet(!isOpenShowWallet);
-    };
-
-    const handleOpenWallet = function () {
-        setIsOpenShort(!isOpenShort);
     };
 
     const handleConnectWallet = async function (wallet: WalletType) {
@@ -67,7 +64,7 @@ const ConnectWallet = function ({ isActive }: Props) {
     };
 
     return (
-        <div className={cx("wrapper", { open: isOpenShort })}>
+        <div className={cx("wrapper", className)}>
             {lucid ? (
                 <Button
                     loading={loading}
@@ -91,7 +88,7 @@ const ConnectWallet = function ({ isActive }: Props) {
                                     </h3>
                                 </div>
                             </CopyToClipboard>
-                            {/* <CopyToClipboard text={String(wallet?.stakeKey)}>
+                            <CopyToClipboard text={String(wallet?.stakeKey)}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Stake: </h3>
                                     <p className={cx("show-wallet-description")}>{wallet?.stakeKey}</p>
@@ -110,7 +107,7 @@ const ConnectWallet = function ({ isActive }: Props) {
                                         </h3>
                                     </div>
                                 </CopyToClipboard>
-                            )} */}
+                            )}
                             <div onClick={refreshWallet} className={cx("show-wallet-item")}>
                                 <h3 className={cx("show-wallet-name")}>
                                     <RefreshIcon className={cx("show-wallet-icon")} />
@@ -129,26 +126,11 @@ const ConnectWallet = function ({ isActive }: Props) {
             ) : (
                 <Button
                     loading={loading}
-                    onClick={handleOpenWallet}
+                    onClick={toggleWalletLong}
                     RightIcon={ArrowDownIcon}
                     className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
                 >
                     {!loading && "Connect wallet"}
-                    {isOpenShort && (
-                        <div className={cx("wallet-short", { scrolled: isScrolled || isActive })}>
-                            {wallets.slice(0, 5).map(function (wallet: WalletType, index: number) {
-                                return (
-                                    <div onClick={() => handleConnectWallet(wallet)} key={index} className={cx("wallet-short-container")}>
-                                        <Image className={cx("wallet-short-image")} src={wallet.image} alt="" />
-                                        <span className={cx("wallet-short-name")}>{wallet.name}</span>
-                                    </div>
-                                );
-                            })}
-                            <div onClick={toggleWalletLong} className={cx("wallet-short-container")}>
-                                <span className={cx("wallet-short-name")}>View all</span>
-                            </div>
-                        </div>
-                    )}
                 </Button>
             )}
 

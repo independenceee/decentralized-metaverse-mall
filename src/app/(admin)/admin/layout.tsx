@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import React, { ReactNode } from "react";
 import PrivateLayout from "@/layouts/PrivateLayout";
+import StoreProvider from "@/redux/provider";
 
 export const metadata: Metadata = {
     title: "Admin",
@@ -15,7 +16,9 @@ const AdminLayout = function ({ children }: Readonly<Props>) {
     return (
         <html lang="en">
             <body>
-                <PrivateLayout>{children}</PrivateLayout>
+                <StoreProvider>
+                    <PrivateLayout>{children}</PrivateLayout>
+                </StoreProvider>
             </body>
         </html>
     );

@@ -1,16 +1,9 @@
 .connect-wallet {
-    background-color: var(--primary-color);
+    background: var(--secondary-color);
     font-weight: 500;
     font-size: 1.6rem;
     position: relative;
-    // min-width: 20rem;
-
     color: var(--text-color);
-    &.scrolled {
-        color: var(--text-color);
-        background-color: var(--secondary-color);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
-    }
 }
 
 /* wallet-short-begin*/
@@ -18,22 +11,16 @@
     position: absolute;
     left: 0;
     top: 120%;
-    background-color: var(--primary-color);
+    background: var(--secondary-color);
     font-weight: 500;
     font-size: 1.8rem;
     color: var(--text-color);
     width: 100%;
-
-    &.scrolled {
-        color: var(--text-color);
-        background-color: var(--secondary-color);
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
-    }
 }
 
 .wallet-short-container {
     align-items: center;
-    border-bottom: 0.5px solid;
+    border-bottom: 0.5px solid var(--tab-color);
     box-sizing: border-box;
     color: var(--text-color);
     cursor: pointer;
@@ -82,7 +69,8 @@
     top: 120%;
     right: 0;
     border-radius: 4px;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
     font-weight: 400;
     font-size: 1.4rem;
     color: var(--text-color);
@@ -98,7 +86,7 @@
 
 .show-wallet-item {
     align-items: center;
-    border-bottom: 0.5px solid;
+    border-bottom: 0.5px solid var(--tab-color);
     box-sizing: border-box;
     color: var(--text-color);
     cursor: pointer;
@@ -180,9 +168,8 @@
     width: 400px;
     height: 50px;
     border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
     margin-bottom: 12px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 13px 0px;
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 5px;
     display: flex;
     align-items: center;
     padding: 10px 20px;
