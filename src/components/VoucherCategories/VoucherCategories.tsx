@@ -93,7 +93,7 @@ const VoucherCategories = function ({}: Props) {
                                 key={index}
                             >
                                 <div className={cx("catergory-left")} data-aos="fade-right">
-                                    <div className={cx("trending")}>Trending</div>
+                                    <div className={cx("trending")}>{category?.name}</div>
                                     <h2 className={cx("title")}>{category.banner?.title}</h2>
                                     <div className={cx("description")}>{category.banner?.description}</div>
                                     <Button className={cx("button-view-details")}>View details</Button>
