@@ -9,12 +9,14 @@ import {
     Patch,
     Post,
     UploadedFile,
+    UseGuards,
     UseInterceptors,
 } from "@nestjs/common";
 import { BannerService } from "./banner.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { storageConfig } from "src/helpers/config";
 import { CreateBannerDto, EditBannerDto } from "./dto";
+import { JwtGuard } from "src/auth/guard";
 
 @Controller("banner")
 export class BannerController {
@@ -32,6 +34,7 @@ export class BannerController {
         return this.bannerService.getBanner({ id: id });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Post()
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("image") }))
@@ -39,6 +42,7 @@ export class BannerController {
         return this.bannerService.createBanner({ dto: dto, file: file });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Patch(":id")
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("image") }))
@@ -46,6 +50,7 @@ export class BannerController {
         return this.bannerService.updateBanner({ id: id, dto: dto, file: file });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Delete(":id")
     deleteBanner(@Param("id") id: string) {
