@@ -12,15 +12,15 @@ import { RoadmapModule } from "./roadmap/roadmap.module";
 import { FounderModule } from "./founder/founder.module";
 import { AuthModule } from "./auth/auth.module";
 import { BannerModule } from "./banner/banner.module";
-import { DealhotModule } from './dealhot/dealhot.module';
-import { UserModule } from './user/user.module';
-
+import { DealhotModule } from "./dealhot/dealhot.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
         }),
+
         PrismaModule,
         AccountModule,
         VoucherModule,
@@ -37,6 +37,4 @@ import { UserModule } from './user/user.module';
         UserModule,
     ],
 })
-    
-    
 export class AppModule {}

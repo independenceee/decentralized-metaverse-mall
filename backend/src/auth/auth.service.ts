@@ -24,7 +24,7 @@ export class AuthService {
         const user = await this.prisma.user.create({
             data: { email: dto.email, password: hash },
         });
-        const tokens = await this.getTokens({ email: user.email, id: user.id });
+        const tokens = await this.getTokens({ email: user.email, id: user.id, role: user.role });
         await this.updateRefreshToken({ dto: user, refreshToken: tokens.refreshToken });
         return tokens;
     }
@@ -36,7 +36,7 @@ export class AuthService {
         if (!user) throw new ForbiddenException("Permission access denied");
         const checkPassword = await argon.verify(user.password, dto.password);
         if (!checkPassword) throw new ForbiddenException("Permission access denied");
-        const tokens = await this.getTokens({ id: user.id, email: user.email });
+        const tokens = await this.getTokens({ id: user.id, email: user.email, role: user.role });
         await this.updateRefreshToken({ dto: user, refreshToken: tokens.refreshToken });
         return tokens;
     }
@@ -53,17 +53,20 @@ export class AuthService {
         const user = await this.prisma.user.findFirst({
             where: { id: dto.id },
         });
+        console.log(user);
 
         if (!user || !user.refreshToken) throw new ForbiddenException("Permission access denied");
+        console.log(user);
         const refreshTokenHash = await argon.verify(user.refreshToken, dto.refreshToken);
+        console.log(refreshTokenHash);
         if (!refreshTokenHash) throw new ForbiddenException("Permission access denied");
-        const tokens = await this.getTokens({ id: user.id, email: user.email });
+        const tokens = await this.getTokens({ id: user.id, email: user.email, role: user.role });
         await this.updateRefreshToken({ dto: dto, refreshToken: tokens.refreshToken });
         return tokens;
     }
 
-    async getTokens({ id, email }: { id: string; email: string }) {
-        const payload = { id: id, email: email };
+    async getTokens({ id, email, role }: { id: string; email: string; role: string }) {
+        const payload = { id: id, email: email, role: role };
 
         const [accessToken, refreshToken] = await Promise.all([
             this.jwtService.signAsync(payload, {
