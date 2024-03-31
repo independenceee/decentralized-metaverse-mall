@@ -9,12 +9,14 @@ import {
     Patch,
     Post,
     UploadedFile,
+    UseGuards,
     UseInterceptors,
 } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto, UpdateCategoryDto } from "./dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { storageConfig } from "src/helpers/config";
+import { JwtGuard } from "src/auth/guard";
 
 @Controller("category")
 export class CategoryController {
@@ -38,6 +40,7 @@ export class CategoryController {
         return this.categoryService.getCategory({ id: id });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Post()
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("category") }))
@@ -45,6 +48,7 @@ export class CategoryController {
         return this.categoryService.createCategory({ dto: dto, file: file });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Patch(":id")
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("category") }))
@@ -52,6 +56,7 @@ export class CategoryController {
         return this.categoryService.updateCategory({ id: id, dto: dto, file: file });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Delete(":id")
     deleteCategory(@Param("id") id: string) {

@@ -10,11 +10,13 @@ import {
     Param,
     Get,
     Delete,
+    UseGuards,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { storageConfig } from "src/helpers/config";
 import { FounderService } from "./founder.service";
 import { CreateFounderDto, EditFounderDto } from "./dto";
+import { JwtGuard } from "src/auth/guard";
 
 @Controller("founder")
 export class FounderController {
@@ -26,12 +28,14 @@ export class FounderController {
         return this.founderService.getFounders();
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Get(":id")
     getFounderById(@Param("id") id) {
         return this.founderService.getFounderById({ id: id });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Post()
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("founder") }))
@@ -41,7 +45,7 @@ export class FounderController {
             dto: dto,
         });
     }
-
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Patch(":id")
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("founder") }))
@@ -53,6 +57,7 @@ export class FounderController {
         });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Delete(":id")
     deleteFounder(@Param("id") id: string) {

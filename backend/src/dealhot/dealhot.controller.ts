@@ -9,12 +9,14 @@ import {
     Patch,
     Post,
     UploadedFile,
+    UseGuards,
     UseInterceptors,
 } from "@nestjs/common";
 import { DealhotService } from "./dealhot.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { storageConfig } from "src/helpers/config";
 import { CreateDealHotDto, EditDealHotDto } from "./dto";
+import { JwtGuard } from "src/auth/guard";
 
 @Controller("dealhot")
 export class DealhotController {
@@ -32,6 +34,7 @@ export class DealhotController {
         return this.dealHotService.getDealHot({ id: id });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Post()
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("dealhot") }))
@@ -39,6 +42,7 @@ export class DealhotController {
         return this.dealHotService.createDealHot({ dto: dto, file: file });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Patch(":id")
     @UseInterceptors(FileInterceptor("image", { storage: storageConfig("dealhot") }))
@@ -46,6 +50,7 @@ export class DealhotController {
         return this.dealHotService.updateDealHot({ id: id, dto: dto, file: file });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Delete(":id")
     deleteCategory(@Param("id") id: string) {

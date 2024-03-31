@@ -1,6 +1,7 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException, UseGuards } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateCategoryDto, UpdateCategoryDto } from "./dto";
+import { JwtGuard } from "src/auth/guard";
 
 @Injectable()
 export class CategoryService {
@@ -27,6 +28,7 @@ export class CategoryService {
         return existCategory;
     }
 
+    @UseGuards(JwtGuard)
     async createCategory({ dto, file }: { dto: CreateCategoryDto; file: Express.Multer.File }) {
         const existCategory = await this.prisma.category.findFirst({
             where: { name: dto.name },
@@ -38,6 +40,7 @@ export class CategoryService {
         return category;
     }
 
+    @UseGuards(JwtGuard)
     async updateCategory({ id, dto, file }: { id: string; dto: UpdateCategoryDto; file: Express.Multer.File }) {
         const existCategory = await this.getCategory({ id: id });
         const category = await this.prisma.category.update({
@@ -50,6 +53,7 @@ export class CategoryService {
         return category;
     }
 
+    @UseGuards(JwtGuard)
     async deleteCategory({ id }: { id: string }) {
         const existCategory = await this.getCategory({ id: id });
         await this.prisma.category.delete({ where: { id: existCategory.id } });

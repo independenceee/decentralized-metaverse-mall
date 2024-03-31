@@ -14,24 +14,28 @@ export class UserController {
         return this.userService.getUsers();
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Get(":id")
     getUser(@Param("id") id: string) {
         return this.userService.getUser({ id: id });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Post()
     createUser(@Body() dto: CreateUserDto) {
         return this.userService.createUser({ dto: dto });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Patch(":id")
     editUser(@Param("id") id: string, @Body() dto: EditUserDto) {
         return this.userService.updateUser({ id: id, dto: dto });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.OK)
     @Delete(":id")
     deleteUser(@Param("id") id: string) {

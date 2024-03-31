@@ -1,8 +1,22 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    HttpStatus,
+    Param,
+    Patch,
+    Post,
+    Query,
+    Res,
+    UseGuards,
+} from "@nestjs/common";
 import { VoucherService } from "./voucher.service";
 import { Voucher } from "./interfaces";
 import { CreateVoucherDto, ReceiveVoucherDto } from "./dto";
 import { UpdateVoucherDto } from "./dto/edit-voucher.dto";
+import { JwtGuard } from "src/auth/guard";
 
 @Controller("voucher")
 export class VoucherController {
@@ -18,6 +32,7 @@ export class VoucherController {
         return this.voucherService.getVoucherByWalletAddress({ walletAddress: walletAddress });
     }
 
+    @UseGuards(JwtGuard)
     @Get()
     getAllVouchers(
         @Query("status") status: string,
@@ -33,21 +48,25 @@ export class VoucherController {
         });
     }
 
+    @UseGuards(JwtGuard)
     @Post()
     createVoucher(@Body() dto: CreateVoucherDto[]) {
         return this.voucherService.createVoucher({ dto: dto });
     }
 
+    @UseGuards(JwtGuard)
     @Get(":id")
     getVoucherById(@Param("id") id: string) {
         return this.voucherService.getVoucherById({ id: id });
     }
 
+    @UseGuards(JwtGuard)
     @Patch(":id")
     updateVoucherById(@Param("id") id: string, @Body() dto: UpdateVoucherDto) {
         return this.voucherService.updateVoucher({ id: id, dto: dto });
     }
 
+    @UseGuards(JwtGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
     @Delete(":id")
     deleteVoucherById(@Param("id") id: string) {
