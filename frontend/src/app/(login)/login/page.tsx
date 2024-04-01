@@ -5,10 +5,12 @@ import styles from "./Login.module.scss";
 import Image from "next/image";
 import icons from "@/assets/icons";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from "@/redux/services/auth.api";
+import { useGetAuthUserQuery, useLoginMutation } from "@/redux/services/auth.api";
 import { addCredentialsToLS } from "@/utils/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/features/auth/auth.slice";
 
 const cx = classNames.bind(styles);
 
@@ -23,7 +25,10 @@ const initialLoginFormBody: LoginFormBody = {
 };
 
 const Login = function () {
-    const [login] = useLoginMutation();
+    const [login, { isSuccess: isLoginSuccess, isLoading: isLoginLoading }] = useLoginMutation();
+    const { data: authUserArr, isSuccess } = useGetAuthUserQuery();
+    const dispatch = useDispatch();
+
     const router = useRouter();
     const {
         register,
@@ -40,7 +45,12 @@ const Login = function () {
             .unwrap()
             .then((data) => {
                 addCredentialsToLS(data);
-                router.replace('/admin')
+                if (isSuccess && authUserArr.length > 0) {
+                    const authUser = authUserArr[0];
+                    dispatch(setUser({ user: authUser }));
+                    localStorage.setItem("user", JSON.stringify(authUser));
+                }
+                router.replace("/admin");
             })
             .catch((e) => {
                 toast.error("Login failed!");
@@ -108,7 +118,7 @@ const Login = function () {
                             </button>
                         </div>
                         <div className={cx("input-field")}>
-                            <input type="submit" className={cx("login-button")} defaultValue="Login" />
+                            <input disabled={isLoginLoading} type="submit" className={cx("login-button")} defaultValue="Login" />
                         </div>
                     </form>
                 </div>

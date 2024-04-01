@@ -10,6 +10,16 @@ export type LoginResponse = {
     refreshToken: string;
 };
 
+export type AuthUser = {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    email: string;
+    role: string | null;
+    password: string;
+    refreshToken: string;
+};
+
 const authApi = api.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
@@ -18,6 +28,7 @@ const authApi = api.injectEndpoints({
                 method: "POST",
                 body,
             }),
+            invalidatesTags: [{ type: "User", id: "Auth" }],
         }),
         logout: builder.mutation<void, { email: string }>({
             query: (body) => ({
@@ -26,7 +37,11 @@ const authApi = api.injectEndpoints({
                 body,
             }),
         }),
+        getAuthUser: builder.query<AuthUser[], void>({
+            query: () => "/user",
+            providesTags: [{ type: "User", id: "Auth" }],
+        }),
     }),
 });
-export const { useLoginMutation, useLogoutMutation } = authApi;
+export const { useLoginMutation, useLogoutMutation, useGetAuthUserQuery } = authApi;
 export default authApi;

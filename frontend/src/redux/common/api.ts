@@ -34,7 +34,7 @@ const baseQueryWithAuth = async (args: string | FetchArgs, api: BaseQueryApi, ex
 
         if (refreshTokenResult.data) {
             const { accessToken } = refreshTokenResult.data as { accessToken: string };
-            sessionStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("accessToken", accessToken);
             api.dispatch(
                 setCredentials({
                     refreshToken: _api.auth.refreshToken,
@@ -55,6 +55,6 @@ const baseQueryWithAuth = async (args: string | FetchArgs, api: BaseQueryApi, ex
 export const api = createApi({
     reducerPath: "splitApi",
     baseQuery: baseQueryWithAuth,
-    tagTypes: ["Banners", "Vouchers", "Roadmap", "Deals", "Founders", "Categories"],
+    tagTypes: ["Banners", "Vouchers", "Roadmap", "Deals", "Founders", "Categories", "User"],
     endpoints: (_) => ({}),
 });

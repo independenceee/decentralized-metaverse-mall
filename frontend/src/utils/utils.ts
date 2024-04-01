@@ -1,14 +1,20 @@
 import { LoginResponse } from "@/redux/services/auth.api";
-import { RootState } from "@reduxjs/toolkit/query";
-import { useSelector } from "react-redux";
 
 export const addCredentialsToLS = ({ accessToken, refreshToken }: LoginResponse) => {
-    sessionStorage.setItem("accessToken", accessToken);
-    sessionStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
 };
 
 export const removeCredentialsFromLS = () => {
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+};
+
+export const getValueFromLS = (key: string) => {
+    if (typeof localStorage !== "undefined") {
+        return localStorage.getItem(key);
+    }
+
+    return null;
 };

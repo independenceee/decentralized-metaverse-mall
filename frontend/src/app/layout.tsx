@@ -6,8 +6,6 @@ import { Toaster } from "sonner";
 import Aos from "@/components/Aos";
 import ContextProvider from "@/contexts";
 import StoreProvider from "@/redux/provider";
-import { values } from "lodash";
-import routes from "@/configs/routes";
 
 const inner = Inter({ subsets: ["latin"] });
 

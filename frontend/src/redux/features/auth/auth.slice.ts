@@ -1,17 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../services/types";
+import { getValueFromLS } from "@/utils/utils";
+import { AuthUser } from "@/redux/services/auth.api";
 
 type AuthType = {
-    user: User | null;
+    user: AuthUser | null;
     accessToken: string | null;
     refreshToken: string | null;
 };
 
-const accessToken = typeof sessionStorage.getItem("accessToken");
-const refreshToken = sessionStorage.getItem("refreshToken");
+const accessToken = getValueFromLS("accessToken");
+const refreshToken = getValueFromLS("refreshToken");
+const user = getValueFromLS("user") !== null ? JSON.parse(getValueFromLS("user") || "") : null;
 
 const initialState: AuthType = {
-    user: null,
+    user,
     accessToken,
     refreshToken,
 };
