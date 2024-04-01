@@ -8,7 +8,7 @@ import images from "@/assets/images";
 import icons from "@/assets/icons";
 import { Link } from "react-scroll";
 import routes from "@/configs/routes";
-import { useGetHotDealListQuery } from "@/redux/api/deals.api";
+import { useGetHotDealListQuery } from "@/redux/services/deals.api";
 
 const cx = classNames.bind(styles);
 

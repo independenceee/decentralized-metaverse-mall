@@ -29,8 +29,8 @@ function Menu({ open, setOpen }: Props) {
 
     return (
         <div
-            className={cx({
-                "menu-overlay": open,
+            className={cx("menu-overlay", {
+                open,
             })}
             onClick={hideOnClickOutside}
         >

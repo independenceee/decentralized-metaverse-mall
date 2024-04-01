@@ -5,6 +5,10 @@
     height: 100vh;
     background: (--primary-color);
     z-index: 1;
+    display: none;
+    &.open {
+        display: block;
+    }
 }
 
 .menu-wrapper {

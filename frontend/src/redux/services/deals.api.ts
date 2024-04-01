@@ -1,11 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HotDeal } from "./types";
-import { fetchBaseQueryConfig } from "../config/config";
+import { api } from "../common/api";
 
-export const dealsApi = createApi({
-    reducerPath: "dealsAPI",
-    baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
-    tagTypes: ["Deals"],
+export const dealsApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getHotDealList: builder.query<HotDeal[], void>({
             query: () => `/dealhot`,

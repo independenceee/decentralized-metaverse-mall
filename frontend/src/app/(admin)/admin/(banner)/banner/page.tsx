@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import Tippy from "@tippyjs/react/headless";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useGetCategoriesQuery } from "@/redux/api/categories.api";
+import { useGetCategoriesQuery } from "@/redux/services/categories.api";
 
-import { Banner, Category } from "@/redux/api/types";
+import { Banner, Category } from "@/redux/services/types";
 import images from "@/assets/images";
 import Loading from "@/layouts/components/Loading";
 import Table from "@/components/Table";
@@ -21,7 +21,7 @@ import {
     useGetBannerListQuery,
     useGetBannerQuery,
     useUpdateBannerMutation,
-} from "@/redux/api/banners.api";
+} from "@/redux/services/banners.api";
 import { omit } from "lodash";
 
 const cx = classNames.bind(styles);

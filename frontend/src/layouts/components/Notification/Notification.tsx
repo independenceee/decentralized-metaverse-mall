@@ -15,9 +15,9 @@ import Button from "@/components/Button";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
 import { BeatLoader } from "react-spinners";
-import { useGetCategoriesQuery } from "@/redux/api/categories.api";
-import { Category } from "@/redux/api/types";
-import { useRecieveVoucherMutation } from "@/redux/api/vouchers.api";
+import { useGetCategoriesQuery } from "@/redux/services/categories.api";
+import { Category } from "@/redux/services/types";
+import { useRecieveVoucherMutation } from "@/redux/services/vouchers.api";
 import { post } from "@/utils/httpRequest";
 
 const cx = classNames.bind(styles);

@@ -1,11 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RoadmapItem } from "./types";
-import { fetchBaseQueryConfig } from "../config/config";
+import { api } from "../common/api";
 
-export const roadmapApi = createApi({
-    reducerPath: "roadmapAPI",
-    baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
-    tagTypes: ["Roadmap"],
+export const roadmapApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getRoadmapList: builder.query<RoadmapItem[], void>({
             query: () => "/roadmap",

@@ -12,8 +12,8 @@ import images from "@/assets/images";
 import Button from "../Button";
 import icons from "@/assets/icons";
 import categories from "@/data/categories";
-import { useGetCategoryWithBannerQuery } from "@/redux/api/categories.api";
-import { VoucherCategory } from "@/redux/api/types";
+import { useGetCategoryWithBannerQuery } from "@/redux/services/categories.api";
+import { VoucherCategory } from "@/redux/services/types";
 
 const cx = classNames.bind(styles);
 

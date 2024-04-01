@@ -6,7 +6,7 @@ import { WalletContextType } from "@/types/contexts/WalletContextType";
 import WalletContext from "../components/WalletContext";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "../components/LucidContext";
-import { Voucher } from "@/redux/api/types";
+import { Voucher } from "@/redux/services/types";
 
 type Props = {
     children: ReactNode;

@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import styles from "./Category.module.scss";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import { Category } from "@/redux/api/types";
+import { Category } from "@/redux/services/types";
 import { toast } from "sonner";
 import images from "@/assets/images";
 import Tippy from "@tippyjs/react/headless";
@@ -17,7 +17,7 @@ import {
     useGetCategoriesQuery,
     useGetCategoryQuery,
     useUpdateCategoryMutation,
-} from "@/redux/api/categories.api";
+} from "@/redux/services/categories.api";
 import Loading from "@/layouts/components/Loading";
 
 const cx = classNames.bind(styles);
