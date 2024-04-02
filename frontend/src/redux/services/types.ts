@@ -59,16 +59,9 @@ export interface Account {
     stakeKey?: string;
 }
 
-enum UserRole {
-    User,
-    Admin,
-}
-
-export interface User {
-    id?: string;
-    createdAt?: string;
-    updatedAt?: string;
-    role: UserRole;
+export enum UserRole {
+    User = "user",
+    Admin = "admin",
 }
 
 export interface Banner {

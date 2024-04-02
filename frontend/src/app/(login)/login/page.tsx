@@ -8,9 +8,11 @@ import { useForm } from "react-hook-form";
 import { useGetAuthUserQuery, useLoginMutation } from "@/redux/services/auth.api";
 import { addCredentialsToLS } from "@/utils/utils";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { redirect, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/features/auth/auth.slice";
+import { RootState } from "@/redux/store";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -25,11 +27,14 @@ const initialLoginFormBody: LoginFormBody = {
 };
 
 const Login = function () {
+    const user = !!useSelector((state: RootState) => state.auth.user);
     const [login, { isSuccess: isLoginSuccess, isLoading: isLoginLoading }] = useLoginMutation();
-    const { data: authUserArr, isSuccess } = useGetAuthUserQuery();
+    const { data: authUserArr, isSuccess: getUserSuccess } = useGetAuthUserQuery(undefined, {
+        skip: isLoginSuccess,
+    });
     const dispatch = useDispatch();
-
     const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -45,18 +50,32 @@ const Login = function () {
             .unwrap()
             .then((data) => {
                 addCredentialsToLS(data);
-                if (isSuccess && authUserArr.length > 0) {
-                    const authUser = authUserArr[0];
+                if (getUserSuccess && authUserArr.length > 0) {
+                    const authUser = authUserArr[1];
                     dispatch(setUser({ user: authUser }));
-                    localStorage.setItem("user", JSON.stringify(authUser));
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify({
+                            id: "",
+                            createdAt: "",
+                            updatedAt: "",
+                            email: "",
+                            role: null,
+                            password: "",
+                            refreshToken: "",
+                        }),
+                    );
                 }
-                router.replace("/admin");
             })
+
             .catch((e) => {
                 toast.error("Login failed!");
             });
     });
 
+    if (isLoginSuccess) {
+        redirect("/admin");
+    }
     return (
         <section className={cx("wrapper")}>
             {Array(260)
@@ -127,4 +146,4 @@ const Login = function () {
     );
 };
 
-export default Login;
+export default withAuth(Login);

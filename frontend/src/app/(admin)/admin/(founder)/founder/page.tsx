@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useSearchParams, useRouter } from "next/navigation";
 import Loading from "@/layouts/components/Loading";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -450,4 +451,4 @@ const Founder = function () {
     );
 };
 
-export default Founder;
+export default withAuth(Founder);
