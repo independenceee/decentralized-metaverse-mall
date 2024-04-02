@@ -1,4 +1,5 @@
 "use client";
+
 import classNames from "classnames/bind";
 import React from "react";
 import styles from "./Login.module.scss";
@@ -50,7 +51,7 @@ const Login = function () {
                     dispatch(setUser({ user: authUser }));
                     localStorage.setItem("user", JSON.stringify(authUser));
                 }
-                router.replace("/admin");
+                 router.replace("/admin");
             })
             .catch((e) => {
                 toast.error("Login failed!");

@@ -10,10 +10,12 @@ export function middleware(request: NextRequest) {
     const isAuthenticated = Boolean(store.getState().auth.user);
 
     const privateRoutes = values(routes.private);
+    console.log(privateRoutes);
     const { pathname } = request.nextUrl;
-    console.log(privateRoutes.includes(pathname as PathNameType));
+    console.log(!isAuthenticated, privateRoutes.includes(pathname as PathNameType));
     if (!isAuthenticated && privateRoutes.includes(pathname as PathNameType)) {
-        return NextResponse.replace(new URL("/login", request.nextUrl.origin));
+        return NextResponse.redirect(new URL("/login", request.nextUrl.origin));
     }
+
     return NextResponse.next();
 }
