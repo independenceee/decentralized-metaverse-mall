@@ -53,7 +53,7 @@ const accordions: Accordions = {
         },
         {
             id: 4,
-            question: "4. Create a wallet and enter 24 characters to unlock the wallet",
+            question: "4. Choose a website to connect the wallet",
             answer: "Once you have completed this, you will need to grant access to the Dapp Connector. Under the left menu with your wallet, click on the button labeled DApp Browser. Now, from the main menu select “Connect Account”, select your new test wallet at the “Select Direct Connect Wallet” menu and then click “Connect As DApp Account”.",
         },
         {

@@ -1,4 +1,5 @@
 "use client";
+
 import classNames from "classnames/bind";
 import React from "react";
 import styles from "./Login.module.scss";
@@ -8,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useGetAuthUserQuery, useLoginMutation } from "@/redux/services/auth.api";
 import { addCredentialsToLS } from "@/utils/utils";
 import { toast } from "sonner";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/features/auth/auth.slice";
 import { RootState } from "@/redux/store";
@@ -74,7 +75,7 @@ const Login = function () {
     });
 
     if (isLoginSuccess) {
-        redirect("/admin");
+        router.replace("/admin");
     }
     return (
         <section className={cx("wrapper")}>
