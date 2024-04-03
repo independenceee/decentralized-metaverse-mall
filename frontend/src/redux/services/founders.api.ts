@@ -1,11 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Founder } from "./types";
-import { fetchBaseQueryConfig } from "../config/config";
+import { api } from "../common/api";
 
-export const foundersApi = createApi({
-    reducerPath: "foundersAPI",
-    tagTypes: ["Founders"],
-    baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
+export const foundersApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getFounderList: builder.query<Founder[], void>({
             query: () => "/founder",

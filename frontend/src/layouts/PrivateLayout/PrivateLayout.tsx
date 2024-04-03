@@ -7,6 +7,7 @@ import Sidebar from "@/layouts/components/Sidebar";
 import Navbar from "../components/Navbar";
 import { usePathname } from "next/navigation";
 import configs from "@/configs";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 

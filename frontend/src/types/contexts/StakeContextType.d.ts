@@ -1,4 +1,4 @@
-import { Voucher } from "@/redux/api/types";
+import { Voucher } from "@/redux/services/types";
 import { Lucid, TxHash } from "lucid-cardano";
 
 export type StakeContextType = {

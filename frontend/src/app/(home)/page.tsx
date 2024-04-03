@@ -19,8 +19,8 @@ import tokenomics from "@/data/tokenomics";
 import Sponsors from "@/components/Sponsors";
 import sponsors from "@/data/sponsors";
 import VoucherCategories from "@/components/VoucherCategories";
-import { useGetFounderListQuery } from "@/redux/api/founders.api";
-import { useGetRoadmapListQuery } from "@/redux/api/roadmap.api";
+import { useGetFounderListQuery } from "@/redux/services/founders.api";
+import { useGetRoadmapListQuery } from "@/redux/services/roadmap.api";
 import { toast } from "sonner";
 
 const cx = classNames.bind(styles);

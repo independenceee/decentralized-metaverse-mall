@@ -6,7 +6,7 @@ import styles from "./Founder.module.scss";
 import Tippy from "@tippyjs/react/headless";
 import Link from "next/link";
 import FounderCard from "@/layouts/components/Founder";
-import { Founder } from "@/redux/api/types";
+import { Founder } from "@/redux/services/types";
 import images from "@/assets/images";
 import Image from "next/image";
 import icons from "@/assets/icons";
@@ -16,11 +16,12 @@ import {
     useGetFounderListQuery,
     useGetFounderQuery,
     useUpdateFounderMutation,
-} from "@/redux/api/founders.api";
+} from "@/redux/services/founders.api";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useSearchParams, useRouter } from "next/navigation";
 import Loading from "@/layouts/components/Loading";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -450,4 +451,4 @@ const Founder = function () {
     );
 };
 
-export default Founder;
+export default withAuth(Founder);

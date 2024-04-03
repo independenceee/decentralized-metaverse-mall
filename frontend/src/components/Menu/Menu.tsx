@@ -6,7 +6,6 @@ import { Link } from "react-scroll";
 import configs from "@/configs";
 import { publicRoutes } from "@/routes";
 import styles from "./Menu.module.scss";
-import Modal from "../Modal";
 import ConnectWallet from "@/layouts/components/ConnectWallet";
 
 const cx = classNames.bind(styles);
@@ -29,8 +28,8 @@ function Menu({ open, setOpen }: Props) {
 
     return (
         <div
-            className={cx({
-                "menu-overlay": open,
+            className={cx("menu-overlay", {
+                active: open,
             })}
             onClick={hideOnClickOutside}
         >

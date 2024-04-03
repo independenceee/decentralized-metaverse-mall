@@ -1,11 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SuccessResponseWithPagination, Voucher, VoucherQueryConfig } from "./types";
-import { fetchBaseQueryConfig } from "../config/config";
+import { api } from "../common/api";
 
-export const vouchersApi = createApi({
-    reducerPath: "vouchersAPI",
-    baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
-    tagTypes: ["Vouchers"],
+export const vouchersApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getVoucherList: builder.query<SuccessResponseWithPagination<Voucher>, VoucherQueryConfig>({
             query: (queryParams) => {

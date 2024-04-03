@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import React, { useEffect, useMemo } from "react";
 import styles from "./Roadmap.module.scss";
 import Tippy from "@tippyjs/react/headless";
-import { RoadmapItem } from "@/redux/api/types";
+import { RoadmapItem } from "@/redux/services/types";
 import { useForm } from "react-hook-form";
 import {
     useAddRoadmapMutation,
@@ -12,7 +12,7 @@ import {
     useGetRoadmapByIdQuery,
     useGetRoadmapListQuery,
     useUpdateRoadmapMutation,
-} from "@/redux/api/roadmap.api";
+} from "@/redux/services/roadmap.api";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import Table from "@/components/Table";
@@ -73,7 +73,7 @@ const Roadmap = function () {
                         reset();
                     })
                     .catch((error) => {
-                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
+                        toast.warning("Failed to update roadmap");
                     });
             } else {
                 addRoadmap(body)
@@ -83,7 +83,7 @@ const Roadmap = function () {
                         toast.success("Add Roadmap successfully");
                     })
                     .catch((error) => {
-                        toast.error(JSON.parse(JSON.stringify(error.data.message)));
+                        toast.error("Failed to add new roadmap");
                     });
             }
         },

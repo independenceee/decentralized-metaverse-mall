@@ -1,11 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Category, VoucherCategory } from "./types";
-import { fetchBaseQueryConfig } from "../config/config";
+import { api } from "../common/api";
 
-export const categoriesApi = createApi({
-    reducerPath: "categoriesAPI",
-    baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
-    tagTypes: ["Categories"],
+export const categoriesApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getCategories: builder.query<Category[], void>({
             query: () => `/category`,
@@ -52,8 +48,6 @@ export const categoriesApi = createApi({
             }),
             invalidatesTags: [{ type: "Categories", id: "LIST" }],
         }),
-
-        
     }),
 });
 

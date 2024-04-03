@@ -6,7 +6,6 @@ import { Toaster } from "sonner";
 import Aos from "@/components/Aos";
 import ContextProvider from "@/contexts";
 import StoreProvider from "@/redux/provider";
-import Loading from "./(loading)/loading";
 
 const inner = Inter({ subsets: ["latin"] });
 
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const RootLayout = function ({ children }: Readonly<Props>) {
-    // return <Loading />;
     return (
         <html lang="en">
             <Aos />

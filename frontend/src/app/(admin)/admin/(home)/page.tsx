@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import styles from "./AdminHome.module.scss";
 import Card from "@/components/Card";
 import { privateRoutes } from "@/routes";
-import { useGetFounderListQuery, useGetFounderQuery } from "@/redux/api/founders.api";
+import { useGetFounderListQuery, useGetFounderQuery } from "@/redux/services/founders.api";
 import Link from "next/link";
 
 const cx = classNames.bind(styles);

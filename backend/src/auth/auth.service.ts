@@ -26,7 +26,16 @@ export class AuthService {
         });
         const tokens = await this.getTokens({ email: user.email, id: user.id, role: user.role });
         await this.updateRefreshToken({ dto: user, refreshToken: tokens.refreshToken });
-        return tokens;
+        return {
+            tokens,
+            user: {
+                id: user.id,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+                email: user.email,
+                role: user.role,
+            },
+        };
     }
 
     async login({ dto }: { dto: AuthDto }) {
@@ -38,7 +47,16 @@ export class AuthService {
         if (!checkPassword) throw new ForbiddenException("Permission access denied");
         const tokens = await this.getTokens({ id: user.id, email: user.email, role: user.role });
         await this.updateRefreshToken({ dto: user, refreshToken: tokens.refreshToken });
-        return tokens;
+        return {
+            tokens,
+            user: {
+                id: user.id,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+                email: user.email,
+                role: user.role,
+            },
+        };
     }
 
     async logout({ dto }: { dto: AuthDto }): Promise<boolean> {
@@ -53,10 +71,7 @@ export class AuthService {
         const user = await this.prisma.user.findFirst({
             where: { id: dto.id },
         });
-        console.log(user);
-
         if (!user || !user.refreshToken) throw new ForbiddenException("Permission access denied");
-        console.log(user);
         const refreshTokenHash = await argon.verify(user.refreshToken, dto.refreshToken);
         console.log(refreshTokenHash);
         if (!refreshTokenHash) throw new ForbiddenException("Permission access denied");

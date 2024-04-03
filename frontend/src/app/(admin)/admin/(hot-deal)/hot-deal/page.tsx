@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import styles from "./HotDeal.module.scss";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import { HotDeal } from "@/redux/api/types";
+import { HotDeal } from "@/redux/services/types";
 import { toast } from "sonner";
 import images from "@/assets/images";
 import Tippy from "@tippyjs/react/headless";
@@ -17,7 +17,7 @@ import {
     useGetHotDealListQuery,
     useGetHotDealQuery,
     useUpdateHotDealMutation,
-} from "@/redux/api/deals.api";
+} from "@/redux/services/deals.api";
 import Loading from "@/layouts/components/Loading";
 
 const cx = classNames.bind(styles);

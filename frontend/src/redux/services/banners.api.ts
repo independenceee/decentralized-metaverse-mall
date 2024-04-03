@@ -1,11 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Banner } from "./types";
-import { fetchBaseQueryConfig } from "../config/config";
 
-export const bannersApi = createApi({
-    reducerPath: "bannersAPI",
-    baseQuery: fetchBaseQuery(fetchBaseQueryConfig),
-    tagTypes: ["Banners"],
+import { Banner } from "./types";
+import { api } from "../common/api";
+
+export const bannersApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getBannerList: builder.query<Banner[], void>({
             query: () => `/banner`,

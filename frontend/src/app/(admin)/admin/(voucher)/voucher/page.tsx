@@ -6,7 +6,7 @@ import styles from "./AdminVoucher.module.scss";
 import Table from "@/components/Table";
 
 import Tippy from "@tippyjs/react/headless";
-import { useGetCategoriesQuery } from "@/redux/api/categories.api";
+import { useGetCategoriesQuery } from "@/redux/services/categories.api";
 import {
     useAddVoucherMutation,
     useDeleteVoucherMutation,
@@ -14,10 +14,10 @@ import {
     useGetVoucherQuery,
     usePrefetch,
     useUpdateVoucherMutation,
-} from "@/redux/api/vouchers.api";
+} from "@/redux/services/vouchers.api";
 import Upload from "@/components/Upload";
 import { useForm } from "react-hook-form";
-import { Category, Voucher, VoucherQueryConfig, VoucherStatus } from "@/redux/api/types";
+import { Category, Voucher, VoucherQueryConfig, VoucherStatus } from "@/redux/services/types";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { omit } from "lodash";
