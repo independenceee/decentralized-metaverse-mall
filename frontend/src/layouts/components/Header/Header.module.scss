@@ -7,7 +7,7 @@
     width: 100%;
     z-index: 10;
     & > .connect-wallet-button {
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01);
     }
 
     &.scrolled {
@@ -44,6 +44,10 @@
 .nav-list {
     display: flex;
     list-style-type: none;
+}
+
+.connect-wallet-button {
+    background-color: #311973;
 }
 
 @media (max-width: 991px) {
