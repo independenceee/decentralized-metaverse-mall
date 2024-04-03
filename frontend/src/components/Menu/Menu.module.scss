@@ -6,7 +6,7 @@
     background: (--primary-color);
     z-index: 1;
     display: none;
-    &.open {
+    &.active {
         display: block;
     }
 }
