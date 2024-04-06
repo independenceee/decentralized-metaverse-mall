@@ -9,7 +9,7 @@ import Tippy from "@tippyjs/react/headless";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useGetCategoriesQuery } from "@/redux/services/categories.api";
 
-import { Banner, Category } from "@/redux/services/types";
+import { Banner as BannerType, Category } from "@/redux/services/types";
 import images from "@/assets/images";
 import Loading from "@/layouts/components/Loading";
 import Table from "@/components/Table";
@@ -23,11 +23,12 @@ import {
     useUpdateBannerMutation,
 } from "@/redux/services/banners.api";
 import { omit } from "lodash";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
 type BannerFormData = {
-    [key in keyof Omit<Banner, "id" | "createdAt" | "updatedAt">]: string;
+    [key in keyof Omit<BannerType, "id" | "createdAt" | "updatedAt">]: string;
 };
 
 const initialFormData: BannerFormData = {
@@ -381,4 +382,4 @@ const Banner = function () {
     );
 };
 
-export default Banner;
+export default withAuth(Banner);

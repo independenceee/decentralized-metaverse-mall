@@ -5,10 +5,9 @@ import classNames from "classnames/bind";
 import styles from "./HotDeal.module.scss";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import { HotDeal } from "@/redux/services/types";
+import { HotDeal as HotDealType } from "@/redux/services/types";
 import { toast } from "sonner";
 import images from "@/assets/images";
-import Tippy from "@tippyjs/react/headless";
 import Table from "@/components/Table";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -19,11 +18,12 @@ import {
     useUpdateHotDealMutation,
 } from "@/redux/services/deals.api";
 import Loading from "@/layouts/components/Loading";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
 type HotDealFormData = {
-    [key in keyof Omit<HotDeal, "id" | "createdAt" | "updatedAt">]: string;
+    [key in keyof Omit<HotDealType, "id" | "createdAt" | "updatedAt">]: string;
 };
 
 const initialFormData: HotDealFormData = {
@@ -251,4 +251,4 @@ const HotDeal = function () {
     );
 };
 
-export default HotDeal;
+export default withAuth(HotDeal);

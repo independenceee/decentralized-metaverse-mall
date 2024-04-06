@@ -9,6 +9,7 @@ import { TransactionContextType } from "@/types/contexts/TransactionContextType"
 import TransactionContext from "@/contexts/components/TransactionContext";
 import { LucidContextType } from "@/types/contexts/LucidContextType";
 import LucidContext from "@/contexts/components/LucidContext";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -43,4 +44,4 @@ const AdminTransactionPage = function () {
     );
 };
 
-export default (AdminTransactionPage);
+export default withAuth(AdminTransactionPage);

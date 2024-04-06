@@ -1,28 +1,14 @@
 import { api } from "../common/api";
+import { AuthType } from "./types";
 
 export type LoginRequest = {
     email: string;
     password: string;
 };
 
-export type LoginResponse = {
-    accessToken: string;
-    refreshToken: string;
-};
-
-export type AuthUser = {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    email: string;
-    role: string | null;
-    password: string;
-    refreshToken: string;
-};
-
 const authApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        login: builder.mutation<LoginResponse, LoginRequest>({
+        login: builder.mutation<AuthType, LoginRequest>({
             query: (body) => ({
                 url: "/auth/login",
                 method: "POST",
@@ -37,11 +23,7 @@ const authApi = api.injectEndpoints({
                 body,
             }),
         }),
-        getAuthUser: builder.query<AuthUser[], void>({
-            query: () => "/user",
-            providesTags: [{ type: "User", id: "Auth" }],
-        }),
     }),
 });
-export const { useLoginMutation, useLogoutMutation, useGetAuthUserQuery } = authApi;
+export const { useLoginMutation, useLogoutMutation } = authApi;
 export default authApi;

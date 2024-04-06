@@ -5,6 +5,7 @@ import classNames from "classnames/bind";
 import Table from "@/components/Table";
 import styles from "./AdminAccount.module.scss";
 import { get } from "@/utils/httpRequest";
+import withAuth from "@/HOC/withAuth";
 
 type Props = {};
 
@@ -50,4 +51,4 @@ const AdminAccountPage = function ({}: Props) {
     );
 };
 
-export default AdminAccountPage;
+export default withAuth(AdminAccountPage);

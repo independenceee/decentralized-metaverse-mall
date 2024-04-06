@@ -6,7 +6,7 @@ import styles from "./Founder.module.scss";
 import Tippy from "@tippyjs/react/headless";
 import Link from "next/link";
 import FounderCard from "@/layouts/components/Founder";
-import { Founder } from "@/redux/services/types";
+import { Founder as FounderType } from "@/redux/services/types";
 import images from "@/assets/images";
 import Image from "next/image";
 import icons from "@/assets/icons";
@@ -26,7 +26,7 @@ import withAuth from "@/HOC/withAuth";
 const cx = classNames.bind(styles);
 
 type FounderFormData = {
-    [key in keyof Omit<Founder, "id" | "createdAt" | "updatedAt">]: string;
+    [key in keyof Omit<FounderType, "id" | "createdAt" | "updatedAt">]: string;
 };
 
 const initialFormData: FounderFormData = {
@@ -67,7 +67,7 @@ const Founder = function () {
     });
 
     const [fileAvatar, setFileAvatar] = useState<File>(null!);
-    const [searchResult, setSearchResult] = useState<Founder[] | null>(null);
+    const [searchResult, setSearchResult] = useState<FounderType[] | null>(null);
     const [activeFilter, setActiveFilter] = useState<boolean>(false);
     const [avatar, setAvatar] = useState<string>("");
 
@@ -436,7 +436,7 @@ const Founder = function () {
                 {getFounderListSuccess && (
                     <>
                         {founders.length > 0 ? (
-                            (searchResult || (filteredFounders as Founder[])).map((founder, index) => (
+                            (searchResult || (filteredFounders as FounderType[])).map((founder, index) => (
                                 <FounderCard onDelete={handleDeleteFounder} founder={founder} key={index} />
                             ))
                         ) : (

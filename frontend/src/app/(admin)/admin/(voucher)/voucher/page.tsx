@@ -23,6 +23,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { omit } from "lodash";
 import Loading from "@/layouts/components/Loading";
 import useQueryString from "@/hooks/useQueryString";
+import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -557,4 +558,4 @@ const AdminVoucherPage = function () {
     );
 };
 
-export default AdminVoucherPage;
+export default withAuth(AdminVoucherPage);

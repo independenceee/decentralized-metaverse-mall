@@ -6,6 +6,19 @@
     background: var(--admin-primary-color);
     border: 1px solid var(--admin-border-color);
 }
+.connect-wallet-button {
+    background: var(--admin-secondary-color) !important;
+    color: var(--white-color);
+    transition: all 0.3s;
+    &:hover,
+    &:focus {
+        background: var(--admin-hovered-background-color) !important;
+    }
+}
+
+.modal-wallet {
+    background: var(--admin-secondary-color) !important;
+}
 
 .left {
     display: flex;

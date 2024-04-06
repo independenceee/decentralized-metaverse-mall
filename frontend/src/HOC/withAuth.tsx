@@ -20,15 +20,15 @@ const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
             return values(routes.private);
         }, []);
 
-        useEffect(() => {
-            if (isAuthenticated) {
-                router.replace(pathname);
-            } else if (!isAuthenticated && privateRoutes.includes(pathname as PrivateRouteType)) {
-                redirect("/login");
-            }
+        if (isAuthenticated) {
+            router.replace(pathname);
+        } else if (!isAuthenticated && privateRoutes.includes(pathname as PrivateRouteType)) {
+            redirect("/login");
+        }
 
+        useEffect(() => {
             if (isAuthenticated && pathname === "/login") {
-                router.replace("/admin");
+                router.replace("admin");
             }
         }, [isAuthenticated, pathname, privateRoutes, router]);
 

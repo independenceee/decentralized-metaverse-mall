@@ -64,6 +64,22 @@ export enum UserRole {
     Admin = "admin",
 }
 
+export interface User {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    email: string;
+    role: UserRole | null;
+}
+
+export interface AuthType {
+    tokens: {
+        accessToken: string;
+        refreshToken: string;
+    };
+    user: User;
+}
+
 export interface Banner {
     id?: string;
     createdAt?: string;

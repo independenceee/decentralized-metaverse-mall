@@ -6,14 +6,15 @@ import styles from "./Login.module.scss";
 import Image from "next/image";
 import icons from "@/assets/icons";
 import { useForm } from "react-hook-form";
-import { useGetAuthUserQuery, useLoginMutation } from "@/redux/services/auth.api";
+import { useLoginMutation } from "@/redux/services/auth.api";
 import { addCredentialsToLS } from "@/utils/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/redux/features/auth/auth.slice";
 import { RootState } from "@/redux/store";
 import withAuth from "@/HOC/withAuth";
+import { AuthType } from "@/redux/services/types";
+import { setCredentials } from "@/redux/features/auth/auth.slice";
 
 const cx = classNames.bind(styles);
 
@@ -30,9 +31,6 @@ const initialLoginFormBody: LoginFormBody = {
 const Login = function () {
     const user = !!useSelector((state: RootState) => state.auth.user);
     const [login, { isSuccess: isLoginSuccess, isLoading: isLoginLoading }] = useLoginMutation();
-    const { data: authUserArr, isSuccess: getUserSuccess } = useGetAuthUserQuery(undefined, {
-        skip: isLoginSuccess,
-    });
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -50,23 +48,8 @@ const Login = function () {
         })
             .unwrap()
             .then((data) => {
-                addCredentialsToLS(data);
-                if (getUserSuccess && authUserArr.length > 0) {
-                    const authUser = authUserArr[1];
-                    dispatch(setUser({ user: authUser }));
-                    localStorage.setItem(
-                        "user",
-                        JSON.stringify({
-                            id: "",
-                            createdAt: "",
-                            updatedAt: "",
-                            email: "",
-                            role: null,
-                            password: "",
-                            refreshToken: "",
-                        }),
-                    );
-                }
+                addCredentialsToLS({ ...data });
+                dispatch(setCredentials({ ...data }));
             })
 
             .catch((e) => {
@@ -138,7 +121,7 @@ const Login = function () {
                             </button>
                         </div>
                         <div className={cx("input-field")}>
-                            <input disabled={isLoginLoading} type="submit" className={cx("login-button")} defaultValue="Login" />
+                            <input disabled={isLoginLoading} type="submit" value={"Login"} className={cx("login-button")} />
                         </div>
                     </form>
                 </div>
