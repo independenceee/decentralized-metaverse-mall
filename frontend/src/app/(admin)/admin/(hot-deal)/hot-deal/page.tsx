@@ -18,7 +18,6 @@ import {
     useUpdateHotDealMutation,
 } from "@/redux/services/deals.api";
 import Loading from "@/layouts/components/Loading";
-import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -251,4 +250,4 @@ const HotDeal = function () {
     );
 };
 
-export default withAuth(HotDeal);
+export default HotDeal;

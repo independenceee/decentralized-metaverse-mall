@@ -23,7 +23,6 @@ import {
     useUpdateBannerMutation,
 } from "@/redux/services/banners.api";
 import { omit } from "lodash";
-import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -57,9 +56,9 @@ const Banner = function () {
     });
 
     const { data: banner } = useGetBannerQuery(id || "", {
-        skip: !id,
+        skip: !Boolean(id),
     });
-
+    console.log("Re-rendered");
     const { data: categories, isSuccess: isGetCategoriesSuccess } = useGetCategoriesQuery();
     const { data: banners, isLoading: isBannerListLoading, isSuccess: isGetBannerListSuccess } = useGetBannerListQuery();
     const [addBanner, { isLoading: isAddBannerLoading }] = useAddBannerMutation();
@@ -113,6 +112,7 @@ const Banner = function () {
                 toast.success("Delete banner successfully");
             })
             .catch((error) => {
+                console.log(error);
                 toast.warning("Delete banner failed");
             });
     };
@@ -159,7 +159,9 @@ const Banner = function () {
                         reset();
                     })
                     .catch((error) => {
-                        toast.warning("Banner cannot be added to the same category");
+                        console.log(error);
+                        // toast.warning("Banner cannot be added to the same category");
+                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
                     });
             }
         },
@@ -382,4 +384,4 @@ const Banner = function () {
     );
 };
 
-export default withAuth(Banner);
+export default Banner;

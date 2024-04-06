@@ -19,7 +19,6 @@ import {
     useUpdateCategoryMutation,
 } from "@/redux/services/categories.api";
 import Loading from "@/layouts/components/Loading";
-import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -298,4 +297,4 @@ const CategoryPage = function () {
     );
 };
 
-export default withAuth(CategoryPage);
+export default CategoryPage;

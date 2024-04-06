@@ -17,7 +17,6 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import Table from "@/components/Table";
 import Loading from "@/layouts/components/Loading";
-import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -221,4 +220,4 @@ const Roadmap = function () {
     );
 };
 
-export default withAuth(Roadmap);
+export default Roadmap;

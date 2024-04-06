@@ -451,4 +451,4 @@ const Founder = function () {
     );
 };
 
-export default withAuth(Founder);
+export default Founder;

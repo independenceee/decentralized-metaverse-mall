@@ -7,7 +7,6 @@ import Card from "@/components/Card";
 import { privateRoutes } from "@/routes";
 import { useGetFounderListQuery, useGetFounderQuery } from "@/redux/services/founders.api";
 import Link from "next/link";
-import withAuth from "@/HOC/withAuth";
 
 const cx = classNames.bind(styles);
 
@@ -75,4 +74,4 @@ const AdminHomePage = function () {
     );
 };
 
-export default withAuth(AdminHomePage);
+export default AdminHomePage;
