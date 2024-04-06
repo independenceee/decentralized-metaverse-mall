@@ -17,6 +17,8 @@ import Link from "next/link";
 import WalletContext from "@/contexts/components/WalletContext";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
 import { toast } from "sonner";
+import { ModalContextType } from "@/types/contexts/ModalContextType";
+import ModalContext from "@/contexts/components/ModalContext";
 
 const cx = classNames.bind(styles);
 
@@ -30,10 +32,11 @@ type Props = {
 const ConnectWallet = function ({ isActive, className, classNameButton, classNameModal }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
-    const { isShowing: isShowingWalletLong, toggle: toggleWalletLong } = useModal();
     const { isShowing: isShowingNotificationDownload, toggle: toggleNotificationDownload } = useModal();
     const { lucid } = useContext<LucidContextType>(LucidContext);
-    const { wallet, loading, connectWallet, disconnectWallet, refreshWallet } = useContext<WalletContextType>(WalletContext);
+    const { wallet, setWallet, loading, connectWallet, disconnectWallet, refreshWallet } = useContext<WalletContextType>(WalletContext);
+
+    const { isShowingWalletLong, toggleWalletLong } = useContext<ModalContextType>(ModalContext);
 
     useEffect(() => {
         const handleScroll = function () {
@@ -51,6 +54,7 @@ const ConnectWallet = function ({ isActive, className, classNameButton, classNam
     const handleConnectWallet = async function (wallet: WalletType) {
         try {
             if (!(await wallet.checkApi())) {
+                setWallet(wallet);
                 toggleNotificationDownload();
                 return;
             }
