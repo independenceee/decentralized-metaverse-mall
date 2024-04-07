@@ -2,7 +2,7 @@
 
 import { values } from "lodash";
 import { redirect, usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import routes from "@/configs/routes";
@@ -20,17 +20,17 @@ const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
             return values(routes.private);
         }, []);
 
-        useEffect(() => {
-            if (isAuthenticated) {
-                router.replace(pathname);
-            } else if (!isAuthenticated && privateRoutes.includes(pathname as PrivateRouteType)) {
-                redirect("/login");
-            }
+        if (isAuthenticated) {
+            router.replace(pathname);
+        } else if (!isAuthenticated && privateRoutes.includes(pathname as PrivateRouteType)) {
+            redirect("/login");
+        }
 
+        useEffect(() => {
             if (isAuthenticated && pathname === "/login") {
-                router.replace("/admin");
+                router.push("/admin");
             }
-        }, [isAuthenticated, pathname, privateRoutes, router]);
+        }, [isAuthenticated, pathname, router]);
 
         return <Component {...props} />;
     };

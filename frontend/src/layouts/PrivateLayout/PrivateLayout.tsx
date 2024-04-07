@@ -18,7 +18,6 @@ type Props = {
 const PrivateLayout = function ({ children }: Props) {
     const pathname = usePathname();
     const [selectedRouter, setSelectedRouter] = useState<string>("home");
-
     useEffect(() => {
         const router = pathname.replace("/admin/", "");
 
@@ -40,4 +39,4 @@ const PrivateLayout = function ({ children }: Props) {
     );
 };
 
-export default PrivateLayout;
+export default withAuth(PrivateLayout);

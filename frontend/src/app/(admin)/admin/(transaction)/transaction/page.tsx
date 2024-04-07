@@ -43,4 +43,4 @@ const AdminTransactionPage = function () {
     );
 };
 
-export default (AdminTransactionPage);
+export default AdminTransactionPage;

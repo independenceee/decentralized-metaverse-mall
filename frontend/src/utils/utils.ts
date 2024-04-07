@@ -1,8 +1,10 @@
-import { LoginResponse } from "@/redux/services/auth.api";
+import { AuthType } from "@/redux/services/types";
 
-export const addCredentialsToLS = ({ accessToken, refreshToken }: LoginResponse) => {
+export const addCredentialsToLS = ({ tokens, user }: AuthType) => {
+    const { accessToken, refreshToken } = tokens;
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("user", JSON.stringify(user));
 };
 
 export const removeCredentialsFromLS = () => {

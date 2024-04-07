@@ -17,21 +17,26 @@ import Link from "next/link";
 import WalletContext from "@/contexts/components/WalletContext";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
 import { toast } from "sonner";
+import { ModalContextType } from "@/types/contexts/ModalContextType";
+import ModalContext from "@/contexts/components/ModalContext";
 
 const cx = classNames.bind(styles);
 
 type Props = {
     isActive?: boolean;
     className?: string;
+    classNameButton?: string;
+    classNameModal?: string;
 };
 
-const ConnectWallet = function ({ isActive, className }: Props) {
+const ConnectWallet = function ({ isActive, className, classNameButton, classNameModal }: Props) {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isOpenShowWallet, setIsOpenShowWallet] = useState<boolean>(false);
-    const { isShowing: isShowingWalletLong, toggle: toggleWalletLong } = useModal();
     const { isShowing: isShowingNotificationDownload, toggle: toggleNotificationDownload } = useModal();
     const { lucid } = useContext<LucidContextType>(LucidContext);
-    const { wallet, loading, connectWallet, disconnectWallet, refreshWallet } = useContext<WalletContextType>(WalletContext);
+    const { wallet, setWallet, loading, connectWallet, disconnectWallet, refreshWallet } = useContext<WalletContextType>(WalletContext);
+
+    const { isShowingWalletLong, toggleWalletLong } = useContext<ModalContextType>(ModalContext);
 
     useEffect(() => {
         const handleScroll = function () {
@@ -49,6 +54,7 @@ const ConnectWallet = function ({ isActive, className }: Props) {
     const handleConnectWallet = async function (wallet: WalletType) {
         try {
             if (!(await wallet.checkApi())) {
+                setWallet(wallet);
                 toggleNotificationDownload();
                 return;
             }
@@ -70,7 +76,7 @@ const ConnectWallet = function ({ isActive, className }: Props) {
                     loading={loading}
                     onClick={handleOpenShowWallet}
                     RightIcon={ArrowDownIcon}
-                    className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
+                    className={cx("connect-wallet", classNameButton, { scrolled: isScrolled || isActive })}
                 >
                     <div className={cx("connected-wallet-container")}>
                         <Image className={cx("wallet-short-image")} src={wallet?.image} alt="" />
@@ -78,7 +84,7 @@ const ConnectWallet = function ({ isActive, className }: Props) {
                     </div>
 
                     {isOpenShowWallet && (
-                        <div className={cx("show-wallet-wrapper", { scrolled: isScrolled || isActive })}>
+                        <div className={cx("show-wallet-wrapper", classNameModal, { scrolled: isScrolled || isActive })}>
                             <CopyToClipboard text={String(wallet?.address)} onCopy={() => toast("Coppied to your clipboard!")}>
                                 <div className={cx("show-wallet-item")}>
                                     <h3 className={cx("show-wallet-name")}>Address: </h3>
@@ -128,14 +134,14 @@ const ConnectWallet = function ({ isActive, className }: Props) {
                     loading={loading}
                     onClick={toggleWalletLong}
                     RightIcon={ArrowDownIcon}
-                    className={cx("connect-wallet", { scrolled: isScrolled || isActive })}
+                    className={cx("connect-wallet", classNameButton, { scrolled: isScrolled || isActive })}
                 >
                     {!loading && "Connect wallet"}
                 </Button>
             )}
 
             <Modal isShowing={isShowingWalletLong} toggle={toggleWalletLong}>
-                <div className={cx("wallet-long-wrapper")}>
+                <div className={cx("wallet-long-wrapper", classNameModal)}>
                     <header className={cx("wallet-long-header")}>
                         <h2 className={cx("wallet-long-title")}>Select wallet to connect</h2>
                         <div className={cx("wallet-long-close")} onClick={toggleWalletLong}>

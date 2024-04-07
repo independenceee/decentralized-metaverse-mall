@@ -1,34 +1,28 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { getValueFromLS } from "@/utils/utils";
-import { AuthUser } from "@/redux/services/auth.api";
+import { AuthType, User } from "@/redux/services/types";
 
-type AuthType = {
-    user: AuthUser | null;
-    accessToken: string | null;
-    refreshToken: string | null;
-};
-
-const accessToken = getValueFromLS("accessToken");
-const refreshToken = getValueFromLS("refreshToken");
+const accessToken = getValueFromLS("accessToken") || "";
+const refreshToken = getValueFromLS("refreshToken") || "";
 const user = getValueFromLS("user") !== null ? JSON.parse(getValueFromLS("user") || "") : null;
 
 const initialState: AuthType = {
     user,
-    accessToken,
-    refreshToken,
+    tokens: {
+        accessToken,
+        refreshToken,
+    },
 };
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<Pick<AuthType, "user">>) => {
+        setCredentials: (state, action: PayloadAction<AuthType>) => {
+            const { accessToken, refreshToken } = action.payload.tokens;
+            state.tokens.accessToken = accessToken;
+            state.tokens.refreshToken = refreshToken;
             state.user = action.payload.user;
-        },
-        setCredentials: (state, action: PayloadAction<Omit<AuthType, "user">>) => {
-            const { accessToken, refreshToken } = action.payload;
-            state.accessToken = accessToken;
-            state.refreshToken = refreshToken;
         },
         logOut: (state, action: PayloadAction<void>) => {
             state = initialState;
@@ -36,6 +30,6 @@ const authSlice = createSlice({
     },
 });
 
-export const { setCredentials, setUser, logOut } = authSlice.actions;
+export const { setCredentials, logOut } = authSlice.actions;
 const authReducer = authSlice.reducer;
 export default authReducer;

@@ -37,7 +37,7 @@ const HotDeal = function () {
                     <Image
                         width={99999999}
                         height={99999999}
-                        src={hotdeal ? `${process.env.PUBLIC_IMAGES_DOMAIN}/dealhot/${hotdeal[0]?.image}` : images.hotDeal}
+                        src={hotdeal && hotdeal.length > 0 ? `${process.env.PUBLIC_IMAGES_DOMAIN}/dealhot/${hotdeal[0].image}` : images.hotDeal}
                         alt="hot deal"
                         className={cx("image")}
                     />

@@ -9,7 +9,7 @@ import Tippy from "@tippyjs/react/headless";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useGetCategoriesQuery } from "@/redux/services/categories.api";
 
-import { Banner, Category } from "@/redux/services/types";
+import { Banner as BannerType, Category } from "@/redux/services/types";
 import images from "@/assets/images";
 import Loading from "@/layouts/components/Loading";
 import Table from "@/components/Table";
@@ -27,7 +27,7 @@ import { omit } from "lodash";
 const cx = classNames.bind(styles);
 
 type BannerFormData = {
-    [key in keyof Omit<Banner, "id" | "createdAt" | "updatedAt">]: string;
+    [key in keyof Omit<BannerType, "id" | "createdAt" | "updatedAt">]: string;
 };
 
 const initialFormData: BannerFormData = {
@@ -56,9 +56,9 @@ const Banner = function () {
     });
 
     const { data: banner } = useGetBannerQuery(id || "", {
-        skip: !id,
+        skip: !Boolean(id),
     });
-
+    console.log("Re-rendered");
     const { data: categories, isSuccess: isGetCategoriesSuccess } = useGetCategoriesQuery();
     const { data: banners, isLoading: isBannerListLoading, isSuccess: isGetBannerListSuccess } = useGetBannerListQuery();
     const [addBanner, { isLoading: isAddBannerLoading }] = useAddBannerMutation();
@@ -112,6 +112,7 @@ const Banner = function () {
                 toast.success("Delete banner successfully");
             })
             .catch((error) => {
+                console.log(error);
                 toast.warning("Delete banner failed");
             });
     };
@@ -158,7 +159,9 @@ const Banner = function () {
                         reset();
                     })
                     .catch((error) => {
-                        toast.warning("Banner cannot be added to the same category");
+                        console.log(error);
+                        // toast.warning("Banner cannot be added to the same category");
+                        toast.warning(JSON.parse(JSON.stringify(error.data.message)));
                     });
             }
         },
