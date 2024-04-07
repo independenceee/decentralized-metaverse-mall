@@ -52,6 +52,7 @@ const baseQueryWithAuth = async (args: string | FetchArgs, api: BaseQueryApi, ex
         } else {
             api.dispatch(logOut());
             removeCredentialsFromLS();
+            window.location.replace("/login");
         }
     }
 
