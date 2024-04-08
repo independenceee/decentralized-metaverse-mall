@@ -20,17 +20,18 @@ const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
             return values(routes.private);
         }, []);
 
-        if (isAuthenticated) {
-            router.replace(pathname);
-        } else if (!isAuthenticated && privateRoutes.includes(pathname as PrivateRouteType)) {
-            redirect("/login");
-        }
-
         useEffect(() => {
-            if (isAuthenticated && pathname === "/login") {
-                router.push("/admin");
+            if (isAuthenticated) {
+                if (pathname === "/login") {
+                    router.push("/admin");
+                } else {
+                    router.replace(pathname);
+                }
+            } else if (!isAuthenticated && privateRoutes.includes(pathname as PrivateRouteType)) {
+                redirect("/login");
             }
-        }, [isAuthenticated, pathname, router]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [isAuthenticated, pathname, privateRoutes]);
 
         return <Component {...props} />;
     };

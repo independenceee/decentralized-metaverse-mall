@@ -102,6 +102,7 @@ const Roadmap = function () {
                 toast.error("Failed to delete roadmap");
             });
     };
+
     const handleClearForm = function () {
         reset();
     };
@@ -167,7 +168,9 @@ const Roadmap = function () {
                         <div className={cx("buttons-wrapper")}>
                             {getRoadmapSuccess && roadmap ? (
                                 <>
-                                    <button className={cx("button", "cancel-button")}>Cancel</button>
+                                    <button type="button" className={cx("button", "cancel-button")}>
+                                        Cancel
+                                    </button>
                                     <button className={cx("button", "save-button")}>Save</button>
                                 </>
                             ) : (
