@@ -12,6 +12,7 @@ import { useModal } from "@/hooks";
 import Modal from "../Modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import useQueryString from "@/hooks/useQueryString";
+import Link from "next/link";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
@@ -75,15 +76,9 @@ export default function CustomTable({
     onSend,
 }: Props) {
     const { pathname: URL_PATH_NAME, params, router } = useQueryString();
-    const { replace } = useRouter();
+    const { push } = useRouter();
     const { isShowing, toggle } = useModal();
     if (!data) return;
-
-    const handleEditItem = (id: string) => {
-        if (type === "MANUAL") {
-            replace(`/admin/${pathname}?id=${id}`);
-        }
-    };
 
     const handleChangePage = function (event: React.ChangeEvent<unknown>, page: number) {
         params.set("page", String(page));
@@ -159,9 +154,9 @@ export default function CustomTable({
                                                     trigger="mouseenter"
                                                     content={
                                                         <ul className={cx("dropdown-menu")}>
-                                                            <li className={cx("menu-item")} onClick={() => handleEditItem(rows[titles[0]])}>
+                                                            <Link className={cx("menu-item")} href={`/admin/${pathname}?id=${rows[titles[0]]}`}>
                                                                 Edit
-                                                            </li>
+                                                            </Link>
                                                             <li className={cx("menu-item")} onClick={() => onDelete(rows[titles[0]])}>
                                                                 Delete
                                                             </li>
