@@ -13,6 +13,7 @@ import Modal from "../Modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import useQueryString from "@/hooks/useQueryString";
 import Link from "next/link";
+import { toast } from "sonner";
 const cx = classNames.bind(styles);
 
 const CustomPagination = styled(Pagination)({
@@ -87,6 +88,15 @@ export default function CustomTable({
         });
     };
 
+    const handleDeleteItem = function (id: string) {
+        if (params.toString().includes("id")) {
+            toast.warning("You are editing...");
+            return;
+        } else {
+            onDelete(id);
+        }
+    };
+
     const titles = (data[0] && Object.keys(data[0])) || [];
 
     return (
@@ -157,7 +167,11 @@ export default function CustomTable({
                                                             <Link className={cx("menu-item")} href={`/admin/${pathname}?id=${rows[titles[0]]}`}>
                                                                 Edit
                                                             </Link>
-                                                            <li className={cx("menu-item")} onClick={() => onDelete(rows[titles[0]])}>
+                                                            <li
+                                                                role="button"
+                                                                className={cx("menu-item")}
+                                                                onClick={() => handleDeleteItem(rows[titles[0]])}
+                                                            >
                                                                 Delete
                                                             </li>
                                                         </ul>
