@@ -4,7 +4,7 @@ import styles from "./Title.module.scss";
 
 type Props = {
     title: string;
-    subTitle: string;
+    subTitle?: string;
 };
 
 const cx = classNames.bind(styles);
@@ -15,7 +15,7 @@ const Title = function ({ title, subTitle }: Props) {
             <div className={cx("container")}>
                 <div className={cx("inner")}>
                     <h2 className={cx("title")}>{title}</h2>
-                    <p className={cx("description")}>{subTitle}</p>
+                    {subTitle && <p className={cx("description")}>{subTitle}</p>}
                 </div>
             </div>
         </div>

@@ -104,7 +104,7 @@ const FounderCard = function ({ founder, onDelete }: Props) {
                 <div className={cx("buttons-wrapper")}>
                     {/* Note: env */}
                     <Link
-                        href={`${process.env.NODE_ENV === "production" ? "" : "http://localhost:3000/admin"}/founder?id=${founder.id}`}
+                        href={`${process.env.NODE_ENV === "production" ? "" : "http://localhost:3000/admin"}/admin/founder?id=${founder.id}`}
                         className={cx("button", "edit-button")}
                     >
                         <span>Edit</span>
