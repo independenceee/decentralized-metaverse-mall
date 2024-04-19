@@ -3,28 +3,24 @@
 import classNames from "classnames/bind";
 import React, { useState } from "react";
 import styles from "./HotDeal.module.scss";
-import Image from "next/image";
-import icons from "@/assets/icons";
 
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useSendEmailMutation } from "@/redux/services/email.api";
+import { Email } from "@/redux/services/types";
+import { toast } from "sonner";
 
-type FormData = {
-    email: string;
-    name: string;
-};
-
+type FormData = Pick<Email, "from" | "to" | "text">;
 const initialFormData: FormData = {
-    email: "",
-    name: "",
+    from: "",
+    text: "",
+    to: "",
 };
 
 const cx = classNames.bind(styles);
 
 const HotDeal = function () {
     const [open, setOpen] = useState<boolean>(true);
-
+    const [sendEmail, sendEmailResult] = useSendEmailMutation();
     const closeHotDeal = function (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         e.stopPropagation();
         setOpen(false);
@@ -38,9 +34,18 @@ const HotDeal = function () {
         defaultValues: initialFormData,
     });
 
-    const onSubmit = handleSubmit((data) => {
-        console.log(data);
+    const onSubmit = handleSubmit((body) => {
+        sendEmail({
+            ...body,
+            from: "nguyenkhanh17112003@gmail.com",
+        })
+            .unwrap()
+            .then(() => {
+                toast.success("Send email successfully");
+            })
+            .catch(console.log);
     });
+
     return (
         <div
             className={cx("overlay", {
@@ -80,10 +85,10 @@ const HotDeal = function () {
                             <div className={cx("input-field")}>
                                 <input
                                     placeholder="Full name"
-                                    {...register("name", {
+                                    {...register("text", {
                                         required: {
                                             value: true,
-                                            message: "Password is required",
+                                            message: "Please enter a full name",
                                         },
                                     })}
                                     className={cx("input")}
@@ -105,14 +110,14 @@ const HotDeal = function () {
                                     </svg>
                                 </span>
                             </div>
-                            <div className={cx("error-message")}>{errors?.name?.message}</div>
+                            <div className={cx("error-message")}>{errors?.text?.message}</div>
                             <div className={cx("input-field")}>
                                 <input
                                     placeholder="Email"
-                                    {...register("email", {
+                                    {...register("to", {
                                         required: {
                                             value: true,
-                                            message: "Email is required",
+                                            message: "Please enter your email",
                                         },
                                         pattern: {
                                             value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/,
@@ -139,7 +144,7 @@ const HotDeal = function () {
                                     </svg>
                                 </span>
                             </div>
-                            <div className={cx("error-message")}>{errors?.email?.message}</div>
+                            <div className={cx("error-message")}>{errors?.to?.message}</div>
 
                             <div className={cx("input-field")}>
                                 <input type="submit" value={"Confirm"} className={cx("confirm-button")} />
