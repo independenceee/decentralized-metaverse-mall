@@ -15,17 +15,35 @@ export class AuthService {
 
     async register({ dto }: { dto: AuthDto }) {
         const hash = await argon.hash(dto.password);
+
         const existUser = await this.prisma.user.findUnique({
-            where: { email: dto.email },
+            where: {
+                email: dto.email,
+            },
         });
+
         if (existUser) {
             throw new ForbiddenException("Email address already exists");
         }
+
         const user = await this.prisma.user.create({
-            data: { email: dto.email, password: hash },
+            data: {
+                email: dto.email,
+                password: hash,
+            },
         });
-        const tokens = await this.getTokens({ email: user.email, id: user.id, role: user.role });
-        await this.updateRefreshToken({ dto: user, refreshToken: tokens.refreshToken });
+
+        const tokens = await this.getTokens({
+            email: user.email,
+            id: user.id,
+            role: user.role,
+        });
+
+        await this.updateRefreshToken({
+            dto: user,
+            refreshToken: tokens.refreshToken,
+        });
+
         return {
             tokens,
             user: {
