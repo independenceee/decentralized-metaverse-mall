@@ -15,9 +15,9 @@ const Footer = function ({}: Props) {
                 <div className={cx("inner")}>
                     <div className={cx("left")}>
                         <p className={cx("title")}>
-                            © Cryptoz all Rights Reserved theme by{" "}
-                            <Link className={cx("link")} href="https://TemplatesCoder.com/" target="_blank" title="TemplatesCoder">
-                                TemplatesCoder
+                            © DMM is funded by Catalyst and built on the{" "}
+                            <Link className={cx("link")} href="https://cardano.org/" target="_blank" title="TemplatesCoder">
+                                Cardano blockchain
                             </Link>
                         </p>
                     </div>

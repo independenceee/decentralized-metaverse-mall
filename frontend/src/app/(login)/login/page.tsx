@@ -24,8 +24,8 @@ type LoginFormBody = {
 };
 
 const initialLoginFormBody: LoginFormBody = {
-    email: "nguyenkhanh17112003@gmail.com",
-    password: "kh17112003",
+    email: "admin@dmm.io.vn",
+    password: "12345678",
 };
 
 const Login = function () {
@@ -100,11 +100,11 @@ const Login = function () {
                                         value: true,
                                         message: "Password is required",
                                     },
-                                    min: {
+                                    minLength: {
                                         value: 6,
                                         message: "Password must be at least 6 characters",
                                     },
-                                    max: {
+                                    maxLength: {
                                         value: 30,
                                         message: "Password must be at most 30 characters",
                                     },

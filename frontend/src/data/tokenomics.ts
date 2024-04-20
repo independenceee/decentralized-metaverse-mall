@@ -13,7 +13,7 @@ const tokenomics: TokenomicType[] = [
         tokens: 96000000,
         tokenName: "C2E",
         percentage: 8,
-        forDepartment: "Strategic Sale",
+        forDepartment: "Community Sale",
     },
     {
         id: 3,
@@ -34,14 +34,14 @@ const tokenomics: TokenomicType[] = [
         tokens: 360000000,
         tokenName: "C2E",
         percentage: 30,
-        forDepartment: "Game Rewards",
+        forDepartment: "Buyer Rewards",
     },
     {
         id: 6,
         tokens: 264000000,
         tokenName: "C2E",
         percentage: 22,
-        forDepartment: "Ecosystem Fun",
+        forDepartment: "Ecosystem",
     },
     {
         id: 7,

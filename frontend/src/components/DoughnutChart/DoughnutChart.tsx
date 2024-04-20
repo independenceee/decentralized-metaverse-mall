@@ -56,11 +56,11 @@ function DoughnutChart({ data }: Props) {
                     <div className={cx("content-wrapper")} data-aos="fade-right">
                         <div>
                             <div className={cx("content-header")}>
-                                <h2 className={cx("title")}>Token Sale</h2>
-                                <p className={cx("description")}>Breakdown of our Token Recipients.</p>
+                                <h2 className={cx("title")}>Token Sales</h2>
+                                <p className={cx("description")}>Breakdown of Our Token Recipients.</p>
                             </div>
                             <div className={cx("content-body")}>
-                                The coin used in DMM is C2E token. The total supply is 1.200.000.000 C2E tokes distributed as below:
+                                The coin used in DMM is the C2E token. The total supply is 1,200,000,000 C2E tokens distributed as follows:
                             </div>
                         </div>
                         <ul className={cx("statistic-wrapper")}>

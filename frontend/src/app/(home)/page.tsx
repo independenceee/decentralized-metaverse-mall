@@ -15,7 +15,6 @@ import styles from "./Home.module.scss";
 import Contact from "@/components/Contact";
 import Faqs from "@/components/Faqs";
 import tokenomics from "@/data/tokenomics";
-// import roadmaps from "@/data/roadmap";
 import Sponsors from "@/components/Sponsors";
 import sponsors from "@/data/sponsors";
 import VoucherCategories from "@/components/VoucherCategories";
@@ -54,7 +53,7 @@ const HomePage = function () {
             </Element>
             <Element name="services" className={cx("service-wrapper")}>
                 <div className={cx("title-wrapper")}>
-                    <Title title="Services" subTitle="We Translate Your Dream Into Reality" />
+                    <Title title="Services" />
                 </div>
                 <div className={cx("service-container")}>
                     {services.map(function (service: ServiceType, index: number) {
@@ -67,12 +66,12 @@ const HomePage = function () {
             </Element>
             <Element name="roadmap" className={cx("roadmap-wrapper")}>
                 <div className={cx("title-wrapper")}>
-                    <Title title="Roadmap" subTitle="Emergence and design of the idea" />
+                    <Title title="Roadmap" />
                 </div>
                 {roadmaps && <Timeline roadmaps={roadmaps} />}
             </Element>
             <Element name="team" className={cx("team-wrapper")}>
-                <Title title="Executive Team" subTitle="Emergence and design of the idea" />
+                <Title title="Executive Team" />
                 <div className={cx("team-container")}>
                     {isFetching ? (
                         <span></span>
@@ -83,12 +82,14 @@ const HomePage = function () {
                     )}
                 </div>
             </Element>
-            <section ref={faqsRef} id="faqs" className={cx("faqs-wrapper")}>
-                <Faqs />
-            </section>
+            <Element name="faq" className={cx("faqs-wrapper")}>
+                <section ref={faqsRef} id="faqs" className={cx("faqs-wrapper")}>
+                    <Faqs />
+                </section>
+            </Element>
             <Element name="contact" className={cx("contact-wrapper")}>
                 <div className={cx("title-wrapper")}>
-                    <Title title="Get In Touch" subTitle="Emergence and design of the idea" />
+                    <Title title="Get In Touch" />
                 </div>
                 <div className={cx("contact-container")}>
                     <Contact />

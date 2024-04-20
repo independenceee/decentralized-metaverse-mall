@@ -190,7 +190,7 @@ const Banner = function () {
     };
 
     return (
-        <main className={cx("wrapper")}>
+        <div className={cx("wrapper")}>
             <form className={cx("form-categories")} onSubmit={onSubmit}>
                 <div className={cx("form-wrapper")}>
                     <div className={cx("form-header")}>
@@ -380,7 +380,7 @@ const Banner = function () {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

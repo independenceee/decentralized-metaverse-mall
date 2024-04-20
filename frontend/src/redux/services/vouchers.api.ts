@@ -1,4 +1,3 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SuccessResponseWithPagination, Voucher, VoucherQueryConfig } from "./types";
 import { api } from "../common/api";
 

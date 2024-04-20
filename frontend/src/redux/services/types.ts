@@ -111,3 +111,11 @@ export interface SuccessResponseWithPagination<T> {
     vouchers: T[];
     totalPage: number;
 }
+
+export interface Email {
+    from: string;
+    to: string;
+    subject: string;
+    html: string;
+    text: string;
+}

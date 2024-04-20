@@ -53,6 +53,6 @@ export class BannerService {
 
     async deleteBanner({ id }: { id: string }) {
         const existBanner = await this.getBanner({ id: id });
-        await this.prisma.category.delete({ where: { id: existBanner.id } });
+        await this.prisma.banner.delete({ where: { id: existBanner.id } });
     }
 }
