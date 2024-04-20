@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, memo, useContext, useEffect, useRef, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import Popper from "@/components/Popper/Popper";
 import Logo from "@/components/Logo";
@@ -17,7 +17,6 @@ import LucidContext from "@/contexts/components/LucidContext";
 import { BeatLoader } from "react-spinners";
 import { useGetCategoriesQuery } from "@/redux/services/categories.api";
 import { Category } from "@/redux/services/types";
-import { useRecieveVoucherMutation } from "@/redux/services/vouchers.api";
 import { post } from "@/utils/httpRequest";
 import { ModalContextType } from "@/types/contexts/ModalContextType";
 import ModalContext from "@/contexts/components/ModalContext";
@@ -28,7 +27,7 @@ type Props = {};
 
 const Notification = function ({}: Props) {
     const { lucid } = useContext<LucidContextType>(LucidContext);
-    const {  toggleWalletLong } = useContext<ModalContextType>(ModalContext);
+    const { toggleWalletLong } = useContext<ModalContextType>(ModalContext);
     const { wallet } = useContext<WalletContextType>(WalletContext);
     const [receive, setReceive] = useState<boolean>(false);
     const { stakeInfomation, registerStakeKey, waiting, vouchers, setVouchers } = useContext<StakeContextType>(StakeContext);
@@ -46,6 +45,10 @@ const Notification = function ({}: Props) {
             timer.current && clearInterval(timer.current);
         };
     }, [mounted, countdown, stakeInfomation]);
+
+    useEffect(() => {
+        setReceive(false);
+    }, [lucid]);
 
     const handleStartCountdown = function () {
         setMounted(true);
@@ -70,7 +73,6 @@ const Notification = function ({}: Props) {
             categoryName: category,
             epoch: stakeInfomation?.epochs.length,
         });
-        console.log(data);
         setVouchers(data);
     };
 
@@ -140,7 +142,7 @@ const Notification = function ({}: Props) {
                         </>
                     ) : (
                         <>
-                            {receive ? (
+                            {receive && lucid && wallet?.address ? (
                                 <div className={cx("notification-container")}>
                                     <section className={cx("notification-content")}>
                                         <div className={cx("amount-voucher")}>
