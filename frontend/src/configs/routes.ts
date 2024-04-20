@@ -5,6 +5,7 @@ const routes = {
     about: "about",
     team: "team",
     contact: "contact",
+    faq: "faq",
 
     private: {
         home: "/admin",
