@@ -292,7 +292,7 @@ const Notification = function ({}: Props) {
                                     onClick={() =>
                                         registerStakeKey({
                                             lucid: lucid,
-                                            poolId: "pool1mvgpsafktxs883p66awp7fplj73cj6j9hqdxzvqw494f7f0v2dp",
+                                            poolId: process.env.VILAI_POOL_ID!,
                                         })
                                     }
                                     className={cx("shop-button", "button")}

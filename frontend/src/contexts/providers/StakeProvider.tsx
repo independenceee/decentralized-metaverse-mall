@@ -4,8 +4,6 @@ import { Delegation, Lucid, TxComplete, TxHash, TxSigned } from "lucid-cardano";
 import { get } from "@/utils/httpRequest";
 import { WalletContextType } from "@/types/contexts/WalletContextType";
 import WalletContext from "../components/WalletContext";
-import { LucidContextType } from "@/types/contexts/LucidContextType";
-import LucidContext from "../components/LucidContext";
 import { Voucher } from "@/redux/services/types";
 
 type Props = {
@@ -71,7 +69,7 @@ const StakeProvider = function ({ children }: Props) {
         if (wallet?.address) {
             (async function () {
                 try {
-                    if (wallet?.poolId === "pool1mvgpsafktxs883p66awp7fplj73cj6j9hqdxzvqw494f7f0v2dp") {
+                    if (wallet?.poolId === process.env.VILAI_POOL_ID!) {
                         const stakeInfomation = await get("/blockfrost/account", {
                             params: { stake_address: wallet.stakeKey as string },
                         });
