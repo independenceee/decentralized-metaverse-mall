@@ -20,8 +20,8 @@ const WalletProvider = function ({ children }: Props) {
         try {
             setLoading(true);
             const lucid: Lucid = await Lucid.new(
-                new Blockfrost(process.env.BLOCKFROST_RPC_URL_PREPROD!, process.env.BLOCKFROST_PROJECT_API_KEY_PREPROD!),
-                "Preprod",
+                new Blockfrost(process.env.BLOCKFROST_RPC_URL_MAINNET!, process.env.BLOCKFROST_PROJECT_API_KEY_MAINNET!),
+                "Mainnet",
             );
             setLucid(lucid);
             lucid.selectWallet(await api());
