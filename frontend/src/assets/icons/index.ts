@@ -18,6 +18,7 @@ const icons = {
     facebookColor: require("./facebook-color.svg"),
     linkedInColor: require("./linkedin-color.svg"),
     loginFormLogo: require("./login-logo.svg"),
+    logo: require("./logo.svg"),
     /* contact-icon */
     mailIcon: require("./mail-icon.svg"),
     phoneIcon: require("./phone-icon.svg"),

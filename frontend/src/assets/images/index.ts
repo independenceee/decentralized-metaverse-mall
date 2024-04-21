@@ -1,5 +1,6 @@
 const images = {
     logo: require("./logo.png"),
+    logoWithoutSlogan: require("./logo-no-slogan.png"),
     bannerBackground: require("./banner-bg.jpg"),
     bannerImage: require("./banner-img.svg").default,
     about: require("./about-img.svg").default,
@@ -12,6 +13,10 @@ const images = {
     autionLacViet: require("./sponsors/dau-gia-lac-viet.png"),
     projectCatalyst: require("./sponsors/project-catalyst.png"),
     samsung: require("./sponsors/samsung.png"),
+    koet: require("./sponsors/koet.jpeg"),
+    vilai: require("./sponsors/vilai.png"),
+    vissare: require("./sponsors/vissare.png"),
+
     /* wallet-image-begin */
     nami: require("./wallets/nami.svg"),
     eternl: require("./wallets/eternl.webp"),

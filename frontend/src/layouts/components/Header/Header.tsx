@@ -29,7 +29,7 @@ const Header = function ({}: Props) {
             <div className={cx("wrapper")}>
                 <div className={cx("wrapper-inner")}>
                     <div className={cx("logo")}>
-                        <Logo />
+                        <Logo className={cx("header-logo")} />
                     </div>
                     <nav className={cx("navbar")}>
                         <ul className={cx("nav-list")}>
