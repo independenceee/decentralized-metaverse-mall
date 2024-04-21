@@ -25,6 +25,7 @@
     transition: all 1s ease 0s;
     overflow-y: auto;
     overflow-x: hidden;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.1);
     &.open {
         left: 0;
     }

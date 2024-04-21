@@ -6,8 +6,7 @@ import { ConfigService } from "@nestjs/config";
 export class BlockfrostService extends BlockFrostAPI {
     constructor(config: ConfigService) {
         super({
-            // projectId: config.get("BLOCKFROST_PROJECT_API_KEY_MAINNET"),
-            projectId: config.get("BLOCKFROST_PROJECT_API_KEY_PREPROD"),
+            projectId: config.get("BLOCKFROST_PROJECT_API_KEY_MAINNET"),
         });
     }
 

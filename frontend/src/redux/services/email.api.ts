@@ -9,7 +9,7 @@ export const emailApi = createApi({
         timeout: 5000,
     }),
     endpoints: (builder) => ({
-        sendEmail: builder.mutation<void, Pick<Email, "from" | "to" | "text">>({
+        sendEmail: builder.mutation<void, Pick<Email, "from" | "to" | "text" | "subject">>({
             query: (body) => ({
                 url: "/mail/send",
                 method: "POST",

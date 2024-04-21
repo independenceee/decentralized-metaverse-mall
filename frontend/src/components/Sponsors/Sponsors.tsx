@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import React from "react";
+import Link from "next/link";
 import styles from "./Sponsors.module.scss";
 import Image from "next/image";
 import { Sponsor } from "@/data/sponsors";
@@ -25,7 +26,9 @@ const Sponsors = function ({ sponsors }: Props) {
                     <ul className={cx("sponsors")}>
                         {sponsors.map((sponsor) => (
                             <li key={sponsor.id} className={cx("sponsor")}>
-                                <Image src={sponsor.logo} alt={sponsor.name} className={cx("sponsor-logo")} />
+                                <Link href={sponsor.link} target="_blank">
+                                    <Image src={sponsor.logo} alt={sponsor.name} className={cx("sponsor-logo")} />
+                                </Link>
                             </li>
                         ))}
                     </ul>

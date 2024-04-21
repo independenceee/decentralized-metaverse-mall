@@ -6,11 +6,14 @@ import Link from "next/link";
 import styles from "./Logo.module.scss";
 
 const cx = classNames.bind(styles);
+type Props = {
+    className?: string;
+};
 
-function Logo() {
+function Logo({ className }: Props) {
     return (
-        <Link href={"/"}>
-            <Image className={cx("logo-image")} src={images.logo} alt="crytoz-logo" />
+        <Link href={"/"} className={cx("logo-wrapper", className)}>
+            <Image className={cx("logo-image")} src={images.logo} alt="dmm-logo" />
         </Link>
     );
 }

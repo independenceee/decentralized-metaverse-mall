@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useState } from "react";
 import { Chart as ChartJS } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
@@ -9,6 +8,9 @@ import classNames from "classnames/bind";
 import styles from "./DoughnutChart.module.scss";
 import { converToSocialNumber } from "@/helpers/utils";
 import { TokenomicType } from "@/types/GenericsType";
+import images from "@/assets/images";
+import icons from "@/assets/icons";
+import Image from "next/image";
 
 ChartJS.register(ChartDataLabels);
 const cx = classNames.bind(styles);
@@ -80,11 +82,7 @@ function DoughnutChart({ data }: Props) {
                         <div className={cx("chart-wrapper-inner")}>
                             <Doughnut data={chartData} options={options} />
                             <div className={cx("chart-logo-center")}>
-                                <img
-                                    src="https://themes.templatescoder.com/cryptoz/html/1-1/images/graph-logo.png"
-                                    alt="cryptoz-image-wrapper"
-                                    className={cx("chart-image")}
-                                />
+                                <Image src={images.logoWithoutSlogan} width={90} alt="cryptoz-image-wrapper" className={cx("chart-image")} />
                             </div>
                         </div>
                     </div>

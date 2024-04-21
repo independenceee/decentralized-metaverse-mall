@@ -25,13 +25,13 @@ type Props = {
 const RootLayout = function ({ children }: Readonly<Props>) {
     return (
         <html lang="en">
-            <Aos />
             <body className={inner.className}>
                 <StoreProvider>
                     <ContextProvider>{children}</ContextProvider>
                 </StoreProvider>
+                <Aos />
+                <Toaster />
             </body>
-            <Toaster />
         </html>
     );
 };

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useSendEmailMutation } from "@/redux/services/email.api";
 import { Email } from "@/redux/services/types";
 import { toast } from "sonner";
-
+import Swal from "sweetalert2";
 type FormData = Pick<Email, "from" | "to" | "text">;
 const initialFormData: FormData = {
     from: "",
@@ -37,13 +37,24 @@ const HotDeal = function () {
     const onSubmit = handleSubmit((body) => {
         sendEmail({
             ...body,
-            from: "nguyenkhanh17112003@gmail.com",
+            to: "nguyenkhanh17112003@gmail.com",
+            subject: "Join the waitlist",
         })
             .unwrap()
             .then(() => {
-                toast.success("Send email successfully");
+                setOpen(false);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Send email successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    width: 360
+                });
             })
-            .catch(console.log);
+            .catch(() => {
+                toast.error("There was an error sending email. Please try again!");
+            });
     });
 
     return (
@@ -114,7 +125,7 @@ const HotDeal = function () {
                             <div className={cx("input-field")}>
                                 <input
                                     placeholder="Email"
-                                    {...register("to", {
+                                    {...register("from", {
                                         required: {
                                             value: true,
                                             message: "Please enter your email",
@@ -147,7 +158,7 @@ const HotDeal = function () {
                             <div className={cx("error-message")}>{errors?.to?.message}</div>
 
                             <div className={cx("input-field")}>
-                                <input type="submit" value={"Confirm"} className={cx("confirm-button")} />
+                                <input disabled={sendEmailResult?.isLoading} type="submit" value={"Confirm"} className={cx("confirm-button")} />
                             </div>
                         </form>
                     </div>
