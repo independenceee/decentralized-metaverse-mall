@@ -16,6 +16,9 @@ const images = {
     koet: require("./sponsors/koet.jpeg"),
     vilai: require("./sponsors/vilai.png"),
     vissare: require("./sponsors/vissare.png"),
+    koetWEBP: require("./sponsors/koet.webp"),
+    cardanoSVG: require("./sponsors/cardano.svg"),
+    projectCatalystSVG: require("./sponsors/project-catalyst.svg"),
 
     /* wallet-image-begin */
     nami: require("./wallets/nami.svg"),

@@ -5,9 +5,9 @@ import { HomeIcon, AddressCardIcon, TransactionIcon, UserIcon, CategoryIcon, BiU
 const publicRoutes = [
     { name: "Home", redirect: configs.routes.home },
     { name: "About", redirect: configs.routes.about },
-    { name: "Services", redirect: configs.routes.services },
+    { name: "How it works", redirect: configs.routes.services },
     { name: "Roadmap", redirect: configs.routes.roadmap },
-    { name: "FAQS", redirect: configs.routes.faq },
+    { name: "Tokenomics ", redirect: configs.routes.tokenomics },
 ];
 
 const privateRoutes = [
