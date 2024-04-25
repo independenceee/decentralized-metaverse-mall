@@ -25,6 +25,7 @@ const images = {
     flint: require("./wallets/flint.svg"),
     vespr: require("./wallets/unnamed.webp"),
     lace: require("./wallets/lace.png"),
+    yoroi: require("./wallets/yoroi.png"),
     /* wallet-image-end */
 };
 
