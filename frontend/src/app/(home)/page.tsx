@@ -28,6 +28,7 @@ const HomePage = function () {
     const { data: teams, isFetching } = useGetFounderListQuery();
     const { data: roadmaps } = useGetRoadmapListQuery();
     const faqsRef = useRef<HTMLElement>(null);
+
     useEffect(() => {
         (() => {
             if (!window.cardano) {
@@ -53,7 +54,7 @@ const HomePage = function () {
             </Element>
             <Element name="services" className={cx("service-wrapper")}>
                 <div className={cx("title-wrapper")}>
-                    <Title title="Services" />
+                    <Title title="How It Works" />
                 </div>
                 <div className={cx("service-container")}>
                     {services.map(function (service: ServiceType, index: number) {
@@ -89,7 +90,7 @@ const HomePage = function () {
             </Element>
             <Element name="contact" className={cx("contact-wrapper")}>
                 <div className={cx("title-wrapper")}>
-                    <Title title="Get In Touch" />
+                    <Title title="JOIN THE WAITLIST" subTitle="Be among the first to receive airdrops and notifications for any future benefits​" />
                 </div>
                 <div className={cx("contact-container")}>
                     <Contact />
