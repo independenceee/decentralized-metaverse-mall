@@ -23,6 +23,7 @@ type Props = {
     LeftIcon?: IconType;
     RightIcon?: IconType;
     onClick?: () => void;
+    blank?: boolean;
 };
 
 function Button({
@@ -41,6 +42,7 @@ function Button({
     RightIcon,
     onClick,
     loading,
+    blank = false,
     ...passProps
 }: Props) {
     let Component: any = "button";
@@ -60,6 +62,9 @@ function Button({
     if (href) {
         props.href = href;
         Component = Link;
+        if (blank) {
+            props.target = "_blank";
+        }
     }
 
     const classes = cx("wrapper", {

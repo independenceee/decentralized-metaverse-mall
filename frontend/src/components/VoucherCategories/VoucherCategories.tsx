@@ -8,12 +8,8 @@ import styles from "./VoucherCategories.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
-import images from "@/assets/images";
 import Button from "../Button";
-import icons from "@/assets/icons";
-import categories from "@/data/categories";
 import { useGetCategoryWithBannerQuery } from "@/redux/services/categories.api";
-import { VoucherCategory } from "@/redux/services/types";
 
 const cx = classNames.bind(styles);
 
@@ -78,12 +74,12 @@ const VoucherCategories = function ({}: Props) {
     const handleGoToSlide = (index: number) => {
         slider.current?.slickGoTo(index);
     };
-
+    console.log(data);
     if (data) {
         return (
             <div className={cx("wrapper")}>
                 <Slider {...settings} className={cx("categories-slider")} ref={slider}>
-                    {data.map(function (category: VoucherCategory, index: number) {
+                    {data.map(function (category, index) {
                         const active = slideIndex === index;
                         return (
                             <div
@@ -96,11 +92,13 @@ const VoucherCategories = function ({}: Props) {
                                     <div className={cx("trending")}>{category?.name}</div>
                                     <h2 className={cx("title")}>{category.banner?.title}</h2>
                                     <div className={cx("description")}>{category.banner?.description}</div>
-                                    <Button className={cx("button-view-details")}>View details</Button>
+                                    <Button blank href={category?.banner?.link} className={cx("button-view-details")}>
+                                        View details
+                                    </Button>
                                 </div>
                                 <div className={cx("catergory-right")} data-aos="fade-left">
                                     <div className={cx("voucher-image-wrapper")}>
-                                        <div className={cx("voucher-floating", "voucher-floating-top")}>
+                                        {/* <div className={cx("voucher-floating", "voucher-floating-top")}>
                                             <span className={cx("icon-wrapper")}>
                                                 <Image src={icons.chart} alt="icon-chart" className={cx("icon")} />
                                             </span>
@@ -111,7 +109,7 @@ const VoucherCategories = function ({}: Props) {
                                                 <Image src={icons.message} alt="icon-chart" className={cx("icon")} />
                                             </span>
                                             <div>100% Business Growth</div>
-                                        </div>
+                                        </div> */}
                                         <Image
                                             width={999999}
                                             height={999999}

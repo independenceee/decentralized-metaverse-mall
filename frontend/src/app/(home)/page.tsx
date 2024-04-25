@@ -83,11 +83,11 @@ const HomePage = function () {
                     )}
                 </div>
             </Element>
-            <Element name="faq" className={cx("faqs-wrapper")}>
+            {/* <Element name="faq" className={cx("faqs-wrapper")}>
                 <section ref={faqsRef} id="faqs" className={cx("faqs-wrapper")}>
                     <Faqs />
                 </section>
-            </Element>
+            </Element> */}
             <Element name="contact" className={cx("contact-wrapper")}>
                 <div className={cx("title-wrapper")}>
                     <Title title="JOIN THE WAITLIST" subTitle="Be among the first to receive airdrops and notifications for any future benefits​" />

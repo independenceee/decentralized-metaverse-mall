@@ -17,10 +17,7 @@ const Sponsors = function ({ sponsors }: Props) {
         <article className={cx("wrapper")}>
             <div className={cx("wrapper-content")}>
                 <div className={cx("header")}>
-                    <Title
-                        title="Over 150,000 companies, both big and small, are growing their business with Salesforce."
-                        subTitle="Empowering Our Vision Together"
-                    />
+                    <Title title="Investors & Partners" subTitle="Funded by Catalyst Project, Cardano blockchain" />
                 </div>
                 <div className={cx("wrapper-sponsors")}>
                     <ul className={cx("sponsors")}>
