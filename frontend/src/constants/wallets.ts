@@ -72,17 +72,6 @@ const wallets: Array<WalletType> = [
         downloadApi: configs.wallets.typhon,
     },
     {
-        name: "Typhon",
-        image: images.typhon,
-        api: async function () {
-            return await window.cardano.typhon.enable();
-        },
-        checkApi: async function () {
-            return await window.cardano.typhon;
-        },
-        downloadApi: configs.wallets.typhon,
-    },
-    {
         name: "Yoroi",
         image: images.yoroi,
         api: async function () {
