@@ -6,6 +6,7 @@ const routes = {
     team: "team",
     contact: "contact",
     faq: "faq",
+    tokenomics: "token-sale",
 
     private: {
         home: "/admin",

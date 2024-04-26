@@ -72,16 +72,27 @@ const wallets: Array<WalletType> = [
         downloadApi: configs.wallets.typhon,
     },
     {
-        name: "Vespr",
-        image: images.vespr,
+        name: "Yoroi",
+        image: images.yoroi,
         api: async function () {
-            return await window.cardano.vespr.enable();
+            return await window.cardano.yoroi.enable();
         },
         checkApi: async function () {
-            return await window.cardano.vespr;
+            return await window.cardano.yoroi;
         },
-        downloadApi: configs.wallets.vespr,
+        downloadApi: configs.wallets.yoroi,
     },
+    // {
+    //     name: "Vespr",
+    //     image: images.vespr,
+    //     api: async function () {
+    //         return await window.cardano.vespr.enable();
+    //     },
+    //     checkApi: async function () {
+    //         return await window.cardano.vespr;
+    //     },
+    //     downloadApi: configs.wallets.vespr,
+    // },
 ] as const;
 
 export default wallets;
