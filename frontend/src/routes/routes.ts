@@ -6,8 +6,8 @@ const publicRoutes = [
     { name: "Home", redirect: configs.routes.home },
     { name: "About", redirect: configs.routes.about },
     { name: "How it works", redirect: configs.routes.services },
+    { name: "Tokenomics", redirect: configs.routes.tokenomics },
     { name: "Roadmap", redirect: configs.routes.roadmap },
-    { name: "Tokenomics ", redirect: configs.routes.tokenomics },
 ];
 
 const privateRoutes = [

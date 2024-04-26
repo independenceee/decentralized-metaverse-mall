@@ -3,34 +3,37 @@ import icons from "@/assets/icons";
 const services = [
     {
         title: "Step 1",
-        subTitle: "Create your wallet",
+        subTitle: "Set up a fresh Cardano wallet.",
         image: icons.walletIcon,
-        description: "If you are not a user on the Cardano blockchain network, then create a wallet. If you already have one, move to next step.",
+        description:
+            "If you are not already a user on the Cardano blockchain network, please create a wallet. If you already have one, you can move to the next step.",
     },
     {
         title: "Step 2",
-        subTitle: "Stake ADA at the VILAI pool​.",
+        subTitle: "Participate in ADA staking with the VILAI pool.",
         image: icons.intergationIcon,
         description: "Click on the notification bell located at the bottom right corner, and then proceed to click the 'Stake to VILAI pool' button.",
     },
     {
         title: "Step 3",
-        subTitle: "Get vouchers.",
+        subTitle: "Get a voucher",
         image: icons.intergationIcon,
         description:
-            "After each period of time, 1 epoch receives 100k, 2 epochs receive 200k, and epochs greater than or equal to 3 receive 300k voucher.",
+            "After each period of time, 1 epoch receives 100,000 VND vouchers, 2 epochs receive 200,000 VND vouchers, and epochs greater than or equal to 3 receive 300,000 VND vouchers",
     },
     {
         title: "Step 4",
-        subTitle: "Buy products at super low prices.",
+        subTitle: "Purchase products or services at our partner's outlets",
         image: icons.intergationIcon,
-        description: "After user received the voucher and then access the product link and use it to make purchases at super low prices.",
+        description:
+            "The received voucher can be redeemed at our partner's outlets, where you have the opportunity to purchase selected products or services at exceptionally low prices.",
     },
     {
         title: "Step 5",
-        subTitle: "Earn the C2E tokens.",
+        subTitle: "Earn C2E tokens for future benefits",
         image: icons.intergationIcon,
-        description: "After successfully purchasing the product, users will receive the C2E tokens as earnings.",
+        description:
+            "After successfully purchasing the product or service, you will receive C2E tokens as a reward. The number of C2E tokens and the future benefits of using them will be announced in Q3 2024",
     },
 ];
 
