@@ -10,13 +10,13 @@ import StoreProvider from "@/redux/provider";
 const inner = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Metaverse Mall",
+    title: "Decentralized Metaverse Mall",
     description:
         "Decentralized Metaverse Mall is more than a place for online shopping, it is a O2O2O destination for communities of positive emotions, unique experiences and can generate value for businesses and partners in the ecosystem",
     twitter: {
         card: "summary_large_image",
     },
-};  
+};
 
 type Props = {
     children: ReactNode;
