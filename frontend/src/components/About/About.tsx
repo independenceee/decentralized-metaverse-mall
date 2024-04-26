@@ -33,8 +33,9 @@ const About = function () {
                                     <div className={cx("list-icon-wrapper")}>
                                         <Image src={icons.checkIcon} width={39} height={39} alt="list-icon" />
                                     </div>
-                                    The KOET, an online consumer electronics outlet store (dienmaykorea.com), allows you to purchase Samsung products
-                                    such as TVs, home theaters, smartphones, and appliances at affordable prices and earn C2E tokens as rewards.
+                                    The KOET, an online consumer electronics outlet store (http://dienmaykorea.com), allows you to purchase Samsung
+                                    products such as TVs, home theaters, smartphones, and appliances at affordable prices and earn C2E tokens as
+                                    rewards.
                                 </li>
                                 <li className={cx("content-list-item")}>
                                     <div className={cx("list-icon-wrapper")}>
