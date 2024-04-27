@@ -9,6 +9,7 @@ import { useSendEmailMutation } from "@/redux/services/email.api";
 import { Email } from "@/redux/services/types";
 import { toast } from "sonner";
 import Swal from "sweetalert2";
+import Logo from "../Logo";
 type FormData = Pick<Email, "from" | "to" | "text">;
 const initialFormData: FormData = {
     from: "",
@@ -49,7 +50,7 @@ const HotDeal = function () {
                     title: "Send email successfully",
                     showConfirmButton: false,
                     timer: 1500,
-                    width: 360
+                    width: 360,
                 });
             })
             .catch(() => {
@@ -78,18 +79,7 @@ const HotDeal = function () {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </div>
-                        <div className={cx("icon-wrapper")}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className={cx("icon-increasement")}
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                            </svg>
-                        </div>
+                        <Logo className={cx("icon-increasement")} />
                         <h2 className={cx("form-title")}>Join the waitlist</h2>
                         <p className={cx("form-subtitle")}>Get first to be airdropped and notified first for any future benefits</p>
                         <form className={cx("form")} onSubmit={onSubmit}>
