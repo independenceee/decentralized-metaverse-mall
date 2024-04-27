@@ -6,6 +6,7 @@
     backdrop-filter: blur(5px);
     z-index: 1000;
     display: none;
+
     &.open {
         display: block;
     }
@@ -27,17 +28,17 @@
 }
 
 .icon-increasement {
-    width: 40px;
-    height: 40px;
+    width: 200px;
+    height: auto;
     color: var(--primary-color);
 }
 .close-button {
     position: absolute;
-    background: #412394;
     right: 12px;
     top: 12px;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
+
     border-radius: 999px;
     display: flex;
     justify-content: center;
@@ -51,8 +52,8 @@
 
 .icon-close {
     color: var(--white-color);
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 2.4rem;
+    height: 2.4rem;
 }
 
 .signin {
@@ -62,6 +63,7 @@
     z-index: 1000;
     display: flex;
     justify-content: center;
+
     align-items: center;
 }
 
@@ -74,12 +76,12 @@
     flex-direction: column;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     padding: 40px;
-    background: var(--white-color);
     border-radius: 0.6rem;
+    background: var(--primary-color);
 }
 .form-title {
     font-size: 2em;
-    color: var(--primary-color);
+    color: var(--white-color);
     text-transform: uppercase;
     margin-top: 16px;
     font-weight: 600;
@@ -92,7 +94,7 @@
 }
 .form-subtitle {
     text-align: center;
-    color: var(--primary-color);
+    color: var(--white-color);
     margin: 6px auto 16px;
     font-size: 1.4rem;
     font-weight: 400;
@@ -155,17 +157,18 @@
 
 .confirm-button {
     text-align: center;
-    padding: 10px 32px;
+    padding: 14px 32px;
     color: var(--white-color);
     font-weight: 600;
     font-size: 1.35em;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     cursor: pointer;
     border-radius: 999px;
-    background-color: #5f5af6;
+    background-color: #311973;
     width: 100%;
+
     &:not(:disabled):hover {
-        background-color: #4d47f5;
+        background-color: #15118d;
     }
 
     &:disabled {

@@ -12,7 +12,10 @@ const wallets: Array<WalletType> = [
             return await window.cardano.nami.enable();
         },
         checkApi: async function () {
-            return await window.cardano.nami;
+            if (await window.cardano) {
+                return await window.cardano.nami;
+            }
+            return await window.cardano;
         },
         downloadApi: configs.wallets.nami,
     },
@@ -23,7 +26,10 @@ const wallets: Array<WalletType> = [
             return window.cardano.eternl.enable();
         },
         checkApi: async function () {
-            return await window.cardano.eternl;
+            if (await window.cardano) {
+                return await window.cardano.eternl;
+            }
+            return await window.cardano;
         },
         downloadApi: configs.wallets.eternl,
     },
@@ -34,7 +40,10 @@ const wallets: Array<WalletType> = [
             return await window.cardano.flint.enable();
         },
         checkApi: async function () {
-            return await window.cardano.flint;
+            if (await window.cardano) {
+                return await window.cardano.flint;
+            }
+            return await window.cardano;
         },
         downloadApi: configs.wallets.flint,
     },
@@ -45,7 +54,10 @@ const wallets: Array<WalletType> = [
             return await window.cardano.lace.enable();
         },
         checkApi: async function () {
-            return await window.cardano.lace;
+            if (await window.cardano) {
+                return await window.cardano.lace;
+            }
+            return await window.cardano;
         },
         downloadApi: configs.wallets.lace,
     },
@@ -56,7 +68,10 @@ const wallets: Array<WalletType> = [
             return await window.cardano.gero.enable();
         },
         checkApi: async function () {
-            return await window.cardano.gero;
+            if (await window.cardano) {
+                return await window.cardano.gero;
+            }
+            return await window.cardano;
         },
         downloadApi: configs.wallets.gero,
     },
@@ -67,7 +82,10 @@ const wallets: Array<WalletType> = [
             return await window.cardano.typhon.enable();
         },
         checkApi: async function () {
-            return await window.cardano.typhon;
+            if (await window.cardano) {
+                return await window.cardano.typhon;
+            }
+            return await window.cardano;
         },
         downloadApi: configs.wallets.typhon,
     },
@@ -78,7 +96,10 @@ const wallets: Array<WalletType> = [
             return await window.cardano.yoroi.enable();
         },
         checkApi: async function () {
-            return await window.cardano.yoroi;
+            if (await window.cardano) {
+                return await window.cardano.yoroi;
+            }
+            return await window.cardano;
         },
         downloadApi: configs.wallets.yoroi,
     },
