@@ -2,12 +2,6 @@ version: "3.9"
 
 services:
     decentralized-metaverse-mall-backend:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - "5000:5000"
-
         environment:
             DATABASE_URL: postgresql://postgres:postgres@postgres:5432/decentralized-metaverse-mall?schema=public
             KOIOS_RPC_URL_PREPROD: https://preprod.koios.rest/api/v1
@@ -22,6 +16,13 @@ services:
             VILAI_POOL_ID_BECH_32: pool1u7zrgexnxsysctnnwljjjymr70he829fr5n3vefnv80guxr42dv
             POLICYID_C2E_TOKEN: c88c4d8b1e448d579f58992debe9f905b47607ea878f3c2480248834
             ASSETNAME_C2E_TOKEN: C2E
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "5000:5000"
+
+        
     postgres:
         image: postgres:12
         environment:

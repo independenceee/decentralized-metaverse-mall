@@ -125,7 +125,7 @@ export default function CustomTable({
                                 </tr>
                             </thead>
                             <tbody className={cx("table-body")}>
-                                {data.map((rows, index: number) => (
+                                {data?.map((rows, index: number) => (
                                     <tr className={cx("table-row")} key={index} id={`${rows[titles[0]]}`}>
                                         {Array(titles.length)
                                             .fill(0)

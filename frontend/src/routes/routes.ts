@@ -1,6 +1,17 @@
 import configs from "@/configs";
 
-import { HomeIcon, AddressCardIcon, TransactionIcon, UserIcon, CategoryIcon, BiUser, BiDialpad, FaIdeal, FaStickerMule } from "@/components/Icons";
+import {
+    HomeIcon,
+    AddressCardIcon,
+    TransactionIcon,
+    UserIcon,
+    CategoryIcon,
+    BiUser,
+    BiDialpad,
+    FaIdeal,
+    FaStickerMule,
+    WalletIcon,
+} from "@/components/Icons";
 
 const publicRoutes = [
     { name: "Home", redirect: configs.routes.home },
@@ -20,6 +31,7 @@ const privateRoutes = [
     { name: "Roadmap", redirect: configs.routes.private.roadmap, Icon: BiDialpad },
     { name: "Hot Deal", redirect: configs.routes.private.deal, Icon: FaIdeal },
     { name: "Banner", redirect: configs.routes.private.banner, Icon: FaStickerMule },
+    { name: "Wallet", redirect: configs.routes.private.wallet, Icon: WalletIcon },
 ];
 
 export { privateRoutes, publicRoutes };

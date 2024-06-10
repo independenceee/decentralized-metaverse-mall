@@ -51,6 +51,10 @@ export interface RoadmapItem {
     datetime: string;
 }
 
+export interface CreateWalletItem {
+    numberOfWallet: number;
+}
+
 export interface Account {
     id?: string;
     createdAt?: string;
