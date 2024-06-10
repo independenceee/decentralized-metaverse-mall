@@ -18,6 +18,7 @@ const routes = {
         roadmap: "/admin/roadmap",
         deal: "/admin/hot-deal",
         banner: "/admin/banner",
+        wallet: "/admin/wallet",
     },
 } as const;
 

@@ -36,6 +36,8 @@ const StakeProvider = function ({ children }: Props) {
         return txHash;
     };
 
+    console.log(stakeInfomation);
+
     const delegateToStakePool = async function ({ lucid, poolId = process.env.VILAI_POOL_ID! }: { lucid: Lucid; poolId?: string }): Promise<TxHash> {
         const rewardAddress: string = (await lucid.wallet.rewardAddress()) as string;
         const tx: TxComplete = await lucid

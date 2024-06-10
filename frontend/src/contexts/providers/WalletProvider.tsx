@@ -15,6 +15,7 @@ const WalletProvider = function ({ children }: Props) {
     const { lucid, setLucid } = useContext<LucidContextType>(LucidContext);
     const [wallet, setWallet] = useState<WalletType>(null!);
     const [loading, setLoading] = useState<boolean>(false);
+    const [waitingCreateWallet, setWaitingCreateWallet] = useState<boolean>(false);
 
     const connectWallet = async function ({ name, api, image }: WalletType) {
         try {
@@ -87,8 +88,28 @@ const WalletProvider = function ({ children }: Props) {
         }
     };
 
+    const createWallet = async function ({ numberOfWallet }: { numberOfWallet: number }) {
+        setWaitingCreateWallet(true);
+        const wallets = [];
+        for (let index = 0; index < numberOfWallet; index++) {
+            const privateKey = lucid.utils.generateSeedPhrase();
+
+            const address = await lucid.selectWalletFromSeed(privateKey).wallet.address();
+
+            wallets.push({
+                id: index,
+                address: address,
+                privateKey: privateKey,
+            });
+        }
+        setWaitingCreateWallet(false);
+        return wallets;
+    };
+
     return (
-        <WalletContext.Provider value={{ wallet, setWallet, loading, connectWallet, disconnectWallet, refreshWallet }}>
+        <WalletContext.Provider
+            value={{ wallet, setWallet, loading, connectWallet, disconnectWallet, refreshWallet, createWallet, waitingCreateWallet }}
+        >
             {children}
         </WalletContext.Provider>
     );
